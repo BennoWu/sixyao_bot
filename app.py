@@ -226,10 +226,10 @@ def handle_image_message(event):
 	ui_command = getPicData(image_bytes)
 
 	# 回覆訊息
-	line_bot_api.reply_message(
-		event.reply_token,
-		TextSendMessage(text= ui_command  )
-	)
+	# line_bot_api.reply_message(
+	# 	event.reply_token,
+	# 	TextSendMessage(text= ui_command  )
+	# )
 	ui_cmd_dict = sixYaoMain ( ui_command , 
 					lineBotId = user_id , 
 					lineBotName = displayName , 

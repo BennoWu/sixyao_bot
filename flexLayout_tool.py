@@ -291,10 +291,10 @@ uiLayoutFront ='''
 			  {
 				"type": "text",
 				"color": "#333333",
-				"size": "lg",
+				"size": "xl",
 				"wrap": true,
 				"text": "__NOTE__",
-				"margin": "md",
+				"margin": "sm",
 				"contents": [],
 				"gravity": "center"
 			  }
@@ -1596,8 +1596,9 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 			lightDate = "'" + row[1][2:]  +row[2]
 			buf_dayModeLayout = monthModeLayout.replace("年柱", row[0].split("-")[0] ).replace("月柱", row[0].split("-")[1] ).replace("日柱", row[0].split("-")[2] ).replace("__TIME__", lightDate ).replace("__JECHI__", row[3] if row[3] != '' else '　')
 			buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "888888")
-			if row[0].split("-")[2] in kongWangList:
-				buf_dayModeLayout = buf_dayModeLayout.replace ( "#2e4e7c" , "#3aa078" )
+			## 出空之日變色
+			# if row[0].split("-")[2] in kongWangList:
+			# 	buf_dayModeLayout = buf_dayModeLayout.replace ( "#2e4e7c" , "#3aa078" )
 
 			currentTimeBuf = row[1].replace( "/" , ",")  ## "干支/日/2023-05-06/15"
 			day_command =  f"干支/日/{15}/{currentTimeBuf}" ##"干支/日/%s/%s"% ( "2023-05-06" , "15" )
@@ -1617,6 +1618,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 
 
 			buf_dayModeLayout = dayModeLayout.replace("年柱", row[0].split("-")[0] ).replace("月柱", row[0].split("-")[1] ).replace("日柱", row[0].split("-")[2] ).replace("__TIME__", lightDate ).replace("__JECHI__", row[3] if row[3] != '' else '　')
+			## 出空之日變色			
 			if row[0].split("-")[2] in kongWangList:
 				buf_dayModeLayout = buf_dayModeLayout.replace ( "#2e4e7c" , "#3aa078" )
 			

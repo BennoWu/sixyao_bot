@@ -41,7 +41,11 @@ def ocr_image_to_text(input_data):
     input_data: 可以是檔案路徑(str) 或 PIL Image 物件
     """
     url = 'https://api.ocr.space/parse/image'
-    
+    data_payload = {
+        'apikey': 'K82723710988957',
+        'language': 'cht',
+        'detectOrientation': False,  # 強制橫排
+    }
     # 判斷輸入類型
     if isinstance(input_data, str):
         # 是字串 → 當作檔案路徑處理
@@ -49,10 +53,7 @@ def ocr_image_to_text(input_data):
             response = requests.post(
                 url,
                 files={'file': f},
-                data={
-                    'apikey': 'K82723710988957',
-                    'language': 'cht',
-                }
+                data=data_payload
             )
     
     elif isinstance(input_data, Image.Image):
@@ -64,10 +65,7 @@ def ocr_image_to_text(input_data):
         response = requests.post(
             url,
             files={'file': ('image.png', img_byte_arr, 'image/png')},
-            data={
-                'apikey': 'K82723710988957',
-                'language': 'cht',
-            }
+            data=data_payload
         )
     
     else:
@@ -246,8 +244,8 @@ def cropTool(img: Image.Image,
 
     right, bottom = left + crop_w, top + crop_h
     crop_img = img.crop((left, top, right, bottom))
+    # crop_img = crop_img.rotate(90, expand=True)
     # crop_img.show()
-
     # OCR
     text = ocr_image_to_text(crop_img)
     print( text )
