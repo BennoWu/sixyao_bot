@@ -235,7 +235,8 @@ def handle_image_message(event):
 					lineBotName = displayName , 
 					userImage = picUrl )
 
-
+	print( "UI") 
+	print( ui_cmd_dict )
 	## 把message id和裝卦命令存到該使用者的json的temp中
 	jsonData.uiJsonSetting( f"set temp {message_id},{ui_command}" )
 
