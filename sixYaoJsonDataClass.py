@@ -10,15 +10,16 @@ from jsonFun import *
 from datetime import datetime,timezone,timedelta
 
 ## 檢查NOTION帳號資料是否可執行
-from notion_client import Client
+# from notion_client import Client
 def checkNotionAcc(token, pageId):
-    try:
-        notion = Client(auth=token)
-        notion.pages.retrieve(pageId)
-        return True
-    except Exception as e:
-        print(f"錯誤: {e}")
-        return False
+	return True
+    # try:
+    #     notion = Client(auth=token)
+    #     notion.pages.retrieve(pageId)
+    #     return True
+    # except Exception as e:
+    #     print(f"錯誤: {e}")
+    #     return False
 
 
 
