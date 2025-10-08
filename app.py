@@ -1,6 +1,6 @@
 # from combineData import *
 from ocr_work import *
-from combineData import *
+from combineDataMain import *
 
 
 
