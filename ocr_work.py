@@ -105,7 +105,7 @@ def extract_datetime(text: str):
         day = m[3].zfill(2)
         hour = m[4].zfill(2)
         minute = m[5].zfill(2)
-        return f"{year}-{month}-{day}-{hour}-{minute}"
+        return f"{year}/{month}/{day}/{hour}/{minute}"
     return None
 
 def extract_hexagrams(text: str):
