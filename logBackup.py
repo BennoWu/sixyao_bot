@@ -1,4 +1,5 @@
-import pygsheets
+# import pygsheets
+# import csv
 import csv
 import os
 
@@ -48,10 +49,9 @@ def logDataFun(userID, userName, logTime, inputData, command , file_path="log.cs
 
 
 
-import csv
-import pygsheets
 
 def uploadCsvToGoogleSheet(csv_path="log.csv"):
+	import pygsheets
     # ✅ 授權登入 Google Sheets
     gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
 

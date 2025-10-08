@@ -175,8 +175,9 @@ def handle_message(event):
 	elif  inputMsg[0] == "$":
 
 		ui_cmd_dict = sixYaoMain( inputMsg )
-		# exec( cmd ) 
-
+		# exec( cmd )
+		print( "UI") 
+		print( ui_cmd_dict )
 		if inputMsg != "error":
 
 			# Flex message的容器，把寫好的json放入就可以變成介面，之前的寫法太土，這次改好看一點

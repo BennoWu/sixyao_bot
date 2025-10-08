@@ -241,12 +241,12 @@ uiLayoutFront ='''
       {
         "type": "separator",
         "margin": "xs",
-        "color": "#cccccc"
+        "color": "#aaaaaa"
       },
       {
         "type": "separator",
         "margin": "xs",
-        "color": "#cccccc"
+        "color": "#aaaaaa"
       },
 
 
@@ -294,7 +294,7 @@ uiLayoutFront ='''
 				"size": "lg",
 				"wrap": true,
 				"text": "__NOTE__",
-				"margin": "sm",
+				"margin": "md",
 				"contents": [],
 				"gravity": "center"
 			  }
@@ -635,7 +635,7 @@ uiLayoutBack = '''
 
 		"margin": "md",
 		"cornerRadius": "10px",
-		"backgroundColor": "#eeeeee"
+		"backgroundColor": "#dddddd"
 	  },
 
       {
@@ -714,7 +714,7 @@ uiLayoutBackExt = '''
       {
         "type": "separator",
         "margin": "md",
-        "color": "#cccccc"
+        "color": "#aaaaaa"
       },
       {
         "type": "box",
@@ -1005,9 +1005,9 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , threePil
 	
 	elif threePillar:
 		reDataLayout = reDataLayout.replace("#666664", "#cccccc" ).replace("#FCA32D", "#dddddd" ).replace(currentTime ,"00:00" )
-		reDataLayout = reDataLayout.replace( "month_mode" , "干支/月/" + "10/" + clipData(dateData).replace("/","-")  ).replace( "day_mode" , "干支/日/" + "10/" + clipData(dateData).replace("/","-")  ).replace( "hour_mode" , "- - -" ) .replace( "jechi_mode" , "干支/節氣/" + "10/" + clipData(dateData).replace("/","-") )
+		reDataLayout = reDataLayout.replace( "month_mode" , "干支/月/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "day_mode" , "干支/日/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "hour_mode" , "- - -" ) .replace( "jechi_mode" , "干支/節氣/" + "6/" + clipData(dateData).replace("/","-") )
 	else:
-		reDataLayout = reDataLayout.replace( "month_mode" , "干支/月/" + "10/" + clipData(dateData).replace("/","-")  ).replace( "day_mode" , "干支/日/" + "10/" + clipData(dateData).replace("/","-")  ).replace( "hour_mode" , "干支/時/" + "10/" + dateData.replace("/","-")  ).replace( "jechi_mode" , "干支/節氣/" + "10/" + clipData(dateData).replace("/","-") )
+		reDataLayout = reDataLayout.replace( "month_mode" , "干支/月/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "day_mode" , "干支/日/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "hour_mode" , "干支/時/" + "10/" + dateData.replace("/","-")  ).replace( "jechi_mode" , "干支/節氣/" + "6/" + clipData(dateData).replace("/","-") )
 
 
 
@@ -1017,7 +1017,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , threePil
 	reDataLayout = reDataLayout.replace("__NOTION__", "NNNNN" ) ## 還沒寫完
 
 
-	print( reDataLayout )
+	# print( reDataLayout_dict )
 
 	# 文字轉換成字典
 	reDataLayout_dict = json.loads(reDataLayout)
@@ -1555,7 +1555,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 # "2023/5/17/12/00"
 # "2023/5/17"  --> "2023/5/17/00/00"
 
-	currentTime
+	print( currentTime )
 	kongWangList = [  "甲子","甲戌","甲申","甲午","甲辰","甲寅"  ]
 
 	dayMode	= dayMode.replace( "jechi","jc" ).replace( "節氣","jc" ).replace( "月","m" ).replace( "日","d" ).replace( "時","h" )
@@ -1651,7 +1651,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 if __name__ == '__main__':
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 )
 	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 )
-	ganZiList_fun( currentTime = "2025/09/15" , dayMode = "d" , index = "" , runtime = 1 )	
+	ganZiList_fun( currentTime = "2025-09-15" , dayMode = "d" , index = "" , runtime = 6 )	
 
 # "干支/時/10/2025-08-31-15-48"
 	# "d" -- day

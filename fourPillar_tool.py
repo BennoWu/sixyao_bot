@@ -78,7 +78,7 @@ def getFourPillar( fullDate = "" , detail = False ):
 	# darkDate = "農曆:%d年%s%d月%d日" % (day.getLunarYear(), 
 	#     '閏' if day.isLunarLeap() else '', day.getLunarMonth(), day.getLunarDay())
 	darkDate = "陰曆: %d年%s%d月%d日" % (day.getLunarYear(), 
-	    '閏' if day.isLunarLeap() else '', day.getLunarMonth(), day.getLunarDay())
+		'閏' if day.isLunarLeap() else '', day.getLunarMonth(), day.getLunarDay())
 
 
 
@@ -298,9 +298,9 @@ def getYear ( pillarYear ):
 
 #     if len(list1) != len(list2) or item > len(list1):
 #         return False
-    
+	
 #     split_index = len(list1) - item
-    
+	
 #     for i in range(len(list1)):
 #         a, b = list1[i], list2[i]
 #         if i < split_index:
@@ -313,47 +313,47 @@ def getYear ( pillarYear ):
 #                 return False  # 後段只比對地支
 #     return True
 def normalize_ganzhi(gz, GanList, ZhiList):
-    """把輸入拆成 (干, 支)，允許只有地支，或附帶 '月' '時'"""
-    gz = gz.replace("月", "").replace("時", "")
-    gan = None
-    zhi = None
-    for g in GanList:
-        if g in gz:
-            gan = g
-            break
-    for z in ZhiList:
-        if z in gz:
-            zhi = z
-            break
-    return (gan, zhi)
+	"""把輸入拆成 (干, 支)，允許只有地支，或附帶 '月' '時'"""
+	gz = gz.replace("月", "").replace("時", "")
+	gan = None
+	zhi = None
+	for g in GanList:
+		if g in gz:
+			gan = g
+			break
+	for z in ZhiList:
+		if z in gz:
+			zhi = z
+			break
+	return (gan, zhi)
 
 
 def compare_ganzhiList(list1, list2, item=3 ):
-    GanList = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]
-    ZhiList = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]
+	GanList = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]
+	ZhiList = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]
 
-    if len(list1) != len(list2) or item > len(list1):
-        return False
+	if len(list1) != len(list2) or item > len(list1):
+		return False
 
-    split_index = len(list1) - item
+	split_index = len(list1) - item
 
-    for i in range(len(list1)):
-        a_gan, a_zhi = normalize_ganzhi(list1[i], GanList, ZhiList)
-        b_gan, b_zhi = normalize_ganzhi(list2[i], GanList, ZhiList)
+	for i in range(len(list1)):
+		a_gan, a_zhi = normalize_ganzhi(list1[i], GanList, ZhiList)
+		b_gan, b_zhi = normalize_ganzhi(list2[i], GanList, ZhiList)
 
-        if i < split_index:
-            # 前段必須完整匹配
-            if a_gan != b_gan or a_zhi != b_zhi:
-                return False
-        else:
-            # 後段可以寬鬆比對
-            if b_gan is None:  # list2 沒寫天干，只比地支
-                if a_zhi != b_zhi:
-                    return False
-            else:  # list2 有寫天干，必須完全一致
-                if a_gan != b_gan or a_zhi != b_zhi:
-                    return False
-    return True
+		if i < split_index:
+			# 前段必須完整匹配
+			if a_gan != b_gan or a_zhi != b_zhi:
+				return False
+		else:
+			# 後段可以寬鬆比對
+			if b_gan is None:  # list2 沒寫天干，只比地支
+				if a_zhi != b_zhi:
+					return False
+			else:  # list2 有寫天干，必須完全一致
+				if a_gan != b_gan or a_zhi != b_zhi:
+					return False
+	return True
 
 
 
@@ -466,7 +466,7 @@ def checkMsgFun( msg , utc = 8 ):
 
 
 	msg = msg.replace("  "," ").replace("  "," ").replace(",","/").replace(" ","/").replace(".","/").replace("/","/").replace("時盤","時").replace("刻盤","刻")
-	# print( "in:" + msg )
+	print( "in:" + msg )
 
 
 
@@ -533,7 +533,8 @@ def checkMsgFun( msg , utc = 8 ):
 		else:
 			return ( "Error" , "%d年%d月%d日%02d:%02d ??" % (  int(  msg.split("/")[0]) , int(  msg.split("/")[1]) ,int(   msg.split("/")[2]) , int(  msg.split("/")[3]) , int(  msg.split("/")[4]) ) )
 
-	# print( year_Buf,month_Buf,day_Buf,hour_Buf,mins_Buf  ) 
+	print( year_Buf,month_Buf,day_Buf,hour_Buf,mins_Buf  ) 
+	# print( )
 	return  "%d/%02d/%02d/%02d/%02d"%( year_Buf,month_Buf,day_Buf,hour_Buf,mins_Buf  ) 
 
 
@@ -563,14 +564,25 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 	# currentTime ="2023/5/17/"     --> "2023/5/17/00/00" #補上後面的 00/00
 	# currentTime ="2023/5/17/15"  --> "2023/5/17/15/00" #補上後面的 00/00
 	# format_time = lambda s: "/".join((s.split("/") + ["00", "00"])[:5])
+	print( "CTT")
+	print(currentTime)
+
+	currentTime = (currentTime.replace("  "," ")
+		.replace("  "," ")
+		.replace(",","/")
+		.replace(" ","/")
+		.replace(".","/")
+		.replace("-","/")        # ✅ 加上這一行
+		# .replace("時盤","時")
+		# .replace("刻盤","刻"))
+		)
 	if currentTime:
 		format_time = lambda s: "/".join((s.strip("/").split("/") + ["00", "00"])[:5])
 		currentTime = format_time(currentTime)  # 把結果存回去
-
-	print(currentTime)
 	dayMode = dayMode.lower()
 	import datetime
 	timeList = []
+	# print( currentTime )
 	nowTime = checkMsgFun( currentTime ) ## 不輸入則取現時，輸入方式同起盤
 	# ('時盤', '2023/05/13/02/26')
 	# print( nowTime )
@@ -750,17 +762,17 @@ def checkYear ( yearData = "" ):
 	basicYear = ""
 
 	if yearData.isdigit():  
-	    # 如果全是數字，判斷為西元年份
-	    basicYear = int(yearData)
-	    print("西元年:", basicYear)
+		# 如果全是數字，判斷為西元年份
+		basicYear = int(yearData)
+		print("西元年:", basicYear)
 
 	elif any(g in yearData for g in GanList) and any(z in yearData for z in ZhiList):
-	    # 如果同時包含天干和地支，判斷為干支
-	    yearGZ = yearData
-	    print("干支:", yearGZ)
+		# 如果同時包含天干和地支，判斷為干支
+		yearGZ = yearData
+		print("干支:", yearGZ)
 
 	else:
-	    print("❌ 格式不正確:", yearData)
+		print("❌ 格式不正確:", yearData)
 
 
 	if yearGZ != "":
@@ -807,13 +819,15 @@ if __name__ == '__main__':
 	# print( getNowTime() )
 
 
-	print( checkYear (   "1971"))
-	print()
-	print( checkYear (  "戊戌" ))
-	print()
-	print(getFourPillar( fullDate = "2020/12/30/03/00" , detail = False ))
-	print()
-	print(fourPillarToDateMain( inputDate ="乙巳,辰月,庚戌,申"))
+	# print( checkYear (   "1971"))
+	# print()
+	# print( checkYear (  "戊戌" ))
+	# print()
+	# print(getFourPillar( fullDate = "2020/12/30/03/00" , detail = False ))
+	# print()
+	# print(fourPillarToDateMain( inputDate ="乙巳,辰月,庚戌,申"))
+
+	PPPPP ( currentTime = "2025-09-15" )
 	# fourPillarToDateMain( inputDate ="庚子,甲申,乙未,丁丑"  )
 	# getNowTime()
 
