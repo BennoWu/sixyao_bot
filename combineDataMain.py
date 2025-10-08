@@ -595,14 +595,14 @@ from sixYaoJsonDataClass import *
 
 # def panBuilderMain(  msg = ""  , lineBotId = "" , lineBotName = "" , userImage = "" , note = "" , testMode = False ):
 
-def sixYaoMain ( fullDataInput , lineBotId = "" , lineBotName = "" , userImage = "" ):
+def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , userImage = "" ):
 
 	
 
 
-	lineBotId = "NEW_IDddddd"
-	lineBotName = "大魔王二號"
-	userImage = "www.xyz.com/aa/8882222.png"
+	# lineBotId = "NEW_IDddddd"
+	# lineBotName = "大魔王二號"
+	# userImage = "www.xyz.com/aa/8882222.png"
 
 	# fullDataInput = "set tips on"
 

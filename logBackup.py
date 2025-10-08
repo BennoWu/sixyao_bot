@@ -1,5 +1,4 @@
-# import pygsheets
-# import csv
+import pygsheets
 import csv
 import os
 
@@ -49,11 +48,31 @@ def logDataFun(userID, userName, logTime, inputData, command , file_path="log.cs
 
 
 
+import csv
+import pygsheets
+
+
+def resource_path(relative_path):
+	import os,sys
+	try:
+		base_path = sys._MEIPASS
+	except Exception:
+		base_path = os.path.abspath(".")
+
+	return os.path.join( base_path, relative_path )
+
+
+
+googleJson = resource_path(r"googleSheetKey/sixyao-data-8f0c712298cd.json")
+
+
+
+
 
 def uploadCsvToGoogleSheet(csv_path="log.csv"):
-	import pygsheets
     # ✅ 授權登入 Google Sheets
-    gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
+    gc = pygsheets.authorize( service_file= googleJson )
+    # gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
 
     # ✅ 開啟指定的 Google Sheet
     sheet_url = 'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'

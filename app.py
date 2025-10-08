@@ -121,6 +121,8 @@ def handle_message(event):
 	##收到的訊息
 	inputMsg = event.message.text  
 
+
+
 	if inputMsg == "id":
 		inputMsg = user_id +"//" +displayName +"//"+picUrl
 	
@@ -172,9 +174,12 @@ def handle_message(event):
 		)
 
 
-	elif  inputMsg[0] == "$":
-
-		ui_cmd_dict = sixYaoMain( inputMsg )
+	elif  "//" in inputMsg:
+		ui_cmd_dict = sixYaoMain ( inputMsg , 
+						lineBotId = user_id , 
+						lineBotName = displayName , 
+						userImage = picUrl )
+		# ui_cmd_dict = sixYaoMain( inputMsg )
 		# exec( cmd )
 		print( "UI") 
 		print( ui_cmd_dict )
@@ -225,20 +230,23 @@ def handle_image_message(event):
 		event.reply_token,
 		TextSendMessage(text= ui_command  )
 	)
+	ui_cmd_dict = sixYaoMain ( ui_command , 
+					lineBotId = user_id , 
+					lineBotName = displayName , 
+					userImage = picUrl )
 
 
+	## 把message id和裝卦命令存到該使用者的json的temp中
+	jsonData.uiJsonSetting( f"set temp {message_id},{ui_command}" )
 
-	# ## 把message id和裝卦命令存到該使用者的json的temp中
-	# jsonData.uiJsonSetting( f"set temp {message_id},{ui_command}" )
-
-	# # Flex message的容器，把寫好的json放入就可以變成介面，之前的寫法太土，這次改好看一點
-	# line_bot_api.reply_message(
-	#     event.reply_token,
-	#     FlexSendMessage(
-	#         alt_text='< 裝卦UI >',
-	#         contents= flexMsgJson   # 直接放轉好的 dict
-	#     )
-	# )
+	# Flex message的容器，把寫好的json放入就可以變成介面，之前的寫法太土，這次改好看一點
+	line_bot_api.reply_message(
+	    event.reply_token,
+	    FlexSendMessage(
+	        alt_text='< 裝卦UI >',
+	        contents= ui_cmd_dict   # 直接放轉好的 dict
+	    )
+	)
 
 
 

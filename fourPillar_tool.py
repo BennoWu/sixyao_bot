@@ -466,7 +466,7 @@ def checkMsgFun( msg , utc = 8 ):
 
 
 	msg = msg.replace("  "," ").replace("  "," ").replace(",","/").replace(" ","/").replace(".","/").replace("/","/").replace("時盤","時").replace("刻盤","刻")
-	print( "in:" + msg )
+	# print( "in:" + msg )
 
 
 
@@ -564,8 +564,8 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 	# currentTime ="2023/5/17/"     --> "2023/5/17/00/00" #補上後面的 00/00
 	# currentTime ="2023/5/17/15"  --> "2023/5/17/15/00" #補上後面的 00/00
 	# format_time = lambda s: "/".join((s.split("/") + ["00", "00"])[:5])
-	print( "CTT")
-	print(currentTime)
+	# print( "CTT")
+	# print(currentTime)
 
 	currentTime = (currentTime.replace("  "," ")
 		.replace("  "," ")
