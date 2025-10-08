@@ -973,8 +973,8 @@ def sixYaoMain ( fullDataInput , lineBotId = "" , lineBotName = "" , userImage =
 		if  "<" in dateData:  ## 如果只有三柱
 			dateData = dateData[:-1]
 			threePil_mode = True
-		uiInputData( dateData , date_ganZiList , finalGua = finalGua , note = preNote + noteText , threePillar = threePil_mode , notionAccount = notionAccount )
-		return command
+		ui_cmd_dict = uiInputData( dateData , date_ganZiList , finalGua = finalGua , note = preNote + noteText , threePillar = threePil_mode , notionAccount = notionAccount )
+		return ui_cmd_dict
 
 
 
