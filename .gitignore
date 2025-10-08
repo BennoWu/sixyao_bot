@@ -1,0 +1,44 @@
+# Python 環境
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+.eggs/
+.env
+.venv/
+venv/
+env/
+ENV/
+
+# 系統暫存檔
+.DS_Store
+Thumbs.db
+
+# 編輯器設定
+.vscode/
+.idea/
+
+# 測試與紀錄檔
+*.log
+*.tmp
+*.bak
+*.json
+
+# 產生的中間資料
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.pdf
+
+# 上傳用batch檔
+*.bat
+
+# 部署與設定
+*.sqlite3
+*.db
+.env.local
+.env.*
+!.env.example  # 保留範例 env
