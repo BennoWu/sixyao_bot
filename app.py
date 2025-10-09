@@ -222,7 +222,7 @@ def handle_image_message(event):
 	## 取得用戶的頭貼
 	picUrl = profile.picture_url
 	##收到的訊息
-	inputMsg = event.message.text  
+	# inputMsg = event.message.text  
 
 
 	content = line_bot_api.get_message_content(message_id)
