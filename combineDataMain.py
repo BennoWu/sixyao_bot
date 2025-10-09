@@ -910,25 +910,25 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 	# +XXX//XXXX//XXXXX    	產生圖檔模式
 
 
-	if ui_mode == "A":
-		## 產生圖片，回傳連結
-		image_url = drawUi_v1(  
-			mainFunction( 
-				inputData = finalGua ,
-				noteText = preNote + noteText  , 
-				user_mouthZi = dateMonth , 
-				user_dayGanZi = dateDay , 
-				userDefineDate = dateData ), 
+	# if ui_mode == "A":
+	# 	## 產生圖片，回傳連結
+	# 	image_url = drawUi_v1(  
+	# 		mainFunction( 
+	# 			inputData = finalGua ,
+	# 			noteText = preNote + noteText  , 
+	# 			user_mouthZi = dateMonth , 
+	# 			user_dayGanZi = dateDay , 
+	# 			userDefineDate = dateData ), 
 
-			fontStyle = user_fontStyle, 
-			tipsMode = user_tipsMode, 
-			uiStyle = user_uiStyle , 
+	# 		fontStyle = user_fontStyle, 
+	# 		tipsMode = user_tipsMode, 
+	# 		uiStyle = user_uiStyle , 
 
-			show = showBuf , 
-			savePic = False,
-			notion = notionMode )
+	# 		show = showBuf , 
+	# 		savePic = False,
+	# 		notion = notionMode )
 
-		print( image_url )
+	# 	print( image_url )
 		# if notionMode == True:
 		# 	notionUrl = notionPush_pushUp(  image_url , noteText , token_buf , pageId_buf )
 		# 	print( notionUrl )
@@ -965,7 +965,8 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 
 
 	## 產生UI模式
-	else: 
+	if ui_mode == "":
+	# else: 
 		# dateData =  getNowTime( user_utc_hour )
 		## 產生裝卦UI時，記錄到log中
 		logBK_logDataFun( lineBotId , lineBotName , dateData , fullDataInput , command )
@@ -974,6 +975,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 			dateData = dateData[:-1]
 			threePil_mode = True
 		ui_cmd_dict = uiInputData( dateData , date_ganZiList , finalGua = finalGua , note = preNote + noteText , threePillar = threePil_mode , notionAccount = notionAccount )
+		print( ui_cmd_dict )
 		return ui_cmd_dict
 
 
@@ -1087,8 +1089,8 @@ if __name__ == '__main__':
 	# sixYaoMain( "++2025/9/2/12/37 // 101X0X // 傑利的房貸吉凶0902" ) ## 九月七日 酉月卯日
 	# sixYaoMain( "2025/9/2/14/11 // X1$110 // 傑利漲房租有沒有望" )
 	# sixYaoMain( "++2025/9/17/2/4 // 1$0$00 // 傑利與同學見面錢財吉凶")
-	sixYaoMain( "乙巳年乙酉月丁亥日//男占小孩突發疾病吉凶//011100" )
-
+	# sixYaoMain( "乙巳年乙酉月丁亥日//男占小孩突發疾病吉凶//011100" )
+	sixYaoMain("2025-10-02-20-41//恆之解卦//no title" )
 
 
 	# sixYaoMain( "+2025/8/31/17/1 // 01X0XX // 陳佩吟流年感情吉凶0831") ## 丑月
