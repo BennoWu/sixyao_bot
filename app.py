@@ -224,7 +224,7 @@ def handle_image_message(event):
 	image_bytes = content.content  # 這才是圖片的 bytes
 
 	ui_command = getPicData(image_bytes)
-	print ( ui_command )
+	print (">>>>>", ui_command )
 	# 回覆訊息
 	# line_bot_api.reply_message(
 	# 	event.reply_token,

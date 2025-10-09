@@ -293,8 +293,8 @@ def getPicData(image_input):
         raise TypeError("image_input 必須是 PIL.Image, str 路徑, bytes 或 BytesIO 類型")
     
     # ===== 裁切 OCR =====
-    dt = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=2, mode="datetime")
-    hx = cropTool(img, w_ratio=0.35, h_ratio=0.25, quadrant=3, mode="hexagrams")
+    dt = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=2, mode="datetime")     ## 日期
+    hx = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=3, mode="hexagrams")   ## 卦名
     print("Datetime:", dt)
     print("Hexagrams:", hx)
     

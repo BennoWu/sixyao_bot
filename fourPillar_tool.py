@@ -711,7 +711,46 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 	return timeList
 
 
-
+# def PPPPP_optimized(currentTime="", dayMode="", index="", runtime=24):
+#     timeList = []
+#     inDate = checkMsgFun(currentTime)
+    
+#     # 設定跳躍策略
+#     jump_config = {
+#         "h": (2, 0),      # 時辰：跳 2 小時，不需要回掃
+#         "d": (28, 3),     # 日：跳 28 天，回掃 3 天
+#         "jc": (13, 5),    # 節氣：跳 13 天，回掃 5 天
+#         "m": (26, 5),     # 月：跳 26 天，回掃 5 天
+#     }
+    
+#     jump_unit, scan_range = jump_config.get(dayMode, (1, 0))
+    
+#     dt = datetime.strptime(inDate, "%Y/%m/%d/%H/%M")
+    
+#     while len(timeList) < runtime:
+#         # 粗跳
+#         if dayMode == "h":
+#             dt += timedelta(hours=jump_unit)
+#         else:
+#             dt += timedelta(days=jump_unit)
+        
+#         # 精掃
+#         found = False
+#         for i in range(scan_range + 1):
+#             check_dt = dt - timedelta(days=i)
+#             fp_buf = getFourPillar(check_dt.strftime("%Y/%m/%d/%H/%M"), True)
+            
+#             # 檢查是否符合條件（原本的邏輯）
+#             if check_condition(fp_buf, dayMode, index):
+#                 timeList.append(format_result(fp_buf))
+#                 dt = check_dt  # 從這裡繼續
+#                 found = True
+#                 break
+        
+#         if not found:
+#             dt += timedelta(days=1)  # 保險：如果沒找到就往前挪一天
+    
+#     return timeList
 
 
 
