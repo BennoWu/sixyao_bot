@@ -214,7 +214,15 @@ def handle_image_message(event):
 	# user_id = event.source.user_id  ##利用reply取得id存至user_id中
 	# # 取得 LINE 傳來的圖片 stream
 	message_id = event.message.id
-	# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
+		# 取得用戶的id
+	user_id = event.source.user_id 
+	profile = line_bot_api.get_profile(user_id)
+	# ## 用戶line上面的名字
+	displayName = profile.display_name 
+	## 取得用戶的頭貼
+	picUrl = profile.picture_url
+	##收到的訊息
+	inputMsg = event.message.text  
 
 
 	content = line_bot_api.get_message_content(message_id)
@@ -237,7 +245,9 @@ def handle_image_message(event):
 
 	print( "UI") 
 	print( ui_cmd_dict )
+	
 	## 把message id和裝卦命令存到該使用者的json的temp中
+	jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 	jsonData.uiJsonSetting( f"set temp {message_id},{ui_command}" )
 
 	# Flex message的容器，把寫好的json放入就可以變成介面，之前的寫法太土，這次改好看一點

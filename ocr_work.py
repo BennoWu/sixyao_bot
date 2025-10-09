@@ -294,7 +294,7 @@ def getPicData(image_input):
     
     # ===== 裁切 OCR =====
     dt = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=2, mode="datetime")     ## 日期
-    hx = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=3, mode="hexagrams")   ## 卦名
+    hx = cropTool(img, w_ratio=0.6, h_ratio=0.25, quadrant=3, mode="hexagrams")   ## 卦名
     print("Datetime:", dt)
     print("Hexagrams:", hx)
     
@@ -309,7 +309,7 @@ if __name__ == '__main__':
     getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__89694294.png")
 
     # PIL.Image
-    img_obj = Image.open("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__89694294.png")
+    img_obj = Image.open("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__117137475.jpg")
     getPicData(img_obj)
 
     # BytesIO (例如 LineBot content.raw)
