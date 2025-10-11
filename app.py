@@ -183,6 +183,7 @@ def handle_message(event):
 
 		jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 		jsonData.uiJsonSetting("set temp " + inputMsg ) ## 取完之後刪除
+		print( jsonData.temp )
 		# ui_cmd_dict = sixYaoMain( inputMsg )
 		# exec( cmd )
 		print( "UI") 
@@ -193,7 +194,7 @@ def handle_message(event):
 			line_bot_api.reply_message(
 				event.reply_token,
 				FlexSendMessage(
-					alt_text = '< 裝卦UI >',
+					alt_text = '< OCR裝卦UI >',
 					contents = ui_cmd_dict   # 直接放轉好的 dict
 				)
 			)
@@ -202,23 +203,19 @@ def handle_message(event):
 		changeNote = inputMsg[1:]
 		jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 		uiCommand = jsonData.temp ## 取得temp的暫存ui command
+		print( jsonData.temp )		
 
-
-		newCommand = uiCommand.replace( "no title" , changeNote)
-
-
+		newCommand = uiCommand.replace( "no title" , changeNote )
 		new_flex_json = sixYaoMain( newCommand ,
 							lineBotId = user_id , 
 							lineBotName = displayName , 
 							userImage = picUrl ) # 取得起盤介面的json
 
-
 		jsonData.uiJsonSetting("set temp none") ## 取完之後刪除
-
 		line_bot_api.reply_message(
 			event.reply_token,
 			FlexSendMessage(
-				alt_text = '< 裝卦UI >',
+				alt_text = '< OCR裝卦UI >',
 				contents = new_flex_json   # 直接放轉好的 dict
 			)
 		)
