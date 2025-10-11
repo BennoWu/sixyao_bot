@@ -127,6 +127,37 @@ def handle_message(event):
 		inputMsg = user_id +"//" +displayName +"//"+picUrl
 	
 
+	elif inputMsg[0] == ">":	
+		changeNote = inputMsg[1:]
+		jsonData = jsonDataClass( linebotId = user_id ) ## class建立
+		msg_id_command = jsonData.temp ## 取得temp的暫存message_id和ui command
+
+		msgId     = msg_id_command.split(",")[0]
+		uiCommand = msg_id_command.split(",")[1]
+		newCommand = uiCommand.replace( "no title" , changeNote)
+
+
+		new_flex_json = sixYaoMain( newCommand 
+							lineBotId = user_id , 
+							lineBotName = displayName , 
+							userImage = picUrl ) # 取得起盤介面的json
+
+
+		jsonData.uiJsonSetting("set temp none") ## 取完之後刪除
+
+		# Step1: 刪掉舊的
+		line_bot_api.delete_message(msg_id)  
+
+		# Step2: 發送新 UI
+		line_bot_api.push_message(
+		    user_id,
+		    FlexSendMessage(
+		        alt_text= '< OCR裝卦UI >',
+		        contents= new_flex_json
+		    )
+		)
+
+
 	# ========= 干支列表 =========
 	elif inputMsg[:3] == "干支/":	
 		Zhi = "子丑寅卯辰巳午未申酉戌亥"
@@ -262,31 +293,7 @@ def handle_image_message(event):
 
 
 
-# changeNote = "aaa"
-# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
-# msg_id_command = jsonData.temp ## 取得temp的暫存message_id和ui command
 
-# msgId     = msg_id_command.split(",")[0]
-# uiCommand = msg_id_command.split(",")[1]
-# newCommand = uiCommand.replace( "no title" , changeNote)
-
-
-# flexMsgJson = sixYaoMain( ui_command ) # 取得起盤介面的json
-
-
-# jsonData.uiJsonSetting("set temp none") ## 取完之後刪除
-
-# # Step1: 刪掉舊的
-# line_bot_api.delete_message(msg_id)  
-
-# # Step2: 發送新 UI
-# line_bot_api.push_message(
-#     user_id,
-#     FlexSendMessage(
-#         alt_text="更新後的卦象UI",
-#         contents=new_flex_json
-#     )
-# )
 
 
 
