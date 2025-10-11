@@ -1653,7 +1653,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 if __name__ == '__main__':
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 )
 	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 )
-	ganZiList_fun( currentTime = "2025-09-15" , dayMode = "m" , index = "" , runtime = 6 )	
+	ganZiList_fun( currentTime = "2025-09-15" , dayMode = "d" , index = "" , runtime = 6 )	
 
 # "干支/時/10/2025-08-31-15-48"
 	# "d" -- day

@@ -178,12 +178,14 @@ class jsonDataClass:
 
 
 		elif "temp" in command:   # set temp xxxxxx
-			print ( "Set:" , comList[1] , comList[2]   )
+			fullCmd = command.replace( "set temp ","" )
+			print ( "Set:" , comList[1] , fullCmd   )
+
 			if comList[2] == "none":
 				self.temp = "-"
 				rtn_message =  "temp clear"
 			else:
-				self.temp =  comList[2] 
+				self.temp =  fullCmd
 
 
 		elif "set" in comList[0]:
