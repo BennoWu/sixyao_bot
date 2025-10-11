@@ -137,7 +137,7 @@ def handle_message(event):
 		newCommand = uiCommand.replace( "no title" , changeNote)
 
 
-		new_flex_json = sixYaoMain( newCommand 
+		new_flex_json = sixYaoMain( newCommand ,
 							lineBotId = user_id , 
 							lineBotName = displayName , 
 							userImage = picUrl ) # 取得起盤介面的json
