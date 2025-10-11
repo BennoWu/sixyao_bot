@@ -183,8 +183,6 @@ def handle_message(event):
 
 		jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 		jsonData.uiJsonSetting("set temp " + inputMsg ) ## 取完之後刪除
-		print( jsonData.temp )
-		# ui_cmd_dict = sixYaoMain( inputMsg )
 		# exec( cmd )
 		print( "UI") 
 		print( ui_cmd_dict )
@@ -264,6 +262,7 @@ def handle_image_message(event):
 
 
 	content = line_bot_api.get_message_content(message_id)
+
 	# ui_command = getPicData (content.raw)
 	# flexMsgJson = sixYaoMain( ui_command ) # 取得起盤介面的json
 	# 讀取所有 bytes
@@ -281,6 +280,10 @@ def handle_image_message(event):
 					lineBotName = displayName , 
 					userImage = picUrl )
 
+	
+	jsonData = jsonDataClass( linebotId = user_id ) ## class建立
+	jsonData.uiJsonSetting("set temp " + ui_command ) ## 取完之後刪除
+	print( "@@@ ", jsonData.temp )
 	print( "UI") 
 	print( ui_cmd_dict )
 	
