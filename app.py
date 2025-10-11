@@ -280,7 +280,7 @@ def handle_image_message(event):
 					lineBotName = displayName , 
 					userImage = picUrl )
 
-	
+	print( "XXX ", ui_command )	
 	jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 	jsonData.uiJsonSetting("set temp " + ui_command ) ## 取完之後刪除
 	print( "@@@ ", jsonData.temp )
