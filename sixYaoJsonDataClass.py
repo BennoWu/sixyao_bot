@@ -163,6 +163,7 @@ class jsonDataClass:
 
 	# 設定界面模式,ABC模式, 完整版與簡版
 	def uiJsonSetting ( self ,  command ):
+		org_command = command
 		command = command.strip().replace("  ","/").replace(",","/").replace(" ","/").replace(".","/")
 		rtn_message = ""
 		comList = command.split( "/" )
@@ -178,7 +179,7 @@ class jsonDataClass:
 
 
 		elif "temp" in command:   # set temp xxxxxx
-			fullCmd = command.replace( "set temp ","" )
+			fullCmd = org_command.replace( "set/temp/","" )
 			print ( "Set:" , comList[1] , fullCmd   )
 
 			if comList[2] == "none":
