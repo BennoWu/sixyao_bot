@@ -179,8 +179,8 @@ class jsonDataClass:
 
 
 		elif "temp" in command:   # set temp xxxxxx
-			fullCmd = org_command.replace( "set/temp/","" )
-			print ( "Set:" , comList[1] , fullCmd   )
+			fullCmd = org_command.replace( "set temp ","" )
+			print ( "Set:" , comList[1] , "---", fullCmd   )
 
 			if comList[2] == "none":
 				self.temp = "-"
