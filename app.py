@@ -126,38 +126,6 @@ def handle_message(event):
 	if inputMsg == "id":
 		inputMsg = user_id +"//" +displayName +"//"+picUrl
 	
-
-	elif inputMsg[0] == ">":	
-		changeNote = inputMsg[1:]
-		jsonData = jsonDataClass( linebotId = user_id ) ## class建立
-		msg_id_command = jsonData.temp ## 取得temp的暫存message_id和ui command
-
-		msgId     = msg_id_command.split(",")[0]
-		uiCommand = msg_id_command.split(",")[1]
-		newCommand = uiCommand.replace( "no title" , changeNote)
-
-
-		new_flex_json = sixYaoMain( newCommand ,
-							lineBotId = user_id , 
-							lineBotName = displayName , 
-							userImage = picUrl ) # 取得起盤介面的json
-
-
-		jsonData.uiJsonSetting("set temp none") ## 取完之後刪除
-
-		# Step1: 刪掉舊的
-		line_bot_api.delete_message(msg_id)  
-
-		# Step2: 發送新 UI
-		line_bot_api.push_message(
-		    user_id,
-		    FlexSendMessage(
-		        alt_text= '< OCR裝卦UI >',
-		        contents= new_flex_json
-		    )
-		)
-
-
 	# ========= 干支列表 =========
 	elif inputMsg[:3] == "干支/":	
 		Zhi = "子丑寅卯辰巳午未申酉戌亥"
@@ -210,6 +178,11 @@ def handle_message(event):
 						lineBotId = user_id , 
 						lineBotName = displayName , 
 						userImage = picUrl )
+
+
+
+		jsonData = jsonDataClass( linebotId = user_id ) ## class建立
+		jsonData.uiJsonSetting("set temp " + inputMsg ) ## 取完之後刪除
 		# ui_cmd_dict = sixYaoMain( inputMsg )
 		# exec( cmd )
 		print( "UI") 
@@ -224,6 +197,43 @@ def handle_message(event):
 					contents = ui_cmd_dict   # 直接放轉好的 dict
 				)
 			)
+
+	elif inputMsg[0] == ">":	
+		changeNote = inputMsg[1:]
+		jsonData = jsonDataClass( linebotId = user_id ) ## class建立
+		uiCommand = jsonData.temp ## 取得temp的暫存ui command
+
+
+		newCommand = uiCommand.replace( "no title" , changeNote)
+
+
+		new_flex_json = sixYaoMain( newCommand ,
+							lineBotId = user_id , 
+							lineBotName = displayName , 
+							userImage = picUrl ) # 取得起盤介面的json
+
+
+		jsonData.uiJsonSetting("set temp none") ## 取完之後刪除
+
+		line_bot_api.reply_message(
+			event.reply_token,
+			FlexSendMessage(
+				alt_text = '< 裝卦UI >',
+				contents = new_flex_json   # 直接放轉好的 dict
+			)
+		)
+		# # Step1: 刪掉舊的
+		# line_bot_api.delete_message(msg_id)  
+
+		# # Step2: 發送新 UI
+		# line_bot_api.push_message(
+		#     user_id,
+		#     FlexSendMessage(
+		#         alt_text= '< OCR裝卦UI >',
+		#         contents= new_flex_json
+		#     )
+		# )
+
 
 
 
