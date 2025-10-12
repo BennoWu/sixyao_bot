@@ -277,10 +277,18 @@ def jsonToGoogle():
 	)
 	sheetName = "userID_list"
 	wks = globalSheet.worksheet_by_title(sheetName)
+	print(">> A")
+	print(wks)
 	allDataList = wks.get_all_records() # 取得所有資料，字典檔
+	print(">> B")
+	print(allDataList)
+
 	totalNum = totalNumber = len( allDataList ) # 現有總共的項目數量
-	# print(allDataList)
-	print(allDataList[0].keys())
+	print(">> A")
+	print(totalNum)
+	# print(allDataList[0].keys())
+	# headers = wks.get_row(1)
+
 	valuesList = loadAllJson() ## 取得的json資料，會以json的順序，所以GOOGLE表單和JSON的資料順序要一樣，兜上去才會對
 
 	updateNum = 0

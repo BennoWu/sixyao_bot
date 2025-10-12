@@ -172,14 +172,12 @@ def handle_message(event):
 			)
 		)
 
-
+	## 裝卦UI
 	elif  "//" in inputMsg:
 		ui_cmd_dict = sixYaoMain ( inputMsg , 
 						lineBotId = user_id , 
 						lineBotName = displayName , 
 						userImage = picUrl )
-
-
 
 		jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 		jsonData.uiJsonSetting("set temp " + inputMsg ) ## 取完之後刪除
@@ -197,7 +195,8 @@ def handle_message(event):
 				)
 			)
 
-	elif inputMsg[0] == ">":	
+	## 修改Title
+	elif inputMsg[0] in [ ">","@","%" ]: #字的開頭如果是這些就進入
 		changeNote = inputMsg[1:]
 		jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 		uiCommand = jsonData.temp ## 取得temp的暫存ui command
@@ -217,20 +216,10 @@ def handle_message(event):
 				contents = new_flex_json   # 直接放轉好的 dict
 			)
 		)
-		# # Step1: 刪掉舊的
-		# line_bot_api.delete_message(msg_id)  
 
-		# # Step2: 發送新 UI
-		# line_bot_api.push_message(
-		#     user_id,
-		#     FlexSendMessage(
-		#         alt_text= '< OCR裝卦UI >',
-		#         contents= new_flex_json
-		#     )
-		# )
-
-
-
+	## 執行程式用
+	elif inputMsg[0:4] == "____":
+		pass
 
 
 	else:
@@ -244,7 +233,8 @@ def handle_message(event):
 
 
 
-
+## 圖片訊息接收
+## OCR
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
 	# user_id = event.source.user_id  ##利用reply取得id存至user_id中
@@ -280,16 +270,16 @@ def handle_image_message(event):
 					lineBotName = displayName , 
 					userImage = picUrl )
 
-	print( "XXX ", ui_command )	
+	# print( "XXX ", ui_command )	
 	jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 	jsonData.uiJsonSetting("set temp " + ui_command ) ## 取完之後刪除
-	print( "@@@ ", jsonData.temp )
+	# print( "@@@ ", jsonData.temp )
 	print( "UI") 
 	print( ui_cmd_dict )
 	
 	## 把message id和裝卦命令存到該使用者的json的temp中
 	jsonData = jsonDataClass( linebotId = user_id ) ## class建立
-	jsonData.uiJsonSetting( f"set temp {message_id},{ui_command}" )
+	jsonData.uiJsonSetting( f"set temp {ui_command}" )
 
 	# Flex message的容器，把寫好的json放入就可以變成介面，之前的寫法太土，這次改好看一點
 	line_bot_api.reply_message(
