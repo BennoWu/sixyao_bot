@@ -174,6 +174,7 @@ class jsonDataClass:
 			try:
 				if str(abs(int( comList[2] ))).isdigit() == True:
 					self.utc = int( comList[2] )
+					rtn_message =  "utc - {}".format(self.utc)
 			except:
 				print( comList[1] + "要是數字")
 
