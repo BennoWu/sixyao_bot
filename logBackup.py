@@ -112,6 +112,7 @@ def uploadCsvToGoogleSheet(csv_path="log.csv"):
     wks.update_values(f'A{start_row}', cleaned_data)
 
     print(f"✅ 已成功上傳 {total} 筆 log 到 Google Sheet（從第 {start_row} 行開始）。")
+    return( f"✅ 已成功上傳 {total} 筆 log 到 Google Sheet（從第 {start_row} 行開始）" )
 
     # ✅ 清空原始 CSV 檔案，只保留表頭
     with open(csv_path, "w", newline='', encoding="utf-8") as f:

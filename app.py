@@ -172,6 +172,20 @@ def handle_message(event):
 			)
 		)
 
+	## setting
+	elif  "set" in inputMsg.lower():
+		jsonData = jsonDataClass( linebotId = user_id ) ## class建立
+		# jsonData.uiJsonSetting("set temp " + inputMsg ) ## 取完之後刪除		
+		returnMsg = jsonData.uiJsonSetting( inputMsg )
+		# 回覆訊息
+		line_bot_api.reply_message(
+			event.reply_token,
+			TextSendMessage(text= returnMsg  )
+		)
+
+
+
+
 	## 裝卦UI
 	elif  "//" in inputMsg:
 		ui_cmd_dict = sixYaoMain ( inputMsg , 
@@ -219,7 +233,22 @@ def handle_message(event):
 
 	## 執行程式用
 	elif inputMsg[0:4] == "____":
-		pass
+		inputMsg = inputMsg[ 4: ]
+		backMsg = ""
+		if inputMsg == "up":
+			backMsg = jsonToGoogle()
+		elif inputMsg == "dn":
+			backMsg = googleToJson()
+		elif inputMsg == "logup":
+			backMsg = uploadCsvToGoogleSheet("log.csv")
+		else:
+			backMsg = "No command - " + inputMsg
+
+		line_bot_api.reply_message(
+			event.reply_token,
+			TextSendMessage( text= backMsg  )
+		)
+
 
 
 	else:
