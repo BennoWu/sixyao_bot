@@ -331,19 +331,37 @@ def jsonToGoogle():
 
 
 
+	# import os
+	# import json
+	# import pygsheets
+
+	# # 從環境變數讀取金鑰
+	# credentials_json = os.environ.get('GOOGLE_CREDENTIALS')
+
+	# # # 金鑰位置
+	# if credentials_json:
+	#     # 在 Render 上：使用環境變數
+	#     credentials_dict = json.loads(credentials_json)
+	#     gc = pygsheets.authorize(custom_credentials=credentials_dict)
+	# else:
+	#     # 在本地開發：使用檔案
+	#     gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
+
+	# globalSheet = gc.open_by_url(
+	#     'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'
+	# )
+
+
 	import os
-	import json
 	import pygsheets
 
-	# 從環境變數讀取金鑰
 	credentials_json = os.environ.get('GOOGLE_CREDENTIALS')
 
 	if credentials_json:
-	    # 在 Render 上：使用環境變數
-	    credentials_dict = json.loads(credentials_json)
-	    gc = pygsheets.authorize(custom_credentials=credentials_dict)
+	    # pygsheets 直接從環境變數讀取
+	    gc = pygsheets.authorize(service_account_env_var='GOOGLE_CREDENTIALS')
 	else:
-	    # 在本地開發：使用檔案
+	    # 本地開發用檔案
 	    gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
 
 	globalSheet = gc.open_by_url(
@@ -351,10 +369,6 @@ def jsonToGoogle():
 	)
 
 
-
-
-
-	# # 金鑰位置
 	# gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
 	# # e mail id : sixyao-id@sixyao-data.iam.gserviceaccount.com
 	# # 開啟sheet檔案
