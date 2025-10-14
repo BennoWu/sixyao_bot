@@ -689,13 +689,20 @@ uiLayoutBack = '''
                 "type": "box",
                 "layout": "vertical",
                 "contents": [
+
+
+
+
                   {
                     "type": "text",
-                    "text": "．",
+                    "text": "•",
                     "align": "center",
-                    "size": "lg",
-                    "offsetEnd": "0px"
+                    "size": "md",
+                    "color": "#bbbbbb"
                   }
+
+
+
                 ],
                 "width": "20px"
               },
@@ -735,7 +742,7 @@ uiLayoutBack = '''
         "cornerRadius": "10px",
         "borderColor": "#bbbbbb",
         "borderWidth": "2px",
-        "height": "28px"
+        "height": "30px"
       },
 
 

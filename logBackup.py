@@ -3,7 +3,7 @@ import csv
 import os
 
 
-def logDataFun(userID, userName, logTime, inputData, command , file_path="log.csv"):
+def logDataFun(userID, userName, logTime, inputData, command , file_path="__log__.csv"):
 	# 檢查檔案是否存在，以及是否需要加標題列
 	file_exists = os.path.isfile(file_path)
 	write_header = not file_exists or os.path.getsize(file_path) == 0
@@ -72,7 +72,7 @@ def resource_path(relative_path):
 
 
 
-def uploadCsvToGoogleSheet(csv_path="log.csv"):
+def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
     import os
     import csv
     import pygsheets
@@ -107,7 +107,7 @@ def uploadCsvToGoogleSheet(csv_path="log.csv"):
     
     if len(rows) <= 1:
         print("⚠️ 沒有要上傳的資料。")
-        return
+        return "⚠️ 沒有要上傳的資料。"
     
     data_to_upload = rows[1:]  # 排除第一列表頭
     
@@ -133,7 +133,7 @@ def uploadCsvToGoogleSheet(csv_path="log.csv"):
         writer = csv.writer(f)
         writer.writerow(rows[0])  # 寫回原本表頭
     
-    print("🧹 已清空本地 log.csv，只保留表頭。")
+    print("🧹 已清空本地 __log__.csv，只保留表頭。")
     
     return f"✅ 已成功上傳 {total} 筆 log 到 Google Sheet（從第 {start_row} 行開始）"
 
@@ -143,7 +143,7 @@ if __name__ == '__main__':
 	# for i,a in enumerate(range(500)):
 	# 	logDataFun( f"id{i:03}", "userName", "2025/6/15/12/11", "inputDatainputDatainputDatainputData" )
 
-	uploadCsvToGoogleSheet("log.csv")
+	uploadCsvToGoogleSheet("__log__.csv")
 
 
 
