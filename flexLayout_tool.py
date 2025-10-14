@@ -38,7 +38,7 @@ uiLayoutFront ='''
             "text": "節氣",
             "weight": "regular",
             "color": "#888888",
-            "size": "md",
+            "size": "lg",
             "align": "end",
             "action": {
               "type": "message",
@@ -633,20 +633,143 @@ uiLayoutBack = '''
 		  }
 		],
 
-		"margin": "md",
+		"margin": "sm",
 		"cornerRadius": "10px",
 		"backgroundColor": "#dddddd"
 	  },
 
-      {
-        "type": "separator",
-        "margin": "md",
-        "color": "#cccccc"
-      },
+
+
+
+
       {
         "type": "box",
         "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "8px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__ORGGUA__",
+                    "align": "center",
+                    "size": "md",
+
+                    "weight": "bold"
+
+                  }
+                ]
+              },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "．",
+                    "align": "center",
+                    "size": "lg",
+                    "offsetEnd": "0px"
+                  }
+                ],
+                "width": "20px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__CHGGUA__",
+                    "align": "center",
+
+                    "size": "md",
+                    "weight": "bold"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "10px"
+              }
+            ],
+            "offsetTop": "xs"
+          }
+
+
+
+
+
+
+
+
+        ],
         "margin": "md",
+        "cornerRadius": "10px",
+        "borderColor": "#bbbbbb",
+        "borderWidth": "2px",
+        "height": "28px"
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {
+        "type": "box",
+        "layout": "vertical",
+        "margin": "xs",
         "contents": [
           {
             "type": "box",
@@ -669,7 +792,7 @@ uiLayoutBack = '''
             "margin": "xs"
           }
         ],
-        "spacing": "sm",
+
         "cornerRadius": "10px",
         "offsetTop": "3px"
       }
@@ -1017,7 +1140,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , threePil
 	reDataLayout = reDataLayout.replace("__NOTION__", "NNNNN" ) ## 還沒寫完
 
 
-	# print( reDataLayout_dict )
+	print( reDataLayout )
 
 	# 文字轉換成字典
 	reDataLayout_dict = json.loads(reDataLayout)
@@ -1653,7 +1776,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 if __name__ == '__main__':
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 )
 	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 )
-	ganZiList_fun( currentTime = "2025-09-15" , dayMode = "d" , index = "" , runtime = 6 )	
+	ganZiList_fun( currentTime = "2025-01-01" , dayMode = "d" , index = "" , runtime = 370 )	
 
 # "干支/時/10/2025-08-31-15-48"
 	# "d" -- day

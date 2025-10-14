@@ -485,6 +485,9 @@ def googleToJson():
 		dataDict[linebotId]["command"] = eachData['command']
 		dataDict[linebotId]["runtime"] = eachData['runtime']
 		dataDict[linebotId]["uiStyle"] = eachData['ui style']
+		dataDict[linebotId]["fontStyle"] = eachData['font style']
+		dataDict[linebotId]["tipsMode"] = eachData['tips mode']
+				
 		dataDict[linebotId]["subDataMode"] = eachData['sub data mode']
 		dataDict[linebotId]["utc"] = eachData['utc']
 		dataDict[linebotId]["notionToken_pageId"] = eachData['notion token/page id']

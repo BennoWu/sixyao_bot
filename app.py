@@ -1,7 +1,7 @@
 # from combineData import *
 from ocr_work import *
 from combineDataMain import *
-
+from logBackup import *
 
 
 from flexLayout_tool import *
