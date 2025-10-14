@@ -63,15 +63,36 @@ def resource_path(relative_path):
 
 
 
-googleJson = resource_path(r"googleSheetKey/sixyao-data-8f0c712298cd.json")
+# googleJson = resource_path(r"googleSheetKey/sixyao-data-8f0c712298cd.json")
+
+
+
+
 
 
 
 
 
 def uploadCsvToGoogleSheet(csv_path="log.csv"):
+
+	import os
+	import pygsheets
+
+	# # 從環境變數讀取金鑰
+	credentials_json = os.environ.get('GOOGLE_CREDENTIALS')
+
+	# # # 金鑰位置
+	if credentials_json:
+	    # pygsheets 直接從環境變數讀取
+	    gc = pygsheets.authorize(service_account_env_var='GOOGLE_CREDENTIALS')
+	else:
+	    # 本地開發用檔案
+	    gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
+
+
+
     # ✅ 授權登入 Google Sheets
-    gc = pygsheets.authorize( service_file= googleJson )
+    # gc = pygsheets.authorize( service_file= googleJson )
     # gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
 
     # ✅ 開啟指定的 Google Sheet
