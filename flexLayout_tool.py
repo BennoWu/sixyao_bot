@@ -291,7 +291,7 @@ uiLayoutFront ='''
 			  {
 				"type": "text",
 				"color": "#333333",
-				"size": "xl",
+				"size": "lg",
 				"wrap": true,
 				"text": "__NOTE__",
 				"margin": "sm",
@@ -742,7 +742,7 @@ uiLayoutBack = '''
         "cornerRadius": "10px",
         "borderColor": "#bbbbbb",
         "borderWidth": "2px",
-        "height": "30px"
+        "height": "31px"
       },
 
 
