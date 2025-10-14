@@ -328,14 +328,39 @@ def loadAllJson(jsonFile="__sixYoSet__.json"):
 # 	return ( "Json data to GoogleSheet\nUpdate: %d New: %d"% ( updateNum,newNum ) )
 
 def jsonToGoogle():
+
+
+
+	import os
+	import json
 	import pygsheets
-	# 金鑰位置
-	gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
-	# e mail id : sixyao-id@sixyao-data.iam.gserviceaccount.com
-	# 開啟sheet檔案
+
+	# 從環境變數讀取金鑰
+	credentials_json = os.environ.get('GOOGLE_CREDENTIALS')
+
+	if credentials_json:
+	    # 在 Render 上：使用環境變數
+	    credentials_dict = json.loads(credentials_json)
+	    gc = pygsheets.authorize(custom_credentials=credentials_dict)
+	else:
+	    # 在本地開發：使用檔案
+	    gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
+
 	globalSheet = gc.open_by_url(
-		'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'  ## 六爻 sheet
+	    'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'
 	)
+
+
+
+
+
+	# # 金鑰位置
+	# gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
+	# # e mail id : sixyao-id@sixyao-data.iam.gserviceaccount.com
+	# # 開啟sheet檔案
+	# globalSheet = gc.open_by_url(
+	# 	'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'  ## 六爻 sheet
+	# )
 	sheetName = "userID_list"
 	wks = globalSheet.worksheet_by_title(sheetName)
 	print(">> A")
@@ -487,7 +512,7 @@ def googleToJson():
 		dataDict[linebotId]["uiStyle"] = eachData['ui style']
 		dataDict[linebotId]["fontStyle"] = eachData['font style']
 		dataDict[linebotId]["tipsMode"] = eachData['tips mode']
-				
+
 		dataDict[linebotId]["subDataMode"] = eachData['sub data mode']
 		dataDict[linebotId]["utc"] = eachData['utc']
 		dataDict[linebotId]["notionToken_pageId"] = eachData['notion token/page id']

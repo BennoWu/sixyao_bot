@@ -25,6 +25,7 @@ Thumbs.db
 *.tmp
 *.bak
 *.json
+googleSheetKey/
 *.csv
 
 # 產生的中間資料
