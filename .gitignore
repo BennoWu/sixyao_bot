@@ -44,3 +44,6 @@ googleSheetKey/
 .env.local
 .env.*
 !.env.example  # 保留範例 env
+
+# 環境變數檔案（重要！）
+.env

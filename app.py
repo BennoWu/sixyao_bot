@@ -119,8 +119,13 @@ def handle_message(event):
 	## 取得用戶的頭貼
 	picUrl = profile.picture_url
 	##收到的訊息
-	inputMsg = event.message.text  
+	inputMsg = event.message.text
 
+	## json建立
+	jsonData = jsonDataClass( linebotId = user_id  ,
+								linebotUserName = displayName ,
+								userImage = picUrl ,
+								command = inputMsg )
 
 
 	if inputMsg == "id":
@@ -174,8 +179,8 @@ def handle_message(event):
 
 	## setting
 	elif  "set" in inputMsg.lower():
-		jsonData = jsonDataClass( linebotId = user_id ) ## class建立
-		# jsonData.uiJsonSetting("set temp " + inputMsg ) ## 取完之後刪除		
+		# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
+
 		returnMsg = jsonData.uiJsonSetting( inputMsg )
 		# 回覆訊息
 		line_bot_api.reply_message(
@@ -193,7 +198,7 @@ def handle_message(event):
 						lineBotName = displayName , 
 						userImage = picUrl )
 
-		jsonData = jsonDataClass( linebotId = user_id ) ## class建立
+		# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 		jsonData.uiJsonSetting("set temp " + inputMsg ) ## 取完之後刪除
 		# exec( cmd )
 		print( "UI") 
@@ -212,7 +217,7 @@ def handle_message(event):
 	## 修改Title
 	elif inputMsg[0] in [ ">","@","%" ]: #字的開頭如果是這些就進入
 		changeNote = inputMsg[1:]
-		jsonData = jsonDataClass( linebotId = user_id ) ## class建立
+		# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 		uiCommand = jsonData.temp ## 取得temp的暫存ui command
 		print( jsonData.temp )		
 
