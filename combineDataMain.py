@@ -635,7 +635,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 	fullDataInput = fullDataInput.strip() ## 清除頭尾空格
 	jsonData = jsonDataClass( lineBotId , lineBotName , userImage  , fullDataInput ) ## class建立
 
-	user_utc_hour   =  jsonData.utc         ## 取得這個user的時區數字
+	user_utc_hour   = jsonData.utc         ## 取得這個user的時區數字
 	user_uiStyle    = jsonData.uiStyle       ## "CB"   uiStyle 決定介面顏色與排版
 	user_fontStyle  = jsonData.fontStyle   ## "Fb" fontStyle 字型 宋體圓體黑體
 	user_tipsMode   = jsonData.tipsMode     ## "ON"  tipsMode  小抄提示功能

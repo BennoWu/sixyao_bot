@@ -246,6 +246,9 @@ def handle_message(event):
 			backMsg = googleToJson()
 		elif inputMsg == "logup":
 			backMsg = uploadCsvToGoogleSheet("log.csv")
+		elif inputMsg == "show":
+			pass
+
 		else:
 			backMsg = "No command - " + inputMsg
 

@@ -331,23 +331,6 @@ def jsonToGoogle():
 
 
 
-	# import os
-	# import json
-	# import pygsheets
-
-	# credentials_json = os.environ.get('GOOGLE_CREDENTIALS')
-
-	# if credentials_json:
-	#     # 在 Render 上：使用環境變數
-	#     credentials_dict = json.loads(credentials_json)
-	#     gc = pygsheets.authorize(custom_credentials=credentials_dict)
-	# else:
-	#     # 在本地開發：使用檔案
-	#     gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
-
-	# globalSheet = gc.open_by_url(
-	#     'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'
-	# )
 
 
 	import os
@@ -610,7 +593,7 @@ def logToGoogle(  userId = "BB123", userName = "Benno", time = "2025/6/15/3/20" 
 
 
 
-	
+
 	# import pygsheets
 	# # 金鑰位置
 	# gc = pygsheets.authorize( service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
