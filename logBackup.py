@@ -43,7 +43,7 @@ def logDataFun(userID, userName, logTime, inputData, command , file_path="__log_
 		writer.writerow(row_data)
 
 	print(f"✅ 已寫入第 {record_num} 筆資料：{row_data}")
-
+	uploadCsvToGoogleSheet(csv_path="__log__.csv")
 
 
 
@@ -100,6 +100,8 @@ def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
     existing_rows = len(wks.get_all_records())  # 不包含表頭
     start_row = existing_rows + 2  # 表頭佔一行
     
+
+
     # 讀取 CSV 所有資料（略過表頭）
     with open(csv_path, newline='', encoding="utf-8") as f:
         reader = csv.reader(f)
