@@ -215,7 +215,7 @@ def handle_message(event):
 			)
 
 	## 修改Title
-	elif inputMsg[0] in [ ">","@","%" ]: #字的開頭如果是這些就進入
+	elif inputMsg[0] in [ ">","@",":" ]: #字的開頭如果是這些就進入
 		changeNote = inputMsg[1:]
 		# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 		uiCommand = jsonData.temp ## 取得temp的暫存ui command
@@ -245,7 +245,7 @@ def handle_message(event):
 		elif inputMsg == "dn":
 			backMsg = googleToJson()
 		elif inputMsg == "logup":
-			backMsg = uploadCsvToGoogleSheet("log.csv")
+			backMsg = uploadCsvToGoogleSheet()
 		elif inputMsg == "show":
 			pass
 
