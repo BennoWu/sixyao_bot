@@ -982,10 +982,9 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 
 if __name__ == '__main__':
 	# sixYaoMain( "2021/04/18/19/00//1​1​0​X​1​1//男占女未來是否有機會共事")
-	sixYaoMain( "11X$01 // 甲乙丙丁戊")
 	# sixYaoMain( "俘之履//男占女未來是否有機會共事//辛丑，壬辰，丙申，戊戌")
 	# sixYaoMain( "2025,4,27,12,28//卯月丁巳日//010$1X//問題問題問題" )
-	# sixYaoMain( "復之艮//吃飽了沒")
+	sixYaoMain( "復之艮//吃飽了沒")
 	# sixYaoMain( "27 71 42//吃飽了沒")
 	# sixYaoMain( "地风升之地水师//卯月乙未日//一人占賣貨")	
 	# sixYaoMain( "100101//占今年幾時換工作今時換工作較好" )

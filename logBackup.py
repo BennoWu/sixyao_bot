@@ -43,7 +43,7 @@ def logDataFun(userID, userName, logTime, inputData, command , file_path="__log_
 		writer.writerow(row_data)
 
 	print(f"✅ 已寫入第 {record_num} 筆資料：{row_data}")
-	uploadCsvToGoogleSheet(csv_path="__log__.csv")
+	# uploadCsvToGoogleSheet(csv_path="__log__.csv")
 
 
 
@@ -106,7 +106,7 @@ def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
     with open(csv_path, newline='', encoding="utf-8") as f:
         reader = csv.reader(f)
         rows = list(reader)
-    
+    # print(rows)
     if len(rows) <= 1:
         print("⚠️ 沒有要上傳的資料。")
         return "⚠️ 沒有要上傳的資料。"
