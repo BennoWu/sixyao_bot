@@ -789,7 +789,7 @@ uiLayoutBack = '''
                   "type": "postback",
                   "label": "裝卦A",
                   "data": "__裝卦__",
-                  "displayText": "裝卦啦"
+                  "displayText": "__裝卦__"
                 },
                 "color": "#91A4BC",
                 "margin": "none",
@@ -866,7 +866,7 @@ uiLayoutBackExt = '''
                       "type": "postback",
                       "label": "裝卦A",
                       "data": "__裝卦__",
-                      "displayText": "裝卦"
+                      "displayText": "__裝卦__"
                     },
                     "color": "#91A4BC",
                     "margin": "none",
@@ -1024,7 +1024,7 @@ def clipData( fullDate ):
 
 
 ## 排盤 UI 
-def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , threePillar = False , notionAccount = False):
+def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command = "", threePillar = False , notionAccount = False):
 	# print( getFourPillar( fullDate = dateData , detail = True ))
 	dateBuf = getFourPillar( fullDate = dateData , detail = True )
 	# lightDate ,fullDarkDate ,fourPillar_Buf , jeChi_show , week , timeShow 
@@ -1073,14 +1073,15 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , threePil
 		chgGuaName = "－ － －"
 
 
-
+	## 加入隱形空格
 	zeroSpace = '\u200b'
-	if date_ganZi != "":
-		# command = "+%s // %s // %s // %s"% ( dateData , date_ganZi , (zeroSpace.join(finalGua)) , note )
-		command = "+%s // %s // %s // %s"% ( dateData , date_ganZi , finalGua , note )
-	else:
-		# command = "+%s // %s // %s"% ( dateData , (zeroSpace.join(finalGua)) , note )	
-		command = "+%s // %s // %s"% ( dateData , finalGua , note )		
+	command = zeroSpace.join(command)
+	# if date_ganZi != "":
+	# 	# command = "+%s // %s // %s // %s"% ( dateData , date_ganZi , (zeroSpace.join(finalGua)) , note )
+	# 	command = "+%s // %s // %s // %s"% ( dateData , date_ganZi , finalGua , note )
+	# else:
+	# 	# command = "+%s // %s // %s"% ( dateData , (zeroSpace.join(finalGua)) , note )	
+	# 	command = "+%s // %s // %s"% ( dateData , finalGua , note )		
 
 
 	# print(command)
@@ -1126,8 +1127,19 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , threePil
 
 
 # 干支/日/2025.5.11/10/申
-	reDataLayout = uiLayout.replace("節氣", jeChi ).replace("__sunDate__", sun_date ).replace("__darkDate__", dark_date ).replace("年柱", fourP[0] ).replace("月柱", fourP[1] ).replace("日柱", fourP[2] ).replace("時柱", fourP[3] ).replace("__NOTE__", note ).replace("12:00", currentTime ).replace("__裝卦__", command ).replace("__ORGGUA__" , orgGuaName).replace("__CHGGUA__" , chgGuaName)
-
+	reDataLayout =   (  uiLayout.replace("節氣", jeChi )
+								.replace("__sunDate__", sun_date )
+								.replace("__darkDate__", dark_date )
+								.replace("年柱", fourP[0] )
+								.replace("月柱", fourP[1] )
+								.replace("日柱", fourP[2] )
+								.replace("時柱", fourP[3] )
+								.replace("__NOTE__", note )
+								.replace("12:00", currentTime )
+								.replace("__裝卦__", command )
+								.replace("__ORGGUA__" , orgGuaName)
+								.replace("__CHGGUA__" , chgGuaName)
+						)
 
 	if date_ganZiList: ## 自定月日
 		reDataLayout = reDataLayout.replace( "month_mode","- - -" ).replace( "day_mode" , "- - -" ).replace( "hour_mode" , "- - -" ).replace ( "jechi_mode" , "- - -")

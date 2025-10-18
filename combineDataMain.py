@@ -568,6 +568,32 @@ def looks_like_year(s):
     return 1900 <= year <= 2099
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ===========================================================================================================================================================
 # ===========================================================================================================================================================
 # ===========================================================================================================================================================
@@ -597,7 +623,7 @@ from sixYaoJsonDataClass import *
 
 def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , userImage = "" ):
 
-	
+	fullDataInput = fullDataInput.replace( '\u200b' , '' )
 
 
 	# lineBotId = "NEW_IDddddd"
@@ -607,7 +633,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 	# fullDataInput = "set tips on"
 
 	notionAccount = False
-	ui_mode = ""
+	# ui_mode = ""
 	notionMode = False
 
 	## 開頭為"n"則為上傳notion模式，差異在上傳圖床的檔案夾是會保存的
@@ -621,13 +647,6 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 	# command_mode = True	
 	#  XXX//XXXX//XXXXX		UI模式
 
-	if fullDataInput[:1] == "+":
-		if fullDataInput[:2] == "++":
-			ui_mode = "A" ## 現代版
-			fullDataInput = fullDataInput[2:]
-		else:
-			ui_mode = "B" ## 經典版
-			fullDataInput = fullDataInput[1:]	
 
 
 
@@ -636,7 +655,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 	jsonData = jsonDataClass( lineBotId , lineBotName , userImage  , fullDataInput ) ## class建立
 
 	user_utc_hour   = jsonData.utc         ## 取得這個user的時區數字
-	user_uiStyle    = jsonData.uiStyle       ## "CB"   uiStyle 決定介面顏色與排版
+	user_uiStyle    = jsonData.uiStyle       ## "UA , UB   uiStyle 決定介面顏色與排版
 	user_fontStyle  = jsonData.fontStyle   ## "Fb" fontStyle 字型 宋體圓體黑體
 	user_tipsMode   = jsonData.tipsMode     ## "ON"  tipsMode  小抄提示功能
 	user_notion     = jsonData.notionToken_pageId    ## notion 的token , page id
@@ -646,6 +665,8 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 		pageId_buf = user_notion.split("/")[1]
 		# print( token_buf , pageId_buf )
 		notionAccount = checkNotionAcc( token_buf , pageId_buf )
+
+
 
 
 	# print( "((((((((()))))))))" , notionAccount)
@@ -663,6 +684,30 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 		# lineSend_fun( replyUrl )
 		print ( returnMsg )
 		return returnMsg
+
+
+
+
+
+
+
+
+
+	# if fullDataInput[:1] == "+":
+	# 	if fullDataInput[:2] == "++":
+	# 		ui_mode = "A" ## 現代版
+	# 		fullDataInput = fullDataInput[2:]
+	# 	else:
+	# 		ui_mode = "B" ## 經典版
+	# 		fullDataInput = fullDataInput[1:]	
+
+
+
+
+
+
+
+
 
 	# jsonData.showData()
 
@@ -869,9 +914,14 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 	if  dateMonth and dateDay:
 		date_ganZi =  dateMonth+dateDay + " // " 
 		date_ganZiList = [dateMonth,dateDay[:2]]
+	# if user_uiStyle == "UA":
+	# 	command =  "++%s // %s%s // %s"% ( dateData , date_ganZi , finalGua , preNote + noteText ) 
+	# elif user_uiStyle == "UB":
+	# 	command =  "+%s // %s%s // %s"% ( dateData , date_ganZi , finalGua , preNote + noteText ) 
+	# else:
+	# 	command =  "++%s // %s%s // %s"% ( dateData , date_ganZi , finalGua , preNote + noteText ) 
+
 	command =  "+%s // %s%s // %s"% ( dateData , date_ganZi , finalGua , preNote + noteText ) 
-
-
 
 	print( checkItem )
 	print( "    日期- ",  dateData)
@@ -893,7 +943,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 	# "2025,4,27,12,28//010$1X//問題問題問題"
 	# "2025,4,27,12,28//卯月丁巳日//010$1X//問題問題問題"
  # (','.join(finalGua))  "\u200b".join(num)
-	zeroSpace = '\u200b'
+	# zeroSpace = '\u200b'
 
 	# currentCommand = "+%s%s//%s//%s"% ( dateData , date_ganZi , (zeroSpace.join(finalGua)) , preNote + noteText )
 	print( "\n")
@@ -910,25 +960,27 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 	# +XXX//XXXX//XXXXX    	產生圖檔模式
 
 
-	# if ui_mode == "A":
-	# 	## 產生圖片，回傳連結
-	# 	image_url = drawUi_v1(  
-	# 		mainFunction( 
-	# 			inputData = finalGua ,
-	# 			noteText = preNote + noteText  , 
-	# 			user_mouthZi = dateMonth , 
-	# 			user_dayGanZi = dateDay , 
-	# 			userDefineDate = dateData ), 
+	if user_uiStyle == "UA"  and  fullDataInput[:1] == "+":
+		## 產生圖片，回傳連結
+		image_url = drawUi_v1(  
+			mainFunction( 
+				inputData = finalGua ,
+				noteText = preNote + noteText  , 
+				user_mouthZi = dateMonth , 
+				user_dayGanZi = dateDay , 
+				userDefineDate = dateData ), 
 
-	# 		fontStyle = user_fontStyle, 
-	# 		tipsMode = user_tipsMode, 
-	# 		uiStyle = user_uiStyle , 
+			fontStyle = user_fontStyle, 
+			tipsMode = user_tipsMode, 
+			uiStyle = user_uiStyle , 
 
-	# 		show = showBuf , 
-	# 		savePic = False,
-	# 		notion = notionMode )
+			show = showBuf , 
+			savePic = False,
+			notion = notionMode )
 
-	# 	print( image_url )
+		return image_url
+		
+		# print( image_url )
 		# if notionMode == True:
 		# 	notionUrl = notionPush_pushUp(  image_url , noteText , token_buf , pageId_buf )
 		# 	print( notionUrl )
@@ -965,7 +1017,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 
 
 	## 產生UI模式
-	if ui_mode == "":
+	elif fullDataInput[:1] != "+":
 	# else: 
 		# dateData =  getNowTime( user_utc_hour )
 		## 產生裝卦UI時，記錄到log中
@@ -974,7 +1026,8 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 		if  "<" in dateData:  ## 如果只有三柱
 			dateData = dateData[:-1]
 			threePil_mode = True
-		ui_cmd_dict = uiInputData( dateData , date_ganZiList , finalGua = finalGua , note = preNote + noteText , threePillar = threePil_mode , notionAccount = notionAccount )
+
+		ui_cmd_dict = uiInputData( dateData , date_ganZiList , finalGua = finalGua , note = preNote + noteText , command = command  ,threePillar = threePil_mode , notionAccount = notionAccount )
 		# print( ui_cmd_dict )
 		return ui_cmd_dict
 
@@ -984,7 +1037,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "2021/04/18/19/00//1​1​0​X​1​1//男占女未來是否有機會共事")
 	# sixYaoMain( "俘之履//男占女未來是否有機會共事//辛丑，壬辰，丙申，戊戌")
 	# sixYaoMain( "2025,4,27,12,28//卯月丁巳日//010$1X//問題問題問題" )
-	sixYaoMain( "復之艮//吃飽了沒")
+	# sixYaoMain( "復之艮//吃飽了沒")
 	# sixYaoMain( "27 71 42//吃飽了沒")
 	# sixYaoMain( "地风升之地水师//卯月乙未日//一人占賣貨")	
 	# sixYaoMain( "100101//占今年幾時換工作今時換工作較好" )
