@@ -15,7 +15,28 @@ from linebot.exceptions import (
 	InvalidSignatureError
 )
 from linebot.models import (
-	MessageEvent, TextMessage, TextSendMessage, StickerMessage,StickerSendMessage,ImageMessage,ImageSendMessage,LocationMessage,ImagemapSendMessage,BaseSize,URIImagemapAction,MessageImagemapAction,ImagemapArea,TemplateSendMessage,ImageCarouselTemplate,ImageCarouselColumn,PostbackTemplateAction,FlexSendMessage, BubbleContainer, ImageComponent, Sender 
+	MessageEvent, 
+	TextMessage, 
+	TextSendMessage, 
+	StickerMessage,
+	StickerSendMessage,
+	ImageMessage,
+	ImageSendMessage,
+	LocationMessage,
+	ImagemapSendMessage,
+	BaseSize,
+	URIImagemapAction,
+	MessageImagemapAction,
+	ImagemapArea,
+	TemplateSendMessage,
+	ImageCarouselTemplate,
+	ImageCarouselColumn,
+	PostbackEvent,
+	PostbackTemplateAction,
+	FlexSendMessage, 
+	BubbleContainer, 
+	ImageComponent, 
+	Sender 
 )
 
 
@@ -369,45 +390,86 @@ def handle_postback(event):
 	postDataMsg = event.postback.data
 	user_id = event.source.user_id
 	
-	postDataMsg = postDataMsg.replace( '\u200b' , '' )
+
+	data = postDataMsg = event.postback.data.replace('\u200b', '')
+
+    # Notion處理
+	if data.startswith("n+"):
+	    notion_url = sixYaoMain(data)
+
+	    line_bot_api.reply_message(
+	        event.reply_token,
+	        TextSendMessage(text= notion_url )
+	    )
 
 
-	# 呼叫你的程式
-	image_url = sixYaoMain( postDataMsg )
 
-	# 呼叫上傳notion的程式
-	# sixYaoMain( data )
-	# pushToNotion( apiToken , pageId , imageUrl , titleText )
-
-	if postDataMsg[0] == "+":
-		imageUrl_high, imageUrl_low = sixYaoMain( postDataMsg ) # 取得盤面的高解析與低解析圖片連結
-
-
-		# if ( "https:" not in imageUrl_high ) or ( "https:" not in imageUrl_low )   :
-		# 	reply_message = "圖床錯誤"
-		# 	line_bot_api.reply_message(
-		# 			event.reply_token,
-		# 			TextSendMessage( text= reply_message )
-		# 	)
-		# else:
-		# 	img_message = ImageSendMessage(
-		# 			original_content_url= imageUrl_high,  ## 高解析
-		# 			preview_image_url= imageUrl_low		  ## 低解析
-		# 	)
-		# 	line_bot_api.reply_message( event.reply_token, img_message )
+    # LINE圖片處理
+	elif data.startswith("+"):
+	    img_high, img_low = sixYaoMain(data)
 
 
 		# 回覆訊息：同時回傳文字 + 圖片
 		line_bot_api.reply_message(
 			event.reply_token,
 			[
-				TextSendMessage(text="收到"),  # 第一個訊息 可有可無
+				TextSendMessage(text = "收到"),  # 第一個訊息 可有可無
 				ImageSendMessage(             # 第二個訊息 (圖片)
-					original_content_url=imageUrl_high,
-					preview_image_url=imageUrl_low
+					original_content_url = img_high,
+					preview_image_url = img_low
 				)
 			]
 		)
+
+
+
+	else:
+	    # fallback
+	    line_bot_api.reply_message(
+	        event.reply_token,
+	        TextSendMessage(text="未知指令格式")
+	    )
+
+
+
+
+
+	# # 呼叫你的程式
+	# # image_url = sixYaoMain( postDataMsg )
+
+	# # 呼叫上傳notion的程式
+	# # sixYaoMain( data )
+	# # pushToNotion( apiToken , pageId , imageUrl , titleText )
+
+	# if postDataMsg[0] == "+":
+	# 	imageUrl_high, imageUrl_low = sixYaoMain( postDataMsg ) # 取得盤面的高解析與低解析圖片連結
+
+
+	# 	# if ( "https:" not in imageUrl_high ) or ( "https:" not in imageUrl_low )   :
+	# 	# 	reply_message = "圖床錯誤"
+	# 	# 	line_bot_api.reply_message(
+	# 	# 			event.reply_token,
+	# 	# 			TextSendMessage( text= reply_message )
+	# 	# 	)
+	# 	# else:
+	# 	# 	img_message = ImageSendMessage(
+	# 	# 			original_content_url= imageUrl_high,  ## 高解析
+	# 	# 			preview_image_url= imageUrl_low		  ## 低解析
+	# 	# 	)
+	# 	# 	line_bot_api.reply_message( event.reply_token, img_message )
+
+
+	# 	# 回覆訊息：同時回傳文字 + 圖片
+	# 	line_bot_api.reply_message(
+	# 		event.reply_token,
+	# 		[
+	# 			TextSendMessage(text="收到"),  # 第一個訊息 可有可無
+	# 			ImageSendMessage(             # 第二個訊息 (圖片)
+	# 				original_content_url=imageUrl_high,
+	# 				preview_image_url=imageUrl_low
+	# 			)
+	# 		]
+	# 	)
 
 
 
