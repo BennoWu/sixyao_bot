@@ -216,11 +216,13 @@ def handle_message(event):
 	# LINE圖片處理
 	elif inputMsg.startswith("+"):
 		# img_high, img_low = sixYaoMain(data)
+
 		img_high, img_low  = sixYaoMain ( inputMsg , 
 							lineBotId = user_id , 
 							lineBotName = displayName , 
 							userImage = picUrl )
 
+		
 		# 回覆訊息：同時回傳文字 + 圖片
 		line_bot_api.reply_message(
 			event.reply_token,
@@ -438,12 +440,14 @@ def handle_postback(event):
 
 	# LINE圖片處理
 	elif data.startswith("+"):
+		print( "INNNN" )
 		# img_high, img_low = sixYaoMain(data)
 		img_high, img_low  = sixYaoMain ( data , 
 							lineBotId = user_id , 
 							lineBotName = displayName , 
 							userImage = picUrl )
 
+		print( img_high, img_low )
 		# 回覆訊息：同時回傳文字 + 圖片
 		line_bot_api.reply_message(
 			event.reply_token,
