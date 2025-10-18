@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# from pil_draw_work_v01 import *
+from pil_draw_work_v01 import *
 # from pil_draw_work_v02 import *
 # from notion_push import ( pushToNotion as notionPush_pushUp )
 
@@ -688,6 +688,11 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 
 
 
+	build_mode = False
+
+	if fullDataInput[:1] == "+":
+		build_mode = True
+		fullDataInput = fullDataInput[1:]
 
 
 
@@ -960,7 +965,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 	# +XXX//XXXX//XXXXX    	產生圖檔模式
 
 
-	if user_uiStyle == "UA"  and  fullDataInput[:1] == "+":
+	if user_uiStyle == "UA"  and  build_mode == True:
 		## 產生圖片，回傳連結
 		image_url = drawUi_v1(  
 			mainFunction( 
@@ -979,7 +984,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 			notion = notionMode )
 
 		return image_url
-		
+
 		# print( image_url )
 		# if notionMode == True:
 		# 	notionUrl = notionPush_pushUp(  image_url , noteText , token_buf , pageId_buf )
@@ -1095,7 +1100,7 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "+申月戊午日//一人占自久病問過得今年否?//遁之姤卦" )
 	# sixYaoMain( "2024,11,17,21,04//姜舒蕾(許奇峰老婆)何時懷孕?//地天泰之震為雷" ) ## 三合
-
+	sixYaoMain( "+2025/05/08/09/40//1X01$0//在某公司的發展" )
 	# sixYaoMain("2025/05/08/09/40 // 在某公司的發展 //  隨之歸妹")
 	# sixYaoMain( "巳年甲申月乙丑日//占姜小姐胎產吉凶(政閩)//巽為風" )
 	# sixYaoMain( "2025-08-24 13:17//占姜小姐胎產吉凶(陳春霖)//澤水困" )
@@ -1142,7 +1147,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "2025/9/2/14/11 // X1$110 // 傑利漲房租有沒有望" )
 	# sixYaoMain( "++2025/9/17/2/4 // 1$0$00 // 傑利與同學見面錢財吉凶")
 	# sixYaoMain( "乙巳年乙酉月丁亥日//男占小孩突發疾病吉凶//011100" )
-	sixYaoMain("2025/10/02/20/41//恆之解卦//no title" )
+	# sixYaoMain("2025/10/02/20/41//恆之解卦//no title" )
 
 
 	# sixYaoMain( "+2025/8/31/17/1 // 01X0XX // 陳佩吟流年感情吉凶0831") ## 丑月
