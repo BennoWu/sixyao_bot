@@ -30,8 +30,8 @@ googleSheetKey/
 
 # 產生的中間資料
 *.png
-*.jpg
-*.jpeg
+# *.jpg
+# *.jpeg
 *.gif
 *.pdf
 
