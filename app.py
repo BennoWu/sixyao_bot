@@ -213,6 +213,7 @@ def handle_message(event):
 
 
 
+	# LINE圖片處理
 	elif data.startswith("+"):
 		# img_high, img_low = sixYaoMain(data)
 		img_high, img_low  = sixYaoMain ( data , 
@@ -231,16 +232,6 @@ def handle_message(event):
 				)
 			]
 		)
-
-	else:
-		# fallback
-		line_bot_api.reply_message(
-			event.reply_token,
-			TextSendMessage(text="未知指令格式")
-		)
-
-
-
 
 
 
