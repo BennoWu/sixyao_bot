@@ -388,14 +388,32 @@ def pushMsg(msg, user_id = None):
 def handle_postback(event):
 
 	postDataMsg = event.postback.data
-	user_id = event.source.user_id
+	# user_id = event.source.user_id
 	
+
+
+	user_id = event.source.user_id 
+	profile = line_bot_api.get_profile(user_id)
+	displayName = profile.display_name 
+	picUrl = profile.picture_url
+
+
+
+
+
+
+
 
 	data = postDataMsg.replace('\u200b', '')
 
 	# Notion處理
 	if data.startswith("n+"):
 		notion_url = sixYaoMain(data)
+
+		notion_url = sixYaoMain ( data , 
+				lineBotId = user_id , 
+				lineBotName = displayName , 
+				userImage = picUrl )
 
 		line_bot_api.reply_message(
 			event.reply_token,
@@ -406,8 +424,11 @@ def handle_postback(event):
 
 	# LINE圖片處理
 	elif data.startswith("+"):
-		img_high, img_low = sixYaoMain(data)
-
+		# img_high, img_low = sixYaoMain(data)
+		img_high, img_low  = sixYaoMain ( data , 
+							lineBotId = user_id , 
+							lineBotName = displayName , 
+							userImage = picUrl )
 
 		# 回覆訊息：同時回傳文字 + 圖片
 		line_bot_api.reply_message(
