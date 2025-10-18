@@ -954,7 +954,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 	print( "\n")
 
 
-	showBuf = True
+	showBuf = False  ## 上傳時記得OFF掉
 	if notionMode:
 		showBuf = False
 
