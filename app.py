@@ -391,7 +391,7 @@ def handle_postback(event):
 	user_id = event.source.user_id
 	
 
-	data = postDataMsg = event.postback.data.replace('\u200b', '')
+	data = postDataMsg.replace('\u200b', '')
 
 	# Notion處理
 	if data.startswith("n+"):
