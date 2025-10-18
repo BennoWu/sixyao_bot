@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from pil_draw_work_v01 import *
-# from pil_draw_work_v02 import *
+from pil_draw_work_v02 import *
 # from notion_push import ( pushToNotion as notionPush_pushUp )
 
 from flexLayout_tool import *
@@ -1001,23 +1001,25 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 		# 	return image_url
 
 
-	# elif ui_mode == "B":
-	# 	## 產生圖片，回傳連結
-	# 	image_url = drawUi_v2(  
-	# 		mainFunction( 
-	# 			inputData = finalGua ,
-	# 			noteText = preNote + noteText  , 
-	# 			user_mouthZi = dateMonth , 
-	# 			user_dayGanZi = dateDay , 
-	# 			userDefineDate = dateData ), 
+	elif user_uiStyle == "UB"  and  build_mode == True:
+		## 產生圖片，回傳連結
+		image_url = drawUi_v2(  
+			mainFunction( 
+				inputData = finalGua ,
+				noteText = preNote + noteText  , 
+				user_mouthZi = dateMonth , 
+				user_dayGanZi = dateDay , 
+				userDefineDate = dateData ), 
 
-	# 		fontStyle = user_fontStyle, 
-	# 		tipsMode = user_tipsMode, 
-	# 		uiStyle = user_uiStyle , 
+			fontStyle = user_fontStyle, 
+			tipsMode = user_tipsMode, 
+			uiStyle = user_uiStyle , 
 
-	# 		show = showBuf , 
-	# 		savePic = False,
-	# 		notion = notionMode )
+			show = showBuf , 
+			savePic = False,
+			notion = notionMode )
+
+		return image_url
 
 		# print( image_url )
 		# if notionMode == True:
@@ -1150,7 +1152,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "傑利的房貸吉凶//01$X10//2025,8,14,15,10" )
 
 	# sixYaoMain( "2025/08/31/15:48//傑利的房貸吉凶0831//110000" ) ## 九月七日 酉月卯日
-	sixYaoMain( "++2025/9/2/12/37 // 101X0X // 傑利的房貸吉凶0902" ) ## 九月七日 酉月卯日
+	sixYaoMain( "+2025/9/2/12/37 // 101X0X // 傑利的房貸吉凶0902" ) ## 九月七日 酉月卯日
 	# sixYaoMain( "2025/9/2/14/11 // X1$110 // 傑利漲房租有沒有望" )
 	# sixYaoMain( "++2025/9/17/2/4 // 1$0$00 // 傑利與同學見面錢財吉凶")
 	# sixYaoMain( "乙巳年乙酉月丁亥日//男占小孩突發疾病吉凶//011100" )
