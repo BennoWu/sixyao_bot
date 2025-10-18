@@ -402,7 +402,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 
 
 
-	noteSize = 52
+	noteSize = 53
 	one_index = get_cutoff_index( allDataDict['note'] , target_weight = 16 )
 	print( one_index )
 
@@ -438,10 +438,10 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 			final_index = wordingAdj - indexAdj
 
 			print ( wordingAdj , indexAdj)
-			makeText ( (allDataDict['note'][:final_index ] + '\n' + allDataDict['note'][ final_index:]) , twoSideSpace -10 , 72-45-10 , wordingSize = noteSize , wordingFont = pf_TC_light , color = mainColor )  
+			makeText ( (allDataDict['note'][:final_index ] + '\n' + allDataDict['note'][ final_index:]) , twoSideSpace -10 , 72-30-15 , wordingSize = noteSize , wordingFont = pf_TC_light , color = mainColor )  
 
 		else:
-			makeText ( allDataDict['note'] , twoSideSpace -10 , 80-10 , wordingSize = noteSize , wordingFont = pf_TC_light , color = mainColor )  
+			makeText ( allDataDict['note'] , twoSideSpace -10 , 80-15 , wordingSize = noteSize , wordingFont = pf_TC_light , color = mainColor )  
 
 
 	
@@ -935,7 +935,7 @@ if __name__ == '__main__':
 	# drawUi_v1( mainFunction( "01X@@@" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,)
 	# drawUi_v1( mainFunction( "01X$01" ,noteText = "男問今年工作運勢",user_mouthZi = "巳月" , user_dayGanZi = "己丑", userDefineDate = "") , show = True ,)	 ## 三合
 	# drawUi_v1( mainFunction( "0X01X0" , noteText = "男問今年工作運勢" ) )
-	drawUi_v1( mainFunction( "X11001" ,noteText = "測測測測測", userDefineDate = "") , show = True ,) ## 5字	
+	drawUi_v1( mainFunction( "X11001" ,noteText = "測測男問今年工作運勢,測測男問今年工", userDefineDate = "") , show = True ,) ## 5字	
 	# drawUi_v1( mainFunction( "10010$" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,)
 	# drawUi_v1( mainFunction( "111@0X" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,) #6字
 
