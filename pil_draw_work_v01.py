@@ -230,6 +230,17 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 
 
 
+	print( "allDataDict ->> ", allDataDict )
+	print( "fontStyle ->> ", fontStyle )
+	print( "tipsMode ->> ", tipsMode )
+	print( "uiStyle ->> ", uiStyle )
+
+
+
+
+
+
+
 
 	from PIL import Image,ImageFont,ImageDraw,ImageFilter,ImageChops 
 

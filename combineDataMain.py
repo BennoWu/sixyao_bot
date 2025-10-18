@@ -666,6 +666,13 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 		# print( token_buf , pageId_buf )
 		notionAccount = checkNotionAcc( token_buf , pageId_buf )
 
+	print( "user_utc_hour -- " , user_utc_hour )
+	print( "user_uiStyle -- " , user_uiStyle )
+	print( "user_fontStyle -- " , user_fontStyle )
+	print( "user_tipsMode -- " , user_tipsMode )
+	print( "user_notion -- " , user_notion )
+
+
 
 
 
@@ -1100,7 +1107,7 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "+申月戊午日//一人占自久病問過得今年否?//遁之姤卦" )
 	# sixYaoMain( "2024,11,17,21,04//姜舒蕾(許奇峰老婆)何時懷孕?//地天泰之震為雷" ) ## 三合
-	sixYaoMain( "+2025/05/08/09/40//1X01$0//在某公司的發展" )
+	# sixYaoMain( "+2025/05/08/09/40//1X01$0//在某公司的發展" )
 	# sixYaoMain("2025/05/08/09/40 // 在某公司的發展 //  隨之歸妹")
 	# sixYaoMain( "巳年甲申月乙丑日//占姜小姐胎產吉凶(政閩)//巽為風" )
 	# sixYaoMain( "2025-08-24 13:17//占姜小姐胎產吉凶(陳春霖)//澤水困" )
@@ -1143,7 +1150,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "傑利的房貸吉凶//01$X10//2025,8,14,15,10" )
 
 	# sixYaoMain( "2025/08/31/15:48//傑利的房貸吉凶0831//110000" ) ## 九月七日 酉月卯日
-	# sixYaoMain( "++2025/9/2/12/37 // 101X0X // 傑利的房貸吉凶0902" ) ## 九月七日 酉月卯日
+	sixYaoMain( "++2025/9/2/12/37 // 101X0X // 傑利的房貸吉凶0902" ) ## 九月七日 酉月卯日
 	# sixYaoMain( "2025/9/2/14/11 // X1$110 // 傑利漲房租有沒有望" )
 	# sixYaoMain( "++2025/9/17/2/4 // 1$0$00 // 傑利與同學見面錢財吉凶")
 	# sixYaoMain( "乙巳年乙酉月丁亥日//男占小孩突發疾病吉凶//011100" )
