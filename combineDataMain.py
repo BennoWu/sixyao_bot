@@ -666,11 +666,6 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 		# print( token_buf , pageId_buf )
 		notionAccount = checkNotionAcc( token_buf , pageId_buf )
 
-	print( "user_utc_hour -- " , user_utc_hour )
-	print( "user_uiStyle -- " , user_uiStyle )
-	print( "user_fontStyle -- " , user_fontStyle )
-	print( "user_tipsMode -- " , user_tipsMode )
-	print( "user_notion -- " , user_notion )
 
 
 
@@ -970,6 +965,11 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 
 	# command_mode = False
 	# +XXX//XXXX//XXXXX    	產生圖檔模式
+	print( "user_utc_hour -- " , user_utc_hour )
+	print( "user_uiStyle -- " , user_uiStyle )
+	print( "user_fontStyle -- " , user_fontStyle )
+	print( "user_tipsMode -- " , user_tipsMode )
+	print( "user_notion -- " , user_notion )
 
 
 	if user_uiStyle == "UA"  and  build_mode == True:

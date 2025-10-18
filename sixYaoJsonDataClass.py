@@ -311,15 +311,15 @@ if __name__ == '__main__':
 
 
 
-	lineBotId = "two"
-	lineBotName = "啦啦啦"
+	lineBotId = "Temp123"
+	lineBotName = "BBB"
 	userImage = "www.xyz.com/aa/5465465.png"
 
 	# fullDataInput = "set utc 7"
 	# fullDataInput = "set ub"
-	# fullDataInput = "set tips ON"
+	fullDataInput = "set tips ON"
 	# fullDataInput = "set nt none"
-	fullDataInput = "set temp yyyyyyyyyyyyyyy"
+	# fullDataInput = "set temp yyyyyyyyyyyyyyy"
 	# fullDataInput = "set temp none"	
 
 	# from datetime import datetime,timezone,timedelta
