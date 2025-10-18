@@ -393,20 +393,20 @@ def handle_postback(event):
 
 	data = postDataMsg = event.postback.data.replace('\u200b', '')
 
-    # Notion處理
+	# Notion處理
 	if data.startswith("n+"):
-	    notion_url = sixYaoMain(data)
+		notion_url = sixYaoMain(data)
 
-	    line_bot_api.reply_message(
-	        event.reply_token,
-	        TextSendMessage(text= notion_url )
-	    )
+		line_bot_api.reply_message(
+			event.reply_token,
+			TextSendMessage(text= notion_url )
+		)
 
 
 
-    # LINE圖片處理
+	# LINE圖片處理
 	elif data.startswith("+"):
-	    img_high, img_low = sixYaoMain(data)
+		img_high, img_low = sixYaoMain(data)
 
 
 		# 回覆訊息：同時回傳文字 + 圖片
@@ -424,11 +424,11 @@ def handle_postback(event):
 
 
 	else:
-	    # fallback
-	    line_bot_api.reply_message(
-	        event.reply_token,
-	        TextSendMessage(text="未知指令格式")
-	    )
+		# fallback
+		line_bot_api.reply_message(
+			event.reply_token,
+			TextSendMessage(text="未知指令格式")
+		)
 
 
 
