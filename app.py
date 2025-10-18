@@ -142,6 +142,8 @@ def handle_message(event):
 	##收到的訊息
 	inputMsg = event.message.text
 
+	inputMsg = inputMsg.replace( '\u200b' , '' )
+	
 	## json建立
 	jsonData = jsonDataClass( linebotId = user_id  ,
 								linebotUserName = displayName ,
