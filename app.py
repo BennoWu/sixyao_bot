@@ -320,11 +320,11 @@ def handle_image_message(event):
 
 	# Flex message的容器，把寫好的json放入就可以變成介面，之前的寫法太土，這次改好看一點
 	line_bot_api.reply_message(
-	    event.reply_token,
-	    FlexSendMessage(
-	        alt_text='< 裝卦UI >',
-	        contents= ui_cmd_dict   # 直接放轉好的 dict
-	    )
+		event.reply_token,
+		FlexSendMessage(
+			alt_text='< 裝卦UI >',
+			contents= ui_cmd_dict   # 直接放轉好的 dict
+		)
 	)
 
 
@@ -366,15 +366,18 @@ def pushMsg(msg, user_id = None):
 @handler.add(PostbackEvent)
 def handle_postback(event):
 
-    postDataMsg = event.postback.data
-    user_id = event.source.user_id
-    
-    # 呼叫你的程式
-    image_url = sixYaoMain( postDataMsg )
+	postDataMsg = event.postback.data
+	user_id = event.source.user_id
+	
+	postDataMsg = postDataMsg.replace( '\u200b' , '' )
 
-    # 呼叫上傳notion的程式
-    # sixYaoMain( data )
-    # pushToNotion( apiToken , pageId , imageUrl , titleText )
+
+	# 呼叫你的程式
+	image_url = sixYaoMain( postDataMsg )
+
+	# 呼叫上傳notion的程式
+	# sixYaoMain( data )
+	# pushToNotion( apiToken , pageId , imageUrl , titleText )
 
 	if postDataMsg[0] == "+":
 		imageUrl_high, imageUrl_low = sixYaoMain( postDataMsg ) # 取得盤面的高解析與低解析圖片連結
@@ -394,17 +397,17 @@ def handle_postback(event):
 		# 	line_bot_api.reply_message( event.reply_token, img_message )
 
 
-	    # 回覆訊息：同時回傳文字 + 圖片
-	    line_bot_api.reply_message(
-	        event.reply_token,
-	        [
-	            TextSendMessage(text="收到"),  # 第一個訊息 可有可無
-	            ImageSendMessage(             # 第二個訊息 (圖片)
-	                original_content_url=imageUrl_high,
-	                preview_image_url=imageUrl_low
-	            )
-	        ]
-	    )
+		# 回覆訊息：同時回傳文字 + 圖片
+		line_bot_api.reply_message(
+			event.reply_token,
+			[
+				TextSendMessage(text="收到"),  # 第一個訊息 可有可無
+				ImageSendMessage(             # 第二個訊息 (圖片)
+					original_content_url=imageUrl_high,
+					preview_image_url=imageUrl_low
+				)
+			]
+		)
 
 
 
