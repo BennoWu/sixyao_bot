@@ -143,7 +143,7 @@ def handle_message(event):
 	inputMsg = event.message.text
 
 	inputMsg = inputMsg.replace( '\u200b' , '' )
-	
+
 	## json建立
 	jsonData = jsonDataClass( linebotId = user_id  ,
 								linebotUserName = displayName ,
@@ -210,6 +210,36 @@ def handle_message(event):
 			event.reply_token,
 			TextSendMessage(text= returnMsg  )
 		)
+
+
+
+	elif data.startswith("+"):
+		# img_high, img_low = sixYaoMain(data)
+		img_high, img_low  = sixYaoMain ( data , 
+							lineBotId = user_id , 
+							lineBotName = displayName , 
+							userImage = picUrl )
+
+		# 回覆訊息：同時回傳文字 + 圖片
+		line_bot_api.reply_message(
+			event.reply_token,
+			[
+				TextSendMessage(text = "收到"),  # 第一個訊息 可有可無
+				ImageSendMessage(             # 第二個訊息 (圖片)
+					original_content_url = img_high,
+					preview_image_url = img_low
+				)
+			]
+		)
+
+	else:
+		# fallback
+		line_bot_api.reply_message(
+			event.reply_token,
+			TextSendMessage(text="未知指令格式")
+		)
+
+
 
 
 
@@ -392,19 +422,10 @@ def handle_postback(event):
 	postDataMsg = event.postback.data
 	# user_id = event.source.user_id
 	
-
-
 	user_id = event.source.user_id 
 	profile = line_bot_api.get_profile(user_id)
 	displayName = profile.display_name 
 	picUrl = profile.picture_url
-
-
-
-
-
-
-
 
 	data = postDataMsg.replace('\u200b', '')
 
