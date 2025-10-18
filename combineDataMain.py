@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from pil_draw_work_v01 import *
-from pil_draw_work_v02 import *
+# from pil_draw_work_v02 import *
 # from notion_push import ( pushToNotion as notionPush_pushUp )
 
 from flexLayout_tool import *
@@ -1001,25 +1001,25 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 		# 	return image_url
 
 
-	elif user_uiStyle == "UB"  and  build_mode == True:
-		## 產生圖片，回傳連結
-		image_url = drawUi_v2(  
-			mainFunction( 
-				inputData = finalGua ,
-				noteText = preNote + noteText  , 
-				user_mouthZi = dateMonth , 
-				user_dayGanZi = dateDay , 
-				userDefineDate = dateData ), 
+	# elif user_uiStyle == "UB"  and  build_mode == True:
+	# 	## 產生圖片，回傳連結
+	# 	image_url = drawUi_v2(  
+	# 		mainFunction( 
+	# 			inputData = finalGua ,
+	# 			noteText = preNote + noteText  , 
+	# 			user_mouthZi = dateMonth , 
+	# 			user_dayGanZi = dateDay , 
+	# 			userDefineDate = dateData ), 
 
-			fontStyle = user_fontStyle, 
-			tipsMode = user_tipsMode, 
-			uiStyle = user_uiStyle , 
+	# 		fontStyle = user_fontStyle, 
+	# 		tipsMode = user_tipsMode, 
+	# 		uiStyle = user_uiStyle , 
 
-			show = showBuf , 
-			savePic = False,
-			notion = notionMode )
+	# 		show = showBuf , 
+	# 		savePic = False,
+	# 		notion = notionMode )
 
-		return image_url
+	# 	return image_url
 
 		# print( image_url )
 		# if notionMode == True:
