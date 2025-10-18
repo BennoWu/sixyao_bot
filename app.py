@@ -214,9 +214,9 @@ def handle_message(event):
 
 
 	# LINE圖片處理
-	elif data.startswith("+"):
+	elif inputMsg.startswith("+"):
 		# img_high, img_low = sixYaoMain(data)
-		img_high, img_low  = sixYaoMain ( data , 
+		img_high, img_low  = sixYaoMain ( inputMsg , 
 							lineBotId = user_id , 
 							lineBotName = displayName , 
 							userImage = picUrl )
