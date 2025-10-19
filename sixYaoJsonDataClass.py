@@ -169,7 +169,7 @@ class jsonDataClass:
 		comList = command.split( "/" )
 		print( "> Set:",command , comList )
 
-		if "utc" in command:   # set utc 5
+		if "utc" in command.lower():   # set utc 5
 			print ( "Set:" , comList[1] , comList[2]   )
 			try:
 				if str(abs(int( comList[2] ))).isdigit() == True:
@@ -179,7 +179,7 @@ class jsonDataClass:
 				print( comList[1] + "要是數字")
 
 
-		elif "temp" in command:   # set temp xxxxxx
+		elif "temp" in command.lower():   # set temp xxxxxx
 			fullCmd = org_command.replace( "set temp ","" )
 			print ( "Set:" , comList[1] , "---", fullCmd   )
 
@@ -190,7 +190,7 @@ class jsonDataClass:
 				self.temp =  fullCmd
 
 
-		elif "set" in comList[0]:
+		elif "set" in comList[0].lower():
 			# print( comList[1] )
 			# if comList[-1].lower() in ["ua","ub","uc","fa","fb","fc","on","off","full","lite"]:
 			
@@ -317,7 +317,7 @@ if __name__ == '__main__':
 
 	# fullDataInput = "set utc 7"
 	# fullDataInput = "set ub"
-	fullDataInput = "set tips ON"
+	fullDataInput = "Set tips ON"
 	# fullDataInput = "set nt none"
 	# fullDataInput = "set temp yyyyyyyyyyyyyyy"
 	# fullDataInput = "set temp none"	

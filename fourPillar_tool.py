@@ -558,201 +558,6 @@ def checkMsgFun( msg , utc = 8 ):
 
 
 
-def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # runtime為跑出幾條
-
-	# currentTime = "2023/5/17/12/00" ## 格式完整
-	# currentTime ="2023/5/17/"     --> "2023/5/17/00/00" #補上後面的 00/00
-	# currentTime ="2023/5/17/15"  --> "2023/5/17/15/00" #補上後面的 00/00
-	# format_time = lambda s: "/".join((s.split("/") + ["00", "00"])[:5])
-	# print( "CTT")
-	# print(currentTime)
-
-	currentTime = (currentTime.replace("  "," ")
-		.replace("  "," ")
-		.replace(",","/")
-		.replace(" ","/")
-		.replace(".","/")
-		.replace("-","/")        # ✅ 加上這一行
-		# .replace("時盤","時")
-		# .replace("刻盤","刻"))
-		)
-	if currentTime:
-		format_time = lambda s: "/".join((s.strip("/").split("/") + ["00", "00"])[:5])
-		currentTime = format_time(currentTime)  # 把結果存回去
-	dayMode = dayMode.lower()
-	import datetime
-	timeList = []
-	# print( currentTime )
-	nowTime = checkMsgFun( currentTime ) ## 不輸入則取現時，輸入方式同起盤
-	# ('時盤', '2023/05/13/02/26')
-	# print( nowTime )
-
-	inDate = nowTime ##'2023/05/13/02/26'
-
-	inDateHour = int(inDate.split("/")[-2])
-	inDateMin  = int(inDate.split("/")[-1]	)
-# timedelta([days[, seconds[, microseconds[, milliseconds[, minutes[,
-# hours[, weeks]]]]]]])
-
-	dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
-	out = ( dt + datetime.timedelta( minutes = int(inDateMin)*-1 )).strftime("%Y/%m/%d/%H/%M")  # 2023/05/01/03/37 -> 2023/05/01/03/00
-
-	inDate = out
-
-
-	if inDateHour%2 == 0:
-		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
-		out = ( dt + datetime.timedelta( hours= -5 )).strftime("%Y/%m/%d/%H/%M") # 本為減一，但會從下一時辰開始算，對照不易，所以改為減三(早一時辰)
-		inDate = out
-	else:
-		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
-		out = ( dt + datetime.timedelta( hours= -4 )).strftime("%Y/%m/%d/%H/%M")
-		inDate = out
-
-	if (dayMode == "d") or (dayMode == "jc"): ## 日 或 節氣
-		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")		# 把起點提前一天
-		out = ( dt + datetime.timedelta( days=-1 )).strftime("%Y/%m/%d/%H/%M")
-		inDate = out	
-
-	if dayMode == "m":
-		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")		# 把起點提前一天 // 只輸出年月柱  '癸卯-癸亥'
-		out = ( dt + datetime.timedelta( days=-30 )).strftime("%Y/%m/%d/%H/%M") 
-		inDate = out	
-
-
-
-# in_date = '2023-3-31-22-50'
-	fp_buf = getFourPillar( inDate ,  True  )
-	# print( fp_buf )
- #                         # ('時盤', '2022/12/22/17/13')
-	# for each in range( runtime ):
-	add = 0
-	while True:
-		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
-
-		if dayMode == "h": ## 四柱全部出現模式，每個進程為一時辰(hours=2)  '2025/04/09/15:00'
-			out = ( dt + datetime.timedelta( hours=2 )).strftime("%Y/%m/%d/%H/%M")
-
-		if (dayMode == "d") or (dayMode == "jc"):  ## 年，月，日柱模式，每個進程為一天( days=1 )  '2025/04/09/15:00'
-			out = ( dt + datetime.timedelta( days=1 )).strftime("%Y/%m/%d/%H/%M")
-
-
-
-		# if dayMode == "jc":  ## 節氣模式，每個進程約15天，但因天數不固定，則用日來跑，跑到有節氣當日出現才加一( days=1 )  '2025/04/09/15:00'
-		# 	out = ( dt + datetime.timedelta( days=1 )).strftime("%Y/%m/%d/%H/%M")
-
-
-
-		if dayMode == "m":  ## 年，月柱模式，每個進程跳一個月柱 ( 約30天 )  ['乙巳-辛巳', '2025/05/05']
-			out = ( dt + datetime.timedelta( days= 1 )).strftime("%Y/%m/%d/%H/%M")
-			nowMonth = getFourPillar( out ,  True  )[2][1] ## 取得月柱
-			for foo in range( 1,50):
-				out = ( dt + datetime.timedelta( days= foo )).strftime("%Y/%m/%d/%H/%M")
-				if nowMonth != getFourPillar( out ,  True  )[2][1] :
-					# print (  nowMonth , getFourPillar( out ,  True  )[2][1] , getFourPillar( out ,  True  )[2]  )
-					break
-
-
-
-
-		inDate = out
-		# print( inDate)
-		fp_buf = getFourPillar( inDate ,  True  )
-	 #                         # ('時盤', '2022/12/22/17/13')
-		# print( fp_buf )	 
-		# ('2026/3/26/23:00', '二月初八', ['丙午', '辛卯', '庚子', '丙子'], ['春分', '>', '清明'], '(四)', '23:00')
-
-		lightDate  = fp_buf[0] ## 陽曆日期時間 '2026/3/27/23:00'
-		fourPillar = fp_buf[2] ## 農曆日期 '二月初九'
-
-		jeChi_buf =  fp_buf[3][0] if fp_buf[3][1] == '!' else ''	## 節氣
-			
-		week       = fp_buf[4] ## '(四)'
-
-
-		if (dayMode == "d") or (dayMode == "jc"):
-			fourPillar = fourPillar[:-1]
-			lightDate  = lightDate[:-6]
-
-		elif dayMode == "m":
-			fourPillar = fourPillar[:-1]
-			lightDate  = lightDate[:-6]
-
-		# elif dayMode == "jc":
-		# 	if jeChi_buf:
-		# 		fourPillar = fourPillar[:-1]
-		# 		lightDate  = lightDate[:-6]
-		# 		eachList = [ '-'.join(fourPillar)  , lightDate  , jeChi_buf ]
-		# 	else:
-		# 		continue
-
-		eachList = [ '-'.join(fourPillar)  , lightDate , week  , jeChi_buf ]
-		# print( eachList) 
-		# ['乙巳-辛巳-庚寅', '2025/05/21', '小滿'] 年月日柱，陽曆，陰曆, 節氣
-
-		if len(timeList) > runtime:
-			break
-
-		if index != "":
-			if index in " ".join(eachList):
-				# print( " ".join(eachList))
-				timeList.append( eachList )
-
-		elif dayMode == "jc":
-			# print( eachList )
-			if jeChi_buf:
-				timeList.append( eachList )
-		else:
-			timeList.append( eachList )
-
-			# if (index == "節氣") or (index.lower() == "jc") or (index.lower() == "jechi"):
-
-	# ['乙巳-甲申-戊申', '2025/08/07', '立秋']
-	return timeList
-
-
-# def PPPPP_optimized(currentTime="", dayMode="", index="", runtime=24):
-#     timeList = []
-#     inDate = checkMsgFun(currentTime)
-    
-#     # 設定跳躍策略
-#     jump_config = {
-#         "h": (2, 0),      # 時辰：跳 2 小時，不需要回掃
-#         "d": (28, 3),     # 日：跳 28 天，回掃 3 天
-#         "jc": (13, 5),    # 節氣：跳 13 天，回掃 5 天
-#         "m": (26, 5),     # 月：跳 26 天，回掃 5 天
-#     }
-    
-#     jump_unit, scan_range = jump_config.get(dayMode, (1, 0))
-    
-#     dt = datetime.strptime(inDate, "%Y/%m/%d/%H/%M")
-    
-#     while len(timeList) < runtime:
-#         # 粗跳
-#         if dayMode == "h":
-#             dt += timedelta(hours=jump_unit)
-#         else:
-#             dt += timedelta(days=jump_unit)
-        
-#         # 精掃
-#         found = False
-#         for i in range(scan_range + 1):
-#             check_dt = dt - timedelta(days=i)
-#             fp_buf = getFourPillar(check_dt.strftime("%Y/%m/%d/%H/%M"), True)
-            
-#             # 檢查是否符合條件（原本的邏輯）
-#             if check_condition(fp_buf, dayMode, index):
-#                 timeList.append(format_result(fp_buf))
-#                 dt = check_dt  # 從這裡繼續
-#                 found = True
-#                 break
-        
-#         if not found:
-#             dt += timedelta(days=1)  # 保險：如果沒找到就往前挪一天
-    
-#     return timeList
-
-
 
 
 
@@ -848,11 +653,279 @@ def checkYear ( yearData = "" ):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # runtime為跑出幾條
+
+	# currentTime = "2023/5/17/12/00" ## 格式完整
+	# currentTime ="2023/5/17/"     --> "2023/5/17/00/00" #補上後面的 00/00
+	# currentTime ="2023/5/17/15"  --> "2023/5/17/15/00" #補上後面的 00/00
+	# format_time = lambda s: "/".join((s.split("/") + ["00", "00"])[:5])
+	# print( "CTT")
+	# print(currentTime)
+
+	currentTime = (currentTime.replace("  "," ")
+		.replace("  "," ")
+		.replace(",","/")
+		.replace(" ","/")
+		.replace(".","/")
+		.replace("-","/")        # ✅ 加上這一行
+		# .replace("時盤","時")
+		# .replace("刻盤","刻"))
+		)
+	if currentTime:
+		format_time = lambda s: "/".join((s.strip("/").split("/") + ["00", "00"])[:5])
+		currentTime = format_time(currentTime)  # 把結果存回去
+	dayMode = dayMode.lower()
+	import datetime
+	timeList = []
+	# print( currentTime )
+	nowTime = checkMsgFun( currentTime ) ## 不輸入則取現時，輸入方式同起盤
+	# ('時盤', '2023/05/13/02/26')
+	# print( nowTime )
+
+	inDate = nowTime ##'2023/05/13/02/26'
+
+	inDateHour = int(inDate.split("/")[-2])
+	inDateMin  = int(inDate.split("/")[-1]	)
+# timedelta([days[, seconds[, microseconds[, milliseconds[, minutes[,
+# hours[, weeks]]]]]]])
+
+	dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
+	out = ( dt + datetime.timedelta( minutes = int(inDateMin)*-1 )).strftime("%Y/%m/%d/%H/%M")  # 2023/05/01/03/37 -> 2023/05/01/03/00
+
+	inDate = out
+
+
+	if inDateHour%2 == 0:
+		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
+		out = ( dt + datetime.timedelta( hours= -5 )).strftime("%Y/%m/%d/%H/%M") # 本為減一，但會從下一時辰開始算，對照不易，所以改為減三(早一時辰)
+		inDate = out
+	else:
+		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
+		out = ( dt + datetime.timedelta( hours= -4 )).strftime("%Y/%m/%d/%H/%M")
+		inDate = out
+
+	if (dayMode == "d") or (dayMode == "jc"): ## 日 或 節氣
+		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")		# 把起點提前一天
+		out = ( dt + datetime.timedelta( days=-1 )).strftime("%Y/%m/%d/%H/%M")
+		inDate = out	
+
+	if dayMode == "m":
+		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")		# 把起點提前一天 // 只輸出年月柱  '癸卯-癸亥'
+		out = ( dt + datetime.timedelta( days=-30 )).strftime("%Y/%m/%d/%H/%M") 
+		inDate = out	
+
+
+
+# in_date = '2023-3-31-22-50'
+	fp_buf = getFourPillar( inDate ,  True  )
+	# print( fp_buf )
+ #                         # ('時盤', '2022/12/22/17/13')
+	# for each in range( runtime ):
+	add = 0
+	while True:
+		dt = datetime.datetime.strptime(inDate, "%Y/%m/%d/%H/%M")
+
+		if dayMode == "h":   # 時辰模式
+		    out = (dt + timedelta(hours=2)).strftime("%Y/%m/%d/%H/%M")
+
+		elif dayMode == "d":  # 日模式（節氣和月模式已經在下面各自處理了）
+		    out = (dt + timedelta(days=1)).strftime("%Y/%m/%d/%H/%M")
+
+		# 月模式 (m) 和節氣模式 (jc) 在後面的 if 區塊處理
+
+		# if dayMode == "jc":  ## 節氣模式，每個進程約15天，但因天數不固定，則用日來跑，跑到有節氣當日出現才加一( days=1 )  '2025/04/09/15:00'
+		# 	out = ( dt + datetime.timedelta( days=1 )).strftime("%Y/%m/%d/%H/%M")
+
+		# 660次
+		# add = 0
+		# if dayMode == "m":  ## 年，月柱模式，每個進程跳一個月柱 ( 約30天 )  ['乙巳-辛巳', '2025/05/05']
+		# 	out = ( dt + datetime.timedelta( days= 1 )).strftime("%Y/%m/%d/%H/%M")
+		# 	# print( out )
+		# 	nowMonth = getFourPillar( out ,  True  )[2][1] ## 取得月柱
+		# 	# print( "nowMonth - " , nowMonth )
+		# 	for foo in range( 1,50):
+		# 		out = ( dt + datetime.timedelta( days= foo )).strftime("%Y/%m/%d/%H/%M")
+		# 		# print( getFourPillar( out ,  True  )[2][1])
+		# 		add += 1
+		# 		if nowMonth != getFourPillar( out ,  True  )[2][1] :
+		# 			# print (  nowMonth , getFourPillar( out ,  True  )[2][1] , getFourPillar( out ,  True  )[2]  )
+		# 			break
+		if dayMode == "m":  ## 年，月柱模式，每個進程跳一個月柱 ( 約30天 )  ['乙巳-辛巳', '2025/05/05']
+			
+			if len(timeList) == 0:  # 第一次搜尋：用土方法一天一天找
+				nowMonth = getFourPillar(inDate, True)[2][1]  ## 取得當前月柱
+				for foo in range(1, 50):
+					out = (dt + datetime.timedelta(days=foo)).strftime("%Y/%m/%d/%H/%M")
+					add += 1
+					if nowMonth != getFourPillar(out, True)[2][1]:
+						break
+			
+			else:  # 第二次之後：先跳 27 天，再微調
+				# 先跳 27 天
+				temp_date = (dt + datetime.timedelta(days=27)).strftime("%Y/%m/%d/%H/%M")
+				dt_temp = datetime.datetime.strptime(temp_date, "%Y/%m/%d/%H/%M")
+				nowMonth = getFourPillar(temp_date, True)[2][1]  ## 取得跳躍後的月柱
+				
+				# 再從第 28 天開始微調找換月日
+				for foo in range(1, 6):  # 檢查 28, 29, 30, 31, 32 天
+					out = (dt_temp + datetime.timedelta(days=foo)).strftime("%Y/%m/%d/%H/%M")
+					add += 1
+					if nowMonth != getFourPillar(out, True)[2][1]:
+						break
+
+
+		if dayMode == "jc":  ## 節氣模式，每個進程約15天
+			
+			if len(timeList) == 0:  # 第一次搜尋：一天一天找第一個節氣
+				for foo in range(1, 20):
+					out = (dt + datetime.timedelta(days=foo)).strftime("%Y/%m/%d/%H/%M")
+					fp_check = getFourPillar(out, True)
+					add += 1
+					if fp_check[3][1] == '!':  # 找到節氣
+						break
+			
+			else:  # 第二次之後：先跳 13 天，再微調
+				# 先跳 13 天
+				temp_date = (dt + datetime.timedelta(days=13)).strftime("%Y/%m/%d/%H/%M")
+				dt_temp = datetime.datetime.strptime(temp_date, "%Y/%m/%d/%H/%M")
+				
+				# 再從第 14 天開始微調找節氣
+				for foo in range(1, 5):  # 檢查 14, 15, 16, 17 天
+					out = (dt_temp + datetime.timedelta(days=foo)).strftime("%Y/%m/%d/%H/%M")
+					fp_check = getFourPillar(out, True)
+					add += 1
+					if fp_check[3][1] == '!':  # 找到節氣
+						break
+
+
+				
+
+		# add = 0
+		inDate = out
+		# print( inDate)
+		fp_buf = getFourPillar( inDate ,  True  )
+	 #                         # ('時盤', '2022/12/22/17/13')
+		# print( fp_buf )	 
+		# ('2026/3/26/23:00', '二月初八', ['丙午', '辛卯', '庚子', '丙子'], ['春分', '>', '清明'], '(四)', '23:00')
+
+		lightDate  = fp_buf[0] ## 陽曆日期時間 '2026/3/27/23:00'
+		fourPillar = fp_buf[2] ## 農曆日期 '二月初九'
+
+		jeChi_buf =  fp_buf[3][0] if fp_buf[3][1] == '!' else ''	## 節氣
+			
+		week       = fp_buf[4] ## '(四)'
+
+
+		if (dayMode == "d") or (dayMode == "jc"):
+			fourPillar = fourPillar[:-1]
+			lightDate  = lightDate[:-6]
+
+		elif dayMode == "m":
+			fourPillar = fourPillar[:-1]
+			lightDate  = lightDate[:-6]
+
+		# elif dayMode == "jc":
+		# 	if jeChi_buf:
+		# 		fourPillar = fourPillar[:-1]
+		# 		lightDate  = lightDate[:-6]
+		# 		eachList = [ '-'.join(fourPillar)  , lightDate  , jeChi_buf ]
+		# 	else:
+		# 		continue
+
+		eachList = [ '-'.join(fourPillar)  , lightDate , week  , jeChi_buf ]
+		# print( eachList) 
+		# ['乙巳-辛巳-庚寅', '2025/05/21', '小滿'] 年月日柱，陽曆，陰曆, 節氣
+
+		if len(timeList) > runtime:
+			break
+
+		if index != "":
+			if index in " ".join(eachList):
+				# print( " ".join(eachList))
+				timeList.append( eachList )
+		# elif dayMode == "jc":
+		# 	# print( eachList )
+		# 	add += 1
+		# 	if jeChi_buf:
+		# 		print( add ) ## 20, 313次
+		# 		# add = 0
+		# 		timeList.append( eachList )
+		else:
+			timeList.append( eachList )
+
+			# if (index == "節氣") or (index.lower() == "jc") or (index.lower() == "jechi"):
+
+	# ['乙巳-甲申-戊申', '2025/08/07', '立秋']
+	print( "迴圈次數:",add )
+	return timeList
+
+
+# def PPPPP_optimized(currentTime="", dayMode="", index="", runtime=24):
+#     timeList = []
+#     inDate = checkMsgFun(currentTime)
+	
+#     # 設定跳躍策略
+#     jump_config = {
+#         "h": (2, 0),      # 時辰：跳 2 小時，不需要回掃
+#         "d": (28, 3),     # 日：跳 28 天，回掃 3 天
+#         "jc": (13, 5),    # 節氣：跳 13 天，回掃 5 天
+#         "m": (26, 5),     # 月：跳 26 天，回掃 5 天
+#     }
+	
+#     jump_unit, scan_range = jump_config.get(dayMode, (1, 0))
+	
+#     dt = datetime.strptime(inDate, "%Y/%m/%d/%H/%M")
+	
+#     while len(timeList) < runtime:
+#         # 粗跳
+#         if dayMode == "h":
+#             dt += timedelta(hours=jump_unit)
+#         else:
+#             dt += timedelta(days=jump_unit)
+		
+#         # 精掃
+#         found = False
+#         for i in range(scan_range + 1):
+#             check_dt = dt - timedelta(days=i)
+#             fp_buf = getFourPillar(check_dt.strftime("%Y/%m/%d/%H/%M"), True)
+			
+#             # 檢查是否符合條件（原本的邏輯）
+#             if check_condition(fp_buf, dayMode, index):
+#                 timeList.append(format_result(fp_buf))
+#                 dt = check_dt  # 從這裡繼續
+#                 found = True
+#                 break
+		
+#         if not found:
+#             dt += timedelta(days=1)  # 保險：如果沒找到就往前挪一天
+	
+#     return timeList
+
 if __name__ == '__main__':
 
+	# PPPPP ( currentTime = "2025-09-15" )
+	getList =  PPPPP ( currentTime = "2025-09-15" , dayMode = "jc" , runtime = 20 ) 
 	# getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
-	# for i in getList:
-	# 	print(i)	
+	for i in getList:
+		print(i)	
 
 
 	# print( getNowTime() )
@@ -866,7 +939,6 @@ if __name__ == '__main__':
 	# print()
 	# print(fourPillarToDateMain( inputDate ="乙巳,辰月,庚戌,申"))
 
-	PPPPP ( currentTime = "2025-09-15" )
 	# fourPillarToDateMain( inputDate ="庚子,甲申,乙未,丁丑"  )
 	# getNowTime()
 

@@ -312,6 +312,13 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 	lineColor = subGray
 	twoSideSpace = 70
 
+
+	## 藍色外框
+	def draw_SquareFull ( hight = 560 , hightSize = 926 , sideSpace = twoSideSpace , roundSize = 35 , fillColor = lightGray , outlineColor = None ,  LineWidth = 0 ):
+		draw.rectangle([ sideSpace , hight , screenWidth - sideSpace  , hight + hightSize ], fill = fillColor, width = LineWidth , outline = outlineColor )
+
+
+
 		# 分割橫線
 	def draw_H_line ( hight = 427  , sideSpace = twoSideSpace , color = lineColor , LineWidth = 2 ):
 		draw.line((  sideSpace , hight , screenWidth - sideSpace , hight ), fill= color, width = LineWidth )
@@ -370,12 +377,15 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 	mainSquareHight = 560
 	roundSquare (  hight = mainSquareHight , hightSize = 873 , sideSpace = twoSideSpace+4 , fillColor = "#E8E9EA" , outlineColor = None , LineWidth = 4 ) 
 
+
+
+
 	## 下方圓角橫框
 	roundSquare (  hight = screenHight-268 , hightSize = 90 , sideSpace = twoSideSpace+3 , fillColor = None , outlineColor = "#777777" , LineWidth = 4 )
 
 	## 最大圓角邊框
-	roundSquare (  hight = 10 , hightSize = screenHight-18, sideSpace = 10 , fillColor = None , outlineColor = "#777777" , LineWidth = 3 )
-
+	# draw_SquareFull (  hight = 0 , hightSize = screenHight, sideSpace = 1 , fillColor = None , outlineColor = blue_color , LineWidth = 16 )
+	roundSquare (  hight = 8 , hightSize = screenHight-18, sideSpace = 8 , fillColor = None , outlineColor = "#888888" , LineWidth = 8 )
 
 
 
@@ -708,7 +718,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 	startLineHight =  mainSquareHight + 873   # 起始基礎高度(最低)
 	hightBuf = -14
 
-	yaoFont = pf_TC_medium
+	yaoFont = pf_TC_bold
 
 
 	##  從最下面開始
