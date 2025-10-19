@@ -795,7 +795,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 
 			if noteSwitch == True:
 				## 分數小字
-				makeText ( allDataDict['hide_naGia_rank'][row_id]  , twoSideSpace + 160 , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
+				makeText ( allDataDict['hide_naGia_rank'][row_id]  , twoSideSpace + 156 , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
 
 
 
