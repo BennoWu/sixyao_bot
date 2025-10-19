@@ -169,11 +169,22 @@ def getTypeColorC( inputItem ):
 	threeHo_colorC = "#aaaaaa"
 	threeHo_colorD = "#8caec4"
 
-	lite_colorA = "#d3e2da"
-	lite_colorB = "#d8c0c0"
-	lite_colorC = "#bbbbbb"
-	lite_colorD = "#ccd9e2"
-	print( "^^^^^", colorType ,threeHoType )
+
+	lite_colorA = "#a3c4b4"
+	lite_colorB = "#d39f9f"
+	lite_colorC = "#aaaaaa"
+	lite_colorD = "#8caec4"
+
+
+	# lite_colorA = "#d3e2da"
+	# lite_colorB = "#d8c0c0"
+	# lite_colorC = "#bbbbbb"
+	# lite_colorD = "#ccd9e2"
+
+
+
+
+	# print( "^^^^^", colorType ,threeHoType )
 
 	if threeHoType == "O":
 		if inputItem[1] == "a":
@@ -219,7 +230,7 @@ def getTypeColorC( inputItem ):
 
 										  # "uiStyle" = "CB", "fontStyle" = "Fb","tipsMode" = "ON"
 
-def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", uiStyle = "UA" ,  show = True , savePic = False , notion = False ):
+def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", uiStyle = "UA" ,  show = True , savePic = False , notion = False ):
 
 
 	if tipsMode.lower() == "on":
@@ -281,7 +292,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 	titleGray =  "#B1B1B1"  ## 四柱用的灰色
 	timeColor = "#F9AE3B"  ## 右上時間橘黃色
 
-	subGray = "#666666"
+	subGray = "#656565"
 
 
 
@@ -307,7 +318,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 
 	draw_H_line ( hight = 155 )
 	draw_H_line ( hight = 422 )
-	draw_H_line ( hight = screenHight - 120 )
+	draw_H_line ( hight = screenHight - 130 )
 
 	# # 直槓 |||||||
 	# def draw_InfoLine ( center =0  , hight = 270   , size = wordingSize  , color = mainColor ,lineWidth= 5 ):
@@ -358,11 +369,12 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 	## 淺色圓角大框底色"#E8E9EA"
 	mainSquareHight = 560
 	roundSquare (  hight = mainSquareHight , hightSize = 873 , sideSpace = twoSideSpace+4 , fillColor = "#E8E9EA" , outlineColor = None , LineWidth = 4 ) 
+
 	## 下方圓角橫框
-	roundSquare (  hight = screenHight-268 , hightSize = 90 , sideSpace = twoSideSpace+3 , fillColor = None , outlineColor = "#8F999E" , LineWidth = 4 )
+	roundSquare (  hight = screenHight-268 , hightSize = 90 , sideSpace = twoSideSpace+3 , fillColor = None , outlineColor = "#777777" , LineWidth = 4 )
 
 	## 最大圓角邊框
-	roundSquare (  hight = 10 , hightSize = screenHight-18, sideSpace = 10 , fillColor = None , outlineColor = "#8F999E" , LineWidth = 3 )
+	roundSquare (  hight = 10 , hightSize = screenHight-18, sideSpace = 10 , fillColor = None , outlineColor = "#777777" , LineWidth = 3 )
 
 
 
@@ -402,8 +414,8 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 
 
 
-	noteSize = 53
-	one_index = get_cutoff_index( allDataDict['note'] , target_weight = 16 )
+	noteSize = 55
+	one_index = get_cutoff_index( allDataDict['note'] , target_weight = 15 )
 	print( one_index )
 
 	if allDataDict['note'] != "XXX":
@@ -438,7 +450,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 			final_index = wordingAdj - indexAdj
 
 			print ( wordingAdj , indexAdj)
-			makeText ( (allDataDict['note'][:final_index ] + '\n' + allDataDict['note'][ final_index:]) , twoSideSpace -10 , 72-30-15 , wordingSize = noteSize , wordingFont = pf_TC_light , color = mainColor )  
+			makeText ( (allDataDict['note'][:final_index ] + '\n' + allDataDict['note'][ final_index:]) , twoSideSpace -10 , 72-35-15 , wordingSize = noteSize , wordingFont = pf_TC_light , color = mainColor )  
 
 		else:
 			makeText ( allDataDict['note'] , twoSideSpace -10 , 80-15 , wordingSize = noteSize , wordingFont = pf_TC_light , color = mainColor )  
@@ -506,14 +518,14 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 
 			# makeText ( "["+allDataDict['jeChi'][0]+ "]"+ "-" + allDataDict['jeChi'][2]   , twoSideSpace + 324-10  , 348 , wordingSize = 41 , wordingFont = pf_TC_medium , color = mainColor )
 		else:
-			jeChiBuf = allDataDict['jeChi'][0]+ ">" + allDataDict['jeChi'][2] 
+			jeChiBuf = allDataDict['jeChi'][0]+ " > " + allDataDict['jeChi'][2] 
 			# makeText ( "•"   , twoSideSpace + 292  , 358 , wordingSize = 30 , wordingFont = pf_TC_medium , color = midGray )
 			# makeText (  allDataDict['jeChi'][0]+ ">" + allDataDict['jeChi'][2]  , twoSideSpace + 318  , 348 , wordingSize = 41 , wordingFont = pf_TC_medium , color = mainColor )
 
 
 
 	## 國曆
-	makeText ( "國曆:                       " + allDataDict['week'] , twoSideSpace + 5 , 290 , wordingSize = 40 , wordingFont = pf_TC_medium , color = mainColor )  
+	makeText ( "國曆:                      " + allDataDict['week'] , twoSideSpace + 5 , 290 , wordingSize = 40 , wordingFont = pf_TC_medium , color = mainColor )  
 
 	makeText (  "/".join(allDataDict['fullDate'].split("/")[:3]), twoSideSpace + 117 , 297 , wordingSize = 52 , wordingFont = myriad_reg , color = mainColor )  
 	## 農曆
@@ -553,9 +565,10 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 
 
 	## 下方小直槓
-	draw_InfoLine (  center = twoSideSpace +95 , hight = screenHight - 248   , size = 50 , lineColor = midGray )      ## 左邊
-	draw_InfoLine (  center = screenWidth*0.5 , hight = screenHight - 248   , size = 50 , lineColor = midGray )   ## 中間
-	draw_InfoLine (  center = screenWidth*0.5 +85 , hight = screenHight - 248   , size = 50 , lineColor = midGray )   ## 中右
+	draw_InfoLine (  center = twoSideSpace +95 , hight = screenHight - 250   , size = 56 , lineColor = midGray )      ## 左邊
+	draw_InfoLine (  center = screenWidth*0.5 , hight = screenHight - 250   , size = 56 , lineColor = midGray )   ## 中間
+	draw_InfoLine (  center = screenWidth*0.5 +85 , hight = screenHight - 250   , size = 56 , lineColor = midGray )   ## 中右
+
 
 
 
@@ -566,9 +579,9 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 	makeText ( allDataDict['home_rowHead']  , twoSideSpace + 32 , screenHight-256 , wordingSize = 45 , wordingFont = pf_TC_medium , color = subGray ) 
 	if allDataDict['home_mode'] == "六沖":
 		homeGuaSpace += 14
-		makeBallText( text = "沖" , x = screenWidth*0.5 + 25 -100 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = midGray , bt_font = pf_TC_medium , LineWidth = 4  )
+		makeBallText( text = "沖" , x = screenWidth*0.5 + 25 -100 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = siIn_color , bt_font = pf_TC_bold , LineWidth = 4  )
 	if allDataDict['home_mode'] == "六合":
-		makeBallText( text = "合" , x = screenWidth*0.5 + 25 -100 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = midGray , bt_font = pf_TC_medium , LineWidth = 4  )
+		makeBallText( text = "合" , x = screenWidth*0.5 + 25 -100 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = siIn_color , bt_font = pf_TC_bold , LineWidth = 4  )
 		homeGuaSpace += 14
 	if len(allDataDict['home_title'] ) == 4:
 		homeGuaSpace += 8
@@ -587,10 +600,10 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 
 		## 變爻
 		if allDataDict['change_mode'] == "六沖":
-			makeBallText( text = "沖" , x = screenWidth*0.5 + 25 +343 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = midGray , bt_font = pf_TC_medium , LineWidth = 4  )
+			makeBallText( text = "沖" , x = screenWidth*0.5 + 25 +343 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = siIn_color , bt_font = pf_TC_bold , LineWidth = 4  )
 			changeGuaSpace += 10
 		if allDataDict['change_mode'] == "六合":
-			makeBallText( text = "合" , x = screenWidth*0.5 + 25 +343 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = midGray , bt_font = pf_TC_medium , LineWidth = 4  )
+			makeBallText( text = "合" , x = screenWidth*0.5 + 25 +343 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = siIn_color , bt_font = pf_TC_bold , LineWidth = 4  )
 			changeGuaSpace += 10
 		if len(allDataDict['change_title'] ) == 4:
 			changeGuaSpace += 20	
@@ -671,9 +684,10 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 
 
 		# print( "@@@@@@@----------" ,count ,godItem, title )
-		makeText ( title +"-"+ godItem , startPo , screenHight-100 , wordingSize = 45 , wordingFont = pf_TC_regular , color = subGray )
+		makeText ( title +"-"+ godItem , startPo , screenHight-120 , wordingSize = 46 , wordingFont = pf_TC_medium , color = subGray )
 		if count < 5:
-			draw_InfoLine (  center = startPo + 150 , hight = screenHight-90   , size = 48  , lineColor = midGray ,lineWidth = 2 ) 
+			## 分隔小直槓
+			draw_InfoLine (  center = startPo + 150 , hight = screenHight-110   , size = 48  , lineColor = midGray ,lineWidth = 2 ) 
 
 		if count == 5:
 			break
@@ -696,6 +710,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 
 	yaoFont = pf_TC_medium
 
+
 	##  從最下面開始
 	for row_id in  range(6):
 		adj_hight = startLineHight + hightBuf
@@ -710,18 +725,18 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 			## 三合局小方框
 			if allDataDict['homeThreeHoId'][row_id][0] in ("O"):	
 				homeThreeHoColor = getTypeColorC( allDataDict['homeThreeHoId'][row_id] )
-				draw_SquareMark( x = screenWidth - 372 , y = adj_hight + fixTextHight +11    , squareSize = 64  , outlineColor = homeThreeHoColor  )
+				draw_SquareMark( x = screenWidth - 374 , y = adj_hight + fixTextHight +10    , squareSize = 68  , outlineColor = homeThreeHoColor  )
 
 			if allDataDict['homeThreeHoId'][row_id][0] in ("P"):	
 				homeThreeHoColor = getTypeColorC( allDataDict['homeThreeHoId'][row_id] )
-				draw_SquareCut(  x = screenWidth - 372+1 , y = adj_hight + fixTextHight +11    , squareSize = 64  , cut = 15, outlineColor = homeThreeHoColor, fillColor = None, lineWidth = 2 )
+				draw_SquareCut(  x = screenWidth - 374+1 , y = adj_hight + fixTextHight +10    , squareSize = 68  , cut = 15, outlineColor = homeThreeHoColor, fillColor = None )
 
 
 		## 納甲
 		makeText ( allDataDict['home_naGia'][row_id][-1]     , screenWidth - 370 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = mainColor ) 
 		if noteSwitch == True:
 			## 分數小字
-			makeText ( allDataDict['home_naGia_rank'][row_id]  , screenWidth - 307 , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#999999' ) 
+			makeText ( allDataDict['home_naGia_rank'][row_id]  , screenWidth - 305 , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
 			# makeText ( "–"  , screenWidth - 305 , adj_hight + fixTextHight -1  , wordingSize = 20 , wordingFont = pf_TC_bold , color = subGray ) 	
 			# makeText ( "▽"  , screenWidth - 307 , adj_hight + fixTextHight + 2  , wordingSize = 20 , wordingFont = pf_TC_bold , color = subGray ) 		
 #△▽ ▲▼
@@ -770,7 +785,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 
 			if noteSwitch == True:
 				## 分數小字
-				makeText ( allDataDict['hide_naGia_rank'][row_id]  , twoSideSpace + 160 , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#999999' ) 
+				makeText ( allDataDict['hide_naGia_rank'][row_id]  , twoSideSpace + 160 , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
 
 
 
@@ -789,33 +804,33 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 		if allDataDict['changeIdIndex'][row_id] == "O":
 			if noteSwitch == True:
 				## 三合局小方框
-				if allDataDict['changeThreeHoId'][row_id][0] in ( "O", "P", "H" ):		
+				if allDataDict['changeThreeHoId'][row_id][0]  in ( "O", "P", "H" ):		
 					changeThreeHoColor = getTypeColorC( allDataDict['changeThreeHoId'][row_id] )
-					draw_SquareMark( x =  screenWidth -238 -2 , y = adj_hight + fixTextHight +11    , squareSize = 64  , outlineColor = changeThreeHoColor  )
+					draw_SquareMark( x =  screenWidth -240 -5 , y = adj_hight + fixTextHight +10    , squareSize = 68  , outlineColor = changeThreeHoColor  )
 				# draw_SquareMark( x =  screenWidth -238 , y = adj_hight + fixTextHight +11    , squareSize = 64  , outlineColor = subGray  )
 
 				## 分數小字
-				makeText ( allDataDict["change_naGia_rank"][row_id] , screenWidth -115 -2 , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#999999' ) 
+				makeText ( allDataDict["change_naGia_rank"][row_id] , screenWidth -117 -5 , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
 
 				## 化進小點點
 				if allDataDict['home_forwardBack'][row_id]  == "FW":
-					makeText ( "•"  , screenWidth -211 -2 , adj_hight + fixTextHight -22+4 , wordingSize = 28 , wordingFont = yaoFont , color = midGray ) 
+					makeText ( "•"  , screenWidth -211 -6 , adj_hight + fixTextHight -22+4 , wordingSize = 28 , wordingFont = yaoFont , color = midGray ) 
 
 				## 化退小點點
-				elif allDataDict['home_forwardBack'][row_id]=="BK":
-					makeText ( "•"  , screenWidth -211 -2 , adj_hight + fixTextHight +60+4 , wordingSize = 28 , wordingFont = yaoFont , color = midGray ) 
+				elif allDataDict['home_forwardBack'][row_id] =="BK":
+					makeText ( "•"  , screenWidth -211 -6 , adj_hight + fixTextHight +64+4 , wordingSize = 28 , wordingFont = yaoFont , color = midGray ) 
 
 			## 變卦納甲
-			makeText ( allDataDict['change_naGia'][row_id][-1]  , screenWidth -236 -2 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = mainColor ) 
+			makeText ( allDataDict['change_naGia'][row_id][-1]  , screenWidth -236 -5 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = mainColor ) 
 
 
 
 			## 變卦六親
-			makeText ( sixFamily_dict[ allDataDict['change_family'][row_id] ]  , screenWidth -172 -2 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = mainColor ) 
+			makeText ( sixFamily_dict[ allDataDict['change_family'][row_id] ]  , screenWidth -174 -5 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = mainColor ) 
 
 			if allDataDict['hide_naGia'][row_id][-1]  in allDataDict['home_kongWang']:
 				## 空亡的圈
-				makePoint ( x = screenWidth -265 -2 , y = adj_hight + fixTextHight + 53  , radious = 22 ,pointColor = None , lineColor = subGray , LineWidth = 3 , switch = True )
+				makePoint ( x = screenWidth -265 -5 , y = adj_hight + fixTextHight + 53  , radious = 22 ,pointColor = None , lineColor = subGray , LineWidth = 3 , switch = True )
 			
 
 		centerAdj = -8
@@ -902,7 +917,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "off", u
 			return high_res
 
 		else:
-			preview_img = img.resize( (  int(screenWidth*0.25) , int(screenHight*0.25)  )   ,Image.BILINEAR  ) ## line縮圖預覽用圖
+			preview_img = img.resize( (  int(screenWidth*0.4) , int(screenHight*0.4)  )   ,Image.BILINEAR  ) ## line縮圖預覽用圖
 			# # 上傳圖片
 			res = upload_image( img )
 			high_res = res["url"]
@@ -935,7 +950,7 @@ if __name__ == '__main__':
 	# drawUi_v1( mainFunction( "01X@@@" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,)
 	# drawUi_v1( mainFunction( "01X$01" ,noteText = "男問今年工作運勢",user_mouthZi = "巳月" , user_dayGanZi = "己丑", userDefineDate = "") , show = True ,)	 ## 三合
 	# drawUi_v1( mainFunction( "0X01X0" , noteText = "男問今年工作運勢" ) )
-	drawUi_v1( mainFunction( "X11001" ,noteText = "測測男問今年工作運勢,測測男問今年工", userDefineDate = "") , show = True ,) ## 5字	
+	drawUi_v1( mainFunction( "100$00" ,noteText = "測測男問今年工作運勢,測測男問今年工", userDefineDate = "") , show = True ,) ## 5字	
 	# drawUi_v1( mainFunction( "10010$" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,)
 	# drawUi_v1( mainFunction( "111@0X" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,) #6字
 
