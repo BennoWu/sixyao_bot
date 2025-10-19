@@ -385,7 +385,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 
 	## 最大圓角邊框
 	# draw_SquareFull (  hight = 0 , hightSize = screenHight, sideSpace = 1 , fillColor = None , outlineColor = blue_color , LineWidth = 16 )
-	roundSquare (  hight = 8 , hightSize = screenHight-18, sideSpace = 8 , fillColor = None , outlineColor = "#888888" , LineWidth = 8 )
+	roundSquare (  hight = 8 , hightSize = screenHight-18, sideSpace = 8 , fillColor = None , outlineColor = "#B1B1B1" , LineWidth = 4 )
 
 
 
@@ -694,7 +694,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 
 
 		# print( "@@@@@@@----------" ,count ,godItem, title )
-		makeText ( title +"-"+ godItem , startPo , screenHight-120 , wordingSize = 46 , wordingFont = pf_TC_medium , color = subGray )
+		makeText ( title +"-"+ godItem , startPo , screenHight-110 , wordingSize = 46 , wordingFont = pf_TC_medium , color = subGray )
 		if count < 5:
 			## 分隔小直槓
 			draw_InfoLine (  center = startPo + 150 , hight = screenHight-110   , size = 48  , lineColor = midGray ,lineWidth = 2 ) 
@@ -800,7 +800,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 
 
 			# ## 伏神六親
-			makeText ( sixFamily_dict[ allDataDict['hide_family'][row_id] ] , twoSideSpace + 102 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = mainColor ) 			
+			makeText ( sixFamily_dict[ allDataDict['hide_family'][row_id] ] , twoSideSpace + 98 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = mainColor ) 			
 
 		if allDataDict['hide_naGia'][row_id][-1]  in allDataDict['home_kongWang']:
 			## 空亡的圈
@@ -960,7 +960,8 @@ if __name__ == '__main__':
 	# drawUi_v1( mainFunction( "01X@@@" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,)
 	# drawUi_v1( mainFunction( "01X$01" ,noteText = "男問今年工作運勢",user_mouthZi = "巳月" , user_dayGanZi = "己丑", userDefineDate = "") , show = True ,)	 ## 三合
 	# drawUi_v1( mainFunction( "0X01X0" , noteText = "男問今年工作運勢" ) )
-	drawUi_v1( mainFunction( "100$00" ,noteText = "測測男問今年工作運勢,測測男問今年工", userDefineDate = "") , show = True ,) ## 5字	
+	drawUi_v1( mainFunction( "$111$0" ,noteText = "測測男問今年工作運勢,測測男問今年工", userDefineDate = "") , show = True ,) ## 5字
+
 	# drawUi_v1( mainFunction( "10010$" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,)
 	# drawUi_v1( mainFunction( "111@0X" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,) #6字
 
