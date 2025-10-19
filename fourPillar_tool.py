@@ -672,6 +672,7 @@ def checkYear ( yearData = "" ):
 
 
 def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # runtime為跑出幾條
+	import datetime
 
 	# currentTime = "2023/5/17/12/00" ## 格式完整
 	# currentTime ="2023/5/17/"     --> "2023/5/17/00/00" #補上後面的 00/00
@@ -693,7 +694,6 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 		format_time = lambda s: "/".join((s.strip("/").split("/") + ["00", "00"])[:5])
 		currentTime = format_time(currentTime)  # 把結果存回去
 	dayMode = dayMode.lower()
-	import datetime
 	timeList = []
 	# print( currentTime )
 	nowTime = checkMsgFun( currentTime ) ## 不輸入則取現時，輸入方式同起盤
@@ -744,10 +744,10 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 		dt = datetime.datetime.strptime(inDate, "%Y/%m/%d/%H/%M")
 
 		if dayMode == "h":   # 時辰模式
-		    out = (dt + timedelta(hours=2)).strftime("%Y/%m/%d/%H/%M")
+		    out = (dt + datetime.timedelta(hours=2)).strftime("%Y/%m/%d/%H/%M")
 
 		elif dayMode == "d":  # 日模式（節氣和月模式已經在下面各自處理了）
-		    out = (dt + timedelta(days=1)).strftime("%Y/%m/%d/%H/%M")
+		    out = (dt + datetime.timedelta(days=1)).strftime("%Y/%m/%d/%H/%M")
 
 		# 月模式 (m) 和節氣模式 (jc) 在後面的 if 區塊處理
 
@@ -922,7 +922,7 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 if __name__ == '__main__':
 
 	# PPPPP ( currentTime = "2025-09-15" )
-	getList =  PPPPP ( currentTime = "2025-09-15" , dayMode = "jc" , runtime = 20 ) 
+	getList =  PPPPP ( currentTime = "2025-09-15" , dayMode = "d" , runtime = 20 ) 
 	# getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
 	for i in getList:
 		print(i)	
