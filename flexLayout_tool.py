@@ -1391,7 +1391,7 @@ hourModeLayout = """
 								          {
 								            "type": "text",
 								            "text": "__JECHI__",
-								            "size": "xs",
+								            "size": "sm",
 								            "color": "#ff5252",
 								            "wrap": true,
 								            "weight": "bold",
@@ -1399,8 +1399,12 @@ hourModeLayout = """
 								            "gravity": "bottom",
 								            "offsetTop": "-1px",
 								            "align": "end",
-								            "flex": 1
+								            "flex": 1,
+								            "offsetStart": "-5px"
 								          },
+
+
+
 								          {
 								            "type": "text",
 								            "text": "__TIME__",
@@ -1496,7 +1500,7 @@ dayModeLayout = """{
 												              {
 												                "type": "text",
 												                "text": "__JECHI__",
-												                "size": "xs",
+												                "size": "sm",
 												                "color": "#ff5252",
 												                "wrap": true,
 												                "weight": "bold",
@@ -1508,7 +1512,7 @@ dayModeLayout = """{
 
 												            ],
 												            "flex": 3,
-												            "maxWidth": "27px",
+												            "maxWidth": "28px",
 												            "offsetStart": "0px",
 												            "margin": "sm"
 												          },
@@ -1612,7 +1616,7 @@ monthModeLayout = """{
 												              {
 												                "type": "text",
 												                "text": "__JECHI__",
-												                "size": "xs",
+												                "size": "sm",
 												                "color": "#ff5252",
 												                "wrap": true,
 												                "weight": "bold",
@@ -1624,7 +1628,7 @@ monthModeLayout = """{
 
 												            ],
 												            "flex": 3,
-												            "maxWidth": "27px",
+												            "maxWidth": "28px",
 												            "offsetStart": "0px",
 												            "margin": "sm"
 												          },
@@ -1743,7 +1747,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 			# 	buf_dayModeLayout = buf_dayModeLayout.replace ( "#2e4e7c" , "#3aa078" )
 
 			currentTimeBuf = row[1].replace( "/" , ",")  ## "干支/日/2023-05-06/15"
-			day_command =  f"干支/日/{15}/{currentTimeBuf}" ##"干支/日/%s/%s"% ( "2023-05-06" , "15" )
+			day_command =  f"干支/日/{8}/{currentTimeBuf}" ##"干支/日/%s/%s"% ( "2023-05-06" , "15" )
 
 			buf_dayModeLayout = buf_dayModeLayout.replace( "_日_", day_command )			
 			# buf_dayModeLayout = monthModeLayout.replace("年柱", row[0].split("-")[0] ).replace("月柱", row[0].split("-")[1] ).replace("日柱", row[0].split("-")[2] ) .replace("__TIME__", row[1] ).replace("#2e4e7c", "#cccccc" )
@@ -1760,15 +1764,16 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 
 
 			buf_dayModeLayout = dayModeLayout.replace("年柱", row[0].split("-")[0] ).replace("月柱", row[0].split("-")[1] ).replace("日柱", row[0].split("-")[2] ).replace("__TIME__", lightDate ).replace("__JECHI__", row[3] if row[3] != '' else '　')
+			
 			## 出空之日變色			
-			if row[0].split("-")[2] in kongWangList:
+			if (row[0].split("-")[2] in kongWangList) and (dayMode.lower() == "d"):
 				buf_dayModeLayout = buf_dayModeLayout.replace ( "#2e4e7c" , "#3aa078" )
 			
 			if dayMode == "jc":
 				buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "888888")
 
 			currentTimeBuf = row[1].replace( "/" , ",")  ## "干支/日/2023-05-06/15"
-			hour_command =  f"干支/時/{15}/{currentTimeBuf}" ##"干支/日/%s/%s"% ( "2023-05-06" , "15" )
+			hour_command =  f"干支/時/{8}/{currentTimeBuf}" ##"干支/日/%s/%s"% ( "2023-05-06" , "15" )
 
 			buf_dayModeLayout = buf_dayModeLayout.replace( "_時_", hour_command )
 
@@ -1795,7 +1800,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 if __name__ == '__main__':
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 )
 	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 )
-	ganZiList_fun( currentTime = "2025-01-01" , dayMode = "d" , index = "" , runtime = 370 )	
+	ganZiList_fun( currentTime = "2025-01-05" , dayMode = "m" , index = "" , runtime = 5 )	
 
 # "干支/時/10/2025-08-31-15-48"
 	# "d" -- day
