@@ -927,16 +927,16 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 			return high_res
 
 		else:
-			preview_img = img.resize( (  int(screenWidth*0.4) , int(screenHight*0.4)  )   ,Image.BILINEAR  ) ## line縮圖預覽用圖
+			# preview_img = img.resize( (  int(screenWidth*0.4) , int(screenHight*0.4)  )   ,Image.BILINEAR  ) ## line縮圖預覽用圖
 			# # 上傳圖片
 			res = upload_image( img )
 			high_res = res["url"]
 			# print("連結：", res["url"])
 
-			res = upload_image( preview_img )
-			low_res = res["url"]
+			# res = upload_image( preview_img )
+			# low_res = res["url"]
 			# print("連結：", res["url"])
-			return [high_res , low_res]
+			return [ high_res , high_res ]
 
 
 
