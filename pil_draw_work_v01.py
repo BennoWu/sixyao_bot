@@ -308,7 +308,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 
 	draw = ImageDraw.Draw(img)
 
-	mainColor = "#000000"
+	mainColor = "#080C30"   ## "#092A3F" #"#000000"
 	lineColor = subGray
 	twoSideSpace = 70
 
@@ -493,7 +493,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 
 
 			makeText ( allDataDict['monthGanZi'] , twoSideSpace + 13 + spaceBuf, basicHight , wordingSize = 91 , wordingFont = pf_TC_bold , color = mainColor )  
-			makeText ( "月" , twoSideSpace -18 + spaceBuf , basicHight+60 , wordingSize = 38 , wordingFont = pf_TC_bold , color = midGray )
+			makeText ( "月" , twoSideSpace -18 + spaceBuf , basicHight+60 , wordingSize = 38 , wordingFont = pf_TC_bold , color = subGray )
 
 
 
@@ -504,7 +504,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 				draw_SquareMark( x = twoSideSpace + 102 + spaceBuf   , y =  basicHight + 18    , squareSize = 94  , outlineColor = dayColor  ) 
 
 			makeText ( allDataDict['dayGanZi'] , twoSideSpace + 13 + spaceBuf, basicHight , wordingSize = 91 , wordingFont = pf_TC_bold , color = mainColor )  
-			makeText ( "日" , twoSideSpace -18 + spaceBuf , basicHight+60 , wordingSize = 38 , wordingFont = pf_TC_bold , color = midGray ) 
+			makeText ( "日" , twoSideSpace -18 + spaceBuf , basicHight+60 , wordingSize = 38 , wordingFont = pf_TC_bold , color = subGray ) 
 
 		elif pillar_id == 3:
 
@@ -515,7 +515,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 				makeText ( "— —" , twoSideSpace + 30 + spaceBuf, 180 , wordingSize = 70 , wordingFont = pf_TC_bold , color = titleGray ) 
 			else:
 				makeText ( allDataDict['hourGanZi'] , twoSideSpace + 13+ spaceBuf , basicHight , wordingSize = 91 , wordingFont = pf_TC_bold , color = titleGray ) 
-			makeText ( "時" , twoSideSpace -18 + spaceBuf , basicHight+60 , wordingSize = 38 , wordingFont = pf_TC_bold , color = midGray )  			 			
+			makeText ( "時" , twoSideSpace -19 + spaceBuf , basicHight+60 , wordingSize = 38 , wordingFont = pf_TC_bold , color = midGray )  			 			
 
 		spaceBuf += 227
 
@@ -697,7 +697,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 		makeText ( title +"-"+ godItem , startPo , screenHight-110 , wordingSize = 46 , wordingFont = pf_TC_medium , color = subGray )
 		if count < 5:
 			## 分隔小直槓
-			draw_InfoLine (  center = startPo + 150 , hight = screenHight-110   , size = 48  , lineColor = midGray ,lineWidth = 2 ) 
+			draw_InfoLine (  center = startPo + 150 , hight = screenHight-102   , size = 48  , lineColor = midGray ,lineWidth = 2 ) 
 
 		if count == 5:
 			break

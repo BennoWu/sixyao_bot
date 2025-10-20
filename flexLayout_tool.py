@@ -1810,3 +1810,100 @@ if __name__ == '__main__':
 
 	# 干支/日/2025.5.11/10/申
 # ['乙巳-乙酉-己卯', '2025/09/07', '白露']
+
+
+
+# # 年干支
+# {
+
+
+#       "type": "bubble",
+#       "body": {
+#         "type": "box",
+#         "layout": "vertical",
+#         "contents": [
+#           {
+#             "type": "text",
+#             "text": "年干支",
+#             "weight": "bold",
+#             "color": "#1DB446",
+#             "size": "lg"
+#           },
+#           {
+#             "type": "box",
+#             "layout": "horizontal",
+#             "contents": [
+#               {
+#                 "type": "text",
+#                 "text": "_GZ",
+#                 "weight": "bold",
+#                 "size": "xxl",
+#                 "margin": "none",
+#                 "flex": 5
+#               },
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [
+#                   {
+#                     "type": "text",
+#                     "text": "_yearShow",
+#                     "size": "lg",
+#                     "color": "#888888",
+#                     "wrap": true,
+#                     "weight": "bold",
+#                     "margin": "sm",
+#                     "flex": 2,
+#                     "gravity": "bottom",
+#                     "align": "end"
+#                   }
+#                 ],
+#                 "flex": 0
+#               }
+#             ]
+#           },
+#           {
+#             "type": "separator",
+#             "margin": "md"
+#           },
+#           {
+#             "type": "box",
+#             "layout": "horizontal",
+#             "margin": "sm",
+#             "contents": [
+#               {
+#                 "type": "text",
+#                 "text": "◁",
+#                 "size": "md",
+#                 "color": "#000000",
+#                 "flex": 0,
+#                 "action": {
+#                   "type": "message",
+#                   "label": "action",
+#                   "text": "_pre"
+#                 },
+#                 "weight": "bold"
+#               },
+#               {
+#                 "type": "text",
+#                 "text": "▷",
+#                 "size": "md",
+#                 "color": "#000000",
+#                 "weight": "bold",
+#                 "action": {
+#                   "type": "message",
+#                   "label": "action",
+#                   "text": "_next"
+#                 },
+#                 "align": "end"
+#               }
+#             ]
+#           }
+#         ]
+#       },
+#       "styles": {
+#         "footer": {
+#           "separator": true
+#         }
+#       }
+#     }

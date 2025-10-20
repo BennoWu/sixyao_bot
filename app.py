@@ -422,8 +422,13 @@ def handle_postback(event):
 
 	data = postDataMsg.replace('\u200b', '')
 
+    # 如果是 richmenu 切換的 postback，就直接忽略
+    if data.startswith("change-to-"):
+        return
+
+
 	# Notion處理
-	if data.startswith("n+"):
+	elif data.startswith("n+"):
 		notion_url = sixYaoMain(data)
 
 		notion_url = sixYaoMain ( data , 

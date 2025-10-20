@@ -553,22 +553,53 @@ def is_valid_date(date_list):
 
 
 
-def looks_like_year(s):
-    # 把所有非數字字元移除
-    digits = re.sub(r'\D', '', s)
-    
-    # 至少要有四位數
-    if len(digits) < 4:
-        return False
-    
-    # 取前四位作為年份
-    year = int(digits[:4])
-    
-    # 判斷年份範圍
-    return 1900 <= year <= 2099
+# def looks_like_year(s):
+
+#     # 把所有非數字字元移除
+#     digits = re.sub(r'\D', '', s)
 
 
 
+	
+#     # 至少要有四位數
+#     if len(digits) < 4:
+#         return False
+	
+#     # 取前四位作為年份
+#     year = int(digits[:4])
+	
+#     # 判斷年份範圍
+#     return 1900 <= year <= 2099
+
+
+import re
+from datetime import datetime
+
+def looks_like_year(text):
+	# 支援 - / , . 空白 混用
+	pattern = r'(\d{2,4})[\/\-,.\s](\d{1,2})[\/\-,.\s](\d{1,2})'
+	
+	match = re.search(pattern, text)
+	if not match:
+		return False  # 找不到三組數字
+	
+	year, month, day = match.groups()
+	
+	# 年份格式統一
+	year = int(year)
+	# 如果只有 2 位數的年份，自行決定如何處理，例如 25 -> 2025
+	if year < 100:
+		year += 2000  # 可自行調整
+
+	month = int(month)
+	day = int(day)
+
+	# 檢查是否合法日期
+	try:
+		datetime(year, month, day)
+		return True
+	except ValueError:
+		return False
 
 
 
@@ -1152,7 +1183,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "傑利的房貸吉凶//01$X10//2025,8,14,15,10" )
 
 	# sixYaoMain( "2025/08/31/15:48//傑利的房貸吉凶0831//110000" ) ## 九月七日 酉月卯日
-	sixYaoMain( "+2025/9/2/12/37 // 101X0X // 傑利的房貸吉凶0902" ) ## 九月七日 酉月卯日
+	# sixYaoMain( "+2025/9/2/12/37 // 101X0X // 傑利的房貸吉凶0902" ) ## 九月七日 酉月卯日
 	# sixYaoMain( "2025/9/2/14/11 // X1$110 // 傑利漲房租有沒有望" )
 	# sixYaoMain( "++2025/9/17/2/4 // 1$0$00 // 傑利與同學見面錢財吉凶")
 	# sixYaoMain( "乙巳年乙酉月丁亥日//男占小孩突發疾病吉凶//011100" )
@@ -1254,7 +1285,7 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "今年財運//787689" ) ## 三合局
 	# sixYaoMain( "占今年幾時換工作較好//0,1,00,11,0,1" )
-	# sixYaoMain( "27,71,42//占今年幾時換工作較好" )
+	sixYaoMain( "27,71,42//2099占今年幾時換工作較好" )
 	# sixYaoMain( "占今年幾時換工作較好好好好好好//27,71,42" )
 
 
