@@ -160,7 +160,7 @@ def handle_message(event):
 	elif inputMsg.lower() == "notion" :
 
 		# 測試讀取 (會回傳字典)
-		data = get_user_data( lineBotId )
+		data = get_user_data( user_id )
 		if data:
 			print(f"Token: {data['notion_token']}")
 			print(f"Page ID: {data['page_id']}")
