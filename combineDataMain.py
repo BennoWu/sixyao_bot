@@ -704,7 +704,9 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 
 		## 測試取得的token和page id是否正確
 		notionAccount = checkNotionAcc( token_buf , pageId_buf )
-		user_notion     = token_buf , pageId_buf 
+		user_notion   = token_buf , pageId_buf 
+		print( "notionAccount:" , notionAccount )
+		print( "user_notion:" , user_notion )
 	# if user_notion:
 	# 	token_buf = user_notion.split("/")[0]
 	# 	pageId_buf = user_notion.split("/")[1]
@@ -1098,7 +1100,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 									note = preNote + noteText , 
 									command = command  ,
 									threePillar = threePil_mode , 
-									notionAccount = True )
+									notionAccount = notionAccount )
 		# print( ui_cmd_dict )
 		return ui_cmd_dict
 
