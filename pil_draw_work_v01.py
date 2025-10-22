@@ -267,7 +267,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 	# 创建一张底图,用来绘制
 	# bgColor = "#F9F9F9"
 # Image.open('paper02.jpg')
-	img = Image.open('paper_1800.jpg').convert("RGBA")
+	img = Image.open('paper_1800.jpg').convert("RGB")
 	# img = Image.open('papper_bg_02.jpg').convert("RGB")
 
 	bgColor = (255,255,255)
