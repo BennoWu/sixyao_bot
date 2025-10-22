@@ -654,9 +654,9 @@ from sixYaoJsonDataClass import *
 # def panBuilderMain(  msg = ""  , lineBotId = "" , lineBotName = "" , userImage = "" , note = "" , testMode = False ):
 
 def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , userImage = "" ):
-
 	fullDataInput = fullDataInput.replace( '\u200b' , '' )
-	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\\n" , '//' )
+	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\n" , '//' )
+	# print( fullDataInput)
 
 
 	# lineBotId = "NEW_IDddddd"
@@ -1309,7 +1309,9 @@ if __name__ == '__main__':
 	# sixYaoMain( "27,55,22//乙月,丙子日//占今年幾時換工作較好" )
 	# sixYaoMain( "+0,1,00,11,0,1//辛亥月乙卯日//占今年幾時換工作較好" )
 
-	sixYaoMain( "占看看今年幾時換工作較好\\n787689" ) ## 三合局
+	sixYaoMain( """2025/10/23/1/46 - 100X11
+楊梅工地幾時會開工?""" ) ## 三合局
+
 	# sixYaoMain( "占今年幾時換工作較好//0,1,00,11,0,1" )
 	# sixYaoMain( "+2025/10/21/14/45 // X$1000 // 瑞豐最近的財運吉凶1021" )
 	# sixYaoMain( "占今年幾時換工作較好好好好好好//27,71,42" )
