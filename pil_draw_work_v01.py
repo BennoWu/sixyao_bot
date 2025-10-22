@@ -267,7 +267,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 	# 创建一张底图,用来绘制
 	# bgColor = "#F9F9F9"
 # Image.open('paper02.jpg')
-	img = Image.open('paper_1800.jpg').convert("RGB")
+	img = Image.open('paper_1800.jpg').convert("RGBA")
 	# img = Image.open('papper_bg_02.jpg').convert("RGB")
 
 	bgColor = (255,255,255)
@@ -375,7 +375,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 # "#EAE9E8"
 	## 淺色圓角大框底色"#E8E9EA"
 	mainSquareHight = 560
-	roundSquare (  hight = mainSquareHight , hightSize = 873 , sideSpace = twoSideSpace+4 , fillColor = "#E8E9EA" , outlineColor = None , LineWidth = 4 ) 
+	# roundSquare (  hight = mainSquareHight , hightSize = 873 , sideSpace = twoSideSpace+4 , fillColor = None , outlineColor = "#E8E9EA" , LineWidth = 2 ) 
 
 
 
@@ -383,9 +383,9 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 	## 下方圓角橫框
 	roundSquare (  hight = screenHight-268 , hightSize = 90 , sideSpace = twoSideSpace+3 , fillColor = None , outlineColor = "#777777" , LineWidth = 4 )
 
-	## 最大圓角邊框
-	# draw_SquareFull (  hight = 0 , hightSize = screenHight, sideSpace = 1 , fillColor = None , outlineColor = blue_color , LineWidth = 16 )
-	roundSquare (  hight = 8 , hightSize = screenHight-18, sideSpace = 8 , fillColor = None , outlineColor = "#B1B1B1" , LineWidth = 4 )
+	## 最大邊框"#ACA899"
+	draw_SquareFull (  hight = 0 , hightSize = screenHight-2, sideSpace = 0 , fillColor = None , outlineColor = "#959799" , LineWidth = 18 )
+	# roundSquare (  hight = 8 , hightSize = screenHight-18, sideSpace = 8 , fillColor = None , outlineColor = "#B1B1B1" , LineWidth = 4 )
 
 
 
@@ -415,7 +415,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 
 			
 
-	## 占問內容
+	## 占問內容 zoo
 	import string
 
 	def is_english(ch):
@@ -460,7 +460,12 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 			final_index = wordingAdj - indexAdj
 
 			print ( wordingAdj , indexAdj)
-			makeText ( (allDataDict['note'][:final_index ] + '\n' + allDataDict['note'][ final_index:]) , twoSideSpace -10 , 72-35-15 , wordingSize = noteSize , wordingFont = pf_TC_light , color = mainColor )  
+			if len( allDataDict['note'][ final_index:] ) == 1:
+				makeText ( allDataDict['note'] , twoSideSpace -10 , 80-15 , wordingSize = noteSize-3 , wordingFont = pf_TC_light , color = mainColor )    
+			else:
+				makeText ( (allDataDict['note'][:final_index ] + '\n' + allDataDict['note'][ final_index:]) , twoSideSpace -10 , 72-35-15 , wordingSize = noteSize , wordingFont = pf_TC_light , color = mainColor )  
+
+
 
 		else:
 			makeText ( allDataDict['note'] , twoSideSpace -10 , 80-15 , wordingSize = noteSize , wordingFont = pf_TC_light , color = mainColor )  
@@ -523,12 +528,12 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 	## 節氣
 	if allDataDict['user_define'] == False: ## 日辰自訂模式時不秀節氣
 		if allDataDict['jeChi'][1] == "!":
-			jeChiBuf = "["+allDataDict['jeChi'][0]+ "]"+ "-" + allDataDict['jeChi'][2]
+			jeChiBuf = "．" + "["+allDataDict['jeChi'][0]+ "]"+ "-" + allDataDict['jeChi'][2]
 			# makeText ( "•"   , twoSideSpace + 300-10  , 358 , wordingSize = 30 , wordingFont = pf_TC_medium , color = midGray )
 
 			# makeText ( "["+allDataDict['jeChi'][0]+ "]"+ "-" + allDataDict['jeChi'][2]   , twoSideSpace + 324-10  , 348 , wordingSize = 41 , wordingFont = pf_TC_medium , color = mainColor )
 		else:
-			jeChiBuf = allDataDict['jeChi'][0]+ " > " + allDataDict['jeChi'][2] 
+			jeChiBuf = "．" + allDataDict['jeChi'][0]+ " > " + allDataDict['jeChi'][2] 
 			# makeText ( "•"   , twoSideSpace + 292  , 358 , wordingSize = 30 , wordingFont = pf_TC_medium , color = midGray )
 			# makeText (  allDataDict['jeChi'][0]+ ">" + allDataDict['jeChi'][2]  , twoSideSpace + 318  , 348 , wordingSize = 41 , wordingFont = pf_TC_medium , color = mainColor )
 
@@ -538,8 +543,9 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 	makeText ( "國曆:                      " + allDataDict['week'] , twoSideSpace + 5 , 290 , wordingSize = 40 , wordingFont = pf_TC_medium , color = mainColor )  
 
 	makeText (  "/".join(allDataDict['fullDate'].split("/")[:3]), twoSideSpace + 117 , 297 , wordingSize = 52 , wordingFont = myriad_reg , color = mainColor )  
+	
 	## 農曆
-	makeText ( "農曆: "+allDataDict['fullDarkDate'] + "．" + jeChiBuf , twoSideSpace + 5 , 348 , wordingSize = 40 , wordingFont = pf_TC_medium , color = mainColor )  
+	makeText ( "農曆: "+allDataDict['fullDarkDate']  + jeChiBuf , twoSideSpace + 5 , 348 , wordingSize = 40 , wordingFont = pf_TC_medium , color = mainColor )  
 
 
 
@@ -715,7 +721,7 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 
 
 	insideSpace = -140 # 上下行距
-	startLineHight =  mainSquareHight + 873   # 起始基礎高度(最低)
+	startLineHight =  mainSquareHight + 870   # 起始基礎高度(最低)
 	hightBuf = -14
 
 	yaoFont = pf_TC_bold

@@ -10,6 +10,7 @@ from fourPillar_tool import fourPillarToDateMain # 四柱得日期
 # from fourPillar_tool import getYear # 四柱得日期
 from fourPillar_tool import getNowTime # 現時日期時間取得
 
+from  supabase_io import *
 # from opencc import OpenCC
 
 
@@ -655,6 +656,7 @@ from sixYaoJsonDataClass import *
 def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , userImage = "" ):
 
 	fullDataInput = fullDataInput.replace( '\u200b' , '' )
+	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\\n" , '//' )
 
 
 	# lineBotId = "NEW_IDddddd"
@@ -689,13 +691,25 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 	user_uiStyle    = jsonData.uiStyle       ## "UA , UB   uiStyle 決定介面顏色與排版
 	user_fontStyle  = jsonData.fontStyle   ## "Fb" fontStyle 字型 宋體圓體黑體
 	user_tipsMode   = jsonData.tipsMode     ## "ON"  tipsMode  小抄提示功能
-	user_notion     = jsonData.notionToken_pageId    ## notion 的token , page id
+	# user_notion     = jsonData.notionToken_pageId    ## notion 的token , page id
+	user_notion     = ""
 
-	if user_notion:
-		token_buf = user_notion.split("/")[0]
-		pageId_buf = user_notion.split("/")[1]
-		# print( token_buf , pageId_buf )
+	# 測試讀取 (會回傳字典)
+	data = get_user_data( lineBotId )
+	if data:
+		print(f"Token: {data['notion_token']}")
+		print(f"Page ID: {data['page_id']}")
+		token_buf  = data['notion_token']
+		pageId_buf = data['page_id']
+
+		## 測試取得的token和page id是否正確
 		notionAccount = checkNotionAcc( token_buf , pageId_buf )
+		user_notion     = token_buf , pageId_buf 
+	# if user_notion:
+	# 	token_buf = user_notion.split("/")[0]
+	# 	pageId_buf = user_notion.split("/")[1]
+	# 	# print( token_buf , pageId_buf )
+	# 	notionAccount = checkNotionAcc( token_buf , pageId_buf )
 
 
 
@@ -987,7 +1001,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 	print( "\n")
 
 
-	showBuf = False  ## 上傳時記得OFF掉
+	showBuf = True  ## 上傳時記得OFF掉
 	if notionMode:
 		showBuf = False
 
@@ -1023,13 +1037,13 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 
 		return image_url
 
-		# print( image_url )
-		# if notionMode == True:
-		# 	notionUrl = notionPush_pushUp(  image_url , noteText , token_buf , pageId_buf )
-		# 	print( notionUrl )
-		# 	return notionUrl
-		# else:
-		# 	return image_url
+		print( image_url )
+		if notionMode == True:
+			notionUrl = notionPush_pushUp(  image_url , noteText , token_buf , pageId_buf )
+			print( notionUrl )
+			return notionUrl
+		else:
+			return image_url
 
 
 	# elif user_uiStyle == "UB"  and  build_mode == True:
@@ -1283,9 +1297,9 @@ if __name__ == '__main__':
 	# sixYaoMain( "27,55,22//乙月,丙子日//占今年幾時換工作較好" )
 	# sixYaoMain( "+0,1,00,11,0,1//辛亥月乙卯日//占今年幾時換工作較好" )
 
-	# sixYaoMain( "今年財運//787689" ) ## 三合局
+	sixYaoMain( "占看看今年幾時換工作較好\\n787689" ) ## 三合局
 	# sixYaoMain( "占今年幾時換工作較好//0,1,00,11,0,1" )
-	sixYaoMain( "27,71,42//2099占今年幾時換工作較好" )
+	# sixYaoMain( "+2025/10/21/14/45 // X$1000 // 瑞豐最近的財運吉凶1021" )
 	# sixYaoMain( "占今年幾時換工作較好好好好好好//27,71,42" )
 
 

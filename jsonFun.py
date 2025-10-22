@@ -621,8 +621,8 @@ def logToGoogle(  userId = "BB123", userName = "Benno", time = "2025/6/15/3/20" 
 if __name__ == '__main__':
 	# addToJson (  linebotId ="U21eaaf32db85b983a842d9a9da81d8f1"	,UserName = "Benno"	,logInTime ="2023-2-1 23:52",command =	"時盤-2023-02-01-21-51"	,runtime = 1	,signUpTime = "2023-2-1 11:18",  userImage ="https://profile.line-scdn.net/0m03d2961a72519e9ae023945979128659aaf19ece8932"	 ,uiStyle ="A"	,subDataMode ="Lite"	,switch = "ON")
 	# loadAllJson()
-	# print(googleToJson())
-	print(jsonToGoogle())
+	print(googleToJson())
+	# print(jsonToGoogle())
 	# logToGoogle()
 
 	# setItemData ( "CCC" , "temp" , "inData" )

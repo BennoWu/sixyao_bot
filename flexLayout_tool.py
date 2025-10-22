@@ -789,7 +789,7 @@ uiLayoutBack = '''
                   "type": "postback",
                   "label": "裝卦A",
                   "data": "__裝卦__",
-                  "displayText": "__裝卦__"
+                  "displayText": "__dis裝卦__"
                 },
                 "color": "#91A4BC",
                 "margin": "none",
@@ -1074,8 +1074,14 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 
 	## 加入隱形空格
-	zeroSpace = '\u200b'
-	command = zeroSpace.join(command)
+	# zeroSpace = '\u200b'
+	# command = zeroSpace.join(command)
+	import re
+
+	display_command = command[1:].replace( " // " , " - " , 1  )
+	display_command = display_command.replace( " // " , "\\n"  )
+	# display_command = re.sub( " // " , "\\n" , display_command, count=2 )
+
 	# if date_ganZi != "":
 	# 	# command = "+%s // %s // %s // %s"% ( dateData , date_ganZi , (zeroSpace.join(finalGua)) , note )
 	# 	command = "+%s // %s // %s // %s"% ( dateData , date_ganZi , finalGua , note )
@@ -1137,6 +1143,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 								.replace("__NOTE__", note )
 								.replace("12:00", currentTime )
 								.replace("__裝卦__", command )
+								.replace("__dis裝卦__", display_command )								
 								.replace("__ORGGUA__" , orgGuaName)
 								.replace("__CHGGUA__" , chgGuaName)
 						)
@@ -1149,7 +1156,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 		reDataLayout = reDataLayout.replace("#666664", "#cccccc" ).replace("#FCA32D", "#dddddd" ).replace(currentTime ,"00:00" )
 		reDataLayout = reDataLayout.replace( "month_mode" , "干支/月/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "day_mode" , "干支/日/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "hour_mode" , "- - -" ) .replace( "jechi_mode" , "干支/節氣/" + "6/" + clipData(dateData).replace("/","-") )
 	else:
-		reDataLayout = reDataLayout.replace( "month_mode" , "干支/月/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "day_mode" , "干支/日/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "hour_mode" , "干支/時/" + "10/" + dateData.replace("/","-")  ).replace( "jechi_mode" , "干支/節氣/" + "6/" + clipData(dateData).replace("/","-") )
+		reDataLayout = reDataLayout.replace( "month_mode" , "干支/月/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "day_mode" , "干支/日/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "hour_mode" , "干支/時/" + "6/" + dateData.replace("/","-")  ).replace( "jechi_mode" , "干支/節氣/" + "6/" + clipData(dateData).replace("/","-") )
 
 
 
@@ -1907,3 +1914,181 @@ if __name__ == '__main__':
 #         }
 #       }
 #     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# {  
+
+    
+#       "type": "bubble",
+#       "body": {
+#         "type": "box",
+#         "layout": "vertical",
+#         "contents": [
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "text",
+#                 "text": "_type",
+#                 "weight": "bold",
+#                 "color": "#1DB446",
+#                 "size": "lg",
+#                 "margin": "none"
+#               },
+#               {
+#                 "type": "box",
+#                 "layout": "horizontal",
+#                 "contents": [
+#                   {
+#                     "type": "text",
+#                     "text": "_show_title",
+#                     "weight": "bold",
+#                     "size": "3xl",
+#                     "wrap": true,
+#                     "margin": "none",
+#                     "offsetTop": "none",
+#                     "offsetBottom": "none",
+#                     "action": {
+#                       "type": "message",
+#                       "label": "action",
+#                       "text": "hello"
+#                     },
+#                     "offsetStart": "0px"
+#                   }
+#     ____etc                  
+#     ____color
+#                 ]
+#               },
+#               {
+#                 "type": "text",
+#                 "text": "____sub",
+#                 "weight": "bold",
+#                 "size": "md",
+#                 "margin": "xs",
+#                 "wrap": true,
+#                 "offsetTop": "none",
+#                 "offsetBottom": "none",
+#                 "action": {
+#                   "type": "message",
+#                   "label": "action",
+#                   "text": "hello"
+#                 },
+#                 "color": "#888888"
+#               }
+#             ]
+#           },
+#     ____item
+#           {
+#             "type": "separator",
+#             "margin": "md",
+#             "color": "#ffffff"
+#           }
+#         ]
+#       },
+#       "styles": {
+#         "footer": {
+#           "separator": true
+#         }
+#       }
+#     }
+# ))"""
+
+
+#     ## 兩塊色塊資訊
+#     useShin_flexMsg_color = """
+#                 ,
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [],
+#                     "backgroundColor": "_colorA",
+#                     "position": "absolute",
+#                     "height": "37px",
+#                     "width": "37px",
+#                     "offsetStart": "172px",
+#                     "offsetTop": "5px",
+#                     "cornerRadius": "5px",
+#                     "borderWidth": "2px",
+#                     "borderColor": "#999999"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [],
+#                     "backgroundColor": "_colorB",
+#                     "position": "absolute",
+#                     "height": "37px",
+#                     "width": "37px",
+#                     "offsetStart": "216px",
+#                     "offsetTop": "5px",
+#                     "cornerRadius": "5px",
+#                     "borderColor": "#999999",
+#                     "borderWidth": "2px"
+#                   }"""
+
+#     ## 右邊補充文字
+#     useShin_flexMsg_etc = """
+#                 ,
+#                   {
+#                     "type": "text",
+#                     "text": "_subEtc",
+#                     "weight": "bold",
+#                     "color": "#FF7777",
+#                     "size": "lg",
+#                     "margin": "none",
+#                     "wrap": true,
+#                     "gravity": "bottom",
+#                     "offsetBottom": "5px",
+#                     "offsetEnd": "6px",
+#                     "align": "end",
+#                     "flex": 1
+#                   }"""
+
+#     ## 內容(可多塊)
+#     useShin_flexMsg_insert = """
+#           {
+#             "type": "separator",
+#             "margin": "md",
+#             "color": "#848484"
+#           },
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+
+#               {
+#                 "type": "text",
+#                 "text": "____title",
+#                 "size": "lg",
+#                 "color": "#555555",
+#                 "wrap": true,
+#                 "weight": "bold",
+#                 "margin": "lg"
+#               },
+#               {
+#                 "type": "text",
+#                 "text": "____text",
+#                 "size": "md",
+#                 "color": "#000000",
+#                 "wrap": true,
+#                 "margin": "xs"
+#               }
+#             ]
+#           }"""

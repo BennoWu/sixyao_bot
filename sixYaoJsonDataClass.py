@@ -10,16 +10,17 @@ from jsonFun import *
 from datetime import datetime,timezone,timedelta
 
 ## 檢查NOTION帳號資料是否可執行
-# from notion_client import Client
+from notion_client import Client
 def checkNotionAcc(token, pageId):
-	return True
-    # try:
-    #     notion = Client(auth=token)
-    #     notion.pages.retrieve(pageId)
-    #     return True
-    # except Exception as e:
-    #     print(f"錯誤: {e}")
-    #     return False
+	# return True
+	try:
+		notion = Client(auth=token)
+		notion.pages.retrieve(pageId)
+		print( "notion check ok" )
+		return True
+	except Exception as e:
+		print(f"notion check錯誤: {e}")
+		return False
 
 
 
@@ -216,20 +217,46 @@ class jsonDataClass:
 
 			# "set nt tokentoken,pageId"
 			elif  comList[1].lower() in  [ "nt" , "notion"]: ## set notion
+
+
+				import  supabase_io
+
+
+
 				if comList[2] == "none":
-					self.notionToken_pageId = ""
+					supabase_io.delete_user_token( self.linebotId )
+					self.notionToken_pageId = "OFF"
 					rtn_message =  "notion - concel"
 				else:
+
+
+
+
 					if len( comList ) == 4:
 						token_buf = comList[2]   ## get token
 						pageId_buf = comList[3] ## get page
+
+						supabase_io.save_user_data(
+							user_id = self.linebotId,
+							notion_token = token_buf,
+							page_id = pageId_buf
+						)
+
+
 						if checkNotionAcc( token_buf , pageId_buf ) == True:
-							self.notionToken_pageId = "%s/%s"% (token_buf,pageId_buf)
+							self.notionToken_pageId = "ON"
 							rtn_message =  "notion - ok"
 						else:
-							rtn_message =  "API token is invalid....請檢查notion資料"					
+							rtn_message =  "API token is invalid....請檢查notion資料"
 					else:
 						rtn_message =  "輸入資料格式錯誤"
+
+
+
+
+
+
+
 
 				# self.other = pageId_buf
 			else:
@@ -317,11 +344,11 @@ if __name__ == '__main__':
 
 	# fullDataInput = "set utc 7"
 	# fullDataInput = "set ub"
-	fullDataInput = "Set tips ON"
-	# fullDataInput = "set nt none"
+	# fullDataInput = "Set tips ON"
+	fullDataInput = "set nt none"
 	# fullDataInput = "set temp yyyyyyyyyyyyyyy"
 	# fullDataInput = "set temp none"	
-
+	# fullDataInput = "set nt notion_token/page_id"
 	# from datetime import datetime,timezone,timedelta
 
 	# ## 取得現在時間

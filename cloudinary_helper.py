@@ -160,7 +160,7 @@ if __name__ == '__main__':
     # from cloudinary_helper import upload_image, delete_older_than
 
     # # 上傳圖片
-    res = upload_image( r"D:\_work\簽單名片\0208\a-01.jpg")
+    # res = upload_image( r"D:\_work\簽單名片\0208\a-01.jpg")
     # print("連結：", res["url"])
     # print("public_id：", res["public_id"])
     # print("上傳時間：", res["created_at"])
