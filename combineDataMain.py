@@ -1004,8 +1004,8 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 
 	showBuf = False  ## 上傳時記得OFF掉
 
-	if os.getenv("RUN_ENV") != "production":
-		showBuf = True
+	# if os.getenv("RUN_ENV") != "production":
+	# 	showBuf = True
 
 
 	if notionMode:
