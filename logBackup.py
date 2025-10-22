@@ -103,9 +103,13 @@ def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
 
 
     # 讀取 CSV 所有資料（略過表頭）
-    with open(csv_path, newline='', encoding="utf-8") as f:
-        reader = csv.reader(f)
-        rows = list(reader)
+    if os.path.exists(csv_path):
+	    with open(csv_path, newline='', encoding="utf-8") as f:
+	        reader = csv.reader(f)
+	        rows = list(reader)
+	else:
+		return "⚠️ log檔案不存在，可能是還沒建立"
+		
     # print(rows)
     if len(rows) <= 1:
         print("⚠️ 沒有要上傳的資料。")
