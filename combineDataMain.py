@@ -12,7 +12,7 @@ from fourPillar_tool import getNowTime # 現時日期時間取得
 
 from  supabase_io import *
 # from opencc import OpenCC
-
+import os
 
 
 # 全形轉半形
@@ -1001,7 +1001,13 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 	print( "\n")
 
 
-	showBuf = True  ## 上傳時記得OFF掉
+
+	showBuf = False  ## 上傳時記得OFF掉
+
+	if os.getenv("RUN_ENV") == "production":
+		showBuf = True
+
+
 	if notionMode:
 		showBuf = False
 
