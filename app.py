@@ -174,10 +174,10 @@ def handle_message(event):
 				line_bot_api.reply_message(
 					event.reply_token,
 					TextSendMessage(text= "Notion Ready" ))
-			else:
-				line_bot_api.reply_message(
-					event.reply_token,
-					TextSendMessage(text= "Notion not Ready" ))				
+		else:
+			line_bot_api.reply_message(
+				event.reply_token,
+				TextSendMessage(text= "Notion not Ready" ))				
 
 	
 	# ========= 干支列表 =========
