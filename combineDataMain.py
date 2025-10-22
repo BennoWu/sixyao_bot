@@ -1092,7 +1092,13 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 			dateData = dateData[:-1]
 			threePil_mode = True
 
-		ui_cmd_dict = uiInputData( dateData , date_ganZiList , finalGua = finalGua , note = preNote + noteText , command = command  ,threePillar = threePil_mode , notionAccount = notionAccount )
+		ui_cmd_dict = uiInputData(  dateData , 
+									date_ganZiList , 
+									finalGua = finalGua , 
+									note = preNote + noteText , 
+									command = command  ,
+									threePillar = threePil_mode , 
+									notionAccount = notionAccount )
 		# print( ui_cmd_dict )
 		return ui_cmd_dict
 

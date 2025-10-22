@@ -407,7 +407,7 @@ uiLayoutMidA = '''
 						"text": "__INDEX__",
 						"size": "lg",
 						"weight": "regular",
-						"color": "#777777",
+						"color": "#333333",
 						"gravity": "top"
 					  }
 					],
@@ -501,7 +501,7 @@ uiLayoutMidB = '''
 						"text": "__INDEX__",
 						"size": "lg",
 						"weight": "regular",
-						"color": "#777777",
+						"color": "#333333",
 						"gravity": "top"
 					  }
 					],
