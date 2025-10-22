@@ -2,6 +2,7 @@
 from ocr_work import *
 from combineDataMain import *
 from logBackup import *
+from  supabase_io import *
 
 
 from flexLayout_tool import *
@@ -153,6 +154,31 @@ def handle_message(event):
 
 	if inputMsg == "id":
 		inputMsg = user_id +"//" +displayName +"//"+picUrl
+
+
+
+	elif inputMsg.lower() == "notion" :
+
+		# 測試讀取 (會回傳字典)
+		data = get_user_data( lineBotId )
+		if data:
+			print(f"Token: {data['notion_token']}")
+			print(f"Page ID: {data['page_id']}")
+			token_buf  = data['notion_token']
+			pageId_buf = data['page_id']
+
+			## 測試取得的token和page id是否正確
+			notionAccount = checkNotionAcc( token_buf , pageId_buf )
+			if notionAccount == True:
+				# 回覆訊息
+				line_bot_api.reply_message(
+					event.reply_token,
+					TextSendMessage(text= "Notion Ready" ))
+			else:
+				line_bot_api.reply_message(
+					event.reply_token,
+					TextSendMessage(text= "Notion not Ready" ))				
+
 	
 	# ========= 干支列表 =========
 	elif inputMsg[:3] == "干支/":	
@@ -309,7 +335,7 @@ def handle_message(event):
 		# 回覆訊息
 		line_bot_api.reply_message(
 			event.reply_token,
-			TextSendMessage(text= ">> " + inputMsg  )
+			TextSendMessage(text= "未知指令: " + inputMsg  )
 		)
 
 

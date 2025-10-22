@@ -1098,7 +1098,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 									note = preNote + noteText , 
 									command = command  ,
 									threePillar = threePil_mode , 
-									notionAccount = notionAccount )
+									notionAccount = True )
 		# print( ui_cmd_dict )
 		return ui_cmd_dict
 
