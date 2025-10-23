@@ -787,7 +787,7 @@ uiLayoutBack = '''
                 "style": "secondary",
                 "action": {
                   "type": "postback",
-                  "label": "裝卦A",
+                  "label": "裝卦",
                   "data": "__裝卦__",
                   "displayText": "__dis裝卦__"
                 },
@@ -864,7 +864,7 @@ uiLayoutBackExt = '''
                     "style": "primary",
                     "action": {
                       "type": "postback",
-                      "label": "裝卦A",
+                      "label": "裝卦",
                       "data": "__裝卦__",
                       "displayText": "__裝卦__"
                     },
@@ -890,8 +890,8 @@ uiLayoutBackExt = '''
                     "action": {
                       "type": "postback",
                       "label": "N",
-                      "data": "__NOTION__",
-                      "displayText": "upload to Notion..."
+                      "data": "__NOTION_DSP__",
+                      "displayText": "__NOTION_CMD__"
                     },
                     "color": "#dddddd",
                     "margin": "none",
@@ -1163,10 +1163,10 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 
 # pushToNotion( apiToken , pageId , imageUrl , titleText )
-	reDataLayout = reDataLayout.replace("__NOTION__", "NNNNN" ) ## 還沒寫完
+	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "upload..." ).replace("__NOTION_CMD__", "n" + command )
 
 
-	print( reDataLayout )
+	# print( reDataLayout )
 
 	# 文字轉換成字典
 	reDataLayout_dict = json.loads(reDataLayout)
