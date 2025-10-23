@@ -82,38 +82,50 @@ def riceGua( fullDataInput ):
 
 import re
 
-# 編譯一次就好
-# SEP_PATTERN = re.compile(r'[,\./\\\s_\-\u3001\u3002]+')  # 所有分隔符集中處理
-SEP_PATTERN =   re.compile(r'[,\./\\\s_\-;:，。、．：；]+')
-# SEP_PATTERN = re.compile(r'[,\./\\\s_\-;:，。、．：；\n]+') ## 加入了" - " "\n"
-def _normalize_piece(piece: str, keep_newline=True) -> str:
-	"""
-	將單一字串 piece 清洗：
-	1) 先把換行保留成 //（如果 keep_newline=True）
-	2) 把連續分隔符統一為 '/'
-	3) 去首尾多餘的 '/'
-	"""
-	# print( str )
-	piece = piece.replace('\u200b', '')                 # 清零寬字元
-	piece = piece.replace( " - " , '//' ).replace( "\n" , '//' )
-
-	if keep_newline:
-		piece = piece.replace('\n', '//')               # 換行變 //
-	piece = SEP_PATTERN.sub('/', piece)                 # 連續分隔 → '/'
-	return piece.strip('/')
-
-# 注意：這裡不把 "/" 放進正則式，避免破壞原有的日期格式
-
-
-# SEP_PATTERN = re.compile(r'[,\.\s_\\;:，。、．：；]+')
-
+# # 編譯一次就好
+# # SEP_PATTERN = re.compile(r'[,\./\\\s_\-\u3001\u3002]+')  # 所有分隔符集中處理
+# SEP_PATTERN =   re.compile(r'[,\./\\\s_\-;:，。、．：；]+')
+# # SEP_PATTERN = re.compile(r'[,\./\\\s_\-;:，。、．：；\n]+') ## 加入了" - " "\n"
 # def _normalize_piece(piece: str, keep_newline=True) -> str:
-# 	piece = piece.replace('\u200b', '')
-# 	piece = re.sub(r'\s*-\s*', '////', piece)      # 改成四斜線
-# 	piece = re.sub(r'[\r\n]+', '////' if keep_newline else ' ', piece)
-# 	piece = SEP_PATTERN.sub('/', piece)
-# 	piece = re.sub(r'/+', '/', piece)
+# 	"""
+# 	將單一字串 piece 清洗：
+# 	1) 先把換行保留成 //（如果 keep_newline=True）
+# 	2) 把連續分隔符統一為 '/'
+# 	3) 去首尾多餘的 '/'
+# 	"""
+# 	# print( str )
+# 	piece = piece.replace('\u200b', '')                 # 清零寬字元
+# 	piece = piece.replace( " - " , '//' ).replace( "\n" , '//' )
+
+# 	if keep_newline:
+# 		piece = piece.replace('\n', '//')               # 換行變 //
+# 	piece = SEP_PATTERN.sub('/', piece)                 # 連續分隔 → '/'
 # 	return piece.strip('/')
+
+# # 注意：這裡不把 "/" 放進正則式，避免破壞原有的日期格式
+
+
+
+SEP_PATTERN = re.compile(r'[,\.\s_\\;:，。、．：；]+')
+
+def _normalize_piece(piece: str, keep_newline=True, strong_sep='//') -> str:
+    """
+    清洗文字：
+    - 清零寬字元
+    - 將「 - 」和換行符轉成 strong_sep（預設 "//"）
+    - 其他符號統一為 "/"
+    """
+    piece = piece.replace('\u200b', '')
+    piece = re.sub(r'\s*-\s*', strong_sep, piece)        # 替換「 - 」
+    
+    if keep_newline:
+        piece = re.sub(r'[\r\n]+', strong_sep, piece)   # 換行符也換
+    else:
+        piece = re.sub(r'[\r\n]+', ' ', piece)
+    
+    piece = SEP_PATTERN.sub('/', piece)                 # 其他分隔符
+    piece = re.sub(r'/+', '/', piece)
+    return piece.strip('/')
 
 
 def unifiedData(orgData):
