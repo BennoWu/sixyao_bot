@@ -148,7 +148,7 @@ def handle_message(event):
 	print ( unifiedData(inputMsg) )
 
 	# print ( unifiedData(orgData, strong_sep='||'))
-	print( unifiedData( orgData , strong_sep='//', sep_for_app= "||") )
+	print( unifiedData( inputMsg , strong_sep='//', sep_for_app= "||") )
 	## json建立
 	jsonData = jsonDataClass( linebotId = user_id  ,
 								linebotUserName = displayName ,
