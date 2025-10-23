@@ -103,27 +103,23 @@ import re
 # 	return piece.strip('/')
 
 # 注意：這裡不把 "/" 放進正則式，避免破壞原有的日期格式
+
 SEP_PATTERN = re.compile(r'[,\.\s_\\;:，。、．：；]+')
 
 def _normalize_piece(piece: str, keep_newline=True) -> str:
-	"""
-	清洗文字：
-	- 清除零寬字元
-	- 將「 - 」與換行統一為 "//"
-	- 其他符號（空格、標點等）變成 "/"
-	- 保留日期的斜線 "/"
-	"""
 	piece = piece.replace('\u200b', '')              # 清零寬字元
 	piece = re.sub(r'\s*-\s*', '//', piece)          # 將「 - 」視為強分隔
+
+	# ✅ 一次處理所有換行符號變化（包含 \r、\r\n）
 	if keep_newline:
-		piece = piece.replace('\n', '//')            # 換行也變成 //
+		piece = re.sub(r'[\r\n]+', '//', piece)
 	else:
-		piece = piece.replace('\n', ' ')
+		piece = re.sub(r'[\r\n]+', ' ', piece)
 	
-	piece = SEP_PATTERN.sub('/', piece)              # 統一分隔符
-	piece = re.sub(r'/+', '/', piece)                # 合併連續 "/"
-	piece = re.sub(r'(?<!/)//(?!/)', '//', piece)    # 確保 "//" 保留（不會被合併掉）
+	piece = SEP_PATTERN.sub('/', piece)
+	piece = re.sub(r'/+', '/', piece)
 	return piece.strip('/')
+
 
 
 def unifiedData(orgData):
