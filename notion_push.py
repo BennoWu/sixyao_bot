@@ -1,16 +1,15 @@
-from notion_client import Client
-# from notion_client.helpers import APIResponseError
-import requests,os
 
-def pushToNotion( imageUrl, titleText , apiToken , pageId  ):
+from notion_client import Client
+import requests, os
+
+def pushToNotion(imageUrl, titleText, apiToken, pageId):
     """
-    建立新頁面：左欄放圖片，右欄放四個標題
-    回傳：新頁面網址 or 錯誤訊息
+    在指定頁面下建立子頁面，並置換左欄圖片為同一路徑（刷新用）
     """
     try:
         notion = Client(auth=apiToken)
 
-        # (3) 檢查圖片網址是否能存取
+        # 檢查圖片是否可存取
         try:
             r = requests.head(imageUrl, allow_redirects=True, timeout=5)
             if r.status_code != 200:
@@ -18,30 +17,15 @@ def pushToNotion( imageUrl, titleText , apiToken , pageId  ):
         except Exception as e:
             return f"圖片檢查失敗: {str(e)}"
 
-
-
-        # (4) 建立新頁面
+        # 建立子頁面
         new_page = notion.pages.create(
-            parent={"page_id": pageId},
-            properties={
-                "title": [
-                    {
-                        "type": "text",
-                        "text": {"content": titleText}
-                    }
-                ]
-            }, 
-
-
+            parent={"type": "page_id", "page_id": pageId},
+            properties={"title": [{"type": "text", "text": {"content": titleText}}]},
             children=[
-                            {
+                {
                     "object": "block",
                     "type": "paragraph",
-                    "paragraph": {
-                        "rich_text": [
-                            {"type": "text", "text": {"content": "subtitle.."}}
-                        ]
-                    }
+                    "paragraph": {"rich_text": [{"type": "text", "text": {"content": "subtitle.."}}]}
                 },
                 {
                     "object": "block",
@@ -57,67 +41,29 @@ def pushToNotion( imageUrl, titleText , apiToken , pageId  ):
                                         {
                                             "object": "block",
                                             "type": "image",
-                                            "image": {
-                                                "type": "external",
-                                                "external": {"url": imageUrl}
-                                            }
+                                            "image": {"type": "external", "external": {"url": imageUrl}}
                                         }
                                     ]
                                 }
                             },
-                            # 右欄：四個標題 + 空段落 + 分隔線
+                            # 右欄：四個標題
                             {
                                 "object": "block",
                                 "type": "column",
                                 "column": {
                                     "children": [
-                                        {
-                                            "object": "block",
-                                            "type": "heading_3",
-                                            "heading_3": {
-                                                "rich_text": [
-                                                    {"type": "text", "text": {"content": "說明:"}}
-                                                ]
-                                            }
-                                        },
-                                        {"object": "block", "type": "paragraph", "paragraph": {"rich_text": []}},
-                                        {"object": "block", "type": "divider", "divider": {}},
-
-                                        {
-                                            "object": "block",
-                                            "type": "heading_3",
-                                            "heading_3": {
-                                                "rich_text": [
-                                                    {"type": "text", "text": {"content": "解卦:"}}
-                                                ]
-                                            }
-                                        },
-                                        {"object": "block", "type": "paragraph", "paragraph": {"rich_text": []}},
-                                        {"object": "block", "type": "divider", "divider": {}},
-
-                                        {
-                                            "object": "block",
-                                            "type": "heading_3",
-                                            "heading_3": {
-                                                "rich_text": [
-                                                    {"type": "text", "text": {"content": "反饋:"}}
-                                                ]
-                                            }
-                                        },
-                                        {"object": "block", "type": "paragraph", "paragraph": {"rich_text": []}},
-                                        {"object": "block", "type": "divider", "divider": {}},
-
-                                        {
-                                            "object": "block",
-                                            "type": "heading_3",
-                                            "heading_3": {
-                                                "rich_text": [
-                                                    {"type": "text", "text": {"content": "筆記:"}}
-                                                ]
-                                            }
-                                        },
-                                        {"object": "block", "type": "paragraph", "paragraph": {"rich_text": []}},
-                                        {"object": "block", "type": "divider", "divider": {}}
+                                        {"object": "block", "type": "heading_3", "heading_3": {"rich_text":[{"type":"text","text":{"content":"說明:"}}]}},
+                                        {"object": "block", "type": "paragraph", "paragraph": {"rich_text":[]}},
+                                        {"object": "block", "type": "divider", "divider":{}},
+                                        {"object": "block", "type": "heading_3", "heading_3": {"rich_text":[{"type":"text","text":{"content":"解卦:"}}]}},
+                                        {"object": "block", "type": "paragraph", "paragraph": {"rich_text":[]}},
+                                        {"object": "block", "type": "divider", "divider":{}},
+                                        {"object": "block", "type": "heading_3", "heading_3": {"rich_text":[{"type":"text","text":{"content":"反饋:"}}]}},
+                                        {"object": "block", "type": "paragraph", "paragraph": {"rich_text":[]}},
+                                        {"object": "block", "type": "divider", "divider":{}},
+                                        {"object": "block", "type": "heading_3", "heading_3": {"rich_text":[{"type":"text","text":{"content":"筆記:"}}]}},
+                                        {"object": "block", "type": "paragraph", "paragraph": {"rich_text":[]}},
+                                        {"object": "block", "type": "divider", "divider":{}}
                                     ]
                                 }
                             }
@@ -127,15 +73,41 @@ def pushToNotion( imageUrl, titleText , apiToken , pageId  ):
             ]
         )
 
+        # ------------------- 置換左欄圖片 -------------------
+        column_list_id = None
+        results = notion.blocks.children.list(new_page["id"])["results"]
+        for block in results:
+            if block["type"] == "column_list":
+                column_list_id = block["id"]
+                break
+
+        if column_list_id:
+            # 取得 column_list 下的 column
+            columns = notion.blocks.children.list(column_list_id)["results"]
+            if columns and columns[0]["type"] == "column":
+                left_column_id = columns[0]["id"]
+                # 取得左欄裡的子圖塊
+                left_children = notion.blocks.children.list(left_column_id)["results"]
+                for c in left_children:
+                    if c["type"] == "image":
+                        image_block_id = c["id"]
+                        # 用相同路徑刷新圖片
+                        notion.blocks.update(
+                            block_id=image_block_id,
+                            image={"external": {"url": imageUrl}}
+                        )
+                        break
+
         return new_page["url"]
 
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return f"Error: {str(e)}"
 
 
-
 if __name__ == '__main__':
-
+    
     from dotenv import load_dotenv
     load_dotenv()  # 載入 .env 檔案
 
@@ -144,21 +116,9 @@ if __name__ == '__main__':
     page_id      = os.environ.get('NOTION_PAGE_ID')
 
 
-    img_url = "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1760970853/line_temp/yvnimzx4hwedj2vsmhqx.jpg"
-    titleName = "占占"
+    img_url = "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1761221999/line_temp/5d146b4556304ebe9d174a2866c0583b.jpg"
+    titleName = "占天氣氣氣"
     url = pushToNotion( imageUrl = img_url , titleText = titleName , apiToken = notion_token , pageId = page_id )
     # pushToNotion( imageUrl, titleText , apiToken , pageId  )
     print( url )
 
-
-
-
-
-
-
-
-# 呼叫上傳notion的程式
-# sixYaoMain( data )
-
-# imageUrl
-# pushToNotion( imageUrl, titleText , apiToken , pageId  )

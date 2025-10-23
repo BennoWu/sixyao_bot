@@ -56,31 +56,42 @@ cloudinary.config(
 )
 
 
+import uuid
+
 
 def upload_image(image_input, folder="line_temp"):
     """
-    上傳圖片（可接受檔案路徑或 PIL Image），回傳連結與 public_id
+    上傳圖片到 Cloudinary，回傳直連 URL 與 public_id。
+    - 每次生成新的 public_id，避免覆蓋舊圖
+    - folder: Cloudinary 資料夾
+    - 支援檔案路徑或 PIL.Image 物件
     """
-    # 如果是 PIL.Image 物件，就轉換為 BytesIO
+    # 生成唯一 public_id
+    unique_id = uuid.uuid4().hex
+    public_id = f"{folder}/{unique_id}"
+
+    # 處理上傳來源
     if isinstance(image_input, Image.Image):
         byte_io = io.BytesIO()
         image_input.save(byte_io, format='JPEG')
         byte_io.seek(0)
         upload_source = byte_io
     else:
-        # 否則視為檔案路徑
         upload_source = image_input
 
     # 上傳
-    res = cloudinary.uploader.upload(upload_source, folder=folder)
+    res = cloudinary.uploader.upload(
+        upload_source,
+        public_id=public_id,
+        resource_type='image',  # 確保是圖片
+        type='upload'            # 產生真正直連 URL
+    )
+
     return {
-        "url": res["secure_url"],
+        "url": res["secure_url"],   # Notion 可直接外連
         "public_id": res["public_id"],
         "created_at": res["created_at"]
     }
-
-
-
     
 
 def get_upload_time(public_id):
@@ -159,17 +170,17 @@ if __name__ == '__main__':
 # https://console.cloudinary.com/app/c-23207f9a45824cd129542519c8eb28/assets/media_library/search?q=&view_mode=mosaic
     # from cloudinary_helper import upload_image, delete_older_than
 
-    # # 上傳圖片
-    # res = upload_image( r"D:\_work\簽單名片\0208\a-01.jpg")
-    # print("連結：", res["url"])
-    # print("public_id：", res["public_id"])
-    # print("上傳時間：", res["created_at"])
+    # 上傳圖片
+    res = upload_image( r"D:\Dropbox\Python\linebot\六爻\584488494031437884.jpg")
+    print("連結：", res["url"])
+    print("public_id：", res["public_id"])
+    print("上傳時間：", res["created_at"])
 
 
-    # upload_image( r"D:\Dropbox\Python\linebot\六爻\work\834185e004190e75a5bfdb32019e51fb.jpg", folder="__image_hosting")
+    # # upload_image( r"D:\Dropbox\Python\linebot\六爻\work\834185e004190e75a5bfdb32019e51fb.jpg", folder="__image_hosting")
 
-    # # 刪除超過 15 天的圖
-    deleted = delete_older_than()
-    print("已刪除：", deleted)
+    # # # 刪除超過 15 天的圖
+    # deleted = delete_older_than()
+    # print("已刪除：", deleted)
 
 # delete_image("line_temp/m45zouwd2vvb6fejpb9g")

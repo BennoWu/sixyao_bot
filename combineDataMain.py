@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from pil_draw_work_v01 import *
 # from pil_draw_work_v02 import *
-# from notion_push import ( pushToNotion as notionPush_pushUp )
+from notion_push import ( pushToNotion as notionPush_pushUp )
 
 from flexLayout_tool import *
 from mainFun import *
@@ -651,7 +651,7 @@ from sixYaoJsonDataClass import *
 
 # def panBuilderMain(  msg = ""  , lineBotId = "" , lineBotName = "" , userImage = "" , note = "" , testMode = False ):
 
-def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , userImage = "" ):
+def sixYaoMain ( fullDataInput , lineBotId = "U21eaaf32db85b983a842d9a9da81d8f1" , lineBotName = "" , userImage = "" ):
 	fullDataInput = fullDataInput.replace( '\u200b' , '' )
 	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\n" , '//' )
 	# print( fullDataInput)
@@ -1041,12 +1041,12 @@ def sixYaoMain ( fullDataInput , lineBotId = "Temp123" , lineBotName = "BBB" , u
 			savePic = False,
 			notion = notionMode )
 
-		return image_url
+		# return image_url
 
 		print( image_url )
 		if notionMode == True:
 			notionUrl = notionPush_pushUp(  image_url , noteText , token_buf , pageId_buf )
-			print( notionUrl )
+			print( "NOTION URL:" , notionUrl )
 			return notionUrl
 		else:
 			return image_url
@@ -1143,7 +1143,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "申月戊辰日//妻占夫近病?//同人之離卦" )	
 	# sixYaoMain( "傑利婚姻終身卦//010$X1//2025/08/20/15/25" )	
 	# sixYaoMain( "丑月戊辰日//占防恭劾?//井之中孚卦" )	# 三合 四格
-	# sixYaoMain( "寅月戊午日//占地造葬可否?//頤之無妄卦" )	
+	sixYaoMain( "n+寅月戊午日//占地造葬可否?//頤之無妄卦" )	
 	# sixYaoMain( "辰年辰月丁未日//赫女占回北部工作吉凶?//10XX1$" )	 # 三合 四格
 
 	# sixYaoMain( "+占陳女(妹妹)終身婚姻?//乙巳年申月己酉日//001$00" )	 
@@ -1195,7 +1195,7 @@ if __name__ == '__main__':
 
 # 群組討論
 	# sixYaoMain( "辰年午月癸卯日//廖女占去XX案場工作吉凶//111$10" ) #第三問
-	# sixYaoMain( "2025/08/22/09/10 // 1001$0 // 占黃連台中經營課是否會開" )
+	# sixYaoMain( "2025/08/22/09/10 // 1001$0 // 占黃連老師台中經營課是否會開" )
 	# sixYaoMain( "2025/08/31/12/28 // X011$0 // 舅舅為了生小孩想換女朋友")
 	# sixYaoMain( "2025-08-17 22:36 // 隨之困 // 占繳罰款去申訴有機會撤銷否?")
 	# sixYaoMain( "+2025/08/27/18/36 // 10111$ // 提供群友AB免費服務項目(已有)但部分服務另收費/有搞頭嗎" )
@@ -1314,7 +1314,7 @@ if __name__ == '__main__':
 # 高雄場課程""" ) ## 三合局
 
 	# sixYaoMain( "占今年幾時換工作較好//0,1,00,11,0,1" )
-	sixYaoMain( "+2025/10/21/14/45 // X$1000 // 瑞豐最近的財運吉凶1021" )
+	# sixYaoMain( "+2025/10/21/14/45 // X$1000 // 瑞豐最近的財運吉凶1021" )
 	# sixYaoMain( "占今年幾時換工作較好好好好好好//27,71,42" )
 
 

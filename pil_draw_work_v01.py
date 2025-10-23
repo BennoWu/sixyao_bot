@@ -384,8 +384,8 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 	roundSquare (  hight = screenHight-268 , hightSize = 90 , sideSpace = twoSideSpace+3 , fillColor = None , outlineColor = "#777777" , LineWidth = 4 )
 
 	## 最大邊框"#ACA899"
-	draw_SquareFull (  hight = 0 , hightSize = screenHight-2, sideSpace = 0 , fillColor = None , outlineColor = "#959799" , LineWidth = 18 )
-	# roundSquare (  hight = 8 , hightSize = screenHight-18, sideSpace = 8 , fillColor = None , outlineColor = "#B1B1B1" , LineWidth = 4 )
+	# draw_SquareFull (  hight = 0 , hightSize = screenHight-2, sideSpace = 0 , fillColor = None , outlineColor = "#959799" , LineWidth = 18 )
+	roundSquare (  hight = 8 , hightSize = screenHight-18, sideSpace = 8 ,roundSize = 30 ,   fillColor = None , outlineColor = "#959799" , LineWidth = 8 )
 
 
 
