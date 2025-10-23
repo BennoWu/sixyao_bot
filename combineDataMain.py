@@ -82,72 +82,47 @@ def riceGua( fullDataInput ):
 
 import re
 
-# # 編譯一次就好
-# # SEP_PATTERN = re.compile(r'[,\./\\\s_\-\u3001\u3002]+')  # 所有分隔符集中處理
-# SEP_PATTERN =   re.compile(r'[,\./\\\s_\-;:，。、．：；]+')
-# # SEP_PATTERN = re.compile(r'[,\./\\\s_\-;:，。、．：；\n]+') ## 加入了" - " "\n"
-# def _normalize_piece(piece: str, keep_newline=True) -> str:
-# 	"""
-# 	將單一字串 piece 清洗：
-# 	1) 先把換行保留成 //（如果 keep_newline=True）
-# 	2) 把連續分隔符統一為 '/'
-# 	3) 去首尾多餘的 '/'
-# 	"""
-# 	# print( str )
-# 	piece = piece.replace('\u200b', '')                 # 清零寬字元
-# 	piece = piece.replace( " - " , '//' ).replace( "\n" , '//' )
-
-# 	if keep_newline:
-# 		piece = piece.replace('\n', '//')               # 換行變 //
-# 	piece = SEP_PATTERN.sub('/', piece)                 # 連續分隔 → '/'
-# 	return piece.strip('/')
-
-# # 注意：這裡不把 "/" 放進正則式，避免破壞原有的日期格式
-
-
+import re
 
 SEP_PATTERN = re.compile(r'[,\.\s_\\;:，。、．：；]+')
 
-def _normalize_piece(piece: str, keep_newline=True, strong_sep='//') -> str:
+def _normalize_piece(piece: str) -> str:
     """
-    清洗文字：
-    - 清零寬字元
-    - 將「 - 」和換行符轉成 strong_sep（預設 "//"）
+    單純清洗單段文字：
+    - 移除零寬字元
+    - 將換行或 - 移除或替換為空格（不加段落分隔）
     - 其他符號統一為 "/"
     """
-    piece = piece.replace('\u200b', '')
-    piece = re.sub(r'\s*-\s*', strong_sep, piece)        # 替換「 - 」
-    
-    if keep_newline:
-        piece = re.sub(r'[\r\n]+', strong_sep, piece)   # 換行符也換
-    else:
-        piece = re.sub(r'[\r\n]+', ' ', piece)
-    
-    piece = SEP_PATTERN.sub('/', piece)                 # 其他分隔符
-    piece = re.sub(r'/+', '/', piece)
+    piece = piece.replace('\u200b', '')                  # 清零寬字元
+    piece = re.sub(r'\s*-\s*', '', piece)               # 移除連字符
+    piece = re.sub(r'[\r\n]+', '', piece)              # 移除換行
+    piece = SEP_PATTERN.sub('/', piece)                 # 其他符號統一為 '/'
+    piece = re.sub(r'/+', '/', piece)                   # 合併連續 '/'
     return piece.strip('/')
 
 
-def unifiedData(orgData):
-	"""
-	參數 orgData 可以是字串或 list[str]。
-	回傳：
-		- 若傳入 list：回傳已清洗的 list
-		- 若傳入 str ：回傳清洗後的 str
-	"""
-	if isinstance(orgData, list):
-		return [_normalize_piece(item) for item in orgData]
+def unifiedData(orgData, strong_sep='//', sep_for_app=None):
+    """
+    清洗字串或 list[str]，控制段落分隔符：
+    - orgData: str 或 list[str]
+    - strong_sep: 程式內運算用段落分隔符（預設 "//"）
+    - sep_for_app: 若不為 None，輸出時會把 strong_sep 替換成這個符號（LINE 安全輸出）
+    """
+    if isinstance(orgData, list):
+        result = [_normalize_piece(item) for item in orgData]
+    else:
+        # 對單字串，用 strong_sep 分段
+        segments = [_normalize_piece(seg) for seg in orgData.split(strong_sep)]
+        result = strong_sep.join(segments)
 
-	# 如果是單一字串
-	# 先把 // 作為「段落分隔」保留下來，再逐段清洗
-	segments = [_normalize_piece(seg) for seg in orgData.split('//')]
-	return '//'.join(segments)
+    # 輸出替換為 app 專用符號
+    if sep_for_app is not None:
+        if isinstance(result, list):
+            result = [item.replace(strong_sep, sep_for_app) for item in result]
+        else:
+            result = result.replace(strong_sep, sep_for_app)
 
-# # --- 測試 ---
-# print(unifiedData("2025 ,07  14,, 18 .35"))         # ➜ 2025/07/14/18/35
-# print(unifiedData(["2025-07-14   18:35", "2025_07_15\\20 00"]))  
-# # ➜ ['2025/07/14/18:35', '2025/07/15/20/00']
-
+    return result
 
 
 
