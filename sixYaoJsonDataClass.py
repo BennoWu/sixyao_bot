@@ -236,16 +236,20 @@ class jsonDataClass:
 						token_buf = comList[2]   ## get token
 						pageId_buf = comList[3] ## get page
 
-						supabase_io.save_user_data(
-							user_id = self.linebotId,
-							notion_token = token_buf,
-							page_id = pageId_buf
-						)
 
 
 						if checkNotionAcc( token_buf , pageId_buf ) == True:
 							self.notionToken_pageId = "ON"
 							rtn_message =  "notion - ok"
+
+							supabase_io.save_user_data(
+								user_id = self.linebotId,
+								notion_token = token_buf,
+								page_id = pageId_buf
+							)
+
+
+							
 						else:
 							rtn_message =  "API token is invalid....請檢查notion資料"
 					else:
