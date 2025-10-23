@@ -104,22 +104,16 @@ import re
 
 # 注意：這裡不把 "/" 放進正則式，避免破壞原有的日期格式
 
+
 SEP_PATTERN = re.compile(r'[,\.\s_\\;:，。、．：；]+')
 
 def _normalize_piece(piece: str, keep_newline=True) -> str:
-	piece = piece.replace('\u200b', '')              # 清零寬字元
-	piece = re.sub(r'\s*-\s*', '//', piece)          # 將「 - 」視為強分隔
-
-	# ✅ 一次處理所有換行符號變化（包含 \r、\r\n）
-	if keep_newline:
-		piece = re.sub(r'[\r\n]+', '//', piece)
-	else:
-		piece = re.sub(r'[\r\n]+', ' ', piece)
-	
+	piece = piece.replace('\u200b', '')
+	piece = re.sub(r'\s*-\s*', '////', piece)      # 改成四斜線
+	piece = re.sub(r'[\r\n]+', '////' if keep_newline else ' ', piece)
 	piece = SEP_PATTERN.sub('/', piece)
 	piece = re.sub(r'/+', '/', piece)
 	return piece.strip('/')
-
 
 
 def unifiedData(orgData):
