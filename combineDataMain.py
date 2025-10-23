@@ -83,22 +83,48 @@ def riceGua( fullDataInput ):
 import re
 
 # 編譯一次就好
-# SEP_PATTERN = re.compile(r'[,\./\\\s_\-\u3001\u3002]+')  # 所有分隔符集中處理
-SEP_PATTERN =   re.compile(r'[,\./\\\s_\-;:，。、．：；]+')
+# # SEP_PATTERN = re.compile(r'[,\./\\\s_\-\u3001\u3002]+')  # 所有分隔符集中處理
+# SEP_PATTERN =   re.compile(r'[,\./\\\s_\-;:，。、．：；]+')
+# # SEP_PATTERN = re.compile(r'[,\./\\\s_\-;:，。、．：；\n]+') ## 加入了" - " "\n"
+# def _normalize_piece(piece: str, keep_newline=True) -> str:
+# 	"""
+# 	將單一字串 piece 清洗：
+# 	1) 先把換行保留成 //（如果 keep_newline=True）
+# 	2) 把連續分隔符統一為 '/'
+# 	3) 去首尾多餘的 '/'
+# 	"""
+# 	# print( str )
+# 	piece = piece.replace('\u200b', '')                 # 清零寬字元
+# 	piece = piece.replace( " - " , '//' ).replace( "\n" , '//' )
+
+# 	if keep_newline:
+# 		piece = piece.replace('\n', '//')               # 換行變 //
+# 	piece = SEP_PATTERN.sub('/', piece)                 # 連續分隔 → '/'
+# 	return piece.strip('/')
+
+# 注意：這裡不把 "/" 放進正則式，避免破壞原有的日期格式
+SEP_PATTERN = re.compile(r'[,\.\s_\\;:，。、．：；]+')
 
 def _normalize_piece(piece: str, keep_newline=True) -> str:
 	"""
-	將單一字串 piece 清洗：
-	1) 先把換行保留成 //（如果 keep_newline=True）
-	2) 把連續分隔符統一為 '/'
-	3) 去首尾多餘的 '/'
+	清洗文字：
+	- 清除零寬字元
+	- 將「 - 」與換行統一為 "//"
+	- 其他符號（空格、標點等）變成 "/"
+	- 保留日期的斜線 "/"
 	"""
-	# print( str )
-	piece = piece.replace('\u200b', '')                 # 清零寬字元
+	piece = piece.replace('\u200b', '')              # 清零寬字元
+	piece = re.sub(r'\s*-\s*', '//', piece)          # 將「 - 」視為強分隔
 	if keep_newline:
-		piece = piece.replace('\n', '//')               # 換行變 //
-	piece = SEP_PATTERN.sub('/', piece)                 # 連續分隔 → '/'
+		piece = piece.replace('\n', '//')            # 換行也變成 //
+	else:
+		piece = piece.replace('\n', ' ')
+	
+	piece = SEP_PATTERN.sub('/', piece)              # 統一分隔符
+	piece = re.sub(r'/+', '/', piece)                # 合併連續 "/"
+	piece = re.sub(r'(?<!/)//(?!/)', '//', piece)    # 確保 "//" 保留（不會被合併掉）
 	return piece.strip('/')
+
 
 def unifiedData(orgData):
 	"""
@@ -1297,7 +1323,7 @@ if __name__ == '__main__':
 
 # 天何言哉，叩之即應，富貴窮通，命運使然。遇事難斷，卜而決疑，惟神惟靈，實明我心。卦神在上，弟子誠心祈求靈卦， 弟子某某某要問某某事，請賜萬象六爻，斷驗如神，以決憂疑。謝卦神賜卦
 # """
-	# sixYaoMain( "+可否得到銀行offer//2025/06/05/21/22//11X0$X")
+	sixYaoMain( "+可否得到銀行offer//2025/06/05/21/22//11X0$X")
 	# sixYaoMain( "瑞豐近況2//@@11@0//2025 ,07 14 18 35") ## 化退
 	# sixYaoMain( "+蔡男占銀行貸款可否通過//癸卯,丁巳,乙亥,己酉//豐之離卦")
 
@@ -1311,8 +1337,8 @@ if __name__ == '__main__':
 	# sixYaoMain( "27,55,22//乙月,丙子日//占今年幾時換工作較好" )
 	# sixYaoMain( "+0,1,00,11,0,1//辛亥月乙卯日//占今年幾時換工作較好" )
 
-	sixYaoMain( """2025/10/23/1/46 - 100X11
-楊梅工地幾時會開工?""" ) ## 三合局
+# 	sixYaoMain( """2025/10/22/18/15 - $00001
+# 高雄場課程""" ) ## 三合局
 
 	# sixYaoMain( "占今年幾時換工作較好//0,1,00,11,0,1" )
 	# sixYaoMain( "+2025/10/21/14/45 // X$1000 // 瑞豐最近的財運吉凶1021" )

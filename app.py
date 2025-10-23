@@ -177,7 +177,7 @@ def handle_message(event):
 		else:
 			line_bot_api.reply_message(
 				event.reply_token,
-				TextSendMessage(text= "Notion not Ready" ))				
+				TextSendMessage(text= "❌Notion not Ready" ))				
 
 	
 	# ========= 干支列表 =========
@@ -264,7 +264,7 @@ def handle_message(event):
 
 
 	## 裝卦UI
-	elif  "//" in inputMsg:
+	elif  "//" in unifiedData(inputMsg):
 		ui_cmd_dict = sixYaoMain ( inputMsg , 
 						lineBotId = user_id , 
 						lineBotName = displayName , 
@@ -281,7 +281,7 @@ def handle_message(event):
 			line_bot_api.reply_message(
 				event.reply_token,
 				FlexSendMessage(
-					alt_text = '< OCR裝卦UI >',
+					alt_text = '< 裝卦UI >',
 					contents = ui_cmd_dict   # 直接放轉好的 dict
 				)
 			)
@@ -394,7 +394,7 @@ def handle_image_message(event):
 	line_bot_api.reply_message(
 		event.reply_token,
 		FlexSendMessage(
-			alt_text='< 裝卦UI >',
+			alt_text='< OCR裝卦UI >',
 			contents= ui_cmd_dict   # 直接放轉好的 dict
 		)
 	)
