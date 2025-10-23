@@ -82,40 +82,37 @@ def riceGua( fullDataInput ):
 
 import re
 
-import re
-
-SEP_PATTERN = re.compile(r'[,\.\s_\\;:，。、．：；]+')
+# 統一其他符號
+SEP_PATTERN = re.compile(r'[.\s_\\;:，。、．：；]+')
 
 def _normalize_piece(piece: str) -> str:
-    """
-    單純清洗單段文字：
-    - 移除零寬字元
-    - 將換行或 - 移除或替換為空格（不加段落分隔）
-    - 其他符號統一為 "/"
-    """
-    piece = piece.replace('\u200b', '')                  # 清零寬字元
-    piece = re.sub(r'\s*-\s*', '', piece)               # 移除連字符
-    piece = re.sub(r'[\r\n]+', '', piece)              # 移除換行
-    piece = SEP_PATTERN.sub('/', piece)                 # 其他符號統一為 '/'
-    piece = re.sub(r'/+', '/', piece)                   # 合併連續 '/'
+    """清洗單段文字：去零寬字元、統一符號、合併連續 /"""
+    piece = piece.replace('\u200b', '')
+    piece = SEP_PATTERN.sub('/', piece)
+    piece = re.sub(r'/+', '/', piece)
     return piece.strip('/')
 
 
 def unifiedData(orgData, strong_sep='//', sep_for_app=None):
     """
-    清洗字串或 list[str]，控制段落分隔符：
+    清洗字串或 list[str]，統一段落分隔：
     - orgData: str 或 list[str]
-    - strong_sep: 程式內運算用段落分隔符（預設 "//"）
-    - sep_for_app: 若不為 None，輸出時會把 strong_sep 替換成這個符號（LINE 安全輸出）
+    - strong_sep: 程式內段落分隔符，預設 //
+    - sep_for_app: 若不為 None，最後輸出用此符號替換 strong_sep
     """
-    if isinstance(orgData, list):
-        result = [_normalize_piece(item) for item in orgData]
-    else:
-        # 對單字串，用 strong_sep 分段
+    if isinstance(orgData, str):
+        # 將換行、-、逗號統一成 strong_sep
+        orgData = re.sub(r'\s*-\s*', strong_sep, orgData)
+        orgData = re.sub(r'[\r\n]+', strong_sep, orgData)
+        orgData = re.sub(r',', strong_sep, orgData)
+
+        # 拆段落並清洗
         segments = [_normalize_piece(seg) for seg in orgData.split(strong_sep)]
         result = strong_sep.join(segments)
+    else:  # list
+        result = [_normalize_piece(item) for item in orgData]
 
-    # 輸出替換為 app 專用符號
+    # 替換為 app/LINE 安全符號
     if sep_for_app is not None:
         if isinstance(result, list):
             result = [item.replace(strong_sep, sep_for_app) for item in result]
@@ -123,8 +120,6 @@ def unifiedData(orgData, strong_sep='//', sep_for_app=None):
             result = result.replace(strong_sep, sep_for_app)
 
     return result
-
-
 
 
 
@@ -1313,9 +1308,10 @@ if __name__ == '__main__':
 	# sixYaoMain( "+0,1,00,11,0,1//亥月,丙子日//占今年幾時換工作較好" ) ## 三合缺一待用
 	# sixYaoMain( "27,55,22//乙月,丙子日//占今年幾時換工作較好" )
 	# sixYaoMain( "+0,1,00,11,0,1//辛亥月乙卯日//占今年幾時換工作較好" )
-
-	sixYaoMain( """2025/10/22/18/15 - $00001
-高雄場課程""" ) ## 三合局
+	print( unifiedData("""2025/10/22/18/15 - $00001
+高雄場課程""", strong_sep='//', sep_for_app= "||") )
+# 	sixYaoMain( """2025/10/22/18/15 - $00001
+# 高雄場課程""" ) ## 三合局
 
 	# sixYaoMain( "占今年幾時換工作較好//0,1,00,11,0,1" )
 	# sixYaoMain( "+2025/10/21/14/45 // X$1000 // 瑞豐最近的財運吉凶1021" )
