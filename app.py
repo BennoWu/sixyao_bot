@@ -147,8 +147,7 @@ def handle_message(event):
 	print ( ">:" , inputMsg )
 	print ( unifiedData(inputMsg) )
 
-	# print ( unifiedData(orgData, strong_sep='||'))
-	print( unifiedData( inputMsg , strong_sep='//', sep_for_app= "||") )
+	# print( unifiedData( inputMsg , strong_sep='//', sep_for_app= "||") )
 	## json建立
 	jsonData = jsonDataClass( linebotId = user_id  ,
 								linebotUserName = displayName ,
@@ -257,7 +256,7 @@ def handle_message(event):
 		line_bot_api.reply_message(
 			event.reply_token,
 			[
-				TextSendMessage(text = "收到"),  # 第一個訊息 可有可無
+				# TextSendMessage(text = "收到"),  # 第一個訊息 可有可無
 				ImageSendMessage(             # 第二個訊息 (圖片)
 					original_content_url = img_high,
 					preview_image_url = img_low

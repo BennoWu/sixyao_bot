@@ -890,8 +890,8 @@ uiLayoutBackExt = '''
                     "action": {
                       "type": "postback",
                       "label": "N",
-                      "data": "__NOTION_DSP__",
-                      "displayText": "__NOTION_CMD__"
+                      "data": "__NOTION_CMD__",
+                      "displayText": "__NOTION_DSP__"
                     },
                     "color": "#dddddd",
                     "margin": "none",
