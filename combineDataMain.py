@@ -15,6 +15,25 @@ from  supabase_io import *
 import os
 
 
+
+from dotenv import load_dotenv
+load_dotenv()  # 載入 .env 檔案
+
+
+# notion_token = os.environ.get('NOTION_TOKEN')
+# page_id      = os.environ.get('NOTION_PAGE_ID')
+
+
+
+
+
+
+
+
+
+
+
+
 # 全形轉半形
 def strQ2B(ustring):
 	rstring = ""
@@ -86,57 +105,43 @@ import re
 SEP_PATTERN = re.compile(r'[.\s_\\;:，。、．：；]+')
 
 def _normalize_piece(piece: str) -> str:
-    """清洗單段文字：去零寬字元、統一符號、合併連續 /"""
-    piece = piece.replace('\u200b', '')
-    piece = SEP_PATTERN.sub('/', piece)
-    piece = re.sub(r'/+', '/', piece)
-    return piece.strip('/')
+	"""清洗單段文字：去零寬字元、統一符號、合併連續 /"""
+	piece = piece.replace('\u200b', '')
+	piece = SEP_PATTERN.sub('/', piece)
+	piece = re.sub(r'/+', '/', piece)
+	return piece.strip('/')
 
 
 def unifiedData(orgData, strong_sep='//', sep_for_app=None):
-    """
-    清洗字串或 list[str]，統一段落分隔：
-    - orgData: str 或 list[str]
-    - strong_sep: 程式內段落分隔符，預設 //
-    - sep_for_app: 若不為 None，最後輸出用此符號替換 strong_sep
-    """
-    if isinstance(orgData, str):
-        # 將換行、-、逗號統一成 strong_sep
-        orgData = re.sub(r'\s*-\s*', strong_sep, orgData)
-        orgData = re.sub(r'[\r\n]+', strong_sep, orgData)
-        orgData = re.sub(r',', strong_sep, orgData)
+	"""
+	清洗字串或 list[str]，統一段落分隔：
+	- orgData: str 或 list[str]
+	- strong_sep: 程式內段落分隔符，預設 //
+	- sep_for_app: 若不為 None，最後輸出用此符號替換 strong_sep
+	"""
+	if isinstance(orgData, str):
+		# 將換行、-、逗號統一成 strong_sep
+		orgData = re.sub(r'\s*-\s*', strong_sep, orgData)
+		orgData = re.sub(r'[\r\n]+', strong_sep, orgData)
+		orgData = re.sub(r',', strong_sep, orgData)
 
-        # 拆段落並清洗
-        segments = [_normalize_piece(seg) for seg in orgData.split(strong_sep)]
-        result = strong_sep.join(segments)
-    else:  # list
-        result = [_normalize_piece(item) for item in orgData]
+		# 拆段落並清洗
+		segments = [_normalize_piece(seg) for seg in orgData.split(strong_sep)]
+		result = strong_sep.join(segments)
+	else:  # list
+		result = [_normalize_piece(item) for item in orgData]
 
-    # 替換為 app/LINE 安全符號
-    if sep_for_app is not None:
-        if isinstance(result, list):
-            result = [item.replace(strong_sep, sep_for_app) for item in result]
-        else:
-            result = result.replace(strong_sep, sep_for_app)
+	# 替換為 app/LINE 安全符號
+	if sep_for_app is not None:
+		if isinstance(result, list):
+			result = [item.replace(strong_sep, sep_for_app) for item in result]
+		else:
+			result = result.replace(strong_sep, sep_for_app)
 
-    return result
-
-
+	return result
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-# .replace( "|","//" ).replace( "#","//" ).replace( "|","//" )
 
 ## 確認內容為天干地支
 def testTgdz( testData ):
@@ -439,7 +444,7 @@ def checkAllGua( guaName , checkMode = False ):
 					return True
 
 
-# 地風升之地水師
+			# 地風升之地水師
 			## 賁之明夷卦
 			# elif ( len(gua.split("之")) == 2) and ( ( fixGuaWording( gua.split("之")[0] ) == e['body'] ) or (  gua.split("之")[0]  == e['title']) )  and ( ( fixGuaWording( gua.split("之")[1] ) in [gua["body"] for gua in baGuaAllDict]  ) or ( set( gua ).issubset(set("天雷火澤風水山地")) ) == True  ): ## 咸之解
 			elif (	len( gua.split("之") ) == 2								# XX 之 XX
@@ -489,11 +494,8 @@ def checkAllGua( guaName , checkMode = False ):
 		if checkMode == True:
 			return False		
 
-
-
 	# print( ">",changeList)
 	# print( ">",gua_binary)
-
 
 
 	add = 1
@@ -548,27 +550,6 @@ def is_valid_date(date_list):
 #     except Exception as e:
 #         print(f"錯誤: {e}")
 #         return False
-
-
-
-
-# def looks_like_year(s):
-
-#     # 把所有非數字字元移除
-#     digits = re.sub(r'\D', '', s)
-
-
-
-	
-#     # 至少要有四位數
-#     if len(digits) < 4:
-#         return False
-	
-#     # 取前四位作為年份
-#     year = int(digits[:4])
-	
-#     # 判斷年份範圍
-#     return 1900 <= year <= 2099
 
 
 import re
@@ -649,19 +630,29 @@ def looks_like_year(text):
 from logBackup import ( logDataFun as logBK_logDataFun,    uploadCsvToGoogleSheet as logBK_uploadCsv  )
 from sixYaoJsonDataClass import *
 
-# def panBuilderMain(  msg = ""  , lineBotId = "" , lineBotName = "" , userImage = "" , note = "" , testMode = False ):
 
-def sixYaoMain ( fullDataInput , lineBotId = "U21eaaf32db85b983a842d9a9da81d8f1" , lineBotName = "" , userImage = "" ):
+
+
+
+
+
+
+
+
+
+# def sixYaoMain ( fullDataInput , lineBotId = "U21eaaf32db85b983a842d9a9da81d8f1" , lineBotName = "" , userImage = "" ):
+
+
+
+
+
+
+def sixYaoMain ( fullDataInput , userSetting = None ):
 	fullDataInput = fullDataInput.replace( '\u200b' , '' )
 	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\n" , '//' )
+	fullDataInput = fullDataInput.strip() ## 清除頭尾空格
 	# print( fullDataInput)
 
-
-	# lineBotId = "NEW_IDddddd"
-	# lineBotName = "大魔王二號"
-	# userImage = "www.xyz.com/aa/8882222.png"
-
-	# fullDataInput = "set tips on"
 
 	notionAccount = False
 	# ui_mode = ""
@@ -677,60 +668,75 @@ def sixYaoMain ( fullDataInput , lineBotId = "U21eaaf32db85b983a842d9a9da81d8f1"
 	# +XXX//XXXX//XXXXX    	產生圖檔模式
 	# command_mode = True	
 	#  XXX//XXXX//XXXXX		UI模式
+	if userSetting == None:
+		linebot_Id =  "U21eaaf32db85b983a842d9a9da81d8f1"    
+		user_name =   "Benno"
+		user_utc_hour =   8        
+		user_tipsMode =   "ON"  
+		user_notion =    True 
+
+
+	else:
+		linebot_Id =      userSetting [ "linebotId" ]
+		user_name =       userSetting [ "linebotUserName" ]
+		user_utc_hour =   userSetting [ "utc" ]     
+		user_tipsMode =   userSetting [ "tipsMode" ]
+		user_notion =     userSetting [ "notionToken_pageId" ]
+
+
+	token_buf = ""
+	pageId_buf = ""
+
+	if user_notion == True:
+		import  supabase_io
+		# 測試讀取 (會回傳字典)
+		data = get_user_data( linebot_Id )
+		if data:
+			token_buf = data['notion_token']
+			pageId_buf = data['page_id']
 
 
 
 
+	# jsonData = jsonDataClass( lineBotId , lineBotName , userImage  , fullDataInput ) ## class建立
 
-	fullDataInput = fullDataInput.strip() ## 清除頭尾空格
-	jsonData = jsonDataClass( lineBotId , lineBotName , userImage  , fullDataInput ) ## class建立
-
-	user_utc_hour   = jsonData.utc         ## 取得這個user的時區數字
-	user_uiStyle    = jsonData.uiStyle       ## "UA , UB   uiStyle 決定介面顏色與排版
-	user_fontStyle  = jsonData.fontStyle   ## "Fb" fontStyle 字型 宋體圓體黑體
-	user_tipsMode   = jsonData.tipsMode     ## "ON"  tipsMode  小抄提示功能
+	# user_utc_hour   = jsonData.utc         ## 取得這個user的時區數字
+	# user_uiStyle    = jsonData.uiStyle       ## "UA , UB   uiStyle 決定介面顏色與排版
+	# user_fontStyle  = jsonData.fontStyle   ## "Fb" fontStyle 字型 宋體圓體黑體
+	# user_tipsMode   = jsonData.tipsMode     ## "ON"  tipsMode  小抄提示功能
 	# user_notion     = jsonData.notionToken_pageId    ## notion 的token , page id
-	user_notion     = ""
+	
 
-	# 測試讀取 (會回傳字典)
-	data = get_user_data( lineBotId )
-	if data:
-		print(f"Token: {data['notion_token']}")
-		print(f"Page ID: {data['page_id']}")
-		token_buf  = data['notion_token']
-		pageId_buf = data['page_id']
+	# # 測試讀取 (會回傳字典) 勿殺!!
+	# data = get_user_data( lineBotId )
+	# if data:
+	# 	print(f"Token: {data['notion_token']}")
+	# 	print(f"Page ID: {data['page_id']}")
+	# 	token_buf  = data['notion_token']
+	# 	pageId_buf = data['page_id']
 
-		## 測試取得的token和page id是否正確
-		notionAccount = checkNotionAcc( token_buf , pageId_buf )
-		user_notion   = token_buf , pageId_buf 
-		print( "notionAccount:" , notionAccount )
-		print( "user_notion:" , user_notion )
-	# if user_notion:
-	# 	token_buf = user_notion.split("/")[0]
-	# 	pageId_buf = user_notion.split("/")[1]
-	# 	# print( token_buf , pageId_buf )
+	# 	## 測試取得的token和page id是否正確
 	# 	notionAccount = checkNotionAcc( token_buf , pageId_buf )
-
-
-
-
+	# 	user_notion   = token_buf , pageId_buf 
+	# 	print( "notionAccount:" , notionAccount )
+	# 	print( "user_notion:" , user_notion )
 
 
 	# print( "((((((((()))))))))" , notionAccount)
 
 
 
-	# 如果不是ON，就代表權限被OFF掉了，程式中止
-	if jsonData.switch.upper() != "ON": ## user的switch項如果不是ON，表示權限關閉狀態
-		print ( "404" )
-		exit()
+	# # 如果不是ON，就代表權限被OFF掉了，程式中止
+	# if jsonData.switch.upper() != "ON": ## user的switch項如果不是ON，表示權限關閉狀態
+	# 	print ( "404" )
+	# 	exit()
 
-	# 設定模式
-	if ("set" in fullDataInput.lower())  or ("utc" in fullDataInput.lower()) :
-		returnMsg = jsonData.uiJsonSetting( fullDataInput )
-		# lineSend_fun( replyUrl )
-		print ( returnMsg )
-		return returnMsg
+	# # 設定模式
+	# if ("set" in fullDataInput.lower())  or ("utc" in fullDataInput.lower()) :
+	# 	returnMsg = jsonData.uiJsonSetting( fullDataInput )
+	# 	# lineSend_fun( replyUrl )
+	# 	print ( returnMsg )
+	# 	return returnMsg
 
 
 
@@ -740,24 +746,6 @@ def sixYaoMain ( fullDataInput , lineBotId = "U21eaaf32db85b983a842d9a9da81d8f1"
 	if fullDataInput[:1] == "+":
 		build_mode = True
 		fullDataInput = fullDataInput[1:]
-
-
-
-
-
-	# if fullDataInput[:1] == "+":
-	# 	if fullDataInput[:2] == "++":
-	# 		ui_mode = "A" ## 現代版
-	# 		fullDataInput = fullDataInput[2:]
-	# 	else:
-	# 		ui_mode = "B" ## 經典版
-	# 		fullDataInput = fullDataInput[1:]	
-
-
-
-
-
-
 
 
 
@@ -1004,10 +992,6 @@ def sixYaoMain ( fullDataInput , lineBotId = "U21eaaf32db85b983a842d9a9da81d8f1"
 
 	showBuf = False  ## 上傳時記得OFF掉
 
-	# if os.getenv("RUN_ENV") != "production":
-	# 	showBuf = True
-
-
 	if notionMode:
 		showBuf = False
 
@@ -1016,14 +1000,17 @@ def sixYaoMain ( fullDataInput , lineBotId = "U21eaaf32db85b983a842d9a9da81d8f1"
 
 	# command_mode = False
 	# +XXX//XXXX//XXXXX    	產生圖檔模式
-	print( "user_utc_hour -- " , user_utc_hour )
-	print( "user_uiStyle -- " , user_uiStyle )
-	print( "user_fontStyle -- " , user_fontStyle )
-	print( "user_tipsMode -- " , user_tipsMode )
-	print( "user_notion -- " , user_notion )
+
+	print ( "linebot_Id --" , linebot_Id )
+	print ( "user_name --" , user_name )
+	print ( "user_utc_hour --" , user_utc_hour )
+	print ( "user_tipsMode --" , user_tipsMode )
+	print ( "user_notion --" , user_notion )
 
 
-	if user_uiStyle == "UA"  and  build_mode == True:
+
+
+	if build_mode == True:
 		## 產生圖片，回傳連結
 		image_url = drawUi_v1(  
 			mainFunction( 
@@ -1033,52 +1020,23 @@ def sixYaoMain ( fullDataInput , lineBotId = "U21eaaf32db85b983a842d9a9da81d8f1"
 				user_dayGanZi = dateDay , 
 				userDefineDate = dateData ), 
 
-			fontStyle = user_fontStyle, 
+			# fontStyle = user_fontStyle, 
 			tipsMode = user_tipsMode, 
-			uiStyle = user_uiStyle , 
+			# uiStyle = user_uiStyle , 
 
 			show = showBuf , 
 			savePic = False,
 			notion = notionMode )
 
 		# return image_url
-
-		print( image_url )
+		# print( image_url )
 		if notionMode == True:
-			notionUrl = notionPush_pushUp(  image_url , noteText , token_buf , pageId_buf )
+			notionUrl = notionPush_pushUp(  image_url , preNote + noteText  , token_buf , pageId_buf )
 			print( "NOTION URL:" , notionUrl )
 			return notionUrl
 		else:
 			return image_url
 
-
-	# elif user_uiStyle == "UB"  and  build_mode == True:
-	# 	## 產生圖片，回傳連結
-	# 	image_url = drawUi_v2(  
-	# 		mainFunction( 
-	# 			inputData = finalGua ,
-	# 			noteText = preNote + noteText  , 
-	# 			user_mouthZi = dateMonth , 
-	# 			user_dayGanZi = dateDay , 
-	# 			userDefineDate = dateData ), 
-
-	# 		fontStyle = user_fontStyle, 
-	# 		tipsMode = user_tipsMode, 
-	# 		uiStyle = user_uiStyle , 
-
-	# 		show = showBuf , 
-	# 		savePic = False,
-	# 		notion = notionMode )
-
-	# 	return image_url
-
-		# print( image_url )
-		# if notionMode == True:
-		# 	notionUrl = notionPush_pushUp(  image_url , noteText , token_buf , pageId_buf )
-		# 	print( notionUrl )
-		# 	return notionUrl
-		# else:
-		# 	return image_url
 
 
 	## 產生UI模式
@@ -1086,7 +1044,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "U21eaaf32db85b983a842d9a9da81d8f1"
 	# else: 
 		# dateData =  getNowTime( user_utc_hour )
 		## 產生裝卦UI時，記錄到log中
-		logBK_logDataFun( lineBotId , lineBotName , dateData , fullDataInput , command )
+		logBK_logDataFun( linebot_Id , user_name , dateData , fullDataInput , command )
 		threePil_mode = False
 		if  "<" in dateData:  ## 如果只有三柱
 			dateData = dateData[:-1]
@@ -1098,7 +1056,7 @@ def sixYaoMain ( fullDataInput , lineBotId = "U21eaaf32db85b983a842d9a9da81d8f1"
 									note = preNote + noteText , 
 									command = command  ,
 									threePillar = threePil_mode , 
-									notionAccount = notionAccount )
+									notionAccount = user_notion )
 		# print( ui_cmd_dict )
 		return ui_cmd_dict
 
@@ -1143,7 +1101,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "申月戊辰日//妻占夫近病?//同人之離卦" )	
 	# sixYaoMain( "傑利婚姻終身卦//010$X1//2025/08/20/15/25" )	
 	# sixYaoMain( "丑月戊辰日//占防恭劾?//井之中孚卦" )	# 三合 四格
-	sixYaoMain( "n+寅月戊午日//占地造葬可否?//頤之無妄卦" )	
+	# sixYaoMain( "+寅月戊午日//占地造葬可否?//頤之無妄卦" )	
 	# sixYaoMain( "辰年辰月丁未日//赫女占回北部工作吉凶?//10XX1$" )	 # 三合 四格
 
 	# sixYaoMain( "+占陳女(妹妹)終身婚姻?//乙巳年申月己酉日//001$00" )	 
@@ -1187,7 +1145,7 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "2寅年巳月寅日-申酉//華一希占高考考運//天火 1 3 5" )
 
-	# sixYaoMain( "測試測試再測試//0X@0X1" ) 
+	sixYaoMain( "測試測試再測試//0X@0X1" ) 
 	# sixYaoMain( "Q媽的鑽石項鍊在那裏?//1X@001" ) 
 	# sixYaoMain( "++乙巳年卯月己丑日//自占4/6馬祖新村擺攤收入吉凶?//1X0$$0") ## 三合
 	# sixYaoMain( "乙巳卯月戌-辰巳//X10101//自占今日在台中舊酒廠業績?" ) ## 三缺一

@@ -341,14 +341,14 @@ def jsonToGoogle():
 
 	# # # 金鑰位置
 	if credentials_json:
-	    # pygsheets 直接從環境變數讀取
-	    gc = pygsheets.authorize(service_account_env_var='GOOGLE_CREDENTIALS')
+		# pygsheets 直接從環境變數讀取
+		gc = pygsheets.authorize(service_account_env_var='GOOGLE_CREDENTIALS')
 	else:
-	    # 本地開發用檔案
-	    gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
+		# 本地開發用檔案
+		gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
 
 	globalSheet = gc.open_by_url(
-	    'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'
+		'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'
 	)
 
 
@@ -487,15 +487,15 @@ def googleToJson():
 
 	# # # 金鑰位置
 	if credentials_json:
-	    # pygsheets 直接從環境變數讀取
-	    gc = pygsheets.authorize(service_account_env_var='GOOGLE_CREDENTIALS')
+		# pygsheets 直接從環境變數讀取
+		gc = pygsheets.authorize(service_account_env_var='GOOGLE_CREDENTIALS')
 	else:
-	    # 本地開發用檔案
-	    gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
+		# 本地開發用檔案
+		gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
 
 	# 開啟sheet檔案
 	globalSheet = gc.open_by_url(
-	    'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'
+		'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'
 	)
 
 
@@ -543,6 +543,8 @@ def googleToJson():
 
 
 
+
+
 # line id	
 # user name	
 # user image	
@@ -577,14 +579,14 @@ def logToGoogle(  userId = "BB123", userName = "Benno", time = "2025/6/15/3/20" 
 
 	# # # 金鑰位置
 	if credentials_json:
-	    # pygsheets 直接從環境變數讀取
-	    gc = pygsheets.authorize(service_account_env_var='GOOGLE_CREDENTIALS')
+		# pygsheets 直接從環境變數讀取
+		gc = pygsheets.authorize(service_account_env_var='GOOGLE_CREDENTIALS')
 	else:
-	    # 本地開發用檔案
-	    gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
+		# 本地開發用檔案
+		gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
 
 	globalSheet = gc.open_by_url(
-	    'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'
+		'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'
 	)
 
 
@@ -618,10 +620,37 @@ def logToGoogle(  userId = "BB123", userName = "Benno", time = "2025/6/15/3/20" 
 
 
 
+
+
+def get_user_data( user_id , json_path= '__sixYoSet__.json' ):
+	"""
+	從 JSON 取出指定使用者的資料，並組成指定格式字典。
+	"""
+	with open(json_path, encoding="utf-8") as f:
+		data = json.load(f)
+
+	user = data.get(user_id)
+	if not user:
+		return None  # 找不到使用者就直接返回 None
+
+	userData = {
+		"linebot_Id": user_id,
+		"user_name": user.get("userName"),
+		"user_utc_hour": user.get("utc"),
+		"user_tipsMode": user.get("tipsMode"),
+		"user_notion": user.get("notionToken_pageId"),
+	}
+
+	return userData
+
+
+
+
+
 if __name__ == '__main__':
 	# addToJson (  linebotId ="U21eaaf32db85b983a842d9a9da81d8f1"	,UserName = "Benno"	,logInTime ="2023-2-1 23:52",command =	"時盤-2023-02-01-21-51"	,runtime = 1	,signUpTime = "2023-2-1 11:18",  userImage ="https://profile.line-scdn.net/0m03d2961a72519e9ae023945979128659aaf19ece8932"	 ,uiStyle ="A"	,subDataMode ="Lite"	,switch = "ON")
 	# loadAllJson()
-	print(googleToJson())
+	# print(googleToJson())
 	# print(jsonToGoogle())
 	# logToGoogle()
 
@@ -632,3 +661,5 @@ if __name__ == '__main__':
 	# print( getItemData ( "BENNO","signUpTime"))
 	# print( uiSetting( "U21eaaf32db85b983a842d9a9da81d8f1","set full a")  )
 	# setItemData ( "BENNO" , "switch" , "WW" )
+
+	print( get_user_data( "U21eaaf32db85b983a842d9a9da81d8f1" ))

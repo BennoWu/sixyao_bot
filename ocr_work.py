@@ -305,9 +305,14 @@ def getPicData(image_input):
 	print("Hexagrams:", hx)
 	
 	if dt and hx:
+
+		## 產生命令的本番
+		# ============================================
 		print(f"{dt}//{hx}//no title")
 		return f"{dt}//{hx}//no title"      
 		# return dt, hx
+		# ============================================
+
 
 # ===== 範例 =====
 if __name__ == '__main__':

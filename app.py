@@ -43,6 +43,12 @@ from linebot.models import (
 
 app = Flask(__name__)
 
+
+from dotenv import load_dotenv
+load_dotenv()  # 載入 .env 檔案
+# cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME')
+
+
 ## 裝卦初號機
 line_bot_api = LineBotApi(os.environ.get('LINE_CHANNEL_ACCESS_TOKEN'))
 handler = WebhookHandler(os.environ.get('LINE_CHANNEL_SECRET'))
@@ -91,41 +97,6 @@ def callback():
 
 
 
-# # 處理訊息
-# @handler.add(MessageEvent, message=TextMessage)
-# def handle_message(event):
-
-
-
-
-#     line_bot_api.reply_message(
-#         event.reply_token,
-#         TextSendMessage(text=event.message.text))
-
-
-# import time
-
-
-# last_time = [time.time()]  # 用 list 包起來避免 scope 問題
-# def get_time():
-#     current = time.time()
-#     elapsed = current - last_time[0]
-#     last_time[0] = current
-#     return round(elapsed, 2)
-
-# # 使用
-# total = []
-# total.append(get_time())  # 0
-# time.sleep(1.5)
-# total.append(get_time())  # 1.5
-# time.sleep(0.75)
-# total.append(get_time())  # 0.75
-
-# print(total)
-# result = " - ".join(map(str, total))
-
-
-
 
 ## 訊息進入起點
 # 處理訊息
@@ -147,6 +118,9 @@ def handle_message(event):
 	print ( ">:" , inputMsg )
 	print ( unifiedData(inputMsg) )
 
+
+	returnMsg = ""
+
 	# print( unifiedData( inputMsg , strong_sep='//', sep_for_app= "||") )
 	## json建立
 	jsonData = jsonDataClass( linebotId = user_id  ,
@@ -154,12 +128,53 @@ def handle_message(event):
 								userImage = picUrl ,
 								command = inputMsg )
 
+	userData = {
+		"linebot_Id"     : jsonData.linebotId,
+		"user_name"      : jsonData.linebotUserName,
+		"user_utc_hour"  : jsonData.utc,        
+		"user_tipsMode"  : jsonData.tipsMode,  
+		"user_notion"    : jsonData.notionToken_pageId
+	}
 
-	if inputMsg == "id":
+
+
+
+
+
+# def connect_db(cfg):
+#     print(f"Connecting to {cfg['user']}@{cfg['host']}:{cfg['port']}/{cfg['dbname']}")
+
+# db_config = {
+#     "host": "localhost",
+#     "port": 5432,
+#     "user": "admin",
+#     "password": "1234",
+#     "dbname": "mydb"
+# }
+
+# connect_db(db_config)
+
+
+
+
+	# 如果不是ON，就代表權限被OFF掉了，程式中止
+	if jsonData.switch.upper() != "ON": ## user的switch項如果不是ON，表示權限關閉狀態
+		print ( "404" )
+		exit()
+
+	# 設定模式
+	elif ("set" in fullDataInput.lower())  or ("utc" in fullDataInput.lower()) :
+		returnMsg = jsonData.uiJsonSetting( fullDataInput )
+		# lineSend_fun( replyUrl )
+		returnMsg =  returnMsg
+		# return returnMsg
+
+
+	elif inputMsg == "id":
 		inputMsg = user_id +"//" +displayName +"//"+picUrl
 
 
-
+	## 測試是否可運作
 	elif inputMsg.lower() == "notion" :
 
 		# 測試讀取 (會回傳字典)
@@ -173,14 +188,17 @@ def handle_message(event):
 			## 測試取得的token和page id是否正確
 			notionAccount = checkNotionAcc( token_buf , pageId_buf )
 			if notionAccount == True:
-				# 回覆訊息
-				line_bot_api.reply_message(
-					event.reply_token,
-					TextSendMessage(text= "Notion Ready" ))
+
+				# # 回覆訊息
+				returnMsg = "Notion Ready"
+				# line_bot_api.reply_message(
+				# 	event.reply_token,
+				# 	TextSendMessage(text= "Notion Ready" ))
 		else:
-			line_bot_api.reply_message(
-				event.reply_token,
-				TextSendMessage(text= "❌Notion not Ready" ))				
+			returnMsg = "❌Notion not Ready" 
+			# line_bot_api.reply_message(
+			# 	event.reply_token,
+			# 	TextSendMessage(text= "❌Notion not Ready" ))				
 
 	
 	# ========= 干支列表 =========
@@ -229,27 +247,31 @@ def handle_message(event):
 			)
 		)
 
-	## setting
-	elif  "set" in inputMsg.lower():
-		# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
+	# ## setting
+	# elif  "set" in inputMsg.lower():
+	# 	# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 
-		returnMsg = jsonData.uiJsonSetting( inputMsg )
-		# 回覆訊息
-		line_bot_api.reply_message(
-			event.reply_token,
-			TextSendMessage(text= returnMsg  )
-		)
+	# 	returnMsg = jsonData.uiJsonSetting( inputMsg )
+	# 	# 回覆訊息
+	# 	line_bot_api.reply_message(
+	# 		event.reply_token,
+	# 		TextSendMessage(text= returnMsg  )
+	# 	)
 
 
-
-	# LINE圖片處理
+	# 裝卦圖片上傳
 	elif inputMsg.startswith("+"):
 		# img_high, img_low = sixYaoMain(data)
 
-		img_high, img_low  = sixYaoMain ( inputMsg , 
-							lineBotId = user_id , 
-							lineBotName = displayName , 
-							userImage = picUrl )
+		img_high, img_low  = sixYaoMain ( inputMsg ,  userData )
+
+		# img_high, img_low  = sixYaoMain ( inputMsg , 
+		# 					lineBotId = user_id , 
+		# 					lineBotName = displayName , 
+		# 					userImage = picUrl )
+
+
+
 
 		
 		# 回覆訊息：同時回傳文字 + 圖片
@@ -265,13 +287,16 @@ def handle_message(event):
 		)
 
 
-
 	## 裝卦UI
 	elif  "//" in unifiedData(inputMsg):
-		ui_cmd_dict = sixYaoMain ( inputMsg , 
-						lineBotId = user_id , 
-						lineBotName = displayName , 
-						userImage = picUrl )
+
+		ui_cmd_dict = sixYaoMain ( inputMsg , userData )
+
+		# ui_cmd_dict = sixYaoMain ( inputMsg , 
+		# 				lineBotId = user_id , 
+		# 				lineBotName = displayName , 
+		# 				userImage = picUrl )
+
 
 		# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 		jsonData.uiJsonSetting("set temp " + inputMsg ) ## 取完之後刪除
@@ -297,10 +322,12 @@ def handle_message(event):
 		print( jsonData.temp )		
 
 		newCommand = uiCommand.replace( "no title" , changeNote )
-		new_flex_json = sixYaoMain( newCommand ,
-							lineBotId = user_id , 
-							lineBotName = displayName , 
-							userImage = picUrl ) # 取得起盤介面的json
+		new_flex_json = sixYaoMain( newCommand , userData ) # 取得起盤介面的json
+
+		# new_flex_json = sixYaoMain( newCommand ,
+		# 					lineBotId = user_id , 
+		# 					lineBotName = displayName , 
+		# 					userImage = picUrl ) # 取得起盤介面的json
 
 		jsonData.uiJsonSetting("set temp none") ## 取完之後刪除
 		line_bot_api.reply_message(
@@ -314,33 +341,32 @@ def handle_message(event):
 	## 執行程式用
 	elif inputMsg[0:4] == "____":
 		inputMsg = inputMsg[ 4: ]
-		backMsg = ""
+		# backMsg = ""
 		if inputMsg == "up":
-			backMsg = jsonToGoogle()
+			returnMsg = jsonToGoogle()
 		elif inputMsg == "dn":
-			backMsg = googleToJson()
+			returnMsg = googleToJson()
 		elif inputMsg == "logup":
-			backMsg = uploadCsvToGoogleSheet()
+			returnMsg = uploadCsvToGoogleSheet()
 		elif inputMsg == "show":
 			pass
 
 		else:
-			backMsg = "No command - " + inputMsg
+			returnMsg = "No command - " + inputMsg
 
-		line_bot_api.reply_message(
-			event.reply_token,
-			TextSendMessage( text= backMsg  )
-		)
-
-
+		# line_bot_api.reply_message(
+		# 	event.reply_token,
+		# 	TextSendMessage( text= backMsg  )
+		# )
 
 	else:
-		# 回覆訊息
-		line_bot_api.reply_message(
-			event.reply_token,
-			TextSendMessage(text= "未知指令: " + inputMsg  )
-		)
+		returnMsg = "未知指令:  " + inputMsg 
 
+	# 回覆訊息
+	line_bot_api.reply_message(
+		event.reply_token,
+		TextSendMessage( text= returnMsg  )
+	)
 
 
 
@@ -354,33 +380,36 @@ def handle_image_message(event):
 	message_id = event.message.id
 		# 取得用戶的id
 	user_id = event.source.user_id 
-	profile = line_bot_api.get_profile(user_id)
-	# ## 用戶line上面的名字
-	displayName = profile.display_name 
-	## 取得用戶的頭貼
-	picUrl = profile.picture_url
-	##收到的訊息
-	# inputMsg = event.message.text  
+	# profile = line_bot_api.get_profile(user_id)
+	# # ## 用戶line上面的名字
+	# displayName = profile.display_name 
+	# ## 取得用戶的頭貼
+	# picUrl = profile.picture_url
+	# ##收到的訊息
+	# # inputMsg = event.message.text  
 
 
 	content = line_bot_api.get_message_content(message_id)
+	# 讀取所有圖片的 bytes 
+	image_bytes = content.content
 
-	# ui_command = getPicData (content.raw)
-	# flexMsgJson = sixYaoMain( ui_command ) # 取得起盤介面的json
-	# 讀取所有 bytes
-	image_bytes = content.content  # 這才是圖片的 bytes
+	## 丟入OCR判斷後取得裝卦UI的json
+	## 取得標準格式 2025/9/4/11/35 // 00010$ 
+	ui_command = getPicData(image_bytes) ## OCR
 
-	ui_command = getPicData(image_bytes)
 	print (">>>>>", ui_command )
 	# 回覆訊息
 	# line_bot_api.reply_message(
 	# 	event.reply_token,
 	# 	TextSendMessage(text= ui_command  )
 	# )
-	ui_cmd_dict = sixYaoMain ( ui_command , 
-					lineBotId = user_id , 
-					lineBotName = displayName , 
-					userImage = picUrl )
+
+	ui_cmd_dict = sixYaoMain ( ui_command , userSetting = None )
+
+	# ui_cmd_dict = sixYaoMain ( ui_command , 
+	# 				lineBotId = user_id , 
+	# 				lineBotName = displayName , 
+	# 				userImage = picUrl )
 
 	# print( "XXX ", ui_command )	
 	jsonData = jsonDataClass( linebotId = user_id ) ## class建立
@@ -441,15 +470,25 @@ def pushMsg(msg, user_id = None):
 @handler.add(PostbackEvent)
 def handle_postback(event):
 
+	# from jsonFun import get_user_data
+
 	postDataMsg = event.postback.data
-	# user_id = event.source.user_id
-	
 	user_id = event.source.user_id 
-	profile = line_bot_api.get_profile(user_id)
-	displayName = profile.display_name 
-	picUrl = profile.picture_url
+	# profile = line_bot_api.get_profile(user_id)
+	# displayName = profile.display_name 
+	# picUrl = profile.picture_url
 
 	data = postDataMsg.replace('\u200b', '')
+
+	## 取得字典
+	userData = get_user_data( user_id  ) 
+
+
+
+
+
+
+
 
 	# 如果是 richmenu 切換的 postback，就直接忽略
 	if data.startswith("change-to-"):
@@ -458,12 +497,9 @@ def handle_postback(event):
 
 	# Notion處理
 	elif data.startswith("n+"):
-		notion_url = sixYaoMain(data)
+		# notion_url = sixYaoMain(data)
 
-		notion_url = sixYaoMain ( data , 
-				lineBotId = user_id , 
-				lineBotName = displayName , 
-				userImage = picUrl )
+		notion_url = sixYaoMain ( data , lineBotId = userData )
 
 		line_bot_api.reply_message(
 			event.reply_token,
@@ -472,21 +508,18 @@ def handle_postback(event):
 
 
 
-	# LINE圖片處理
+	# 裝卦完成圖片處理
 	elif data.startswith("+"):
 		print( "INNNN" )
 		# img_high, img_low = sixYaoMain(data)
-		img_high, img_low  = sixYaoMain ( data , 
-							lineBotId = user_id , 
-							lineBotName = displayName , 
-							userImage = picUrl )
+		img_high, img_low  = sixYaoMain ( data , userSetting = userData )
 
 		print( img_high, img_low )
 		# 回覆訊息：同時回傳文字 + 圖片
 		line_bot_api.reply_message(
 			event.reply_token,
 			[
-				TextSendMessage(text = "收到"),  # 第一個訊息 可有可無
+				# TextSendMessage(text = "收到"),  # 第一個訊息 可有可無
 				ImageSendMessage(             # 第二個訊息 (圖片)
 					original_content_url = img_high,
 					preview_image_url = img_low
@@ -494,80 +527,12 @@ def handle_postback(event):
 			]
 		)
 
-
-
 	else:
 		# fallback
 		line_bot_api.reply_message(
 			event.reply_token,
 			TextSendMessage(text="未知指令格式")
 		)
-
-
-
-
-
-	# # 呼叫你的程式
-	# # image_url = sixYaoMain( postDataMsg )
-
-	# # 呼叫上傳notion的程式
-	# # sixYaoMain( data )
-	# # pushToNotion( apiToken , pageId , imageUrl , titleText )
-
-	# if postDataMsg[0] == "+":
-	# 	imageUrl_high, imageUrl_low = sixYaoMain( postDataMsg ) # 取得盤面的高解析與低解析圖片連結
-
-
-	# 	# if ( "https:" not in imageUrl_high ) or ( "https:" not in imageUrl_low )   :
-	# 	# 	reply_message = "圖床錯誤"
-	# 	# 	line_bot_api.reply_message(
-	# 	# 			event.reply_token,
-	# 	# 			TextSendMessage( text= reply_message )
-	# 	# 	)
-	# 	# else:
-	# 	# 	img_message = ImageSendMessage(
-	# 	# 			original_content_url= imageUrl_high,  ## 高解析
-	# 	# 			preview_image_url= imageUrl_low		  ## 低解析
-	# 	# 	)
-	# 	# 	line_bot_api.reply_message( event.reply_token, img_message )
-
-
-	# 	# 回覆訊息：同時回傳文字 + 圖片
-	# 	line_bot_api.reply_message(
-	# 		event.reply_token,
-	# 		[
-	# 			TextSendMessage(text="收到"),  # 第一個訊息 可有可無
-	# 			ImageSendMessage(             # 第二個訊息 (圖片)
-	# 				original_content_url=imageUrl_high,
-	# 				preview_image_url=imageUrl_low
-	# 			)
-	# 		]
-	# 	)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

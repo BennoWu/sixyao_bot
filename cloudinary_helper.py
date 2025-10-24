@@ -38,9 +38,9 @@ from datetime import datetime, timedelta, timezone
 #     secure=True
 # )
 
-print("cloud_name =", os.environ.get('CLOUDINARY_CLOUD_NAME'))
-print("api_key =", os.environ.get('CLOUDINARY_API_KEY'))
-print("api_secret =", os.environ.get('CLOUDINARY_API_SECRET'))
+# print("cloud_name =", os.environ.get('CLOUDINARY_CLOUD_NAME'))
+# print("api_key =", os.environ.get('CLOUDINARY_API_KEY'))
+# print("api_secret =", os.environ.get('CLOUDINARY_API_SECRET'))
 
 
 

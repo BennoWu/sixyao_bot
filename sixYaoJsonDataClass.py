@@ -219,13 +219,13 @@ class jsonDataClass:
 			elif  comList[1].lower() in  [ "nt" , "notion"]: ## set notion
 
 
+
 				import  supabase_io
-
-
+				
 
 				if comList[2] == "none":
 					supabase_io.delete_user_token( self.linebotId )
-					self.notionToken_pageId = "OFF"
+					self.notionToken_pageId = False
 					rtn_message =  "notion - concel"
 				else:
 
@@ -239,7 +239,7 @@ class jsonDataClass:
 
 
 						if checkNotionAcc( token_buf , pageId_buf ) == True:
-							self.notionToken_pageId = "ON"
+							self.notionToken_pageId = True
 							rtn_message =  "notion - ok"
 
 							supabase_io.save_user_data(
@@ -249,7 +249,7 @@ class jsonDataClass:
 							)
 
 
-							
+
 						else:
 							rtn_message =  "API token is invalid....請檢查notion資料"
 					else:

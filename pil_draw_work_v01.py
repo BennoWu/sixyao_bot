@@ -230,7 +230,7 @@ def getTypeColorC( inputItem ):
 
 										  # "uiStyle" = "CB", "fontStyle" = "Fb","tipsMode" = "ON"
 
-def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", uiStyle = "UA" ,  show = True , savePic = False , notion = False ):
+def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , savePic = False , notion = False ):
 
 
 	if tipsMode.lower() == "on":
@@ -242,9 +242,9 @@ def drawUi_v1( allDataDict = allDataDict , fontStyle = "Fb", tipsMode = "on", ui
 
 
 	print( "allDataDict ->> ", allDataDict )
-	print( "fontStyle ->> ", fontStyle )
+	# print( "fontStyle ->> ", fontStyle )
 	print( "tipsMode ->> ", tipsMode )
-	print( "uiStyle ->> ", uiStyle )
+	# print( "uiStyle ->> ", uiStyle )
 
 
 
