@@ -221,7 +221,7 @@ class jsonDataClass:
 
 
 				import  supabase_io
-				
+
 
 				if comList[2] == "none":
 					supabase_io.delete_user_token( self.linebotId )
@@ -349,7 +349,8 @@ if __name__ == '__main__':
 	# fullDataInput = "set utc 7"
 	# fullDataInput = "set ub"
 	# fullDataInput = "Set tips ON"
-	fullDataInput = "set nt none"
+	fullDataInput = "Set tips OFF"
+	# fullDataInput = "set nt none"
 	# fullDataInput = "set temp yyyyyyyyyyyyyyy"
 	# fullDataInput = "set temp none"	
 	# fullDataInput = "set nt notion_token/page_id"

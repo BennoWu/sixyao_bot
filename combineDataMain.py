@@ -678,16 +678,16 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 
 
 	else:
-		# linebot_Id =      userSetting [ "linebotId" ]
-		# user_name =       userSetting [ "linebotUserName" ]
-		# user_utc_hour =   userSetting [ "utc" ]     
-		# user_tipsMode =   userSetting [ "tipsMode" ]
-		# user_notion =     userSetting [ "notionToken_pageId" ]
-		linebot_Id    = userSetting.get("linebotId", "預設值")
-		user_name     = userSetting.get("linebotUserName", "Benno")
-		user_utc_hour = userSetting.get("utc", 8)
-		user_tipsMode = userSetting.get("tipsMode", "ON")
-		user_notion   = userSetting.get("notionToken_pageId", None)
+		linebot_Id =      userSetting [ "linebotId" ]
+		user_name =       userSetting [ "linebotUserName" ]
+		user_utc_hour =   userSetting [ "utc" ]     
+		user_tipsMode =   userSetting [ "tipsMode" ]
+		user_notion =     userSetting [ "notionToken_pageId" ]
+		# linebot_Id    = userSetting.get("linebotId", "預設值")
+		# user_name     = userSetting.get("linebotUserName", "Benno")
+		# user_utc_hour = userSetting.get("utc", 8)
+		# user_tipsMode = userSetting.get("tipsMode", "ON")
+		# user_notion   = userSetting.get("notionToken_pageId", None)
 
 
 
@@ -716,7 +716,6 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 		import  supabase_io
 		# 測試讀取 (會回傳字典)
 		data = get_user_data( linebot_Id )
-		print("******************",data)
 		if data:
 			token_buf = data['notion_token']
 			pageId_buf = data['page_id']
