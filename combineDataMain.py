@@ -959,7 +959,8 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 
 		## 文字說明
 		else:
-			noteText = fullDataInputOrg.split("//")[i].replace("，",",").replace("。",".").replace("？","?").replace("－","-")
+			noteText = fullDataInputOrg.split("//")[i]
+			noteText = noteText.replace("，",",").replace("。",".").replace("？","?").replace("－","-")
 			checkItem[2] = "占"
 
 		## 如果這裏日期還是空的，表示沒有要自行設定，所以從系統取得

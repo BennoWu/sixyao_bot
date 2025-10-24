@@ -37,7 +37,7 @@ uiLayoutFront ='''
             "type": "text",
             "text": "節氣",
             "weight": "regular",
-            "color": "#888888",
+            "color": "#666666",
             "size": "lg",
             "align": "end",
             "action": {
@@ -280,7 +280,8 @@ uiLayoutFront ='''
 					"text": "占",
 					"contents": [],
 					"gravity": "center",
-					"align": "center"
+					"align": "center",
+					"offsetTop": "-1px"
 				  }
 				],
 				"backgroundColor": "#9BB0CE",
@@ -331,19 +332,6 @@ uiLayoutFront ='''
 			],
 			"height": "5px"
 		  },'''
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -516,101 +504,6 @@ uiLayoutMidB = '''
 		  }
 		  '''
 
-# uiLayoutBack = '''
-
-# 		  {
-# 			"type": "box",
-# 			"layout": "vertical",
-# 			"contents": [
-# 			  {
-# 				"type": "box",
-# 				"layout": "vertical",
-# 				"contents": [],
-# 				"height": "5px",
-# 				"width": "251px",
-# 				"margin": "none",
-# 				"spacing": "none",
-# 				"offsetStart": "sm"
-# 			  }
-# 			],
-# 			"height": "5px"
-# 		  }
-# 		],
-
-# 		"margin": "md",
-# 		"cornerRadius": "10px",
-# 		"backgroundColor": "#eeeeee"
-# 	  },
-
-#       {
-#         "type": "separator",
-#         "margin": "md",
-#         "color": "#cccccc"
-#       },
-
-
-
-#        {
-#         "type": "box",
-#         "layout": "vertical",
-#         "margin": "md",
-#         "contents": [
-#           {
-#             "type": "box",
-#             "layout": "horizontal",
-#             "contents": [
-#               {
-#                 "type": "button",
-#                 "style": "primary",
-#                 "action": {
-#                   "type": "postback",
-#                   "label": "裝卦A",
-#                   "data": "__裝卦__",
-#                   "displayText": "裝卦啦"
-#                 },
-#                 "color": "#91A4BC",
-#                 "margin": "none",
-#                 "height": "md"
-#               },
-#               {
-#                 "type": "box",
-#                 "layout": "vertical",
-#                 "contents": [],
-#                 "width": "8px"
-#               },
-#               {
-#                 "type": "button",
-#                 "action": {
-#                   "type": "postback",
-#                   "label": "裝卦B",
-#                   "data": "__裝卦__",
-#                   "displayText": "裝卦啦"
-#                 },
-#                 "color": "#dddddd",
-#                 "margin": "none",
-#                 "height": "md",
-#                 "style": "secondary"
-#               }
-#             ],
-#             "margin": "xs"
-#           }
-#         ],
-#         "spacing": "sm",
-#         "cornerRadius": "13px",
-#         "offsetTop": "3px"
-#       }
-#     ]
-
-
-
-#   },
-#   "styles": {
-# 	"footer": {
-# 	  "separator": true
-# 	}
-#   }
-# }
-# '''
 
 uiLayoutBack = '''
 
