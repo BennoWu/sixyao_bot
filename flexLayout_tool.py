@@ -1143,6 +1143,9 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	else:
 		uiLayout += uiLayoutBack		
 
+	note = note.replace("#",",")
+	command = command.replace("#",",")
+	display_command = display_command.replace("#",",")
 
 
 # 干支/日/2025.5.11/10/申
