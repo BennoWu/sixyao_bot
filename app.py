@@ -318,8 +318,8 @@ def handle_message(event):
 	elif inputMsg[0] in [ ">","@",":" ]: #字的開頭如果是這些就進入
 		changeNote = inputMsg[1:]
 		# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
-		uiCommand = jsonData.temp ## 取得temp的暫存ui command
-		print( jsonData.temp )		
+		# uiCommand = jsonData.temp ## 取得temp的暫存ui command
+		# print( jsonData.temp )		
 
 		newCommand = uiCommand.replace( "no title" , changeNote )
 		new_flex_json = sixYaoMain( newCommand , userData ) # 取得起盤介面的json
@@ -329,7 +329,9 @@ def handle_message(event):
 		# 					lineBotName = displayName , 
 		# 					userImage = picUrl ) # 取得起盤介面的json
 
-		jsonData.uiJsonSetting("set temp none") ## 取完之後刪除
+		# jsonData.uiJsonSetting("set temp none") ## 取完之後刪除
+		save_json_data(  user_id, "temp", None , json_path='__sixYoSet__.json' )
+
 		line_bot_api.reply_message(
 			event.reply_token,
 			FlexSendMessage(
@@ -412,15 +414,22 @@ def handle_image_message(event):
 	# 				userImage = picUrl )
 
 	# print( "XXX ", ui_command )	
-	jsonData = jsonDataClass( linebotId = user_id ) ## class建立
-	jsonData.uiJsonSetting("set temp " + ui_command ) ## 取完之後刪除
+	# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
+	# jsonData.uiJsonSetting("set temp " + ui_command ) ## 取完之後刪除
+
+
+	save_json_data(  user_id, "temp", ui_command , json_path='__sixYoSet__.json')
+
+
 	# print( "@@@ ", jsonData.temp )
 	print( "UI") 
 	print( ui_cmd_dict )
 	
 	## 把message id和裝卦命令存到該使用者的json的temp中
-	jsonData = jsonDataClass( linebotId = user_id ) ## class建立
-	jsonData.uiJsonSetting( f"set temp {ui_command}" )
+	# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
+	# jsonData.uiJsonSetting( f"set temp {ui_command}" )
+
+
 
 	# Flex message的容器，把寫好的json放入就可以變成介面，之前的寫法太土，這次改好看一點
 	line_bot_api.reply_message(

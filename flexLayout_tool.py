@@ -70,7 +70,7 @@ uiLayoutFront ='''
 			"margin": "none",
 			"wrap": true,
 			"flex": 0,
-			"color": "#666665"
+			"color": "#000001"
 		  },
 		  {
 			"type": "text",
@@ -95,7 +95,7 @@ uiLayoutFront ='''
 			  "label": "action",
 			  "text": "month_mode"
 			},
-			"color": "#666666"
+			"color": "#000002"
 		  },
 		  {
 			"type": "text",
@@ -120,7 +120,7 @@ uiLayoutFront ='''
 			  "label": "action",
 			  "text": "day_mode"
 			},
-			"color": "#666666"
+			"color": "#000002"
 		  },
 		  {
 			"type": "text",
@@ -145,7 +145,7 @@ uiLayoutFront ='''
 			  "label": "action",
 			  "text": "hour_mode"
 			},
-			"color": "#666664"
+			"color": "#000003"
 		  }
 		],
 		"spacing": "none",
@@ -393,7 +393,7 @@ uiLayoutMidA = '''
 						"offsetTop": "-4px",
 						"align": "center",
 						"gravity": "center",
-						"color": "#bbbbbb"
+						"color": "#999999"
 					  }
 					],
 					"width": "90px"
@@ -487,7 +487,7 @@ uiLayoutMidB = '''
 						"offsetTop": "-4px",
 						"align": "center",
 						"gravity": "center",
-						"color": "#bbbbbb"
+						"color": "#999999"
 					  }
 					],
 					"width": "90px"
@@ -635,7 +635,7 @@ uiLayoutBack = '''
 
 		"margin": "sm",
 		"cornerRadius": "10px",
-		"backgroundColor": "#dddddd"
+		"backgroundColor": "#CECCCA"
 	  },
 
 
@@ -803,7 +803,8 @@ uiLayoutBack = '''
         "cornerRadius": "10px",
         "offsetTop": "3px"
       }
-    ]
+    ],
+    "backgroundColor": "#F2F1F0"
   },
   "styles": {
     "footer": {
@@ -838,18 +839,136 @@ uiLayoutBackExt = '''
 
 		"margin": "md",
 		"cornerRadius": "10px",
-		"backgroundColor": "#eeeeee"
+		"backgroundColor": "#DBDAD9"
 	  },
 
-      {
-        "type": "separator",
-        "margin": "md",
-        "color": "#aaaaaa"
-      },
+
+
+
       {
         "type": "box",
         "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "8px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__ORGGUA__",
+                    "align": "center",
+                    "size": "md",
+
+                    "weight": "bold"
+
+                  }
+                ]
+              },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+
+
+
+
+                  {
+                    "type": "text",
+                    "text": "•",
+                    "align": "center",
+                    "size": "md",
+                    "color": "#bbbbbb"
+                  }
+
+
+
+                ],
+                "width": "20px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__CHGGUA__",
+                    "align": "center",
+
+                    "size": "md",
+                    "weight": "bold"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "10px"
+              }
+            ],
+            "offsetTop": "xs"
+          }
+
+
+
+
+
+
+
+
+        ],
         "margin": "md",
+        "cornerRadius": "10px",
+        "borderColor": "#bbbbbb",
+        "borderWidth": "2px",
+        "height": "31px"
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {
+        "type": "box",
+        "layout": "vertical",
+        "margin": "xs",
         "contents": [
           {
             "type": "box",
@@ -861,7 +980,7 @@ uiLayoutBackExt = '''
                 "contents": [
                   {
                     "type": "button",
-                    "style": "primary",
+                    "style": "secondary",
                     "action": {
                       "type": "postback",
                       "label": "裝卦",
@@ -893,7 +1012,7 @@ uiLayoutBackExt = '''
                       "data": "__NOTION_CMD__",
                       "displayText": "__NOTION_DSP__"
                     },
-                    "color": "#dddddd",
+                    "color": "#CEC6C0",
                     "margin": "none",
                     "height": "md",
                     "style": "secondary"
@@ -907,7 +1026,8 @@ uiLayoutBackExt = '''
         "spacing": "sm",
         "offsetTop": "3px"
       }
-    ]
+    ],
+    "backgroundColor": "#F2F1F0"
   },
   "styles": {
     "footer": {
@@ -1150,15 +1270,16 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 	if date_ganZiList: ## 自定月日
 		reDataLayout = reDataLayout.replace( "month_mode","- - -" ).replace( "day_mode" , "- - -" ).replace( "hour_mode" , "- - -" ).replace ( "jechi_mode" , "- - -")
-		reDataLayout = reDataLayout.replace("#666665", "#cccccc" ).replace("#666664", "#cccccc" ).replace("#444443", "#999999" ).replace("#FCA32D", "#dddddd" ).replace(currentTime ,"00:00" )
+		reDataLayout = reDataLayout.replace("#000001", "#cccccc" ).replace("#000003", "#cccccc" ).replace("#444443", "#999999" ).replace("#FCA32D", "#dddddd" ).replace(currentTime ,"00:00" )
 	
 	elif threePillar:
-		reDataLayout = reDataLayout.replace("#666664", "#cccccc" ).replace("#FCA32D", "#dddddd" ).replace(currentTime ,"00:00" )
+		reDataLayout = reDataLayout.replace("#000003", "#cccccc" ).replace("#FCA32D", "#dddddd" ).replace(currentTime ,"00:00" )
 		reDataLayout = reDataLayout.replace( "month_mode" , "干支/月/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "day_mode" , "干支/日/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "hour_mode" , "- - -" ) .replace( "jechi_mode" , "干支/節氣/" + "6/" + clipData(dateData).replace("/","-") )
 	else:
 		reDataLayout = reDataLayout.replace( "month_mode" , "干支/月/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "day_mode" , "干支/日/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "hour_mode" , "干支/時/" + "6/" + dateData.replace("/","-")  ).replace( "jechi_mode" , "干支/節氣/" + "6/" + clipData(dateData).replace("/","-") )
 
-
+	if note == "no title":
+		reDataLayout = reDataLayout.replace( "#9BB0CE" , "#FF6470" )
 
 
 
@@ -1166,7 +1287,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "upload..." ).replace("__NOTION_CMD__", "n" + command )
 
 
-	# print( reDataLayout )
+	print( reDataLayout )
 
 	# 文字轉換成字典
 	reDataLayout_dict = json.loads(reDataLayout)

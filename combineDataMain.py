@@ -674,7 +674,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 		user_name =   "Benno"
 		user_utc_hour =   8        
 		user_tipsMode =   "ON"  
-		user_notion =    True 
+		user_notion =    False 
 
 
 	else:
@@ -843,21 +843,21 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 			finalGua,preNote = riceGua( buf ) 
 			## ['20-30-40'] 米卦          --> 101X0$ , 27.71.42
 			## ['1,0,11,0,00,1'] 六爻卦   --> 101X0$ , None
-			checkItem[0] = "O"
+			checkItem[0] = "卦"
 
 		## 卦 $0011X0
 		elif checkInData( buf_org ) == True:
 			print(">>進入直上模式")
 			if len( buf_org ) == 6:
 				finalGua = buf_org.replace("/","").replace("@","$").replace("6","X").replace("7","1").replace("8","0").replace("9","$")
-				checkItem[0] = "O"
+				checkItem[0] = "卦"
 			else:
 				print( "卦有問題")
 
 		elif checkAllGua( buf , checkMode = True ) == True:  ## 雷澤歸妹.3    101001.2.3  豐之離
 			print(">> 進入卦名模式")
 			finalGua = checkAllGua( buf )		
-			checkItem[0] = "O"
+			checkItem[0] = "卦"
 
 
 
@@ -877,7 +877,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 				dateData = "error四柱"
 			else:
 				dateData = dateData_buf
-				checkItem[1] = "O"
+				checkItem[1] = "日"
 
 		## 取得自行輸入日期 ## 2024-12-5-10-31    2025-08-17 22:36
 		# elif (buf.endswith("<") or buf.isdigit() or "/" in buf)  and    (len(buf.rstrip("<").split("/")) == 5)  and    (buf.rstrip("<").replace("/", "").isdigit()) or (  len((re.sub(r"[- :]", "/", buf)).split("/")) == 5  and    buf.rstrip("<").replace("/", "").isdigit())  :
@@ -901,7 +901,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 				else:
 					dateData = buf
 
-				checkItem[1] = "O"
+				checkItem[1] = "日"
 			else:
 				print( "日期輸入有誤")
 				dateData = "------"
@@ -927,7 +927,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 				# dateData = buf[ :buf.index("月")+1] + "/" + buf[ buf.index("月")+1: ] 
 				dateMonth = buf_org[ :buf_org.index("月")+1]
 				dateDay   = buf_org[ buf_org.index("月")+1: ]
-			checkItem[1] = "O"
+			checkItem[1] = "日"
 
 
 		# 巳年卯月戊戌日    乙巳,卯月,申-戌亥 
@@ -949,7 +949,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 				buf = parse_ganzhi_from_text(buf)
 				print("BUFF (parsed):", buf)
 
-			checkItem[1] = "O"
+			checkItem[1] = "日"
 			dateData = fourPillarToDateMain(  buf.replace( "/", "/") )
 			print( dateData )
 
@@ -959,18 +959,18 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 
 		## 文字說明
 		else:
-			noteText = fullDataInputOrg.split("//")[i]
-			checkItem[2] = "O"
+			noteText = fullDataInputOrg.split("//")[i].replace("，",",").replace("。",".").replace("？","?").replace("－","-")
+			checkItem[2] = "占"
 
 		## 如果這裏日期還是空的，表示沒有要自行設定，所以從系統取得
 		if dateData == "":
 			dateData =  getNowTime( user_utc_hour )
-			checkItem[1] = "O"
+			checkItem[1] = "日"
 			print( "日期現時" )
 
 		if noteText == "":
-			noteText = "XXX"
-			checkItem[2] = "O"
+			noteText = "no title"
+			checkItem[2] = "占"
 		print( "- - - - - - - - - - - - - - - - - - - - - - - - - -")
 	# dateData = dateData.replace("/" , " ")
 
@@ -998,7 +998,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	print ( command )
 
 
-	if checkItem != ['O', 'O', 'O']:
+	if checkItem != ['卦', '日', '占']:
 		print ("error")
 		return "error"
 
@@ -1070,6 +1070,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 		# dateData =  getNowTime( user_utc_hour )
 		## 產生裝卦UI時，記錄到log中
 		logBK_logDataFun( linebot_Id , user_name , dateData , fullDataInput , command )
+		save_json_data(  linebot_Id, "temp", command , json_path='__sixYoSet__.json')
 		threePil_mode = False
 		if  "<" in dateData:  ## 如果只有三柱
 			dateData = dateData[:-1]
@@ -1169,8 +1170,8 @@ if __name__ == '__main__':
 	# sixYaoMain( "010011,1,4,5//乙巳-戊寅-壬申//龔子修占今年能否上南京師大?")
 
 	# sixYaoMain( "2寅年巳月寅日-申酉//華一希占高考考運//天火 1 3 5" )
-
-	sixYaoMain( "測試測試再測試//0X@0X1" ) 
+	# sixYaoMain( "0X@0X1" ) 
+	sixYaoMain( "占找A店家維修，能否順利修好電腦保住資料//0X@0X1" ) 
 	# sixYaoMain( "Q媽的鑽石項鍊在那裏?//1X@001" ) 
 	# sixYaoMain( "++乙巳年卯月己丑日//自占4/6馬祖新村擺攤收入吉凶?//1X0$$0") ## 三合
 	# sixYaoMain( "乙巳卯月戌-辰巳//X10101//自占今日在台中舊酒廠業績?" ) ## 三缺一

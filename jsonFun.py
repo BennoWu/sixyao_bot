@@ -647,6 +647,45 @@ def get_user_json_data( user_id , json_path= '__sixYoSet__.json' ):
 
 
 
+def save_json_data(user_id, item, value, json_path='__sixYoSet__.json'):
+    """只修改既有 JSON 中的值，不新增任何使用者或欄位。"""
+
+    # 檢查檔案是否存在
+    if not os.path.exists(json_path):
+        print(f"⚠️ 找不到檔案：{json_path}")
+        return False
+
+    # 嘗試載入 JSON
+    try:
+        with open(json_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    except Exception as e:
+        print(f"⚠️ JSON 讀取失敗：{e}")
+        return False
+
+    # 檢查 user 是否存在
+    if user_id not in data:
+        print(f"⚠️ 找不到使用者 {user_id}，不進行修改。")
+        return False
+
+    # 檢查欄位是否存在
+    if item not in data[user_id]:
+        print(f"⚠️ 使用者 {user_id} 沒有項目 '{item}'，不進行修改。")
+        return False
+
+    # 修改值
+    old_value = data[user_id][item]
+    data[user_id][item] = value
+
+    # 寫回 JSON 檔
+    with open(json_path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+
+    print(f"✅ 已更新 {user_id} 的 '{item}'：{old_value} → {value}")
+    return True
+
+
+
 if __name__ == '__main__':
 	# addToJson (  linebotId ="U21eaaf32db85b983a842d9a9da81d8f1"	,UserName = "Benno"	,logInTime ="2023-2-1 23:52",command =	"時盤-2023-02-01-21-51"	,runtime = 1	,signUpTime = "2023-2-1 11:18",  userImage ="https://profile.line-scdn.net/0m03d2961a72519e9ae023945979128659aaf19ece8932"	 ,uiStyle ="A"	,subDataMode ="Lite"	,switch = "ON")
 	# loadAllJson()
@@ -662,4 +701,5 @@ if __name__ == '__main__':
 	# print( uiSetting( "U21eaaf32db85b983a842d9a9da81d8f1","set full a")  )
 	# setItemData ( "BENNO" , "switch" , "WW" )
 
-	print( get_user_data( "U21eaaf32db85b983a842d9a9da81d8f1" ))
+	# print( get_user_data( "U21eaaf32db85b983a842d9a9da81d8f1" ))
+	save_json_data("U21eaaf32db85b983a842d9a9da81d8f1", "runtime", 12)
