@@ -528,7 +528,7 @@ uiLayoutBack = '''
 
 		"margin": "sm",
 		"cornerRadius": "10px",
-		"backgroundColor": "#CECCCA"
+		"backgroundColor": "#dddddf"
 	  },
 
 
