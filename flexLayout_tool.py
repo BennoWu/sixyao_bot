@@ -697,7 +697,7 @@ uiLayoutBack = '''
         "offsetTop": "3px"
       }
     ],
-    "backgroundColor": "#efefef"
+    "backgroundColor": "#fefefe"
   },
   "styles": {
     "footer": {
@@ -920,7 +920,7 @@ uiLayoutBackExt = '''
         "offsetTop": "3px"
       }
     ],
-    "backgroundColor": "#efefef"
+    "backgroundColor": "#fefefe"
   },
   "styles": {
     "footer": {
