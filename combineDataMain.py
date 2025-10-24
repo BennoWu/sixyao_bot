@@ -652,7 +652,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\n" , '//' )
 	fullDataInput = fullDataInput.strip() ## 清除頭尾空格
 	# print( fullDataInput)
-
+	fullDataInput = unifiedData(fullDataInput)
 
 	notionAccount = False
 	# ui_mode = ""
