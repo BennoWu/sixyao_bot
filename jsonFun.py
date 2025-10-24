@@ -634,11 +634,11 @@ def get_user_json_data( user_id , json_path= '__sixYoSet__.json' ):
 		return None  # 找不到使用者就直接返回 None
 
 	userData = {
-		"linebot_Id": user_id,
-		"user_name": user.get("userName"),
-		"user_utc_hour": user.get("utc"),
-		"user_tipsMode": user.get("tipsMode"),
-		"user_notion": user.get("notionToken_pageId"),
+		"linebotId"         : user_id,
+		"linebotUserName"   : user.get("userName"),
+		"utc"               : user.get("utc"),
+		"tipsMode"          : user.get("tipsMode"),
+		"notionToken_pageId": user.get("notionToken_pageId"),
 	}
 
 	return userData

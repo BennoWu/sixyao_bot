@@ -493,7 +493,11 @@ def handle_postback(event):
 	userData = get_user_json_data( user_id  ) 
 
 	print( "@@@ userData:" , userData )
-
+# @@@ userData: { 'linebot_Id': 'U21eaaf32db85b983a842d9a9da81d8f1', 
+# 				'user_name': 'Benno', 
+# 				'user_utc_hour': 8, 
+# 				'user_tipsMode': 'ON', 
+# 				'user_notion': None}
 
 
 
