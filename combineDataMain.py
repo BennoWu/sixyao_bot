@@ -652,6 +652,8 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\n" , '//' )
 	fullDataInput = fullDataInput.strip() ## 清除頭尾空格
 	# print( fullDataInput)
+
+	fullDataInput = fullDataInput.replace("，","#")
 	fullDataInput = unifiedData(fullDataInput)
 
 	notionAccount = False
@@ -959,8 +961,8 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 
 		## 文字說明
 		else:
-			noteText = fullDataInputOrg.split("//")[i]
-			noteText = noteText.replace("，",",").replace("。",".").replace("？","?").replace("－","-")
+			noteText = fullDataInputOrg.split("//")[i].replace("#",",")
+			
 			checkItem[2] = "占"
 
 		## 如果這裏日期還是空的，表示沒有要自行設定，所以從系統取得
