@@ -697,7 +697,7 @@ uiLayoutBack = '''
         "offsetTop": "3px"
       }
     ],
-    "backgroundColor": "#F2F1F0"
+    "backgroundColor": "#efefef"
   },
   "styles": {
     "footer": {
@@ -920,7 +920,7 @@ uiLayoutBackExt = '''
         "offsetTop": "3px"
       }
     ],
-    "backgroundColor": "#F2F1F0"
+    "backgroundColor": "#efefef"
   },
   "styles": {
     "footer": {
@@ -1183,7 +1183,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "upload..." ).replace("__NOTION_CMD__", "n" + command )
 
 
-	print( reDataLayout )
+	# print( reDataLayout )
 
 	# 文字轉換成字典
 	reDataLayout_dict = json.loads(reDataLayout)
@@ -1824,7 +1824,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 if __name__ == '__main__':
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 )
 	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 )
-	ganZiList_fun( currentTime = "2025-01-05" , dayMode = "m" , index = "" , runtime = 5 )	
+	ganZiList_fun( currentTime = "2025/05/08" , dayMode = "h" , index = "" , runtime = 5 )	
 
 # "干支/時/10/2025-08-31-15-48"
 	# "d" -- day

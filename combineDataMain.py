@@ -101,44 +101,74 @@ def riceGua( fullDataInput ):
 
 import re
 
-# 統一其他符號
-SEP_PATTERN = re.compile(r'[.\s_\\;:，。、．：；]+')
+FULL2HALF = str.maketrans({
+    "，": ",",  # 全形逗號 → 半形逗號
+    "。": ".",  # 全形句號 → 半形句號
+    "？": "?",  # 全形問號 → 半形問號
+    "！": "!",  # 全形驚嘆號 → 半形驚嘆號
+    "；": ";",  # 全形分號 → 半形分號
+    "：": ":",  # 全形冒號 → 半形冒號
+    "、": ",",  # 頓號 → 半形逗號
+    "．": ".",  # 全形句點 → 半形句點
+})
+SEP_PATTERN = re.compile(r'[\s_\\;:；：．]+')
 
-def _normalize_piece(piece: str) -> str:
-	"""清洗單段文字：去零寬字元、統一符號、合併連續 /"""
-	piece = piece.replace('\u200b', '')
-	piece = SEP_PATTERN.sub('/', piece)
-	piece = re.sub(r'/+', '/', piece)
-	return piece.strip('/')
-
+def _clean_subblock(s: str) -> str:
+    """清理單段落的小區塊文字"""
+    s = s.translate(FULL2HALF).strip()
+    
+    # '-' 無空白 -> '/'
+    s = re.sub(r'(?<!\s)-(?!\s)', '/', s)
+    
+    # 逗號處理（重點）
+    # 1. 數字/英文字母間的逗號 → '/'
+    s = re.sub(r'(?<=[0-9A-Za-z]),(?=[0-9A-Za-z])', '/', s)
+    # 2. 結尾逗號 → '/'
+    s = re.sub(r',\s*$', '/', s)
+    # 3. 中文後面接逗號，逗號後面不是中文 → '/'
+    s = re.sub(r'(?<=[\u4e00-\u9fff]),(?![\u4e00-\u9fff])', '/', s)
+    # 4. 逗號前面不是中文，後面是中文 → '/'
+    s = re.sub(r'(?<![\u4e00-\u9fff]),(?=[\u4e00-\u9fff])', '/', s)
+    
+    # 其他雜項 -> '/'
+    s = SEP_PATTERN.sub('/', s)
+    
+    # 尾巴句號刪除（只刪除句號，保留 ? !）
+    s = re.sub(r'\.\s*$', '', s)
+    
+    # 合併多個 '/'
+    s = re.sub(r'/+', '/', s)
+    
+    # 去掉段落首尾多餘 '/'
+    s = s.strip('/ ')
+    
+    return s
 
 def unifiedData(orgData, strong_sep='//', sep_for_app=None):
-	"""
-	清洗字串或 list[str]，統一段落分隔：
-	- orgData: str 或 list[str]
-	- strong_sep: 程式內段落分隔符，預設 //
-	- sep_for_app: 若不為 None，最後輸出用此符號替換 strong_sep
-	"""
-	if isinstance(orgData, str):
-		# 將換行、-、逗號統一成 strong_sep
-		orgData = re.sub(r'\s*-\s*', strong_sep, orgData)
-		orgData = re.sub(r'[\r\n]+', strong_sep, orgData)
-		orgData = re.sub(r',', strong_sep, orgData)
+    if not isinstance(orgData, str):
+        return orgData
+    
+    # Step 1: 分段落（大區塊）
+    STRONG_TOKEN = "STRONGSEPUNIQUE"
+    # 保護原本的 //，換行，" - " 統一替代為 token
+    s = orgData.replace(strong_sep, STRONG_TOKEN)
+    s = re.sub(r'\s-\s', STRONG_TOKEN, s)
+    s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
+    
+    # Step 2: 對每個段落清理
+    segments = s.split(STRONG_TOKEN)
+    cleaned_segments = [_clean_subblock(seg) for seg in segments if seg.strip()]
+    
+    # Step 3: 合併回單行，使用強分隔符
+    result = strong_sep.join(cleaned_segments)
+    
+    # Step 4: 可選替換為 app 分隔符號
+    if sep_for_app:
+        result = result.replace(strong_sep, sep_for_app)
+    
+    return result
 
-		# 拆段落並清洗
-		segments = [_normalize_piece(seg) for seg in orgData.split(strong_sep)]
-		result = strong_sep.join(segments)
-	else:  # list
-		result = [_normalize_piece(item) for item in orgData]
-
-	# 替換為 app/LINE 安全符號
-	if sep_for_app is not None:
-		if isinstance(result, list):
-			result = [item.replace(strong_sep, sep_for_app) for item in result]
-		else:
-			result = result.replace(strong_sep, sep_for_app)
-
-	return result
+# print(unifiedData("店家維修，能否順利修好電腦保住資料 - 0-1-00-11-0-1"))
 
 
 
@@ -653,7 +683,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	fullDataInput = fullDataInput.strip() ## 清除頭尾空格
 	# print( fullDataInput)
 
-	fullDataInput = fullDataInput.replace("，","#")
+	# fullDataInput = fullDataInput.replace("，","#")
 	fullDataInput = unifiedData(fullDataInput)
 
 	notionAccount = False
@@ -961,7 +991,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 
 		## 文字說明
 		else:
-			noteText = fullDataInputOrg.split("//")[i].replace("#",",")
+			noteText = fullDataInputOrg.split("//")[i]
 			
 			checkItem[2] = "占"
 
@@ -1174,7 +1204,7 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "2寅年巳月寅日-申酉//華一希占高考考運//天火 1 3 5" )
 	# sixYaoMain( "0X@0X1" ) 
-	sixYaoMain( "占找A店家維修，能否順利修好電腦保住資料//0X@0X1" ) 
+	sixYaoMain( """乙巳卯月戌日--辰巳//占找A店家維修，能否順利修好電腦保住資料//萃之地風""" ) 
 	# sixYaoMain( "Q媽的鑽石項鍊在那裏?//1X@001" ) 
 	# sixYaoMain( "++乙巳年卯月己丑日//自占4/6馬祖新村擺攤收入吉凶?//1X0$$0") ## 三合
 	# sixYaoMain( "乙巳卯月戌-辰巳//X10101//自占今日在台中舊酒廠業績?" ) ## 三缺一
