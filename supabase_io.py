@@ -142,25 +142,25 @@ def list_all_users():
 
 # === 測試 ===
 if __name__ == "__main__":
-    # 測試儲存 (同時存 token 和 page_id)
-    save_user_data(
-        user_id="line_user_456",
-        notion_token="secret_notion_xyz",
-        page_id="abc123-def456-ghi789"
-    )
+    # # 測試儲存 (同時存 token 和 page_id)
+    # save_user_data(
+    #     user_id="line_user_456",
+    #     notion_token="secret_notion_xyz",
+    #     page_id="abc123-def456-ghi789"
+    # )
     
     # 測試讀取 (會回傳字典)
-    data = get_user_data("line_user_456")
+    data = get_user_data("U21eaaf32db85b983a842d9a9da81d8f1")
     if data:
         print(f"Token: {data['notion_token']}")
         print(f"Page ID: {data['page_id']}")
     
-    # 測試只更新 page_id
-    update_page_id("line_user_456", "new-page-id-xyz")
+    # # 測試只更新 page_id
+    # update_page_id("line_user_456", "new-page-id-xyz")
     
-    # 列出所有用戶
-    users = list_all_users()
-    print(f"所有用戶: {users}")
+    # # 列出所有用戶
+    # users = list_all_users()
+    # print(f"所有用戶: {users}")
     
-    # 測試刪除
-    # delete_user_token("line_user_456")
+    # # 測試刪除
+    # # delete_user_token("line_user_456")

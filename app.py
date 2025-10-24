@@ -129,11 +129,11 @@ def handle_message(event):
 								command = inputMsg )
 
 	userData = {
-		"linebot_Id"     : jsonData.linebotId,
-		"user_name"      : jsonData.linebotUserName,
-		"user_utc_hour"  : jsonData.utc,        
-		"user_tipsMode"  : jsonData.tipsMode,  
-		"user_notion"    : jsonData.notionToken_pageId
+		"linebotId"     : jsonData.linebotId,
+		"linebotUserName"      : jsonData.linebotUserName,
+		"utc"  : jsonData.utc,        
+		"tipsMode"  : jsonData.tipsMode,  
+		"notionToken_pageId"    : jsonData.notionToken_pageId
 	}
 
 	print( "userData:" , userData )
@@ -481,7 +481,7 @@ def handle_postback(event):
 	data = postDataMsg.replace('\u200b', '')
 
 	## 取得字典
-	userData = get_user_data( user_id  ) 
+	userData = get_user_json_data( user_id  ) 
 
 
 

@@ -622,7 +622,7 @@ def logToGoogle(  userId = "BB123", userName = "Benno", time = "2025/6/15/3/20" 
 
 
 
-def get_user_data( user_id , json_path= '__sixYoSet__.json' ):
+def get_user_json_data( user_id , json_path= '__sixYoSet__.json' ):
 	"""
 	從 JSON 取出指定使用者的資料，並組成指定格式字典。
 	"""
