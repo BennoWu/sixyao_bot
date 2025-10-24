@@ -668,6 +668,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	# +XXX//XXXX//XXXXX    	產生圖檔模式
 	# command_mode = True	
 	#  XXX//XXXX//XXXXX		UI模式
+	print( "userSetting duct:",userSetting )
 	if userSetting == None:
 		linebot_Id =  "U21eaaf32db85b983a842d9a9da81d8f1"    
 		user_name =   "Benno"

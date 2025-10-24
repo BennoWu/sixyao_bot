@@ -136,7 +136,7 @@ def handle_message(event):
 		"user_notion"    : jsonData.notionToken_pageId
 	}
 
-
+	print( "userData:" , userData )
 
 
 
