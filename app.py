@@ -163,8 +163,8 @@ def handle_message(event):
 		exit()
 
 	# 設定模式
-	elif ("set" in fullDataInput.lower())  or ("utc" in fullDataInput.lower()) :
-		returnMsg = jsonData.uiJsonSetting( fullDataInput )
+	elif ("set" in inputMsg.lower())  or ("utc" in inputMsg.lower()) :
+		returnMsg = jsonData.uiJsonSetting( inputMsg )
 		# lineSend_fun( replyUrl )
 		returnMsg =  returnMsg
 		# return returnMsg
