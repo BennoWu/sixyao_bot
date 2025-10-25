@@ -647,42 +647,111 @@ def get_user_json_data( user_id , json_path= '__sixYoSet__.json' ):
 
 
 
+import json
+
+def get_all_user_flex(json_path='__sixYoSet__.json'):
+	"""
+	讀取 JSON 裡所有帳號資料，回傳 Flex Message dict
+	- 每個帳號增加 runtime
+	- bubble size=deca
+	- Total 上方增加 separator
+	"""
+	with open(json_path, encoding="utf-8") as f:
+		data = json.load(f)
+
+	contents = []
+
+	for user_id, user in data.items():
+		user_box = {
+			"type": "box",
+			"layout": "vertical",
+			"spacing": "sm",
+			"margin": "md",
+			"contents": [
+				{"type": "text", "text": f"{user.get('userName', '')}", "weight": "bold", "size": "md"},
+				{"type": "text", "text": f"utc: {user.get('utc')}", "size": "sm"},
+				{"type": "text", "text": f"tipsMode: {user.get('tipsMode')}", "size": "sm"},
+				{"type": "text", "text": f"notionToken_pageId: {user.get('notionToken_pageId')}", "size": "sm"},
+				{"type": "text", "text": f"runtime: {user.get('runtime')}", "size": "sm"},
+				{"type": "separator", "margin": "md"}
+			]
+		}
+		contents.append(user_box)
+
+	# Total 前面加一條 separator
+	contents.append({"type": "separator", "margin": "xs"})
+
+	# 總數
+	total_box = {
+		"type": "text",
+		"text": f"Total {len(data)} Item",
+		"weight": "bold",
+		"margin": "md",
+		"align": "start",
+		"size": "sm"
+	}
+	contents.append(total_box)
+
+	flex_message = {
+		"type": "bubble",
+		"size": "deca",
+		"body": {
+			"type": "box",
+			"layout": "vertical",
+			"contents": contents
+		}
+	}
+
+	return flex_message
+
+
+# 使用範例
+flex_msg = get_all_user_flex()
+# line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="User List", contents=flex_msg))
+
+
+
+
+
 def save_json_data(user_id, item, value, json_path='__sixYoSet__.json'):
-    """只修改既有 JSON 中的值，不新增任何使用者或欄位。"""
+	"""只修改既有 JSON 中的值，不新增任何使用者或欄位。"""
 
-    # 檢查檔案是否存在
-    if not os.path.exists(json_path):
-        print(f"⚠️ 找不到檔案：{json_path}")
-        return False
+	# 檢查檔案是否存在
+	if not os.path.exists(json_path):
+		print(f"⚠️ 找不到檔案：{json_path}")
+		return False
 
-    # 嘗試載入 JSON
-    try:
-        with open(json_path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-    except Exception as e:
-        print(f"⚠️ JSON 讀取失敗：{e}")
-        return False
+	# 嘗試載入 JSON
+	try:
+		with open(json_path, 'r', encoding='utf-8') as f:
+			data = json.load(f)
+	except Exception as e:
+		print(f"⚠️ JSON 讀取失敗：{e}")
+		return False
 
-    # 檢查 user 是否存在
-    if user_id not in data:
-        print(f"⚠️ 找不到使用者 {user_id}，不進行修改。")
-        return False
+	# 檢查 user 是否存在
+	if user_id not in data:
+		print(f"⚠️ 找不到使用者 {user_id}，不進行修改。")
+		return False
 
-    # 檢查欄位是否存在
-    if item not in data[user_id]:
-        print(f"⚠️ 使用者 {user_id} 沒有項目 '{item}'，不進行修改。")
-        return False
+	# 檢查欄位是否存在
+	if item not in data[user_id]:
+		print(f"⚠️ 使用者 {user_id} 沒有項目 '{item}'，不進行修改。")
+		return False
 
-    # 修改值
-    old_value = data[user_id][item]
-    data[user_id][item] = value
+	# 修改值
+	old_value = data[user_id][item]
+	data[user_id][item] = value
 
-    # 寫回 JSON 檔
-    with open(json_path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
+	# 寫回 JSON 檔
+	with open(json_path, 'w', encoding='utf-8') as f:
+		json.dump(data, f, ensure_ascii=False, indent=4)
 
-    print(f"✅ 已更新 {user_id} 的 '{item}'：{old_value} → {value}")
-    return True
+	print(f"✅ 已更新 {user_id} 的 '{item}'：{old_value} → {value}")
+	return True
+
+
+
 
 
 
@@ -702,4 +771,6 @@ if __name__ == '__main__':
 	# setItemData ( "BENNO" , "switch" , "WW" )
 
 	# print( get_user_data( "U21eaaf32db85b983a842d9a9da81d8f1" ))
-	save_json_data("U21eaaf32db85b983a842d9a9da81d8f1", "runtime", 12)
+	# save_json_data("U21eaaf32db85b983a842d9a9da81d8f1", "runtime", 12)
+	flex_dict = get_all_user_flex()
+	print(json.dumps(flex_dict, ensure_ascii=False, indent=4))

@@ -226,9 +226,8 @@ class jsonDataClass:
 				if comList[2] == "none":
 					supabase_io.delete_user_token( self.linebotId )
 					self.notionToken_pageId = False
-					rtn_message =  "notion - concel"
+					rtn_message =  "Notion – Canceled"
 				else:
-
 
 
 
@@ -240,7 +239,7 @@ class jsonDataClass:
 
 						if checkNotionAcc( token_buf , pageId_buf ) == True:
 							self.notionToken_pageId = True
-							rtn_message =  "notion - ok"
+							rtn_message =  "Notion – Success"
 
 							supabase_io.save_user_data(
 								user_id = self.linebotId,

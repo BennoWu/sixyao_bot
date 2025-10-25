@@ -299,7 +299,9 @@ def handle_message(event):
 
 
 		# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
-		jsonData.uiJsonSetting("set temp " + inputMsg ) ## 取完之後刪除
+		# jsonData.uiJsonSetting("set temp " + inputMsg ) ## 取完之後刪除
+		# save_json_data(  user_id, "temp", None , json_path='__sixYoSet__.json' ) ## json 直接存取
+
 		# exec( cmd )
 		print( "UI") 
 		print( ui_cmd_dict )
@@ -315,7 +317,7 @@ def handle_message(event):
 			)
 
 	## 修改Title
-	elif inputMsg[0] in [ ">","@",":" ]: #字的開頭如果是這些就進入
+	elif inputMsg[0] in [ ">","#",":" ]: #字的開頭如果是這些就進入
 		changeNote = inputMsg[1:]
 		# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 		# uiCommand = jsonData.temp ## 取得temp的暫存ui command
@@ -324,13 +326,8 @@ def handle_message(event):
 		newCommand = uiCommand.replace( "no title" , changeNote )
 		new_flex_json = sixYaoMain( newCommand , userData ) # 取得起盤介面的json
 
-		# new_flex_json = sixYaoMain( newCommand ,
-		# 					lineBotId = user_id , 
-		# 					lineBotName = displayName , 
-		# 					userImage = picUrl ) # 取得起盤介面的json
-
 		# jsonData.uiJsonSetting("set temp none") ## 取完之後刪除
-		save_json_data(  user_id, "temp", None , json_path='__sixYoSet__.json' )
+		save_json_data(  user_id, "temp", None , json_path='__sixYoSet__.json' ) ## json 直接存取
 
 		line_bot_api.reply_message(
 			event.reply_token,
@@ -342,16 +339,24 @@ def handle_message(event):
 
 	## 執行程式用
 	elif inputMsg[0:4] == "____":
-		inputMsg = inputMsg[ 4: ]
+		inputMsg = inputMsg[ 4: ].lower()
 		# backMsg = ""
-		if inputMsg == "up":
+		if inputMsg in ["up","upload"]:
 			returnMsg = jsonToGoogle()
-		elif inputMsg == "dn":
+		elif inputMsg in  ["dn","download"]:
 			returnMsg = googleToJson()
-		elif inputMsg == "logup":
+		elif inputMsg in ["logup","uplog" ]:
 			returnMsg = uploadCsvToGoogleSheet()
-		elif inputMsg == "show":
-			pass
+		elif inputMsg in ["show","list"]:
+			showDict = get_all_user_flex()
+
+			line_bot_api.reply_message(
+				event.reply_token,
+				FlexSendMessage(
+					alt_text='< list all >',
+					contents= showDict   # 直接放轉好的 dict
+				)
+			)
 
 		else:
 			returnMsg = "No command - " + inputMsg
