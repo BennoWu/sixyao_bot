@@ -102,74 +102,74 @@ def riceGua( fullDataInput ):
 import re
 
 FULL2HALF = str.maketrans({
-    "，": ",",  # 全形逗號 → 半形逗號
-    "。": ".",  # 全形句號 → 半形句號
-    "？": "?",  # 全形問號 → 半形問號
-    "！": "!",  # 全形驚嘆號 → 半形驚嘆號
-    "；": ";",  # 全形分號 → 半形分號
-    "：": ":",  # 全形冒號 → 半形冒號
-    "、": ",",  # 頓號 → 半形逗號
-    "．": ".",  # 全形句點 → 半形句點
+	"，": ",",  # 全形逗號 → 半形逗號
+	"。": ".",  # 全形句號 → 半形句號
+	"？": "?",  # 全形問號 → 半形問號
+	"！": "!",  # 全形驚嘆號 → 半形驚嘆號
+	"；": ";",  # 全形分號 → 半形分號
+	"：": ":",  # 全形冒號 → 半形冒號
+	"、": ",",  # 頓號 → 半形逗號
+	"．": ".",  # 全形句點 → 半形句點
 })
 SEP_PATTERN = re.compile(r'[\s_\\;:；：．]+')
 
 def _clean_subblock(s: str) -> str:
-    """清理單段落的小區塊文字"""
-    s = s.translate(FULL2HALF).strip()
-    
-    # ⭐ 新增：先把「中文 + 空白 + 逗號 + 空白 + 中文」的空白都收掉
-    s = re.sub(r'([\u4e00-\u9fff])\s*,\s*([\u4e00-\u9fff])', r'\1,\2', s)
-    
-    # '-' 無空白 -> '/'
-    s = re.sub(r'(?<!\s)-(?!\s)', '/', s)
-    
-    # 逗號處理（重點）
-    # 1. 數字/英文字母間的逗號 → '/'
-    s = re.sub(r'(?<=[0-9A-Za-z]),(?=[0-9A-Za-z])', '/', s)
-    # 2. 結尾逗號 → '/'
-    s = re.sub(r',\s*$', '/', s)
-    # 3. 中文後面接逗號，逗號後面不是中文 → '/'
-    s = re.sub(r'(?<=[\u4e00-\u9fff]),(?![\u4e00-\u9fff])', '/', s)
-    # 4. 逗號前面不是中文，後面是中文 → '/'
-    s = re.sub(r'(?<![\u4e00-\u9fff]),(?=[\u4e00-\u9fff])', '/', s)
-    
-    # 其他雜項 -> '/'
-    s = SEP_PATTERN.sub('/', s)
-    
-    # 尾巴句號刪除（只刪除句號，保留 ? !）
-    s = re.sub(r'\.\s*$', '', s)
-    
-    # 合併多個 '/'
-    s = re.sub(r'/+', '/', s)
-    
-    # 去掉段落首尾多餘 '/'
-    s = s.strip('/ ')
-    
-    return s
+	"""清理單段落的小區塊文字"""
+	s = s.translate(FULL2HALF).strip()
+	
+	# ⭐ 新增：先把「中文 + 空白 + 逗號 + 空白 + 中文」的空白都收掉
+	s = re.sub(r'([\u4e00-\u9fff])\s*,\s*([\u4e00-\u9fff])', r'\1,\2', s)
+	
+	# '-' 無空白 -> '/'
+	s = re.sub(r'(?<!\s)-(?!\s)', '/', s)
+	
+	# 逗號處理（重點）
+	# 1. 數字/英文字母間的逗號 → '/'
+	s = re.sub(r'(?<=[0-9A-Za-z]),(?=[0-9A-Za-z])', '/', s)
+	# 2. 結尾逗號 → '/'
+	s = re.sub(r',\s*$', '/', s)
+	# 3. 中文後面接逗號，逗號後面不是中文 → '/'
+	s = re.sub(r'(?<=[\u4e00-\u9fff]),(?![\u4e00-\u9fff])', '/', s)
+	# 4. 逗號前面不是中文，後面是中文 → '/'
+	s = re.sub(r'(?<![\u4e00-\u9fff]),(?=[\u4e00-\u9fff])', '/', s)
+	
+	# 其他雜項 -> '/'
+	s = SEP_PATTERN.sub('/', s)
+	
+	# 尾巴句號刪除（只刪除句號，保留 ? !）
+	s = re.sub(r'\.\s*$', '', s)
+	
+	# 合併多個 '/'
+	s = re.sub(r'/+', '/', s)
+	
+	# 去掉段落首尾多餘 '/'
+	s = s.strip('/ ')
+	
+	return s
 
 def unifiedData(orgData, strong_sep='//', sep_for_app=None):
-    if not isinstance(orgData, str):
-        return orgData
-    
-    # Step 1: 分段落（大區塊）
-    STRONG_TOKEN = "STRONGSEPUNIQUE"
-    # 保護原本的 //，換行，" - " 統一替代為 token
-    s = orgData.replace(strong_sep, STRONG_TOKEN)
-    s = re.sub(r'\s-\s', STRONG_TOKEN, s)
-    s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
-    
-    # Step 2: 對每個段落清理
-    segments = s.split(STRONG_TOKEN)
-    cleaned_segments = [_clean_subblock(seg) for seg in segments if seg.strip()]
-    
-    # Step 3: 合併回單行，使用強分隔符
-    result = strong_sep.join(cleaned_segments)
-    
-    # Step 4: 可選替換為 app 分隔符號
-    if sep_for_app:
-        result = result.replace(strong_sep, sep_for_app)
-    
-    return result
+	if not isinstance(orgData, str):
+		return orgData
+	
+	# Step 1: 分段落（大區塊）
+	STRONG_TOKEN = "STRONGSEPUNIQUE"
+	# 保護原本的 //，換行，" - " 統一替代為 token
+	s = orgData.replace(strong_sep, STRONG_TOKEN)
+	s = re.sub(r'\s-\s', STRONG_TOKEN, s)
+	s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
+	
+	# Step 2: 對每個段落清理
+	segments = s.split(STRONG_TOKEN)
+	cleaned_segments = [_clean_subblock(seg) for seg in segments if seg.strip()]
+	
+	# Step 3: 合併回單行，使用強分隔符
+	result = strong_sep.join(cleaned_segments)
+	
+	# Step 4: 可選替換為 app 分隔符號
+	if sep_for_app:
+		result = result.replace(strong_sep, sep_for_app)
+	
+	return result
 
 # print(unifiedData("店家維修，能否順利修好電腦保住資料 - 0-1-00-11-0-1"))
 
@@ -627,14 +627,30 @@ def looks_like_year(text):
 
 
 ## 確認supabase這個id是否存在
+## 確認這個id是否存在
+import requests
+
 def check_user_exists(user_id):
-    with open(csv_path, newline='', encoding="utf-8") as f:
-        reader = csv.reader(f)
-        next(reader, None)  # 跳過表頭
-        for row in reader:
-            if row and row[0] == user_id:
-                return True
-        return False
+	"""
+	只確認 Supabase 資料庫中是否存在指定 user_id。
+	不抓 token 或其他欄位，完全靠 HTTP header 判斷。
+	"""
+	url = f"{SUPABASE_URL}/rest/v1/user_tokens"
+	params = {
+		"select": "user_id",
+		"user_id": f"eq.{user_id}",
+		"count": "exact"  # 讓 Supabase 在 header 裡回傳筆數
+	}
+
+	response = requests.get(url, params=params, headers=headers)
+	if response.status_code == 200:
+		# Content-Range 會是 "0-0/1" 或 "*/0"
+		content_range = response.headers.get("content-range", "")
+		if "/" in content_range:
+			count = int(content_range.split("/")[-1])
+			return count > 0  # 有資料 → True，沒有 → False
+
+	return False
 
 
 
