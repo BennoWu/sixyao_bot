@@ -303,6 +303,7 @@ def handle_message(event):
 			]
 		)
 
+		print( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
 
 		# 背景清理：延遲執行，不影響主流程
 		threading.Thread(

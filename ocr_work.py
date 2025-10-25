@@ -251,7 +251,7 @@ def cropTool(img: Image.Image,
 	right, bottom = left + crop_w, top + crop_h
 	crop_img = img.crop((left, top, right, bottom))
 	# crop_img = crop_img.rotate(90, expand=True)
-	crop_img.show()
+	# crop_img.show()
 	# OCR
 	text = ocr_image_to_text(crop_img)
 	print( text )
