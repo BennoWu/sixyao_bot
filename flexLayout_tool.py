@@ -878,7 +878,7 @@ uiLayoutBackExt = '''
                       "type": "postback",
                       "label": "裝卦",
                       "data": "__裝卦__",
-                      "displayText": "__裝卦__"
+                      "displayText": "__dis裝卦__"
                     },
                     "color": "#91A4BC",
                     "margin": "none",
@@ -1091,7 +1091,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	# command = zeroSpace.join(command)
 	import re
 
-	display_command = command[1:].replace( " // " , " - " , 1  )
+	display_command = command.replace( " // " , " - " , 1  )
 	display_command = display_command.replace( " // " , "\\n"  )
 	# display_command = re.sub( " // " , "\\n" , display_command, count=2 )
 
@@ -1143,9 +1143,9 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	else:
 		uiLayout += uiLayoutBack		
 
-	note = note.replace("#",",")
-	command = command.replace("#",",")
-	display_command = display_command.replace("#",",")
+	# note = note.replace("#",",")
+	# command = command.replace("#",",")
+	# display_command = display_command.replace("#",",")
 
 
 # 干支/日/2025.5.11/10/申
