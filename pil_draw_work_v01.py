@@ -314,9 +314,11 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 
 	## 藍色外框
-	def draw_SquareFull ( hight = 560 , hightSize = 926 , sideSpace = twoSideSpace , roundSize = 35 , fillColor = lightGray , outlineColor = None ,  LineWidth = 0 ):
-		draw.rectangle([ sideSpace , hight , screenWidth - sideSpace  , hight + hightSize ], fill = fillColor, width = LineWidth , outline = outlineColor )
+	# def draw_SquareFull ( hight = 560 , hightSize = 926 , sideSpace = twoSideSpace , roundSize = 35 , fillColor = lightGray , outlineColor = None ,  LineWidth = 0 ):
+	# 	draw.rectangle([ sideSpace , hight , screenWidth - sideSpace  , hight + hightSize ], fill = fillColor, width = LineWidth , outline = outlineColor )
 
+	def draw_SquareFull ( hightSize = screenHight , widthSize = screenWidth , offset = 0 , fillColor = lightGray , outlineColor = None ,  LineWidth = 0 ):
+		draw.rectangle([ offset , offset , widthSize -offset , hightSize - offset ], fill = fillColor, width = LineWidth , outline = outlineColor )
 
 
 		# 分割橫線
@@ -384,8 +386,9 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 	roundSquare (  hight = screenHight-268 , hightSize = 90 , sideSpace = twoSideSpace+3 , fillColor = None , outlineColor = "#777777" , LineWidth = 4 )
 
 	## 最大邊框"#ACA899"
-	# draw_SquareFull (  hight = 0 , hightSize = screenHight-2, sideSpace = 0 , fillColor = None , outlineColor = "#959799" , LineWidth = 18 )
-	roundSquare (  hight = 8 , hightSize = screenHight-18, sideSpace = 8 ,roundSize = 30 ,   fillColor = None , outlineColor = "#959799" , LineWidth = 8 )
+	draw_SquareFull ( hightSize = screenHight , widthSize = screenWidth , offset = 0 , fillColor = None , outlineColor = "#1E3752" ,  LineWidth = 18 )
+	# draw_SquareFull ( hightSize = screenHight , widthSize = screenWidth , offset = 23 , fillColor = None , outlineColor = "#1E3752" ,  LineWidth = 3 )	
+	# roundSquare (  hight = 8 , hightSize = screenHight-18, sideSpace = 8 ,roundSize = 30 ,   fillColor = None , outlineColor = "#959799" , LineWidth = 8 )
 
 
 

@@ -750,8 +750,811 @@ def save_json_data(user_id, item, value, json_path='__sixYoSet__.json'):
 	print(f"✅ 已更新 {user_id} 的 '{item}'：{old_value} → {value}")
 	return True
 
-
-
+# {
+#   "type": "bubble",
+#   "size": "kilo",
+#   "body": {
+#     "type": "box",
+#     "layout": "vertical",
+#     "contents": [
+#       {
+#         "type": "box",
+#         "layout": "horizontal",
+#         "contents": [
+#           {
+#             "type": "text",
+#             "text": "六爻排盤:",
+#             "weight": "bold",
+#             "color": "#6A8B91",
+#             "size": "lg"
+#           },
+#           {
+#             "type": "text",
+#             "text": "霜降→立冬",
+#             "weight": "regular",
+#             "color": "#666666",
+#             "size": "lg",
+#             "align": "end",
+#             "action": {
+#               "type": "message",
+#               "label": "action",
+#               "text": "干支/節氣/6/2025-10-25"
+#             },
+#             "gravity": "center"
+#           }
+#         ],
+#         "margin": "none"
+#       },
+#       {
+#         "type": "separator",
+#         "margin": "none",
+#         "color": "#cccccc"
+#       },
+#       {
+#         "type": "box",
+#         "layout": "horizontal",
+#         "contents": [
+#           {
+#             "type": "text",
+#             "text": "乙巳",
+#             "weight": "bold",
+#             "size": "xl",
+#             "margin": "none",
+#             "wrap": true,
+#             "flex": 0,
+#             "color": "#000001"
+#           },
+#           {
+#             "type": "text",
+#             "text": "|",
+#             "size": "xl",
+#             "margin": "none",
+#             "color": "#cccccc",
+#             "flex": 0,
+#             "gravity": "top",
+#             "offsetTop": "-2px"
+#           },
+#           {
+#             "type": "text",
+#             "text": "丙戌",
+#             "weight": "bold",
+#             "size": "xl",
+#             "margin": "none",
+#             "wrap": true,
+#             "flex": 0,
+#             "action": {
+#               "type": "message",
+#               "label": "action",
+#               "text": "干支/月/6/2025-10-25"
+#             },
+#             "color": "#000002"
+#           },
+#           {
+#             "type": "text",
+#             "text": "|",
+#             "size": "xl",
+#             "margin": "none",
+#             "color": "#cccccc",
+#             "flex": 0,
+#             "gravity": "top",
+#             "offsetTop": "-2px"
+#           },
+#           {
+#             "type": "text",
+#             "text": "丁卯",
+#             "weight": "bold",
+#             "size": "xl",
+#             "margin": "none",
+#             "wrap": true,
+#             "flex": 0,
+#             "action": {
+#               "type": "message",
+#               "label": "action",
+#               "text": "干支/日/6/2025-10-25"
+#             },
+#             "color": "#000002"
+#           },
+#           {
+#             "type": "text",
+#             "text": "|",
+#             "size": "xl",
+#             "margin": "none",
+#             "color": "#cccccc",
+#             "flex": 0,
+#             "gravity": "top",
+#             "offsetTop": "-2px"
+#           },
+#           {
+#             "type": "text",
+#             "text": "庚子",
+#             "weight": "bold",
+#             "size": "xl",
+#             "margin": "none",
+#             "wrap": true,
+#             "flex": 0,
+#             "action": {
+#               "type": "message",
+#               "label": "action",
+#               "text": "干支/時/6/2025-10-25-0-24"
+#             },
+#             "color": "#000003"
+#           }
+#         ],
+#         "spacing": "none",
+#         "margin": "xs",
+#         "cornerRadius": "7px",
+#         "justifyContent": "space-between"
+#       },
+#       {
+#         "type": "box",
+#         "layout": "horizontal",
+#         "contents": [
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "text",
+#                 "text": "國曆: 2025/10/25(六)",
+#                 "size": "sm",
+#                 "color": "#444443",
+#                 "wrap": true,
+#                 "weight": "regular",
+#                 "margin": "none",
+#                 "align": "start",
+#                 "offsetTop": "2px"
+#               },
+#               {
+#                 "type": "text",
+#                 "text": "農曆: 九月初五",
+#                 "size": "sm",
+#                 "color": "#444443",
+#                 "wrap": true,
+#                 "weight": "regular",
+#                 "margin": "none"
+#               }
+#             ],
+#             "margin": "none",
+#             "flex": 0,
+#             "height": "40px"
+#           },
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "text",
+#                 "text": "|",
+#                 "size": "xxl",
+#                 "margin": "none",
+#                 "color": "#dddddd",
+#                 "align": "end"
+#               }
+#             ],
+#             "width": "15px",
+#             "offsetTop": "-5px",
+#             "offsetStart": "7px"
+#           },
+#           {
+#             "type": "text",
+#             "text": "00:24",
+#             "size": "xxl",
+#             "color": "#FCA32D",
+#             "align": "end",
+#             "weight": "regular"
+#           }
+#         ],
+#         "margin": "none"
+#       },
+#       {
+#         "type": "separator",
+#         "margin": "none",
+#         "color": "#aaaaaa"
+#       },
+#       {
+#         "type": "box",
+#         "layout": "vertical",
+#         "contents": [
+#           {
+#             "type": "box",
+#             "layout": "horizontal",
+#             "contents": [
+#               {
+#                 "type": "box",
+#                 "layout": "horizontal",
+#                 "contents": [
+#                   {
+#                     "type": "text",
+#                     "weight": "bold",
+#                     "color": "#ffffff",
+#                     "size": "xl",
+#                     "text": "占",
+#                     "contents": [],
+#                     "gravity": "center",
+#                     "align": "center",
+#                     "offsetTop": "-1px"
+#                   }
+#                 ],
+#                 "backgroundColor": "#9BB0CE",
+#                 "width": "30px",
+#                 "height": "30px",
+#                 "cornerRadius": "20px"
+#               },
+#               {
+#                 "type": "text",
+#                 "color": "#333333",
+#                 "size": "lg",
+#                 "wrap": true,
+#                 "text": "占找A店家維修,能否順利修好電腦保住資料",
+#                 "margin": "sm",
+#                 "contents": [],
+#                 "gravity": "center"
+#               }
+#             ],
+#             "margin": "sm"
+#           }
+#         ],
+#         "spacing": "none",
+#         "margin": "sm"
+#       },
+#       {
+#         "type": "box",
+#         "layout": "vertical",
+#         "contents": [
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [],
+#                 "width": "251px",
+#                 "margin": "none",
+#                 "spacing": "none",
+#                 "offsetStart": "sm"
+#               }
+#             ],
+#             "height": "5px"
+#           },
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "box",
+#                 "layout": "horizontal",
+#                 "contents": [
+#                   {
+#                     "type": "box",
+#                     "layout": "vertical",
+#                     "contents": [],
+#                     "width": "40px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "⚊",
+#                         "size": "xxl",
+#                         "align": "center",
+#                         "offsetBottom": "7px",
+#                         "weight": "regular",
+#                         "gravity": "bottom"
+#                       }
+#                     ],
+#                     "width": "30px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "－",
+#                         "size": "md",
+#                         "offsetTop": "-4px",
+#                         "align": "center",
+#                         "gravity": "center",
+#                         "color": "#999999"
+#                       }
+#                     ],
+#                     "width": "90px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "上爻",
+#                         "size": "lg",
+#                         "weight": "regular",
+#                         "color": "#333333",
+#                         "gravity": "top"
+#                       }
+#                     ],
+#                     "flex": 2
+#                   }
+#                 ],
+#                 "margin": "xs",
+#                 "height": "35px",
+#                 "offsetTop": "5px"
+#               }
+#             ]
+#           },
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "box",
+#                 "layout": "horizontal",
+#                 "contents": [
+#                   {
+#                     "type": "box",
+#                     "layout": "vertical",
+#                     "contents": [],
+#                     "width": "40px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "✕",
+#                         "size": "xl",
+#                         "align": "center",
+#                         "weight": "bold",
+#                         "offsetBottom": "7px",
+#                         "gravity": "bottom"
+#                       }
+#                     ],
+#                     "width": "30px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "－",
+#                         "size": "md",
+#                         "offsetTop": "-4px",
+#                         "align": "center",
+#                         "gravity": "center",
+#                         "color": "#999999"
+#                       }
+#                     ],
+#                     "width": "90px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "五爻",
+#                         "size": "lg",
+#                         "weight": "regular",
+#                         "color": "#333333",
+#                         "gravity": "top"
+#                       }
+#                     ],
+#                     "flex": 2
+#                   }
+#                 ],
+#                 "margin": "xs",
+#                 "height": "35px",
+#                 "offsetTop": "5px"
+#               }
+#             ]
+#           },
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "box",
+#                 "layout": "horizontal",
+#                 "contents": [
+#                   {
+#                     "type": "box",
+#                     "layout": "vertical",
+#                     "contents": [],
+#                     "width": "52px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "⚋",
+#                         "size": "xxl",
+#                         "align": "center",
+#                         "offsetBottom": "7px",
+#                         "weight": "regular",
+#                         "gravity": "bottom"
+#                       }
+#                     ],
+#                     "width": "30px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "－",
+#                         "size": "md",
+#                         "offsetTop": "-4px",
+#                         "align": "center",
+#                         "gravity": "center",
+#                         "color": "#999999"
+#                       }
+#                     ],
+#                     "width": "90px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "四爻",
+#                         "size": "lg",
+#                         "weight": "regular",
+#                         "color": "#333333",
+#                         "gravity": "top"
+#                       }
+#                     ],
+#                     "flex": 2
+#                   }
+#                 ],
+#                 "margin": "xs",
+#                 "height": "35px",
+#                 "offsetTop": "5px"
+#               }
+#             ]
+#           },
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "box",
+#                 "layout": "horizontal",
+#                 "contents": [
+#                   {
+#                     "type": "box",
+#                     "layout": "vertical",
+#                     "contents": [],
+#                     "width": "52px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "〇",
+#                         "size": "xl",
+#                         "align": "center",
+#                         "weight": "bold",
+#                         "offsetBottom": "7px",
+#                         "gravity": "bottom"
+#                       }
+#                     ],
+#                     "width": "30px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "－",
+#                         "size": "md",
+#                         "offsetTop": "-4px",
+#                         "align": "center",
+#                         "gravity": "center",
+#                         "color": "#999999"
+#                       }
+#                     ],
+#                     "width": "90px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "三爻",
+#                         "size": "lg",
+#                         "weight": "regular",
+#                         "color": "#333333",
+#                         "gravity": "top"
+#                       }
+#                     ],
+#                     "flex": 2
+#                   }
+#                 ],
+#                 "margin": "xs",
+#                 "height": "35px",
+#                 "offsetTop": "5px"
+#               }
+#             ]
+#           },
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "box",
+#                 "layout": "horizontal",
+#                 "contents": [
+#                   {
+#                     "type": "box",
+#                     "layout": "vertical",
+#                     "contents": [],
+#                     "width": "52px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "✕",
+#                         "size": "xl",
+#                         "align": "center",
+#                         "weight": "bold",
+#                         "offsetBottom": "7px",
+#                         "gravity": "bottom"
+#                       }
+#                     ],
+#                     "width": "30px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "－",
+#                         "size": "md",
+#                         "offsetTop": "-4px",
+#                         "align": "center",
+#                         "gravity": "center",
+#                         "color": "#999999"
+#                       }
+#                     ],
+#                     "width": "90px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "二爻",
+#                         "size": "lg",
+#                         "weight": "regular",
+#                         "color": "#333333",
+#                         "gravity": "top"
+#                       }
+#                     ],
+#                     "flex": 2
+#                   }
+#                 ],
+#                 "margin": "xs",
+#                 "height": "35px",
+#                 "offsetTop": "5px"
+#               }
+#             ]
+#           },
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "box",
+#                 "layout": "horizontal",
+#                 "contents": [
+#                   {
+#                     "type": "box",
+#                     "layout": "vertical",
+#                     "contents": [],
+#                     "width": "52px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "⚋",
+#                         "size": "xxl",
+#                         "align": "center",
+#                         "offsetBottom": "7px",
+#                         "weight": "regular",
+#                         "gravity": "bottom"
+#                       }
+#                     ],
+#                     "width": "30px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "－",
+#                         "size": "md",
+#                         "offsetTop": "-4px",
+#                         "align": "center",
+#                         "gravity": "center",
+#                         "color": "#999999"
+#                       }
+#                     ],
+#                     "width": "90px"
+#                   },
+#                   {
+#                     "type": "box",
+#                     "layout": "horizontal",
+#                     "contents": [
+#                       {
+#                         "type": "text",
+#                         "text": "初爻",
+#                         "size": "lg",
+#                         "weight": "regular",
+#                         "color": "#333333",
+#                         "gravity": "top"
+#                       }
+#                     ],
+#                     "flex": 2
+#                   }
+#                 ],
+#                 "margin": "xs",
+#                 "height": "35px",
+#                 "offsetTop": "5px"
+#               }
+#             ]
+#           },
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [],
+#                 "height": "10px",
+#                 "width": "251px",
+#                 "margin": "none",
+#                 "spacing": "none",
+#                 "offsetStart": "sm"
+#               }
+#             ],
+#             "height": "10px"
+#           }
+#         ],
+#         "margin": "sm",
+#         "cornerRadius": "10px",
+#         "backgroundColor": "#CECCCA"
+#       },
+#       {
+#         "type": "box",
+#         "layout": "vertical",
+#         "contents": [
+#           {
+#             "type": "box",
+#             "layout": "horizontal",
+#             "contents": [
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [],
+#                 "width": "8px"
+#               },
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [
+#                   {
+#                     "type": "text",
+#                     "text": "艮為山",
+#                     "align": "center",
+#                     "size": "md",
+#                     "weight": "bold"
+#                   }
+#                 ]
+#               },
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [
+#                   {
+#                     "type": "text",
+#                     "text": "•",
+#                     "align": "center",
+#                     "size": "md",
+#                     "color": "#bbbbbb"
+#                   }
+#                 ],
+#                 "width": "20px"
+#               },
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [
+#                   {
+#                     "type": "text",
+#                     "text": "風水渙",
+#                     "align": "center",
+#                     "size": "md",
+#                     "weight": "bold"
+#                   }
+#                 ]
+#               },
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [],
+#                 "width": "10px"
+#               }
+#             ],
+#             "offsetTop": "xs"
+#           }
+#         ],
+#         "margin": "md",
+#         "cornerRadius": "10px",
+#         "borderColor": "#bbbbbb",
+#         "borderWidth": "2px",
+#         "height": "31px"
+#       },
+#       {
+#         "type": "box",
+#         "layout": "vertical",
+#         "margin": "xs",
+#         "contents": [
+#           {
+#             "type": "box",
+#             "layout": "horizontal",
+#             "contents": [
+#               {
+#                 "type": "button",
+#                 "style": "secondary",
+#                 "action": {
+#                   "type": "postback",
+#                   "label": "裝卦",
+#                   "data": "+2025/10/25/0/24 // 0X$0X1 // 占找A店家維修,能否順利修好電腦保住資料",
+#                   "displayText": "2025/10/25/0/24 - 0X$0X1\n占找A店家維修,能否順利修好電腦保住資料"
+#                 },
+#                 "color": "#91A4BC",
+#                 "margin": "none",
+#                 "height": "md"
+#               }
+#             ],
+#             "margin": "xs"
+#           }
+#         ],
+#         "cornerRadius": "10px",
+#         "offsetTop": "3px"
+#       }
+#     ],
+#     "backgroundColor": "#F2F1F0"
+#   },
+#   "styles": {
+#     "footer": {
+#       "separator": true
+#     }
+#   }
+# }
 
 
 

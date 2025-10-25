@@ -17,22 +17,22 @@ import json
 uiLayoutFront ='''
 {
   "type": "bubble",
+  "size": "kilo",
   "body": {
-	"type": "box",
-	"layout": "vertical",
-	"contents": [
-	  {
-		"type": "box",
-		"layout": "horizontal",
-		"contents": [
-		  {
-			"type": "text",
-			"text": "六爻排盤:",
-			"weight": "bold",
-			"color": "#6A8B91",
-			"size": "lg"
-		  },
-
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": "六爻排盤:",
+            "weight": "bold",
+            "color": "#6A8B91",
+            "size": "lg"
+          },
           {
             "type": "text",
             "text": "節氣",
@@ -47,145 +47,142 @@ uiLayoutFront ='''
             },
             "gravity": "center"
           }
-
-
-
-		],
-		"margin": "none"
-	  },
-	  {
-		"type": "separator",
-		"margin": "none",
-		"color": "#cccccc"
-	  },
-	  {
-		"type": "box",
-		"layout": "horizontal",
-		"contents": [
-		  {
-			"type": "text",
-			"text": "年柱",
-			"weight": "bold",
-			"size": "xxl",
-			"margin": "none",
-			"wrap": true,
-			"flex": 0,
-			"color": "#000001"
-		  },
-		  {
-			"type": "text",
-			"text": "|",
-			"size": "xxl",
-			"margin": "none",
-			"color": "#cccccc",
-			"flex": 0,
-			"gravity": "top",
-			"offsetTop": "-2px"
-		  },
-		  {
-			"type": "text",
-			"text": "月柱",
-			"weight": "bold",
-			"size": "xxl",
-			"margin": "none",
-			"wrap": true,
-			"flex": 0,
-			"action": {
-			  "type": "message",
-			  "label": "action",
-			  "text": "month_mode"
-			},
-			"color": "#000002"
-		  },
-		  {
-			"type": "text",
-			"text": "|",
-			"size": "xxl",
-			"margin": "none",
-			"color": "#cccccc",
-			"flex": 0,
-			"gravity": "top",
-			"offsetTop": "-2px"
-		  },
-		  {
-			"type": "text",
-			"text": "日柱",
-			"weight": "bold",
-			"size": "xxl",
-			"margin": "none",
-			"wrap": true,
-			"flex": 0,
-			"action": {
-			  "type": "message",
-			  "label": "action",
-			  "text": "day_mode"
-			},
-			"color": "#000002"
-		  },
-		  {
-			"type": "text",
-			"text": "|",
-			"size": "xxl",
-			"margin": "none",
-			"color": "#cccccc",
-			"flex": 0,
-			"gravity": "top",
-			"offsetTop": "-2px"
-		  },
-		  {
-			"type": "text",
-			"text": "時柱",
-			"weight": "bold",
-			"size": "xxl",
-			"margin": "none",
-			"wrap": true,
-			"flex": 0,
-			"action": {
-			  "type": "message",
-			  "label": "action",
-			  "text": "hour_mode"
-			},
-			"color": "#000003"
-		  }
-		],
-		"spacing": "none",
-		"margin": "none",
-		"cornerRadius": "7px",
-		"justifyContent": "space-between"
-	  },
-	  {
-		"type": "box",
-		"layout": "horizontal",
-		"contents": [
-		  {
-			"type": "box",
-			"layout": "vertical",
-			"contents": [
-			  {
-				"type": "text",
-				"text": "國曆: __sunDate__",
-				"size": "md",
-				"color": "#444443",
-				"wrap": true,
-				"weight": "regular",
-				"margin": "none",
-				"align": "start",
-				"offsetTop": "2px"
-			  },
-			  {
-				"type": "text",
-				"text": "農曆: __darkDate__",
-				"size": "md",
-				"color": "#444443",
-				"wrap": true,
-				"weight": "regular",
-				"margin": "none"
-			  }
-			],
-			"margin": "none",
-			"flex": 0,
-			"height": "40px"
-		  },
+        ],
+        "margin": "none"
+      },
+      {
+        "type": "separator",
+        "margin": "none",
+        "color": "#cccccc"
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": "年柱",
+            "weight": "bold",
+            "size": "xl",
+            "margin": "none",
+            "wrap": true,
+            "flex": 0,
+            "color": "#000001"
+          },
+          {
+            "type": "text",
+            "text": "|",
+            "size": "xl",
+            "margin": "none",
+            "color": "#cccccc",
+            "flex": 0,
+            "gravity": "top",
+            "offsetTop": "-2px"
+          },
+          {
+            "type": "text",
+            "text": "月柱",
+            "weight": "bold",
+            "size": "xl",
+            "margin": "none",
+            "wrap": true,
+            "flex": 0,
+            "action": {
+              "type": "message",
+              "label": "action",
+              "text": "month_mode"
+            },
+            "color": "#000002"
+          },
+          {
+            "type": "text",
+            "text": "|",
+            "size": "xl",
+            "margin": "none",
+            "color": "#cccccc",
+            "flex": 0,
+            "gravity": "top",
+            "offsetTop": "-2px"
+          },
+          {
+            "type": "text",
+            "text": "日柱",
+            "weight": "bold",
+            "size": "xl",
+            "margin": "none",
+            "wrap": true,
+            "flex": 0,
+            "action": {
+              "type": "message",
+              "label": "action",
+              "text": "day_mode"
+            },
+            "color": "#000002"
+          },
+          {
+            "type": "text",
+            "text": "|",
+            "size": "xl",
+            "margin": "none",
+            "color": "#cccccc",
+            "flex": 0,
+            "gravity": "top",
+            "offsetTop": "-2px"
+          },
+          {
+            "type": "text",
+            "text": "時柱",
+            "weight": "bold",
+            "size": "xl",
+            "margin": "none",
+            "wrap": true,
+            "flex": 0,
+            "action": {
+              "type": "message",
+              "label": "action",
+              "text": "hour_mode"
+            },
+            "color": "#000003"
+          }
+        ],
+        "spacing": "none",
+        "margin": "xs",
+        "cornerRadius": "7px",
+        "justifyContent": "space-between"
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "國曆: __sunDate__",
+                "size": "sm",
+                "color": "#444443",
+                "wrap": true,
+                "weight": "regular",
+                "margin": "none",
+                "align": "start",
+                "offsetTop": "2px"
+              },
+              {
+                "type": "text",
+                "text": "農曆: __darkDate__",
+                "size": "sm",
+                "color": "#444443",
+                "wrap": true,
+                "weight": "regular",
+                "margin": "none"
+              }
+            ],
+            "margin": "none",
+            "flex": 0,
+            "height": "40px"
+          },
           {
             "type": "box",
             "layout": "vertical",
@@ -196,142 +193,95 @@ uiLayoutFront ='''
                 "size": "xxl",
                 "margin": "none",
                 "color": "#dddddd",
-                "flex": 0,
-                "gravity": "top",
-                "offsetTop": "-2px",
                 "align": "end"
               }
             ],
-            "width": "15px"
+            "width": "15px",
+            "offsetTop": "-5px",
+            "offsetStart": "7px"
           },
-
-
-		  {
-			"type": "box",
-			"layout": "horizontal",
-			"contents": [
-			  {
-				"type": "box",
-				"layout": "horizontal",
-				"contents": [],
-				"width": "2px",
-				"height": "32px",
-				"offsetStart": "lg"
-			  },
-			  {
-				"type": "text",
-				"text": "12:00",
-				"size": "3xl",
-				"color": "#FCA32D",
-				"wrap": true,
-				"align": "end",
-				"offsetBottom": "xs"
-			  }
-			],
-			"alignItems": "center",
-			"spacing": "none",
-			"flex": 1,
-			"height": "45px"
-		  }
-		],
-		"margin": "none",
-		"offsetTop": "-4px"
-	  },
-
-      {
-        "type": "separator",
-        "margin": "xs",
-        "color": "#aaaaaa"
+          {
+            "type": "text",
+            "text": "12:00",
+            "size": "xxl",
+            "color": "#FCA32D",
+            "align": "end",
+            "weight": "regular"
+          }
+        ],
+        "margin": "none"
       },
       {
         "type": "separator",
-        "margin": "xs",
+        "margin": "none",
         "color": "#aaaaaa"
       },
-
-
-
-
-	  {
-		"type": "box",
-		"layout": "vertical",
-		"contents": [
-
-
-
-
-
-
-
-
-		{
-			"type": "box",
-			"layout": "horizontal",
-			"contents": [
-			  {
-				"type": "box",
-				"layout": "horizontal",
-				"contents": [
-				  {
-					"type": "text",
-					"weight": "bold",
-					"color": "#ffffff",
-					"size": "xl",
-					"text": "占",
-					"contents": [],
-					"gravity": "center",
-					"align": "center",
-					"offsetTop": "-1px"
-				  }
-				],
-				"backgroundColor": "#9BB0CE",
-				"width": "30px",
-				"height": "30px",
-				"cornerRadius": "20px"
-			  },
-			  {
-				"type": "text",
-				"color": "#333333",
-				"size": "lg",
-				"wrap": true,
-				"text": "__NOTE__",
-				"margin": "sm",
-				"contents": [],
-				"gravity": "center"
-			  }
-			],
-			"margin": "sm"
-		  }
-
-		],
-		"spacing": "none",
-		"margin": "sm"
-	  },
-
-
-
-
-	  {
-		"type": "box",
-		"layout": "vertical",
-		"contents": [
-							{
-			"type": "box",
-			"layout": "vertical",
-			"contents": [
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [],
-
-				"width": "251px",
-				"margin": "none",
-				"spacing": "none",
-				"offsetStart": "sm"
-			  }
-			],
-			"height": "5px"
-		  },'''
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "weight": "bold",
+                    "color": "#ffffff",
+                    "size": "xl",
+                    "text": "占",
+                    "contents": [],
+                    "gravity": "center",
+                    "align": "center",
+                    "offsetTop": "-1px"
+                  }
+                ],
+                "backgroundColor": "#9BB0CE",
+                "width": "30px",
+                "height": "30px",
+                "cornerRadius": "20px"
+              },
+              {
+                "type": "text",
+                "color": "#333333",
+                "size": "lg",
+                "wrap": true,
+                "text": "__NOTE__",
+                "margin": "sm",
+                "contents": [],
+                "gravity": "center"
+              }
+            ],
+            "margin": "sm"
+          }
+        ],
+        "spacing": "none",
+        "margin": "sm"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "251px",
+                "margin": "none",
+                "spacing": "none",
+                "offsetStart": "sm"
+              }
+            ],
+            "height": "5px"
+          },'''
 
 
 
@@ -352,7 +302,7 @@ uiLayoutMidA = '''
 					"type": "box",
 					"layout": "vertical",
 					"contents": [],
-					"width": "52px"
+					"width": "42px"
 				  },
 				  {
 					"type": "box",
@@ -445,7 +395,7 @@ uiLayoutMidB = '''
 					"type": "box",
 					"layout": "vertical",
 					"contents": [],
-					"width": "52px"
+					"width": "42px"
 				  },
 				  {
 					"type": "box",
@@ -885,7 +835,7 @@ uiLayoutBackExt = '''
                     "height": "md"
                   }
                 ],
-                "width": "198px"
+                "width": "172px"
               },
               {
                 "type": "box",
@@ -1180,10 +1130,10 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 
 # pushToNotion( apiToken , pageId , imageUrl , titleText )
-	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "Uploading to Notion, please wait……" ).replace("__NOTION_CMD__", "n" + command )
+	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "⏳Uploading,please wait……" ).replace("__NOTION_CMD__", "n" + command )
 
 
-	# print( reDataLayout )
+	print( reDataLayout )
 
 	# 文字轉換成字典
 	reDataLayout_dict = json.loads(reDataLayout)
