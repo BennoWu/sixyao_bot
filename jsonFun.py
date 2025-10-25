@@ -649,7 +649,7 @@ def get_user_json_data( user_id , json_path= '__sixYoSet__.json' ):
 
 import json
 
-def get_all_user_flex(json_path='__sixYoSet__.json'):
+def get_all_user_flex( json_path='__sixYoSet__.json' ):
 	"""
 	讀取 JSON 裡所有帳號資料，回傳 Flex Message dict
 	- 每個帳號增加 runtime
@@ -706,7 +706,7 @@ def get_all_user_flex(json_path='__sixYoSet__.json'):
 
 
 # 使用範例
-flex_msg = get_all_user_flex()
+# flex_msg = get_all_user_flex()
 # line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="User List", contents=flex_msg))
 
 
