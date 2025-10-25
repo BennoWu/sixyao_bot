@@ -528,7 +528,7 @@ uiLayoutBack = '''
 
 		"margin": "sm",
 		"cornerRadius": "10px",
-		"backgroundColor": "#dddddf"
+		"backgroundColor": "#E5E5E5"
 	  },
 
 
@@ -732,7 +732,7 @@ uiLayoutBackExt = '''
 
 		"margin": "md",
 		"cornerRadius": "10px",
-		"backgroundColor": "#DBDAD9"
+		"backgroundColor": "#E5E5E5"
 	  },
 
 
@@ -1180,7 +1180,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 
 # pushToNotion( apiToken , pageId , imageUrl , titleText )
-	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "n" + command  ).replace("__NOTION_CMD__", "n" + command )
+	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "upload..." ).replace("__NOTION_CMD__", "n" + command )
 
 
 	# print( reDataLayout )

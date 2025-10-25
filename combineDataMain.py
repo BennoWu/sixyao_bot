@@ -626,6 +626,15 @@ def looks_like_year(text):
 
 
 
+## 確認supabase這個id是否存在
+def check_user_exists(user_id):
+    with open(csv_path, newline='', encoding="utf-8") as f:
+        reader = csv.reader(f)
+        next(reader, None)  # 跳過表頭
+        for row in reader:
+            if row and row[0] == user_id:
+                return True
+        return False
 
 
 
@@ -718,6 +727,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 		user_utc_hour =   userSetting [ "utc" ]     
 		user_tipsMode =   userSetting [ "tipsMode" ]
 		user_notion =     userSetting [ "notionToken_pageId" ]
+
 		# linebot_Id    = userSetting.get("linebotId", "預設值")
 		# user_name     = userSetting.get("linebotUserName", "Benno")
 		# user_utc_hour = userSetting.get("utc", 8)
@@ -747,7 +757,8 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	token_buf = ""
 	pageId_buf = ""
 
-	if user_notion == True:
+	# if user_notion == True:
+	if check_user_exists( linebot_Id ) == True:		
 		import  supabase_io
 		# 測試讀取 (會回傳字典)
 		data = get_user_data( linebot_Id )
