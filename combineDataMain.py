@@ -681,7 +681,7 @@ from sixYaoJsonDataClass import *
 
 
 def sixYaoMain ( fullDataInput , userSetting = None ):
-	fullDataInput = fullDataInput.replace( '\u200b' , '' )
+	# fullDataInput = fullDataInput.replace( '\u200b' , '' )
 	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\n" , '//' )
 	fullDataInput = fullDataInput.strip() ## 清除頭尾空格
 	# print( fullDataInput)
@@ -1207,7 +1207,7 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "2寅年巳月寅日-申酉//華一希占高考考運//天火 1 3 5" )
 	# sixYaoMain( "0X@0X1" ) 
-	sixYaoMain( "測試,測試 // 1,0,1,11,0,00" ) 
+	sixYaoMain( "測試,測試測測測 // 1,0,1,11,0,00" ) 
 	# sixYaoMain( "Q媽的鑽石項鍊在那裏?//1X@001" ) 
 	# sixYaoMain( "++乙巳年卯月己丑日//自占4/6馬祖新村擺攤收入吉凶?//1X0$$0") ## 三合
 	# sixYaoMain( "乙巳卯月戌-辰巳//X10101//自占今日在台中舊酒廠業績?" ) ## 三缺一

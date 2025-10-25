@@ -251,7 +251,7 @@ def cropTool(img: Image.Image,
 	right, bottom = left + crop_w, top + crop_h
 	crop_img = img.crop((left, top, right, bottom))
 	# crop_img = crop_img.rotate(90, expand=True)
-	# crop_img.show()
+	crop_img.show()
 	# OCR
 	text = ocr_image_to_text(crop_img)
 	print( text )
@@ -317,15 +317,15 @@ def getPicData(image_input):
 # ===== 範例 =====
 if __name__ == '__main__':
 	# local 路徑
-	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\test02.jpg")
+	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\ooo.jpg")
 
-	# PIL.Image
-	img_obj = Image.open("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__117137475.jpg")
-	getPicData(img_obj)
+	# # PIL.Image
+	# img_obj = Image.open("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__117137475.jpg")
+	# getPicData(img_obj)
 
-	# BytesIO (例如 LineBot content.raw)
-	# 假設 content 是 line_bot_api.get_message_content(message_id)
-	# getPicData(io.BytesIO(content.raw.read()))
+	# # BytesIO (例如 LineBot content.raw)
+	# # 假設 content 是 line_bot_api.get_message_content(message_id)
+	# # getPicData(io.BytesIO(content.raw.read()))
 
 
 # 2025一10一0220:41

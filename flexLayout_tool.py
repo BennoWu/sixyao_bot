@@ -1180,7 +1180,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 
 # pushToNotion( apiToken , pageId , imageUrl , titleText )
-	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "upload..." ).replace("__NOTION_CMD__", "n" + command )
+	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "n" + command  ).replace("__NOTION_CMD__", "n" + command )
 
 
 	# print( reDataLayout )
