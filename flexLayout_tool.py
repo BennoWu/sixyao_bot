@@ -583,8 +583,8 @@ uiLayoutBack = '''
         ],
         "margin": "md",
         "cornerRadius": "10px",
-        "borderColor": "#bbbbbb",
-        "borderWidth": "2px",
+        "borderColor": "#999999",
+        "borderWidth": "1px",
         "height": "31px"
       },
 
