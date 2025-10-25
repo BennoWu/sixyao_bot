@@ -775,14 +775,17 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 
 	import  supabase_io
 	# if user_notion == True:
-	if check_user_exists( linebot_Id ) == True:		
+	if check_user_exists( linebot_Id ) == True:	
+		print( "> supabase OK")
 		# 測試讀取 (會回傳字典)
 		data = get_user_data( linebot_Id )
 		if data:
 			token_buf = data['notion_token']
 			pageId_buf = data['page_id']
+			user_notion = True
 
-
+	else:
+		print( "> supabase NG")
 
 
 	# jsonData = jsonDataClass( lineBotId , lineBotName , userImage  , fullDataInput ) ## class建立
