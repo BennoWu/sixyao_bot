@@ -904,13 +904,13 @@ def mainFunction( inputData = "1X10@1" , noteText = None , user_mouthZi = "" , u
 	## 取得所有的地支，判斷神煞是否秀出用
 	mainDataDict['allDeeziList'] = getAllDeeZi( mainDataDict['home_naGia'], mainDataDict['hide_naGia'], mainDataDict['changeIdIndex'], mainDataDict['change_naGia'] )
 
-	# print(mainDataDict)
-	for e in mainDataDict.keys():
-		# print(e)
-		print( " %s%11s%s"% (e , " = ",mainDataDict[e]) )
+	# # print(mainDataDict)
+	# for e in mainDataDict.keys():
+	# 	# print(e)
+	# 	print( " %s%11s%s"% (e , " = ",mainDataDict[e]) )
 
-	print()
-	print()
+	# print()
+	# print()
 	for e in mainDataDict.keys():
 		if e in [ "monthGanZi", "dayGanZi", "changeIdIndex", "home_naGia", "hide_naGia", "change_naGia" ]:
 			print( " %s%s%s"% (e , " = ",mainDataDict[e]) )

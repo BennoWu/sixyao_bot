@@ -730,6 +730,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 
 
 
+	
 
 
 
@@ -756,6 +757,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 			token_buf = data['notion_token']
 			pageId_buf = data['page_id']
 			user_notion = True
+			save_json_data( linebot_Id, "notionToken_pageId", True )
 
 	else:
 		print( "> supabase NG")
