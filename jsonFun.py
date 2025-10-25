@@ -647,7 +647,7 @@ def get_user_json_data( user_id , json_path= '__sixYoSet__.json' ):
 
 
 
-import json
+
 
 def get_all_user_flex( json_path='__sixYoSet__.json' ):
 	"""
@@ -708,6 +708,40 @@ def get_all_user_flex( json_path='__sixYoSet__.json' ):
 # 使用範例
 # flex_msg = get_all_user_flex()
 # line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="User List", contents=flex_msg))
+
+
+
+def get_json_item_data(user_id, item, json_path='__sixYoSet__.json'):
+	"""
+	從 JSON 檔案中取得指定 user_id 的 item 值
+
+	Args:
+		user_id (str): 使用者 ID
+		item (str): 欲取得的欄位名稱
+		json_path (str, optional): JSON 檔案路徑. Default '__sixYoSet__.json'
+
+	Returns:
+		取得的值，如果找不到檔案/使用者/欄位，回傳 None
+	"""
+	if not os.path.exists(json_path):
+		return None
+
+	try:
+		with open(json_path, 'r', encoding='utf-8') as f:
+			data = json.load(f)
+
+		# 確保使用者存在
+		user_data = data.get(user_id)
+		if not user_data:
+			return None
+
+		# 回傳 item 值
+		return user_data.get(item)
+
+	except Exception as e:
+		print(f"Error reading JSON: {e}")
+		return None
+
 
 
 

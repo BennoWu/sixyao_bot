@@ -77,7 +77,7 @@ def pushMsg(msg, user_id = None):
 	if user_id is None:
 		user_id = my_id
 	try:
-		messaging_api = MessagingApi(api_client)  # api_client 是你初始化的 LineBotApiClient
+		messaging_api = MessagingApi(line_bot_api)  # api_client 是你初始化的 LineBotApiClient
 		messaging_api.push_message(
 			PushMessageRequest(
 				to=user_id,
@@ -348,6 +348,7 @@ def handle_message(event):
 		# jsonData = jsonDataClass( linebotId = user_id ) ## class建立
 		# uiCommand = jsonData.temp ## 取得temp的暫存ui command
 		# print( jsonData.temp )		
+		uiCommand = get_json_item_data( user_id, "temp" )
 
 		newCommand = uiCommand.replace( "no title" , changeNote )
 		new_flex_json = sixYaoMain( newCommand , userData ) # 取得起盤介面的json
