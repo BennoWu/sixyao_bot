@@ -521,7 +521,7 @@ def handle_postback(event):
 	elif data.startswith("n+"):
 		# notion_url = sixYaoMain(data)
 
-		notion_url = sixYaoMain ( data , lineBotId = userData )
+		notion_url = sixYaoMain ( data , userSetting = userData  )
 
 		line_bot_api.reply_message(
 			event.reply_token,
