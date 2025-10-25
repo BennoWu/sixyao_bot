@@ -290,7 +290,7 @@ def handle_message(event):
 
 	# 裝卦圖片上傳
 	elif inputMsg.startswith("+"):
-
+		print("XXXXXXXXXXXXXXXXXXXX@@@@@@@@@@@@@@@@@@@@@@@", flush=True)
 		img_high, img_low  = sixYaoMain ( inputMsg ,  userData )
 		
 		# 回覆訊息：同時回傳文字 + 圖片
@@ -395,6 +395,7 @@ def handle_message(event):
 
 	else:
 		returnMsg = "未知指令:  " + inputMsg 
+
 
 	# 回覆訊息
 	line_bot_api.reply_message(
@@ -563,6 +564,13 @@ def handle_postback(event):
 				)
 			]
 		)
+		
+		print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", flush=True)
+
+		# 背景清理：直接呼叫函式，不用 lambda
+		t = threading.Thread(target=delayed_cleanup, args=(15,))
+		t.start()
+
 
 	else:
 		# fallback
