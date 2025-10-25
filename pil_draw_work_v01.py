@@ -386,7 +386,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 	roundSquare (  hight = screenHight-268 , hightSize = 90 , sideSpace = twoSideSpace+3 , fillColor = None , outlineColor = "#777777" , LineWidth = 4 )
 
 	## 最大邊框"#ACA899"
-	draw_SquareFull ( hightSize = screenHight , widthSize = screenWidth , offset = 0 , fillColor = None , outlineColor = "#1E3752" ,  LineWidth = 18 )
+	draw_SquareFull ( hightSize = screenHight , widthSize = screenWidth , offset = 0 , fillColor = None , outlineColor = "#284560" ,  LineWidth = 18 )
 	# draw_SquareFull ( hightSize = screenHight , widthSize = screenWidth , offset = 23 , fillColor = None , outlineColor = "#1E3752" ,  LineWidth = 3 )	
 	# roundSquare (  hight = 8 , hightSize = screenHight-18, sideSpace = 8 ,roundSize = 30 ,   fillColor = None , outlineColor = "#959799" , LineWidth = 8 )
 
@@ -729,6 +729,8 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 	yaoFont = pf_TC_bold
 
+	yaoWordingSize = 62
+
 
 	##  從最下面開始
 	for row_id in  range(6):
@@ -752,7 +754,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 
 		## 納甲
-		makeText ( allDataDict['home_naGia'][row_id][-1]     , screenWidth - 370 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = mainColor ) 
+		makeText ( allDataDict['home_naGia'][row_id][-1]     , screenWidth - 370 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 
 		if noteSwitch == True:
 			## 分數小字
 			makeText ( allDataDict['home_naGia_rank'][row_id]  , screenWidth - 305 , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
@@ -766,13 +768,13 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 
 		## 六獸
-		makeText ( allDataDict['home_sixAnimal'][row_id][-1] , twoSideSpace + 214 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = "#666666" )  
+		makeText ( allDataDict['home_sixAnimal'][row_id][-1] , twoSideSpace + 214 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = "#666666" )  
 
 		## 小直線
 		draw_InfoLine (  center =  twoSideSpace + 214+70 , hight = adj_hight + fixTextHight +11  , size = 64 , lineColor = midGray ,lineWidth  = 4 )      ## 下方本卦變卦中的小直槓
 
 		## 六親
-		makeText ( sixFamily_dict[ allDataDict['home_family'][row_id] ]   , twoSideSpace + 214+80 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = mainColor )  
+		makeText ( sixFamily_dict[ allDataDict['home_family'][row_id] ]   , twoSideSpace + 214+80 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor )  
 
 
 		## 應爻
@@ -800,7 +802,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 		## 伏神
 		if allDataDict['hide_naGia'][row_id]!="X":
 		# 	## 伏神納甲		
-			makeText ( allDataDict['hide_naGia'][row_id][-1] , twoSideSpace + 35 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = mainColor ) 
+			makeText ( allDataDict['hide_naGia'][row_id][-1] , twoSideSpace + 35 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 
 
 			if noteSwitch == True:
 				## 分數小字
@@ -809,7 +811,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 
 			# ## 伏神六親
-			makeText ( sixFamily_dict[ allDataDict['hide_family'][row_id] ] , twoSideSpace + 98 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = mainColor ) 			
+			makeText ( sixFamily_dict[ allDataDict['hide_family'][row_id] ] , twoSideSpace + 98 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 			
 
 		if allDataDict['hide_naGia'][row_id][-1]  in allDataDict['home_kongWang']:
 			## 空亡的圈
@@ -840,12 +842,12 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 					makeText ( "•"  , screenWidth -211 -6 , adj_hight + fixTextHight +64+4 , wordingSize = 28 , wordingFont = yaoFont , color = midGray ) 
 
 			## 變卦納甲
-			makeText ( allDataDict['change_naGia'][row_id][-1]  , screenWidth -236 -5 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = mainColor ) 
+			makeText ( allDataDict['change_naGia'][row_id][-1]  , screenWidth -236 -5 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 
 
 
 
 			## 變卦六親
-			makeText ( sixFamily_dict[ allDataDict['change_family'][row_id] ]  , screenWidth -174 -5 , adj_hight + fixTextHight , wordingSize = 62 , wordingFont = yaoFont , color = mainColor ) 
+			makeText ( sixFamily_dict[ allDataDict['change_family'][row_id] ]  , screenWidth -174 -5 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 
 
 			if allDataDict['hide_naGia'][row_id][-1]  in allDataDict['home_kongWang']:
 				## 空亡的圈

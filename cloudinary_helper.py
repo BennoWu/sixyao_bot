@@ -171,16 +171,16 @@ if __name__ == '__main__':
     # from cloudinary_helper import upload_image, delete_older_than
 
     # 上傳圖片
-    res = upload_image( r"D:\Dropbox\Python\linebot\六爻\584488494031437884.jpg")
-    print("連結：", res["url"])
-    print("public_id：", res["public_id"])
-    print("上傳時間：", res["created_at"])
+    # res = upload_image( r"D:\Dropbox\Python\linebot\六爻\584488494031437884.jpg")
+    # print("連結：", res["url"])
+    # print("public_id：", res["public_id"])
+    # print("上傳時間：", res["created_at"])
 
 
     # # upload_image( r"D:\Dropbox\Python\linebot\六爻\work\834185e004190e75a5bfdb32019e51fb.jpg", folder="__image_hosting")
 
     # # # 刪除超過 15 天的圖
-    # deleted = delete_older_than()
-    # print("已刪除：", deleted)
+    deleted = delete_older_than( days = 15 )
+    print("已刪除：", deleted)
 
 # delete_image("line_temp/m45zouwd2vvb6fejpb9g")

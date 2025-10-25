@@ -1899,8 +1899,7 @@ if __name__ == '__main__':
 
 
 
-# {  
-
+# upLayoutFelx = """{  
     
 #       "type": "bubble",
 #       "body": {
@@ -1925,7 +1924,7 @@ if __name__ == '__main__':
 #                 "contents": [
 #                   {
 #                     "type": "text",
-#                     "text": "_show_title",
+#                     "text": "__TITLE__",
 #                     "weight": "bold",
 #                     "size": "3xl",
 #                     "wrap": true,
@@ -1938,14 +1937,29 @@ if __name__ == '__main__':
 #                       "text": "hello"
 #                     },
 #                     "offsetStart": "0px"
-#                   }
-#     ____etc                  
-#     ____color
+#                   },
+
+
+#                   {
+#                     "type": "text",
+#                     "text": "__ETC__",
+#                     "weight": "bold",
+#                     "color": "#FF7777",
+#                     "size": "lg",
+#                     "margin": "none",
+#                     "wrap": true,
+#                     "gravity": "bottom",
+#                     "offsetBottom": "5px",
+#                     "offsetEnd": "6px",
+#                     "align": "end",
+#                     "flex": 1
+#                   }               
+
 #                 ]
 #               },
 #               {
 #                 "type": "text",
-#                 "text": "____sub",
+#                 "text": "__SUB__",
 #                 "weight": "bold",
 #                 "size": "md",
 #                 "margin": "xs",
@@ -1961,76 +1975,12 @@ if __name__ == '__main__':
 #               }
 #             ]
 #           },
-#     ____item
-#           {
-#             "type": "separator",
-#             "margin": "md",
-#             "color": "#ffffff"
-#           }
-#         ]
-#       },
-#       "styles": {
-#         "footer": {
-#           "separator": true
-#         }
-#       }
-#     }
-# ))"""
 
 
-#     ## 兩塊色塊資訊
-#     useShin_flexMsg_color = """
-#                 ,
-#                   {
-#                     "type": "box",
-#                     "layout": "horizontal",
-#                     "contents": [],
-#                     "backgroundColor": "_colorA",
-#                     "position": "absolute",
-#                     "height": "37px",
-#                     "width": "37px",
-#                     "offsetStart": "172px",
-#                     "offsetTop": "5px",
-#                     "cornerRadius": "5px",
-#                     "borderWidth": "2px",
-#                     "borderColor": "#999999"
-#                   },
-#                   {
-#                     "type": "box",
-#                     "layout": "horizontal",
-#                     "contents": [],
-#                     "backgroundColor": "_colorB",
-#                     "position": "absolute",
-#                     "height": "37px",
-#                     "width": "37px",
-#                     "offsetStart": "216px",
-#                     "offsetTop": "5px",
-#                     "cornerRadius": "5px",
-#                     "borderColor": "#999999",
-#                     "borderWidth": "2px"
-#                   }"""
 
-#     ## 右邊補充文字
-#     useShin_flexMsg_etc = """
-#                 ,
-#                   {
-#                     "type": "text",
-#                     "text": "_subEtc",
-#                     "weight": "bold",
-#                     "color": "#FF7777",
-#                     "size": "lg",
-#                     "margin": "none",
-#                     "wrap": true,
-#                     "gravity": "bottom",
-#                     "offsetBottom": "5px",
-#                     "offsetEnd": "6px",
-#                     "align": "end",
-#                     "flex": 1
-#                   }"""
 
-#     ## 內容(可多塊)
-#     useShin_flexMsg_insert = """
-#           {
+
+# 		  {
 #             "type": "separator",
 #             "margin": "md",
 #             "color": "#848484"
@@ -2058,4 +2008,118 @@ if __name__ == '__main__':
 #                 "margin": "xs"
 #               }
 #             ]
-#           }"""
+#           },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#           {
+#             "type": "separator",
+#             "margin": "md",
+#             "color": "#ffffff"
+#           }
+#         ]
+#       },
+#       "styles": {
+#         "footer": {
+#           "separator": true
+#         }
+#       }
+#     }
+# """
+
+
+    # ## 兩塊色塊資訊
+    # useShin_flexMsg_color = """
+    #             ,
+    #               {
+    #                 "type": "box",
+    #                 "layout": "horizontal",
+    #                 "contents": [],
+    #                 "backgroundColor": "_colorA",
+    #                 "position": "absolute",
+    #                 "height": "37px",
+    #                 "width": "37px",
+    #                 "offsetStart": "172px",
+    #                 "offsetTop": "5px",
+    #                 "cornerRadius": "5px",
+    #                 "borderWidth": "2px",
+    #                 "borderColor": "#999999"
+    #               },
+    #               {
+    #                 "type": "box",
+    #                 "layout": "horizontal",
+    #                 "contents": [],
+    #                 "backgroundColor": "_colorB",
+    #                 "position": "absolute",
+    #                 "height": "37px",
+    #                 "width": "37px",
+    #                 "offsetStart": "216px",
+    #                 "offsetTop": "5px",
+    #                 "cornerRadius": "5px",
+    #                 "borderColor": "#999999",
+    #                 "borderWidth": "2px"
+    #               }"""
+
+    # ## 右邊補充文字
+    # etc_flex_layout = """
+    #             ,
+    #               {
+    #                 "type": "text",
+    #                 "text": "_subEtc",
+    #                 "weight": "bold",
+    #                 "color": "#FF7777",
+    #                 "size": "lg",
+    #                 "margin": "none",
+    #                 "wrap": true,
+    #                 "gravity": "bottom",
+    #                 "offsetBottom": "5px",
+    #                 "offsetEnd": "6px",
+    #                 "align": "end",
+    #                 "flex": 1
+    #               }"""
+
+    # ## 內容(可多塊)
+    # useShin_flexMsg_insert = """
+    #       {
+    #         "type": "separator",
+    #         "margin": "md",
+    #         "color": "#848484"
+    #       },
+    #       {
+    #         "type": "box",
+    #         "layout": "vertical",
+    #         "contents": [
+
+    #           {
+    #             "type": "text",
+    #             "text": "____title",
+    #             "size": "lg",
+    #             "color": "#555555",
+    #             "wrap": true,
+    #             "weight": "bold",
+    #             "margin": "lg"
+    #           },
+    #           {
+    #             "type": "text",
+    #             "text": "____text",
+    #             "size": "md",
+    #             "color": "#000000",
+    #             "wrap": true,
+    #             "margin": "xs"
+    #           }
+    #         ]
+    #       }"""

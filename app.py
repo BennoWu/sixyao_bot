@@ -3,7 +3,7 @@ from ocr_work import *
 from combineDataMain import *
 from logBackup import *
 from  supabase_io import *
-
+import threading
 
 from flexLayout_tool import *
 import os
@@ -67,6 +67,33 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger()
 
+
+
+## 傳送PUSH訊息
+from linebot.v3.messaging import MessagingApi, PushMessageRequest, TextMessage
+
+def pushMsg(msg, user_id = None):
+	my_id = "U21eaaf32db85b983a842d9a9da81d8f1"
+	if user_id is None:
+		user_id = my_id
+	try:
+		messaging_api = MessagingApi(api_client)  # api_client 是你初始化的 LineBotApiClient
+		messaging_api.push_message(
+			PushMessageRequest(
+				to=user_id,
+				messages=[TextMessage(text=msg)]
+			)
+		)
+	except Exception as e:
+		print("pushMsg error:", e)
+
+
+# --- 延遲清除執行緒 ---
+def delayed_cleanup( days ):
+	time.sleep(5)
+	pushMsg(f"🧹 開始清理 {days} 天前的圖片…")
+	num = delete_older_than(folder="line_temp", days = days )
+	pushMsg(f"✅ {num} 張圖清理完成。")
 
 
 
@@ -261,18 +288,8 @@ def handle_message(event):
 
 	# 裝卦圖片上傳
 	elif inputMsg.startswith("+"):
-		# img_high, img_low = sixYaoMain(data)
 
 		img_high, img_low  = sixYaoMain ( inputMsg ,  userData )
-
-		# img_high, img_low  = sixYaoMain ( inputMsg , 
-		# 					lineBotId = user_id , 
-		# 					lineBotName = displayName , 
-		# 					userImage = picUrl )
-
-
-
-
 		
 		# 回覆訊息：同時回傳文字 + 圖片
 		line_bot_api.reply_message(
@@ -285,6 +302,15 @@ def handle_message(event):
 				)
 			]
 		)
+
+
+		# 背景清理：延遲執行，不影響主流程
+		threading.Thread(
+			target=lambda: delayed_cleanup( 15 ),
+			daemon=True
+		).start()
+
+
 
 
 	## 裝卦UI
@@ -455,23 +481,6 @@ def handle_image_message(event):
 
 
 
-## 傳送PUSH訊息
-from linebot.v3.messaging import MessagingApi, PushMessageRequest, TextMessage
-
-def pushMsg(msg, user_id = None):
-	my_id = "U21eaaf32db85b983a842d9a9da81d8f1"
-	if user_id is None:
-		user_id = my_id
-	try:
-		messaging_api = MessagingApi(api_client)  # api_client 是你初始化的 LineBotApiClient
-		messaging_api.push_message(
-			PushMessageRequest(
-				to=user_id,
-				messages=[TextMessage(text=msg)]
-			)
-		)
-	except Exception as e:
-		print("pushMsg error:", e)
 
 
 
