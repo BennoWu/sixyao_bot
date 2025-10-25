@@ -773,9 +773,9 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	token_buf = ""
 	pageId_buf = ""
 
+	import  supabase_io
 	# if user_notion == True:
 	if check_user_exists( linebot_Id ) == True:		
-		import  supabase_io
 		# 測試讀取 (會回傳字典)
 		data = get_user_data( linebot_Id )
 		if data:

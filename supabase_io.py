@@ -141,15 +141,32 @@ def list_all_users():
 
 
 
-# ## 確認這個id是否存在
-# def check_user_exists(user_id):
-# 	with open(csv_path, newline='', encoding="utf-8") as f:
-# 		reader = csv.reader(f)
-# 		next(reader, None)  # 跳過表頭
-# 		for row in reader:
-# 			if row and row[0] == user_id:
-# 				return True
-# 		return False
+## 確認這個id是否存在
+import requests
+
+def check_user_exists(user_id):
+    url = f"{SUPABASE_URL}/rest/v1/user_tokens"
+    
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "Prefer": "count=exact"  # 👈 記得放這裡
+    }
+
+    params = {
+        "select": "user_id",
+        "user_id": f"eq.{user_id}"
+    }
+
+    response = requests.get(url, params=params, headers=headers)
+
+    if response.status_code == 200:
+        content_range = response.headers.get("content-range", "")
+        if "/" in content_range:
+            count = int(content_range.split("/")[-1])
+            return count > 0
+
+    return False
 
 
 
@@ -162,6 +179,10 @@ if __name__ == "__main__":
 	#     page_id="abc123-def456-ghi789"
 	# )
 	
+
+	print(check_user_exists("U21eaaf32db85b983a842d9a9da81d8f1"))
+
+
 	# 測試讀取 (會回傳字典)
 	data = get_user_data("U21eaaf32db85b983a842d9a9da81d8f1")
 	if data:
