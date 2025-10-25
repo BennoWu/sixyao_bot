@@ -89,11 +89,13 @@ def pushMsg(msg, user_id = None):
 
 
 # --- 延遲清除執行緒 ---
-def delayed_cleanup( days ):
-	time.sleep(5)
-	pushMsg(f"🧹 開始清理 {days} 天前的圖片…")
-	num = delete_older_than(folder="line_temp", days = days )
-	pushMsg(f"✅ {num} 張圖清理完成。")
+def delayed_cleanup(days):
+    try:
+        print(f"🧹 delayed_cleanup start for {days} days", flush=True)
+        delete_older_than(folder="line_temp", days=days)
+        print("✅ delayed_cleanup done", flush=True)
+    except Exception as e:
+        print("delayed_cleanup error:", e, flush=True)
 
 
 
@@ -303,14 +305,11 @@ def handle_message(event):
 			]
 		)
 
-		print( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
+		print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", flush=True)
 
-		# 背景清理：延遲執行，不影響主流程
-		threading.Thread(
-			target=lambda: delayed_cleanup( 15 ),
-			daemon=True
-		).start()
-
+		# 背景清理：直接呼叫函式，不用 lambda
+		t = threading.Thread(target=delayed_cleanup, args=(15,))
+		t.start()
 
 
 
