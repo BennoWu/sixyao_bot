@@ -681,7 +681,7 @@ from sixYaoJsonDataClass import *
 
 
 def sixYaoMain ( fullDataInput , userSetting = None ):
-	# fullDataInput = fullDataInput.replace( '\u200b' , '' )
+	fullDataInput = fullDataInput.replace( '\u200b' , '' )
 	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\n" , '//' )
 	fullDataInput = fullDataInput.strip() ## 清除頭尾空格
 	# print( fullDataInput)
