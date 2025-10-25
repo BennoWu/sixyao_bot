@@ -626,33 +626,6 @@ def looks_like_year(text):
 
 
 
-## 確認supabase這個id是否存在
-## 確認這個id是否存在
-import requests
-
-def check_user_exists(user_id):
-	"""
-	只確認 Supabase 資料庫中是否存在指定 user_id。
-	不抓 token 或其他欄位，完全靠 HTTP header 判斷。
-	"""
-	url = f"{SUPABASE_URL}/rest/v1/user_tokens"
-	params = {
-		"select": "user_id",
-		"user_id": f"eq.{user_id}",
-		"count": "exact"  # 讓 Supabase 在 header 裡回傳筆數
-	}
-
-	response = requests.get(url, params=params, headers=headers)
-	if response.status_code == 200:
-		# Content-Range 會是 "0-0/1" 或 "*/0"
-		content_range = response.headers.get("content-range", "")
-		if "/" in content_range:
-			count = int(content_range.split("/")[-1])
-			return count > 0  # 有資料 → True，沒有 → False
-
-	return False
-
-
 
 
 
@@ -706,6 +679,7 @@ from sixYaoJsonDataClass import *
 
 
 def sixYaoMain ( fullDataInput , userSetting = None ):
+	print( "=================== MAIN =====================")
 	fullDataInput = fullDataInput.replace( '\u200b' , '' )
 	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\n" , '//' )
 	fullDataInput = fullDataInput.strip() ## 清除頭尾空格
@@ -773,7 +747,6 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	token_buf = ""
 	pageId_buf = ""
 
-	import  supabase_io
 	# if user_notion == True:
 	if check_user_exists( linebot_Id ) == True:	
 		print( "> supabase OK")
