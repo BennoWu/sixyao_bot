@@ -1110,7 +1110,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	# else: 
 		# dateData =  getNowTime( user_utc_hour )
 		## 產生裝卦UI時，記錄到log中
-		logBK_logDataFun( linebot_Id , user_name , dateData , fullDataInput , command )
+		# logBK_logDataFun( linebot_Id , user_name , dateData , fullDataInput , command )
 		save_json_data(  linebot_Id, "temp", command , json_path='__sixYoSet__.json')
 		threePil_mode = False
 		if  "<" in dateData:  ## 如果只有三柱
