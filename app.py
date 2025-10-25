@@ -305,13 +305,14 @@ def handle_message(event):
 			]
 		)
 
-		print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", flush=True)
+		print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", flush=True)
 
 		# 背景清理：直接呼叫函式，不用 lambda
 		t = threading.Thread(target=delayed_cleanup, args=(15,))
 		t.start()
 
 		returnMsg = "delete img"
+		return
 
 
 
@@ -343,6 +344,7 @@ def handle_message(event):
 					contents = ui_cmd_dict   # 直接放轉好的 dict
 				)
 			)
+			return
 
 	## 修改Title
 	elif inputMsg[0] in [ ">","#",":" ]: #字的開頭如果是這些就進入
@@ -365,6 +367,8 @@ def handle_message(event):
 				contents = new_flex_json   # 直接放轉好的 dict
 			)
 		)
+		return
+
 
 	## 執行程式用
 	elif inputMsg[0:4] == "____":
@@ -386,6 +390,8 @@ def handle_message(event):
 					contents= showDict   # 直接放轉好的 dict
 				)
 			)
+			return
+
 
 		else:
 			returnMsg = "No command - " + inputMsg
