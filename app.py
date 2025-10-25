@@ -4,6 +4,7 @@ from combineDataMain import *
 from logBackup import *
 from  supabase_io import *
 import threading
+from cloudinary_helper import  delete_older_than
 
 from flexLayout_tool import *
 import os
@@ -90,7 +91,6 @@ def pushMsg(msg, user_id = None):
 
 # --- 延遲清除執行緒 ---
 def delayed_cleanup(days):
-	from cloudinary_helper import  delete_older_than
     try:
         print(f"🧹 delayed_cleanup start for {days} days", flush=True)
         delete_older_than(folder="line_temp", days=days)
