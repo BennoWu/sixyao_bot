@@ -56,7 +56,7 @@ handler = WebhookHandler(os.environ.get('LINE_CHANNEL_SECRET'))
 
 
 
-
+import time
 import logging
 from flask import Flask
 
@@ -90,6 +90,7 @@ def pushMsg(msg, user_id = None):
 
 # --- 延遲清除執行緒 ---
 def delayed_cleanup(days):
+	from cloudinary_helper import  delete_older_than
     try:
         print(f"🧹 delayed_cleanup start for {days} days", flush=True)
         delete_older_than(folder="line_temp", days=days)
@@ -290,7 +291,6 @@ def handle_message(event):
 
 	# 裝卦圖片上傳
 	elif inputMsg.startswith("+"):
-		print("XXXXXXXXXXXXXXXXXXXX@@@@@@@@@@@@@@@@@@@@@@@", flush=True)
 		img_high, img_low  = sixYaoMain ( inputMsg ,  userData )
 		
 		# 回覆訊息：同時回傳文字 + 圖片
@@ -564,7 +564,7 @@ def handle_postback(event):
 				)
 			]
 		)
-		
+
 		print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", flush=True)
 
 		# 背景清理：直接呼叫函式，不用 lambda
