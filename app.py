@@ -311,6 +311,8 @@ def handle_message(event):
 		t = threading.Thread(target=delayed_cleanup, args=(15,))
 		t.start()
 
+		returnMsg = "delete img"
+
 
 
 	## 裝卦UI
