@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from ocr_work import getPicData
-from combineDataMain import sixYaoMain
+from combineDataMain import sixYaoMain,unifiedData
 from logBackup import uploadCsvToGoogleSheet
 # from supabase_io import *
 from supabase_io import get_user_data
