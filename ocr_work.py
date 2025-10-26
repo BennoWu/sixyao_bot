@@ -148,7 +148,7 @@ def extract_datetime(text: str):
 	return None
 
 
-	
+
 
 def extract_hexagrams(text: str):
 	"""
@@ -418,7 +418,12 @@ def getPicData(image_input):
 	# dt = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=2, mode="datetime")     ## 日期
 	# hx = cropTool(img, w_ratio=0.6, h_ratio=0.25, quadrant=3, mode="hexagrams")   ## 卦名
 	dt = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=2, mode="datetime", h_split=1)
-	hx = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=3, mode="hexagrams", h_split=3)
+
+	hx = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=3, mode="hexagrams", h_split=1)
+	if not hx:
+		print ( "try again")
+		hx = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=3, mode="hexagrams", h_split=3)		
+	# hx = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=3, mode="hexagrams", h_split=3)
 	# hx = cropTool(img, w_ratio=0.6, h_ratio=0.25, h_split = 3 , quadrant=3, mode="hexagrams")   ## 卦名
 
 	print("Datetime:", dt)
