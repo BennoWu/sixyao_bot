@@ -35,6 +35,9 @@ import requests
 # from PIL import Image
 from io import BytesIO
 
+
+# OCR SPACE
+################################################################################
 def ocr_image_to_text(input_data):
 	"""
 	自動判斷輸入類型並進行 OCR
@@ -79,7 +82,41 @@ def ocr_image_to_text(input_data):
 	return result['ParsedResults'][0]['ParsedText']
 
 
+# # API_NINJAS
+# ################################################################################
 
+# import requests
+# from io import BytesIO
+
+# def ocr_ninjas_api(input_img):
+#     url = "https://api.api-ninjas.com/v1/imagetotext"
+#     api_key = "K/5emWH/7hJ5sXD5/ujH+w==Ci9HgvDablZxLZhQ"  # 換成你的 API Key
+
+#     # 確保是 RGB
+#     if input_img.mode != "RGB":
+#         input_img = input_img.convert("RGB")
+
+#     # 存成 JPEG 並壓縮，避免超過 200 KB
+#     buffer = BytesIO()
+#     input_img.save(buffer, format="JPEG", quality=80)
+#     image_data = buffer.getvalue()
+
+#     headers = {
+#         "X-Api-Key": api_key,
+#         "Content-Type": "application/octet-stream"
+#     }
+
+#     response = requests.post(url, headers=headers, data=image_data)
+
+#     if response.status_code == 200:
+#         result = response.json()
+#         text = result.get("text", "")
+#         print("辨識結果:", text)
+#     else:
+#         print("錯誤:", response.status_code, response.text)
+#         text = ""
+
+#     return text
 
 
 
@@ -94,12 +131,13 @@ def extract_datetime(text: str):
 	"""
 	支援格式如：
 	2025-09-29 01:48 或 2025-9-29 01:48
-	返回 YYYY-MM-DD HH:MM 字串
+	返回 YYYY/MM/DD/HH/MM 字串
 	2025一10一0100:15
+	2025一10800:40
 	"""
 	text = text.replace(" ", "")
-	# m = re.search(r"(\d{4})[一年](\d{1,2})[一月](\d{1,2})[日]?(\d{2}):?(\d{2})", text)
-	m = re.search(r"(\d{4})\D*(\d{1,2})\D*(\d{1,2})\D*(\d{1,2}):(\d{2})", text)
+	# 改為允許日期後面直接接時間(沒有分隔符)
+	m = re.search(r"(\d{4})\D*(\d{1,2})\D*(\d{1,2})(\d{2}):?(\d{2})", text)
 	if m:
 		year = m[1]
 		month = m[2].zfill(2)
@@ -108,6 +146,9 @@ def extract_datetime(text: str):
 		minute = m[5].zfill(2)
 		return f"{year}/{month}/{day}/{hour}/{minute}"
 	return None
+
+
+	
 
 def extract_hexagrams(text: str):
 	"""
@@ -175,43 +216,43 @@ guaList = [
 ]
 
 def refindGuaName(inputName):
-    best_match = None
-    min_distance = None
+	best_match = None
+	min_distance = None
 
-    # 🔹 Case1: 如果前兩字或後兩字能對上，就先直接挑候選
-    for gua in guaList:
-        # 允許 inputName 在 gua 裡面任何位置匹配
-        if gua.find(inputName) != -1:
-            return gua
+	# 🔹 Case1: 如果前兩字或後兩字能對上，就先直接挑候選
+	for gua in guaList:
+		# 允許 inputName 在 gua 裡面任何位置匹配
+		if gua.find(inputName) != -1:
+			return gua
 
-        # 原先前兩字匹配邏輯
-        if len(inputName) >= 2 and gua.startswith(inputName[:2]):
-            if len(inputName) < len(gua):
-                return gua
+		# 原先前兩字匹配邏輯
+		if len(inputName) >= 2 and gua.startswith(inputName[:2]):
+			if len(inputName) < len(gua):
+				return gua
 
-        # 距離比對
-        if len(gua) == len(inputName):
-            distance = sum(1 for a, b in zip(gua, inputName) if a != b)
-            if len(gua) == 3 and distance <= 1:
-                return gua
-            elif len(gua) == 4 and distance <= 2:
-                return gua
+		# 距離比對
+		if len(gua) == len(inputName):
+			distance = sum(1 for a, b in zip(gua, inputName) if a != b)
+			if len(gua) == 3 and distance <= 1:
+				return gua
+			elif len(gua) == 4 and distance <= 2:
+				return gua
 
-    # 🔹 Case2: 原本的距離比對（錯一字/兩字）
-    for gua in guaList:
-        if len(gua) != len(inputName):
-            continue  # 只比對同長度
-        distance = sum(1 for a, b in zip(gua, inputName) if a != b)
-        if len(gua) == 3 and distance <= 1:
-            if min_distance is None or distance < min_distance:
-                best_match = gua
-                min_distance = distance
-        elif len(gua) == 4 and distance <= 2:
-            if min_distance is None or distance < min_distance:
-                best_match = gua
-                min_distance = distance
+	# 🔹 Case2: 原本的距離比對（錯一字/兩字）
+	for gua in guaList:
+		if len(gua) != len(inputName):
+			continue  # 只比對同長度
+		distance = sum(1 for a, b in zip(gua, inputName) if a != b)
+		if len(gua) == 3 and distance <= 1:
+			if min_distance is None or distance < min_distance:
+				best_match = gua
+				min_distance = distance
+		elif len(gua) == 4 and distance <= 2:
+			if min_distance is None or distance < min_distance:
+				best_match = gua
+				min_distance = distance
 
-    return best_match
+	return best_match
 
 
 
@@ -223,18 +264,59 @@ def refindGuaName(inputName):
 
 
 
+# def cropTool(img: Image.Image, 
+# 			 w_ratio=0.5, h_ratio=0.25, 
+# 			 quadrant=1, mode="datetime"):
+# 	"""
+# 	裁切圖片指定區域，並回傳 OCR 結果
+# 	img: PIL Image
+# 	w_ratio, h_ratio: 裁切區域相對於整張圖的寬高比例
+# 	quadrant: 1=右上, 2=左上, 3=左下, 4=右下
+# 	mode: "datetime" / "hexagrams" / "raw"
+# 	"""
+# 	w, h = img.size
+# 	# print( img.size )
+# 	crop_w, crop_h = int(w * w_ratio), int(h * h_ratio)
+
+# 	if quadrant == 1:      # 右上
+# 		left, top = w - crop_w, 0
+# 	elif quadrant == 2:    # 左上
+# 		left, top = 0, 0
+# 	elif quadrant == 3:    # 左下
+# 		left, top = 0, h - crop_h
+# 	elif quadrant == 4:    # 右下
+# 		left, top = w - crop_w, h - crop_h
+# 	else:
+# 		raise ValueError("quadrant must be 1,2,3,4")
+
+# 	right, bottom = left + crop_w, top + crop_h
+# 	crop_img = img.crop((left, top, right, bottom))
+# 	# crop_img = crop_img.rotate(90, expand=True)
+# 	# crop_img.show()
+# 	# OCR
+# 	text = ocr_image_to_text(crop_img)
+# 	# text = ocr_ninjas_api(crop_img)	
+# 	print( ">>>> ",text )
+
+# 	if mode == "datetime":
+# 		return extract_datetime(text)
+# 	elif mode == "hexagrams":
+# 		return extract_hexagrams(text)
+# 	else:
+# 		return text  # debug: 回傳原始 OCR 文字
+from PIL import Image
 def cropTool(img: Image.Image, 
 			 w_ratio=0.5, h_ratio=0.25, 
-			 quadrant=1, mode="datetime"):
+			 quadrant=1, mode="datetime", h_split=1):
 	"""
 	裁切圖片指定區域，並回傳 OCR 結果
 	img: PIL Image
 	w_ratio, h_ratio: 裁切區域相對於整張圖的寬高比例
 	quadrant: 1=右上, 2=左上, 3=左下, 4=右下
 	mode: "datetime" / "hexagrams" / "raw"
+	h_split: 將裁切區沿高度分成幾份，預設 1 = 不分
 	"""
 	w, h = img.size
-	# print( img.size )
 	crop_w, crop_h = int(w * w_ratio), int(h * h_ratio)
 
 	if quadrant == 1:      # 右上
@@ -249,19 +331,53 @@ def cropTool(img: Image.Image,
 		raise ValueError("quadrant must be 1,2,3,4")
 
 	right, bottom = left + crop_w, top + crop_h
-	crop_img = img.crop((left, top, right, bottom))
-	# crop_img = crop_img.rotate(90, expand=True)
-	# crop_img.show()
-	# OCR
-	text = ocr_image_to_text(crop_img)
-	print( text )
+	full_crop = img.crop((left, top, right, bottom))
 
+	# --- 分段 OCR ---
+	if h_split > 1:
+		split_h = crop_h // h_split
+		combined_text = ""
+		found_result = None
+
+		for i in range(h_split):
+			split_top = i * split_h
+			split_bottom = split_top + split_h if i < h_split - 1 else crop_h
+			sub_crop = full_crop.crop((0, split_top, crop_w, split_bottom))
+
+			text = ocr_image_to_text(sub_crop)
+			combined_text += " " + text
+
+			if mode == "hexagrams":
+				parsed = extract_hexagrams(text)
+				if parsed:  # ✅ 找到卦名就中斷
+					print(f">>>> [{i+1}/{h_split}] 提前成功辨識：{parsed}")
+					found_result = parsed
+					break
+
+		# 如果中途找到結果，直接回傳
+		if found_result:
+			return found_result
+
+		# 沒有提前找到，就回傳全部合併結果
+		text = combined_text.strip()
+		print(">>>> 最終合併:", text)
+
+	else:
+		text = ocr_image_to_text(full_crop)
+		print(">>>> ", text)
+
+	# --- 模式回傳 ---
 	if mode == "datetime":
 		return extract_datetime(text)
 	elif mode == "hexagrams":
 		return extract_hexagrams(text)
 	else:
 		return text  # debug: 回傳原始 OCR 文字
+
+
+
+
+
 
 
 from PIL import Image
@@ -299,8 +415,12 @@ def getPicData(image_input):
 		raise TypeError("image_input 必須是 PIL.Image, str 路徑, bytes 或 BytesIO 類型")
 	
 	# ===== 裁切 OCR =====
-	dt = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=2, mode="datetime")     ## 日期
-	hx = cropTool(img, w_ratio=0.6, h_ratio=0.25, quadrant=3, mode="hexagrams")   ## 卦名
+	# dt = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=2, mode="datetime")     ## 日期
+	# hx = cropTool(img, w_ratio=0.6, h_ratio=0.25, quadrant=3, mode="hexagrams")   ## 卦名
+	dt = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=2, mode="datetime", h_split=1)
+	hx = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=3, mode="hexagrams", h_split=3)
+	# hx = cropTool(img, w_ratio=0.6, h_ratio=0.25, h_split = 3 , quadrant=3, mode="hexagrams")   ## 卦名
+
 	print("Datetime:", dt)
 	print("Hexagrams:", hx)
 	
