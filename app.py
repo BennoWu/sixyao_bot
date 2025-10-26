@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from ocr_work import *
-from combineDataMain import *
-from logBackup import *
-from supabase_io import *
-import threading
+from ocr_work import getPicData
+from combineDataMain import sixYaoMain
+from logBackup import uploadCsvToGoogleSheet
+# from supabase_io import *
+from supabase_io import get_user_data
 from cloudinary_helper import delete_older_than
+from flexLayout_tool import ganZiList_fun
 
-from flexLayout_tool import *
-import os
+import os , threading
 from flask import Flask, request, abort
 
 # ⭐ LINE Bot SDK v3 imports
@@ -62,13 +62,16 @@ def pushMsg(msg, user_id=None):
 		print("pushMsg error:", e)
 
 
+## 多線程 - 刪除圖床中過期的圖檔
 def delayed_cleanup(days):
 	try:
 		print(f"🧹 delayed_cleanup start for {days} days", flush=True)
 		delete_older_than(folder="line_temp", days=days)
 		print("✅ delayed_cleanup done", flush=True)
+		pushMsg( "殺完圖檔" )
 	except Exception as e:
 		print("delayed_cleanup error:", e, flush=True)
+
 
 
 @app.route("/")
@@ -93,13 +96,13 @@ def callback():
 
 
 # ⭐ v3 的 handler 寫法
-@handler.add(MessageEvent, message=TextMessageContent)
+@handler.add(MessageEvent, message=TextMessageContent )
 def handle_message(event):
 	# 取得用戶資訊
 	user_id = event.source.user_id
 	
 	# ⭐ v3 取得 profile 的方式
-	profile = line_bot_api.get_profile(user_id)
+	profile = line_bot_api.get_profile( user_id )
 	displayName = profile.display_name
 	picUrl = profile.picture_url
 	

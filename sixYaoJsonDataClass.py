@@ -65,8 +65,9 @@ class jsonDataClass:
 
 			self.userImage = userImage
 			self.logInTime = logInTime
-			self.signUpTime = dataDict[ linebotId ] ["signUpTime"] 
-			self.command = command
+			self.signUpTime = dataDict[ linebotId ] ["signUpTime"]
+			if command[0:4] != "____": 
+				self.command = command
 			self.runtime = dataDict[ linebotId ] ["runtime"]
 			self.uiStyle = dataDict[ linebotId ] ["uiStyle"]## 顏色模式 CA  CB  CC
 			self.fontStyle = dataDict[ linebotId ] ["fontStyle"]       ## 字型模式 FA宋體  FB圓體  FC黑體
@@ -75,7 +76,7 @@ class jsonDataClass:
 			self.utc = dataDict[ linebotId ] ["utc"]
 
 			self.notionToken_pageId = dataDict[ linebotId ] ["notionToken_pageId"]
-			self.other = dataDict[ linebotId ] ["other"]
+			# self.other = dataDict[ linebotId ] ["other"]
 
 			self.switch = dataDict[ linebotId ] ["switch"]
 
@@ -127,7 +128,7 @@ class jsonDataClass:
 			self.utc = 8                   ## 時區 ( 台灣為 UTC-8 )
 
 			self.notionToken_pageId = None
-			self.other = None
+			# self.other = None
 
 			self.switch = "ON"             ## 權限
 			self.temp = None
@@ -149,7 +150,7 @@ class jsonDataClass:
 					utc = self.utc ,
 
 					notionToken_pageId	= self.notionToken_pageId,
-					other = self.other,
+					# other = self.other,
 
 					switch = self.switch, 
 

@@ -986,7 +986,7 @@ def clipData( fullDate ):
 	return "/".join( fullDate.split("/")[:3] )
 
 
-## 排盤 UI 
+## 產生排盤 UI 
 def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command = "", threePillar = False , notionAccount = False):
 	# print( getFourPillar( fullDate = dateData , detail = True ))
 	dateBuf = getFourPillar( fullDate = dateData , detail = True )
@@ -1669,7 +1669,7 @@ def jeChi_combime(data):
 		return f"{a} {symbol} {b}"
 
 
-
+## 產生四柱列表的UI(月，日 ，時，節氣)
 def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 ):
 	# dayMode	= dayMode.lower().replace( "jc","節氣").replace("jechi","節氣") 
 # "2023/5/17/12/00"

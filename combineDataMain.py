@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from pil_draw_work_v01 import *
-# from pil_draw_work_v02 import *
 from notion_push import ( pushToNotion as notionPush_pushUp )
 
 from flexLayout_tool import *
@@ -10,7 +9,7 @@ from fourPillar_tool import fourPillarToDateMain # 四柱得日期
 # from fourPillar_tool import getYear # 四柱得日期
 from fourPillar_tool import getNowTime # 現時日期時間取得
 
-from  supabase_io import *
+from  supabase_io import check_user_exists , get_user_data
 # from opencc import OpenCC
 import os
 
@@ -18,17 +17,6 @@ import os
 
 from dotenv import load_dotenv
 load_dotenv()  # 載入 .env 檔案
-
-
-# notion_token = os.environ.get('NOTION_TOKEN')
-# page_id      = os.environ.get('NOTION_PAGE_ID')
-
-
-
-
-
-
-
 
 
 
@@ -658,28 +646,13 @@ def looks_like_year(text):
 
 
 
-# from logBackup import ( logDataFun as logBK_logDataFun,    uploadCsvToGoogleSheet as logBK_uploadCsv  )
+from logBackup import ( logDataFun as logBK_logDataFun,    uploadCsvToGoogleSheet as logBK_uploadCsv  )
 from sixYaoJsonDataClass import *
 
 
 
-
-
-
-
-
-
-
-
-# def sixYaoMain ( fullDataInput , lineBotId = "U21eaaf32db85b983a842d9a9da81d8f1" , lineBotName = "" , userImage = "" ):
-
-
-
-
-
-
 def sixYaoMain ( fullDataInput , userSetting = None ):
-	print( "=================== MAIN =====================")
+	print( "========================= MAIN =========================")
 	fullDataInput = fullDataInput.replace( '\u200b' , '' )
 	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\n" , '//' )
 	fullDataInput = fullDataInput.strip() ## 清除頭尾空格
@@ -704,11 +677,19 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	#  XXX//XXXX//XXXXX		UI模式
 	print( "userSetting duct:",userSetting )
 	if userSetting == None:
+		print( "產生一組假的")
 		linebot_Id =  "U21eaaf32db85b983a842d9a9da81d8f1"    
 		user_name =   "Benno"
 		user_utc_hour =   8        
 		user_tipsMode =   "ON"  
 		user_notion =    False 
+		# 建立 jsonData
+		jsonData = jsonDataClass(
+			linebotId=linebot_Id,
+			linebotUserName=user_name,
+			userImage="http://displayName.jpg",
+			command=fullDataInput
+		)
 
 
 	else:
@@ -1110,7 +1091,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	# else: 
 		# dateData =  getNowTime( user_utc_hour )
 		## 產生裝卦UI時，記錄到log中
-		# logBK_logDataFun( linebot_Id , user_name , dateData , fullDataInput , command )
+		logBK_logDataFun( linebot_Id , user_name , dateData , fullDataInput , command )
 		save_json_data(  linebot_Id, "temp", command , json_path='__sixYoSet__.json')
 		threePil_mode = False
 		if  "<" in dateData:  ## 如果只有三柱

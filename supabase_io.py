@@ -101,18 +101,6 @@ def get_user_data(user_id):
 	return None
 
 
-def update_page_id(user_id, page_id):
-	"""只更新 page_id (不動 token)"""
-	url = f"{SUPABASE_URL}/rest/v1/user_tokens"
-	params = {"user_id": f"eq.{user_id}"}
-	data = {"page_id": page_id}
-	
-	response = requests.patch(url, params=params, json=data, headers=headers)
-	
-	if response.status_code == 204:
-		print(f"✅ 已更新 {user_id} 的 page_id")
-		return True
-	return False
 
 
 def delete_user_token(user_id):
@@ -128,22 +116,9 @@ def delete_user_token(user_id):
 	return False
 
 
-def list_all_users():
-	"""列出所有有 token 的用戶"""
-	url = f"{SUPABASE_URL}/rest/v1/user_tokens"
-	params = {"select": "user_id,created_at"}
-	
-	response = requests.get(url, params=params, headers=headers)
-	
-	if response.status_code == 200:
-		return response.json()
-	return []
-
 
 
 ## 確認這個id是否存在
-import requests
-
 def check_user_exists(user_id):
     url = f"{SUPABASE_URL}/rest/v1/user_tokens"
     
@@ -169,6 +144,30 @@ def check_user_exists(user_id):
     return False
 
 
+### 目前沒有用到
+# def update_page_id(user_id, page_id):
+# 	"""只更新 page_id (不動 token)"""
+# 	url = f"{SUPABASE_URL}/rest/v1/user_tokens"
+# 	params = {"user_id": f"eq.{user_id}"}
+# 	data = {"page_id": page_id}
+	
+# 	response = requests.patch(url, params=params, json=data, headers=headers)
+	
+# 	if response.status_code == 204:
+# 		print(f"✅ 已更新 {user_id} 的 page_id")
+# 		return True
+# 	return False
+
+# def list_all_users():
+# 	"""列出所有有 token 的用戶"""
+# 	url = f"{SUPABASE_URL}/rest/v1/user_tokens"
+# 	params = {"select": "user_id,created_at"}
+	
+# 	response = requests.get(url, params=params, headers=headers)
+	
+# 	if response.status_code == 200:
+# 		return response.json()
+# 	return []
 
 # === 測試 ===
 if __name__ == "__main__":
