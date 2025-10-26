@@ -99,13 +99,17 @@ FULL2HALF = str.maketrans({
 	"、": ",",  # 頓號 → 半形逗號
 	"．": ".",  # 全形句點 → 半形句點
 })
+
 SEP_PATTERN = re.compile(r'[\s_\\;:；：．]+')
 
 def _clean_subblock(s: str) -> str:
 	"""清理單段落的小區塊文字"""
 	s = s.translate(FULL2HALF).strip()
 	
-	# ⭐ 新增：先把「中文 + 空白 + 逗號 + 空白 + 中文」的空白都收掉
+	# 🔥 新增：移除中文字之間的所有空白
+	s = re.sub(r'([\u4e00-\u9fff])\s+([\u4e00-\u9fff])', r'\1\2', s)
+	
+	# ⭐ 把「中文 + 空白 + 逗號 + 空白 + 中文」的空白都收掉
 	s = re.sub(r'([\u4e00-\u9fff])\s*,\s*([\u4e00-\u9fff])', r'\1,\2', s)
 	
 	# '-' 無空白 -> '/'
@@ -134,6 +138,7 @@ def _clean_subblock(s: str) -> str:
 	s = s.strip('/ ')
 	
 	return s
+
 
 def unifiedData(orgData, strong_sep='//', sep_for_app=None):
 	if not isinstance(orgData, str):

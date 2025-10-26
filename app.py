@@ -258,13 +258,13 @@ def handle_message(event):
 			return
 
 	# 修改Title
-	elif inputMsg[0] in [">", "#", ":"]:
+	elif inputMsg[0] in [">", "#", ":", "@"]:
 		changeNote = inputMsg[1:]
 		uiCommand = get_json_item_data(user_id, "temp")
 
 		if uiCommand:
-			newCommand = uiCommand.replace("no title", changeNote)
-			new_flex_json = sixYaoMain(newCommand, userData)
+			newCommand = uiCommand.replace("untitled", changeNote)
+			new_flex_json = sixYaoMain( newCommand, userData )
 
 			save_json_data(user_id, "temp", None, json_path='__sixYoSet__.json')
 
@@ -328,7 +328,7 @@ def handle_message(event):
 
 
 # ⭐ v3 的圖片訊息處理
-@handler.add(MessageEvent, message=ImageMessageContent)
+@handler.add(MessageEvent, message = ImageMessageContent)
 def handle_image_message(event):
 	message_id = event.message.id
 	user_id = event.source.user_id
@@ -391,9 +391,9 @@ def handle_postback(event):
 
 	# 卦象完成圖片處理
 	elif data.startswith("+"):
-		print("INNNN")
 		img_high, img_low = sixYaoMain(data, userSetting=userData)
 
+		print("image url:")
 		print(img_high, img_low)
 		
 		# ⭐ v3 圖片訊息回覆

@@ -308,8 +308,8 @@ def getPicData(image_input):
 
 		## 產生命令的本番
 		# ============================================
-		print(f"{dt}//{hx}//no title")
-		return f"{dt}//{hx}//no title"      
+		print(f"{dt}//{hx}//untitled")
+		return f"{dt}//{hx}//untitled"      
 		# return dt, hx
 		# ============================================
 
