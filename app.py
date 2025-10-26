@@ -19,6 +19,7 @@ from linebot.v3.messaging import (
 	Configuration,
 	ApiClient,
 	MessagingApi,
+	MessagingApiBlob,  # 🔥 新增這個
 	ReplyMessageRequest,
 	PushMessageRequest,
 	TextMessage,
@@ -38,6 +39,7 @@ configuration = Configuration(
 )
 api_client = ApiClient(configuration)
 line_bot_api = MessagingApi(api_client)
+blob_api = MessagingApiBlob(api_client)  # 🔥 新增這行 - 處理圖片下載
 handler = WebhookHandler(os.environ.get('LINE_CHANNEL_SECRET'))
 
 import time
@@ -63,7 +65,7 @@ def pushMsg(msg, user_id=None):
 		print("pushMsg error:", e)
 
 
-## 多線程 - 刪除圖床中過期的圖檔
+## 多線程 - 刪除圖庫中過期的圖檔
 def delayed_cleanup(days):
 	try:
 		print(f"🧹 delayed_cleanup start for {days} days", flush=True)
@@ -159,7 +161,7 @@ def handle_message(event):
 			if notionAccount == True:
 				returnMsg = "Notion Ready"
 		else:
-			returnMsg = "❌Notion not Ready"
+			returnMsg = "⚠Notion not Ready"
 
 	# 干支列表
 	elif inputMsg[:3] == "干支/":
@@ -331,8 +333,8 @@ def handle_image_message(event):
 	message_id = event.message.id
 	user_id = event.source.user_id
 
-	# ⭐ v3 取得圖片內容
-	message_content = line_bot_api.get_message_content(message_id)
+	# 🔥 改用 blob_api 取得圖片內容
+	message_content = blob_api.get_message_content(message_id)
 	image_bytes = message_content
 	
 	# OCR 處理
@@ -424,4 +426,4 @@ def handle_postback(event):
 
 
 if __name__ == "__main__":
-	app.run()	
+	app.run()

@@ -71,7 +71,6 @@ def resource_path(relative_path):
 
 
 
-
 def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
     import os
     import csv
@@ -100,8 +99,6 @@ def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
     existing_rows = len(wks.get_all_records())  # 不包含表頭
     start_row = existing_rows + 2  # 表頭佔一行
     
-
-
     # 讀取 CSV 所有資料（略過表頭）
     with open(csv_path, newline='', encoding="utf-8") as f:
         reader = csv.reader(f)
@@ -113,13 +110,17 @@ def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
     
     data_to_upload = rows[1:]  # 排除第一列表頭
     
-    # 清洗資料：避免 + 開頭被當成公式
+    # 清洗資料：避免 + 開頭被當成公式，以及處理 None/null
     cleaned_data = []
     for row in data_to_upload:
         cleaned_row = []
         for cell in row:
-            if isinstance(cell, str) and cell.startswith("+"):
-                cleaned_row.append("'" + cell)  # 在前面加單引號
+            # 🔥 處理 None 或空值
+            if cell is None or cell == 'None' or cell == 'null' or cell == '':
+                cleaned_row.append('')
+            # 處理 + 開頭的字串
+            elif isinstance(cell, str) and cell.startswith("+"):
+                cleaned_row.append("'" + cell)
             else:
                 cleaned_row.append(cell)
         cleaned_data.append(cleaned_row)
@@ -139,7 +140,7 @@ def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
     
     return f"🆗 上傳 {total} 筆 log 到 Google Sheet(從第 {start_row} 行開始)"
 
-
+    
 if __name__ == '__main__':
 	# logDataFun("userID", "userName", "logTime", "inputData" )
 	# for i,a in enumerate(range(500)):
