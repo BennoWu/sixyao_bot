@@ -6,6 +6,7 @@ from logBackup import uploadCsvToGoogleSheet
 from supabase_io import get_user_data
 from cloudinary_helper import delete_older_than
 from flexLayout_tool import ganZiList_fun
+from sixYaoJsonDataClass import *
 
 import os , threading
 from flask import Flask, request, abort
