@@ -137,7 +137,7 @@ def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
     
     print("🧹 已清空本地 __log__.csv，只保留表頭。")
     
-    return f"✅ 已成功上傳 {total} 筆 log 到 Google Sheet（從第 {start_row} 行開始）"
+    return f"🆗 上傳 {total} 筆 log 到 Google Sheet(從第 {start_row} 行開始)"
 
 
 if __name__ == '__main__':

@@ -69,7 +69,7 @@ def delayed_cleanup(days):
 		print(f"🧹 delayed_cleanup start for {days} days", flush=True)
 		delete_older_than(folder="line_temp", days=days)
 		print("✅ delayed_cleanup done", flush=True)
-		pushMsg( "殺完圖檔" )
+		# pushMsg( "殺完圖檔" )
 	except Exception as e:
 		print("delayed_cleanup error:", e, flush=True)
 
@@ -112,16 +112,16 @@ def handle_message(event):
 	inputMsg = inputMsg.replace('\u200b', '')
 	
 	print(">:", inputMsg)
-	print(unifiedData(inputMsg))
+	print( unifiedData(inputMsg) )
 
 	returnMsg = ""
 
 	# 建立 jsonData
 	jsonData = jsonDataClass(
-		linebotId=user_id,
-		linebotUserName=displayName,
-		userImage=picUrl,
-		command=inputMsg
+		linebotId = user_id,
+		linebotUserName = displayName,
+		userImage = picUrl,
+		command = inputMsg
 	)
 
 	userData = {

@@ -66,8 +66,8 @@ class jsonDataClass:
 			self.userImage = userImage
 			self.logInTime = logInTime
 			self.signUpTime = dataDict[ linebotId ] ["signUpTime"]
-			if command[0:4] != "____": 
-				self.command = command
+			
+			self.command = command
 			self.runtime = dataDict[ linebotId ] ["runtime"]
 			self.uiStyle = dataDict[ linebotId ] ["uiStyle"]## 顏色模式 CA  CB  CC
 			self.fontStyle = dataDict[ linebotId ] ["fontStyle"]       ## 字型模式 FA宋體  FB圓體  FC黑體
@@ -326,7 +326,7 @@ class jsonDataClass:
 		print( "            utcHour: " ,self.utc )	
 
 		print( "notion token/pageId: " ,self.notionToken_pageId )	
-		print( "              other: " ,self.other )	
+		# print( "              other: " ,self.other )	
 
 		print( "             switch: " ,self.switch )
 		print( "               temp: " ,self.temp )		
@@ -364,18 +364,25 @@ if __name__ == '__main__':
 	# jsonData = jsonDataClass( lineBotId , lineBotName , userImage  , fullDataInput ) ## class建立
 	jsonData = jsonDataClass( lineBotId  ) ## class建立
 
+
+	jsonData = jsonDataClass(
+		linebotId = lineBotId,
+		linebotUserName = lineBotName,
+		userImage = userImage,
+		command = "inputMsg"
+	)
 	# utc_hour =  jsonData.utc:	
 
-	# 如果不是ON，就代表權限被OFF掉了，程式中止
-	if jsonData.switch.upper() != "ON": ## user的switch項如果不是ON，表示權限關閉狀態
-		print ( "404" )
-		exit()
+	# # 如果不是ON，就代表權限被OFF掉了，程式中止
+	# if jsonData.switch.upper() != "ON": ## user的switch項如果不是ON，表示權限關閉狀態
+	# 	print ( "404" )
+	# 	exit()
 
-	# 設定模式
-	if ("set" in fullDataInput.lower())  or ("utc" in fullDataInput.lower()) :
-		returnMsg = jsonData.uiJsonSetting( fullDataInput )
-		# lineSend_fun( replyUrl )
-		# print ( returnMsg )
+	# # 設定模式
+	# if ("set" in fullDataInput.lower())  or ("utc" in fullDataInput.lower()) :
+	# 	returnMsg = jsonData.uiJsonSetting( fullDataInput )
+	# 	# lineSend_fun( replyUrl )
+	# 	# print ( returnMsg )
 
 	jsonData.showData()
 	print( jsonData.utc )

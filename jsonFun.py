@@ -433,7 +433,7 @@ def jsonToGoogle():
 			totalNum += 1  # 重要：增加總數，避免下一筆新資料覆蓋這筆
 			newNum += 1
 	
-	return ("Json data to GoogleSheet\nUpdate: %d New: %d" % (updateNum, newNum))
+	return ("🆗 Json data to GoogleSheet\nUpdate: %d New: %d" % (updateNum, newNum))
 
 
 
@@ -491,7 +491,7 @@ def googleToJson():
 	with open('__sixYoSet__.json', 'w', encoding='utf-8') as f:
 		json.dump(dataDict, f, indent=4, ensure_ascii=False)
 	
-	return ("Google Sheet data to Json\nTotal:%d" % len(allDataList))
+	return ("🆗 Google Sheet data to Json\nTotal:%d" % len(allDataList))
 
 
 
