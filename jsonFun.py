@@ -129,9 +129,9 @@ def addToJson ( linebotId = None  ,
 			if signUpTime != None:
 				dataDict[ linebotId ] ["signUpTime"] = signUpTime
 
-			if (command != None)  and (command[0:4] != "____"): 
+			if (command != None): 
 				dataDict[ linebotId ] ["command"] = command
-				
+
 			if runtime != None:
 				dataDict[ linebotId ] ["runtime"] = runtime
 			if uiStyle != None:
