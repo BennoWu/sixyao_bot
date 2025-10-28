@@ -276,7 +276,6 @@ def loadAllJson(jsonFile="__sixYoSet__.json"):
 # 			newNum += 1
 
 # 	return ( "Json data to GoogleSheet\nUpdate: %d New: %d"% ( updateNum,newNum ) )
-
 def jsonToGoogle():
 	import os
 	import pygsheets
@@ -317,16 +316,21 @@ def jsonToGoogle():
 	updateNum = 0
 	newNum = 0
 
-	# ---- 將 None 轉成 "" ----
-	def clean_value(v):
-		return "" if v is None else v
+	# ---- 將 None 轉 "" 並強制轉字串，補齊欄位長度 ----
+	def clean_and_fix_row(values, header_len):
+		new_values = ["" if v is None else str(v) for v in values]
+		# 補齊欄位長度
+		if len(new_values) < header_len:
+			new_values += [""] * (header_len - len(new_values))
+		return new_values
 
 	for values in valuesList:
 		eachId = values[0]
 		print(">", eachId)
 
-		# 清理 None
-		values = [clean_value(v) for v in values]
+		# 清理 None、轉字串、補齊欄位長度
+		values = clean_and_fix_row(values, len(headers))
+		print(">> 寫入資料:", values)
 
 		sheetNum = None
 		newItem = True
@@ -553,13 +557,13 @@ def get_all_user_flex( json_path='__sixYoSet__.json' ):
 				{"type": "text", "text": f"tipsMode: {user.get('tipsMode')}", "size": "sm"},
 				{"type": "text", "text": f"notionToken_pageId: {user.get('notionToken_pageId')}", "size": "sm"},
 				{"type": "text", "text": f"runtime: {user.get('runtime')}", "size": "sm"},
-				{"type": "separator", "color": "#666666", "margin": "md"}
+				{"type": "separator", "color": "#999999", "margin": "md"}
 			]
 		}
 		contents.append(user_box)
 
 	# Total 前面加一條 separator
-	contents.append({"type": "separator","color": "#666666", "margin": "xs"})
+	contents.append({"type": "separator","color": "#999999", "margin": "xs"})
 
 	# 總數
 	total_box = {
