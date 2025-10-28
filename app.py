@@ -81,7 +81,7 @@ def delayed_upLog():
 	try:
 		print(f"🧹 log upload to google sheet", flush=True)
 		uploadCsvToGoogleSheet()
-		pushMsg( "上傳log完成" )
+		# pushMsg( "上傳log完成" )
 	except Exception as e:
 		print("delayed_upLog error:", e, flush=True)
 
@@ -95,7 +95,7 @@ def delayed_upJson():
 	try:
 		print(f"🧹 user setting json upload to google sheet", flush=True)
 		jsonToGoogle()
-		pushMsg( "上傳json完成" )
+		# pushMsg( "上傳json完成" )
 	except Exception as e:
 		print("delayed_upJson error:", e, flush=True)
 
