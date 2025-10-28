@@ -280,17 +280,12 @@ def loadAllJson(jsonFile="__sixYoSet__.json"):
 def jsonToGoogle():
 	import os
 	import pygsheets
-	import json
 
-	# 從環境變數讀取金鑰
+	# ---- 載入 Google 金鑰 ----
 	credentials_json = os.environ.get('GOOGLE_CREDENTIALS')
-
-	# 金鑰位置
 	if credentials_json:
-		# pygsheets 直接從環境變數讀取
 		gc = pygsheets.authorize(service_account_env_var='GOOGLE_CREDENTIALS')
 	else:
-		# 本地開發用檔案
 		gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
 
 	globalSheet = gc.open_by_url(
@@ -301,115 +296,73 @@ def jsonToGoogle():
 	wks = globalSheet.worksheet_by_title(sheetName)
 	print(">> A")
 	print(wks)
-	
-	# 修正：先取得所有值，包含標題
+
 	all_values = wks.get_all_values()
-	
-	# 檢查是否有資料
+
 	if len(all_values) == 0:
 		print("工作表完全是空的")
 		return "Error: 工作表沒有任何資料"
-	
-	# 取得標題列
+
 	headers = all_values[0]
 	print(">> 標題列:", headers)
-	
-	# 取得資料列（排除標題）
-	if len(all_values) > 1:
-		# 有資料行，使用 get_all_records
-		allDataList = wks.get_all_records()
-	else:
-		# 只有標題，沒有資料
-		allDataList = []
-		print(">> 只有標題列，沒有資料")
-	
+
+	allDataList = wks.get_all_records() if len(all_values) > 1 else []
 	print(">> B")
 	print(allDataList)
-	
-	totalNum = len(allDataList)  # 現有總共的項目數量（不含標題）
+
+	totalNum = len(allDataList)
 	print(">> 現有資料筆數:", totalNum)
-	
-	valuesList = loadAllJson()  ## 取得的json資料
+
+	valuesList = loadAllJson()  # 取得 JSON 資料
 	updateNum = 0
 	newNum = 0
-	
+
+	# ---- 遞迴清理 None 的函式 ----
+	def clean_value(v):
+		if v is None:
+			return ''
+		elif isinstance(v, dict):
+			return {k: clean_value(val) for k, val in v.items()}
+		elif isinstance(v, list):
+			return [clean_value(i) for i in v]
+		else:
+			return v
+
 	for values in valuesList:
 		eachId = values[0]
 		print(">", eachId)
-		
-		# 🔥 加強資料清理：確保所有值都是 Google Sheets 可接受的格式
-		cleaned_values = []
-		for i, v in enumerate(values):
-			# 處理各種可能的資料類型
-			if v is None:
-				cleaned_values.append('')
-			elif isinstance(v, bool):
-				# 布林值轉字串
-				cleaned_values.append('TRUE' if v else 'FALSE')
-			elif isinstance(v, (int, float)):
-				# 數字保持原樣，但確保不是 NaN 或 Infinity
-				if str(v) in ['nan', 'inf', '-inf']:
-					cleaned_values.append('')
-				else:
-					cleaned_values.append(v)
-			elif isinstance(v, (dict, list)):
-				# 字典或列表轉成 JSON 字串
-				try:
-					cleaned_values.append(json.dumps(v, ensure_ascii=False))
-				except:
-					cleaned_values.append(str(v))
-			elif isinstance(v, str):
-				# 字串直接使用
-				cleaned_values.append(v)
-			else:
-				# 其他類型轉成字串
-				cleaned_values.append(str(v))
-			
-			# 除錯訊息：顯示轉換結果
-			if v != cleaned_values[-1]:
-				print(f"  欄位 {i}: {type(v).__name__} {repr(v)} -> {type(cleaned_values[-1]).__name__} {repr(cleaned_values[-1])}")
-		
-		# 再次確認沒有 None
-		cleaned_values = ['' if x is None else x for x in cleaned_values]
-		
-		# 除錯：顯示最終要上傳的資料
-		print(f"  最終資料: {cleaned_values}")
-		print(f"  資料類型: {[type(x).__name__ for x in cleaned_values]}")
-		
+
+		# 清理 None
+		values = [clean_value(v) for v in values]
+
 		sheetNum = None
 		newItem = True
-		
-		# 跑一輪找出這個id的順序數字
+
+		# 判斷是否已存在
 		for index, item in enumerate(allDataList):
-			if item['line id'] == eachId:  ## 判斷這個名字在GOOGLE表單上是否已經存在
-				sheetNum = index  # 記錄在 allDataList 中的索引位置
+			if item['line id'] == eachId:
+				sheetNum = index
 				newItem = False
 				break
-		
+
 		if not newItem:
 			# 更新現有資料
 			row_number = sheetNum + 2
 			print(eachId, " - UPDATE at row", row_number)
-			try:
-				wks.update_values('A' + str(row_number), [cleaned_values])
-				updateNum += 1
-			except Exception as e:
-				print(f"❌ 更新失敗: {e}")
-				print(f"   問題資料: {cleaned_values}")
+			wks.update_values('A' + str(row_number), [values])
+			updateNum += 1
 		else:
 			# 新增資料到最後一行
 			new_row_number = totalNum + 2
 			print(eachId, " - NEW at row", new_row_number)
-			try:
-				wks.update_values('A' + str(new_row_number), [cleaned_values])
-				totalNum += 1  # 重要：增加總數，避免下一筆新資料覆蓋這筆
-				newNum += 1
-			except Exception as e:
-				print(f"❌ 新增失敗: {e}")
-				print(f"   問題資料: {cleaned_values}")
-	
+			wks.update_values('A' + str(new_row_number), [values])
+			totalNum += 1
+			newNum += 1
+
 	return ("🆗 Json data to GoogleSheet\nUpdate: %d New: %d" % (updateNum, newNum))
-	
+
+
+
 
 ## 把google sheet資料備回json
 def googleToJson():
