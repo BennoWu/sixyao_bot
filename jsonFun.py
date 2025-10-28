@@ -281,10 +281,10 @@ def jsonToGoogle():
 	import os
 	import pygsheets
 
-	# # 從環境變數讀取金鑰
+	# 從環境變數讀取金鑰
 	credentials_json = os.environ.get('GOOGLE_CREDENTIALS')
 
-	# # # 金鑰位置
+	# 金鑰位置
 	if credentials_json:
 		# pygsheets 直接從環境變數讀取
 		gc = pygsheets.authorize(service_account_env_var='GOOGLE_CREDENTIALS')
@@ -296,13 +296,6 @@ def jsonToGoogle():
 		'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'
 	)
 
-
-	# gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
-	# # e mail id : sixyao-id@sixyao-data.iam.gserviceaccount.com
-	# # 開啟sheet檔案
-	# globalSheet = gc.open_by_url(
-	# 	'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'  ## 六爻 sheet
-	# )
 	sheetName = "userID_list"
 	wks = globalSheet.worksheet_by_title(sheetName)
 	print(">> A")
@@ -343,7 +336,17 @@ def jsonToGoogle():
 		eachId = values[0]
 		print(">", eachId)
 		
-		values = ['' if v is None else v for v in values]
+		# 🔥 關鍵修改：確保所有 None 值都轉換為空字串
+		# 同時處理可能的其他問題值（如 dict, list 等）
+		cleaned_values = []
+		for v in values:
+			if v is None:
+				cleaned_values.append('')
+			elif isinstance(v, (dict, list)):
+				# 如果是字典或列表，轉成 JSON 字串
+				cleaned_values.append(str(v))
+			else:
+				cleaned_values.append(v)
 		
 		sheetNum = None
 		newItem = True
@@ -357,25 +360,20 @@ def jsonToGoogle():
 		
 		if not newItem:
 			# 更新現有資料
-			# sheetNum 是在 allDataList 中的索引（從 0 開始）
-			# 實際在 sheet 中的行數是 sheetNum + 2（第1行是標題，所以+2）
 			row_number = sheetNum + 2
 			print(eachId, " - UPDATE at row", row_number)
-			wks.update_values('A' + str(row_number), [values])
+			wks.update_values('A' + str(row_number), [cleaned_values])
 			updateNum += 1
 		else:
 			# 新增資料到最後一行
-			# totalNum 是現有資料筆數，新資料應該放在 totalNum + 2 行
-			# （第1行標題 + totalNum行資料 + 1）
 			new_row_number = totalNum + 2
 			print(eachId, " - NEW at row", new_row_number)
-			wks.update_values('A' + str(new_row_number), [values])
+			wks.update_values('A' + str(new_row_number), [cleaned_values])
 			totalNum += 1  # 重要：增加總數，避免下一筆新資料覆蓋這筆
 			newNum += 1
 	
 	return ("🆗 Json data to GoogleSheet\nUpdate: %d New: %d" % (updateNum, newNum))
-
-
+	
 
 ## 把google sheet資料備回json
 def googleToJson():
