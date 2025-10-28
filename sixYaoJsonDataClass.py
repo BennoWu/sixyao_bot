@@ -131,7 +131,7 @@ class jsonDataClass:
 			# self.other = None
 
 			self.switch = "ON"             ## 權限
-			self.temp = None
+			self.temp = "---"
 																												
 		addToJson ( linebotId = self.linebotId  ,
 					UserName = self.linebotUserName  ,

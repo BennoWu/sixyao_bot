@@ -557,13 +557,13 @@ def get_all_user_flex( json_path='__sixYoSet__.json' ):
 				{"type": "text", "text": f"tipsMode: {user.get('tipsMode')}", "size": "sm"},
 				{"type": "text", "text": f"notionToken_pageId: {user.get('notionToken_pageId')}", "size": "sm"},
 				{"type": "text", "text": f"runtime: {user.get('runtime')}", "size": "sm"},
-				{"type": "separator", "color": "#999999", "margin": "md"}
+				{"type": "separator", "color": "#aaaaaa", "margin": "md"}
 			]
 		}
 		contents.append(user_box)
 
 	# Total 前面加一條 separator
-	contents.append({"type": "separator","color": "#999999", "margin": "xs"})
+	contents.append({"type": "separator","color": "#aaaaaa", "margin": "xs"})
 
 	# 總數
 	total_box = {
