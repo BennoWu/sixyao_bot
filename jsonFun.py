@@ -317,16 +317,9 @@ def jsonToGoogle():
 	updateNum = 0
 	newNum = 0
 
-	# ---- 遞迴清理 None 的函式 ----
+	# ---- 將 None 轉成 "" ----
 	def clean_value(v):
-		if v is None:
-			return ''
-		elif isinstance(v, dict):
-			return {k: clean_value(val) for k, val in v.items()}
-		elif isinstance(v, list):
-			return [clean_value(i) for i in v]
-		else:
-			return v
+		return "" if v is None else v
 
 	for values in valuesList:
 		eachId = values[0]
@@ -560,13 +553,13 @@ def get_all_user_flex( json_path='__sixYoSet__.json' ):
 				{"type": "text", "text": f"tipsMode: {user.get('tipsMode')}", "size": "sm"},
 				{"type": "text", "text": f"notionToken_pageId: {user.get('notionToken_pageId')}", "size": "sm"},
 				{"type": "text", "text": f"runtime: {user.get('runtime')}", "size": "sm"},
-				{"type": "separator", "margin": "md"}
+				{"type": "separator", "color": "#666666", "margin": "md"}
 			]
 		}
 		contents.append(user_box)
 
 	# Total 前面加一條 separator
-	contents.append({"type": "separator", "margin": "xs"})
+	contents.append({"type": "separator","color": "#666666", "margin": "xs"})
 
 	# 總數
 	total_box = {
@@ -699,7 +692,7 @@ def checkEnv():
 
 if __name__ == '__main__':
 	# print("測試 jsonToGoogle:")
-	# print(jsonToGoogle())
+	print(jsonToGoogle())
 	
 	# print("\n測試 googleToJson:")
 	# print(googleToJson())
@@ -708,7 +701,7 @@ if __name__ == '__main__':
 	# logToGoogle()
 	# addToJson (  linebotId ="U21eaaf32db85b983a842d9a9da81d8f1"	,UserName = "Benno"	,logInTime ="2023-2-1 23:52",command =	"時盤-2023-02-01-21-51"	,runtime = 1	,signUpTime = "2023-2-1 11:18",  userImage ="https://profile.line-scdn.net/0m03d2961a72519e9ae023945979128659aaf19ece8932"	 ,uiStyle ="A"	,subDataMode ="Lite"	,switch = "ON")
 	
-	addToJson (  linebotId ="ttttt"	,UserName = "aaaa"	,logInTime ="2023-2-1 23:52",command =	"cooomm"	,runtime = 1	,signUpTime = "2023-2-1 11:18",  userImage ="https://profile.line-scdn.net/0m03d2961a72519e9ae023945979128659aaf19ece8932"	 ,uiStyle ="A"	,subDataMode ="Lite"	,switch = "ON")
+	# addToJson (  linebotId ="ttttt"	,UserName = "aaaa"	,logInTime ="2023-2-1 23:52",command =	"cooomm"	,runtime = 1	,signUpTime = "2023-2-1 11:18",  userImage ="https://profile.line-scdn.net/0m03d2961a72519e9ae023945979128659aaf19ece8932"	 ,uiStyle ="A"	,subDataMode ="Lite"	,switch = "ON")
 
 	# loadAllJson()
 	# print(googleToJson())
