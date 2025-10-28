@@ -433,11 +433,12 @@ def getPicData(image_input):
 
 		## 產生命令的本番
 		# ============================================
-		print(f"{dt}//{hx}//untitled")
-		return f"{dt}//{hx}//untitled"      
+		print(f"{dt}//{hx}//Untitled")
+		return f"{dt}//{hx}//Untitled"      
 		# return dt, hx
 		# ============================================
-
+	else:
+		return False
 
 # ===== 範例 =====
 if __name__ == '__main__':

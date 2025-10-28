@@ -76,6 +76,49 @@ def delayed_cleanup(days):
 		print("delayed_cleanup error:", e, flush=True)
 
 
+## 多線程 - 儲存LOG至GOOGLE
+def delayed_upLog():
+	try:
+		print(f"🧹 log upload to google sheet", flush=True)
+		uploadCsvToGoogleSheet()
+		pushMsg( "上傳log完成" )
+	except Exception as e:
+		print("delayed_upLog error:", e, flush=True)
+
+	# # 背景備份
+	# t = threading.Thread(target=delayed_upLog)
+	# t.start()
+
+
+## 多線程 - 儲存JSON至GOOGLE
+def delayed_upJson():
+	try:
+		print(f"🧹 user setting json upload to google sheet", flush=True)
+		jsonToGoogle()
+		pushMsg( "上傳json完成" )
+	except Exception as e:
+		print("delayed_upJson error:", e, flush=True)
+
+# 	# 建立兩個執行緒
+# 	t1 = threading.Thread( target=delayed_upLog )
+# 	t2 = threading.Thread( target=delayed_upJson )
+
+# # 啟動執行緒
+# 	t1.start()
+# 	t2.start()
+
+# # 等待兩個執行緒都結束
+# 	t1.join()
+# 	t2.join()
+
+
+
+
+
+
+
+
+
 
 @app.route("/")
 def home():
@@ -235,6 +278,12 @@ def handle_message(event):
 		t.start()
 		return
 
+
+
+
+
+
+
 	# 卦象UI
 	elif "//" in unifiedData(inputMsg):
 		ui_cmd_dict = sixYaoMain(inputMsg, userData)
@@ -263,7 +312,7 @@ def handle_message(event):
 		uiCommand = get_json_item_data(user_id, "temp")
 
 		if uiCommand:
-			newCommand = uiCommand.replace("untitled", changeNote)
+			newCommand = uiCommand.replace("Untitled", changeNote)
 			new_flex_json = sixYaoMain( newCommand, userData )
 
 			save_json_data(user_id, "temp", None, json_path='__sixYoSet__.json')
@@ -288,12 +337,19 @@ def handle_message(event):
 	elif inputMsg[0:4] == "____":
 		inputMsg = inputMsg[4:].lower()
 		
+		## ========== upload data ==========
 		if inputMsg in ["up", "upload"]:
 			returnMsg = jsonToGoogle()
+
+		## ========== download data ==========
 		elif inputMsg in ["dn", "download"]:
 			returnMsg = googleToJson()
+
+		## ========== upload log ==========
 		elif inputMsg in ["logup", "uplog"]:
 			returnMsg = uploadCsvToGoogleSheet()
+
+		## ========== show all user data ==========
 		elif inputMsg in ["show", "list"]:
 			showDict = get_all_user_flex()
 
@@ -309,6 +365,19 @@ def handle_message(event):
 					]
 				)
 			)
+
+			# 建立兩個執行緒
+			t1 = threading.Thread( target=delayed_upLog )
+			t2 = threading.Thread( target=delayed_upJson )
+
+		# 啟動執行緒
+			t1.start()
+			t2.start()
+
+		# 等待兩個執行緒都結束
+			t1.join()
+			t2.join()
+
 			return
 		else:
 			returnMsg = f"No command - {inputMsg}"
@@ -341,25 +410,40 @@ def handle_image_message(event):
 	ui_command = getPicData(image_bytes)
 	print(">>>>>", ui_command)
 
-	ui_cmd_dict = sixYaoMain(ui_command, userSetting=None)
+	## ======== ocr 判斷不出時 =========
+	if ui_command == False: 
 
-	save_json_data(user_id, "temp", ui_command, json_path='__sixYoSet__.json')
-
-	print("UI")
-	print(ui_cmd_dict)
-
-	# ⭐ v3 的 Flex Message 回覆
-	line_bot_api.reply_message(
-		ReplyMessageRequest(
-			reply_token=event.reply_token,
-			messages=[
-				FlexMessage(
-					alt_text='< OCR卦象UI >',
-					contents=FlexContainer.from_dict(ui_cmd_dict)
-				)
-			]
+		# ⭐ v3 的文字訊息回覆
+		line_bot_api.reply_message(
+			ReplyMessageRequest(
+				reply_token=event.reply_token,
+				messages=[TextMessage(text= "OCR error")]
+			)
 		)
-	)
+	## ======== ocr 判斷正確時 =========
+	else:
+		ui_cmd_dict = sixYaoMain(ui_command, userSetting=None)
+
+		save_json_data(user_id, "temp", ui_command, json_path='__sixYoSet__.json')
+
+		print("UI")
+		print(ui_cmd_dict)
+
+		# ⭐ v3 的 Flex Message 回覆
+		line_bot_api.reply_message(
+			ReplyMessageRequest(
+				reply_token=event.reply_token,
+				messages=[
+					FlexMessage(
+						alt_text='< OCR卦象UI >',
+						contents=FlexContainer.from_dict(ui_cmd_dict)
+					)
+				]
+			)
+		)
+
+
+
 
 
 # ⭐ v3 的 Postback 處理

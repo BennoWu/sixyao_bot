@@ -86,110 +86,96 @@ def addToJson ( linebotId = None  ,
 				utc = None,
 
 				notionToken_pageId	= None,
-				# other = None,
 
 				switch = None ,
 				temp = None 
 				):
 
-	# userDict = {
-	# 	linebotId : {
-	# 		"userName" : UserName,
-	# 		"logInTime" : logInTime,
-	# 		"command" : command,
-	# 		"signUpTime" : signUpTime,
-	# 		"userImage" : userImage,
-	# 		"uiStyle" : uiStyle,
-	# 		"subDataMode" : subDataMode,
-	# 		"runtime" : runtime,
-	# 		"switch" : switch,
-	# 	}
-	# }
 	dataDict = {}
 
-	if os.path.isfile("__sixYoSet__.json") == True: ## 如果檔案存在
+	# 🔥 修改：如果 JSON 檔案不存在，先執行 googleToJson() 建立檔案
+	if os.path.isfile("__sixYoSet__.json") == False:
+		print("⚠️ JSON 檔案不存在，正在從 Google Sheet 同步資料...")
+		try:
+			result = googleToJson()
+			print(result)
+		except Exception as e:
+			print(f"⚠️ 從 Google Sheet 同步失敗: {e}")
+			print("將建立新的空白 JSON 檔案")
 
-		# with open('__sixYoSet__.json') as f:
-		# 	dataDict = json.load(f)
+	# 現在檔案應該存在了（無論是從 Google 同步或準備新建）
+	if os.path.isfile("__sixYoSet__.json") == True:
 		with open('__sixYoSet__.json', 'r', encoding="utf-8") as f:
 			dataDict = json.load(f)
 			
-
-		if linebotId in dataDict.keys(): ## 如果已經有這個id
-			# dataDict[ linebotId ] = userDict[ linebotId ] ## 把已記錄的id中的資料更新
-			# print(dataDict)
-
-			# dataDict[ linebotId ] = {}
+		if linebotId in dataDict.keys():  # 如果已經有這個 id
+			# 更新現有用戶資料
 			if UserName != None:
-				dataDict[ linebotId ]["userName"] = UserName
+				dataDict[linebotId]["userName"] = UserName
 			if userImage != None:
-				dataDict[ linebotId ] ["userImage"] = userImage
+				dataDict[linebotId]["userImage"] = userImage
 			if logInTime != None:
-				dataDict[ linebotId ]["logInTime"] = logInTime
+				dataDict[linebotId]["logInTime"] = logInTime
 			if signUpTime != None:
-				dataDict[ linebotId ] ["signUpTime"] = signUpTime
-
+				dataDict[linebotId]["signUpTime"] = signUpTime
 			if (command != None): 
-				dataDict[ linebotId ] ["command"] = command
-
+				dataDict[linebotId]["command"] = command
 			if runtime != None:
-				dataDict[ linebotId ] ["runtime"] = runtime
+				dataDict[linebotId]["runtime"] = runtime
 			if uiStyle != None:
-				dataDict[ linebotId ] ["uiStyle"] = uiStyle
-
+				dataDict[linebotId]["uiStyle"] = uiStyle
 			if fontStyle != None:
-				dataDict[ linebotId ] ["fontStyle"] = fontStyle
-
+				dataDict[linebotId]["fontStyle"] = fontStyle
 			if tipsMode != None:
-				dataDict[ linebotId ] ["tipsMode"] = tipsMode
-
-
+				dataDict[linebotId]["tipsMode"] = tipsMode
 			if subDataMode != None:
-				dataDict[ linebotId ] ["subDataMode"] = subDataMode
+				dataDict[linebotId]["subDataMode"] = subDataMode
 			if utc != None:
-				dataDict[ linebotId ] ["utc"] = utc
-
-
-
+				dataDict[linebotId]["utc"] = utc
 			if notionToken_pageId != None:
-				dataDict[ linebotId ] ["notionToken_pageId"] = notionToken_pageId
-
-			# if other != None:
-			# 	dataDict[ linebotId ] ["other"] = other
-
-
+				dataDict[linebotId]["notionToken_pageId"] = notionToken_pageId
 			if switch != None:
-				dataDict[ linebotId ] ["switch"] = switch
+				dataDict[linebotId]["switch"] = switch
 			if temp != None:
-				dataDict[ linebotId ] ["temp"] = temp
+				dataDict[linebotId]["temp"] = temp
 
-			# print(dataDict)
+		else:  # 如果沒有表示第一次登入，建立新的
+			dataDict[linebotId] = {}
+			dataDict[linebotId]["userName"] = UserName
+			dataDict[linebotId]["userImage"] = userImage
+			dataDict[linebotId]["logInTime"] = logInTime
+			dataDict[linebotId]["signUpTime"] = logInTime
+			dataDict[linebotId]["command"] = command
+			dataDict[linebotId]["runtime"] = runtime
+			dataDict[linebotId]["uiStyle"] = uiStyle
+			dataDict[linebotId]["fontStyle"] = fontStyle			
+			dataDict[linebotId]["tipsMode"] = tipsMode
+			dataDict[linebotId]["subDataMode"] = subDataMode
+			dataDict[linebotId]["utc"] = utc		
+			dataDict[linebotId]["notionToken_pageId"] = notionToken_pageId	
+			dataDict[linebotId]["switch"] = switch
+			dataDict[linebotId]["temp"] = temp
 
-		# 如果沒有表示第一次登入，建立新的
-		else:	
-			dataDict[ linebotId ] = {}
-			# dataDict[ "linebotId" ] = {}
-			dataDict[ linebotId ]["userName"] = UserName
-			dataDict[ linebotId ] ["userImage"] = userImage
-			dataDict[ linebotId ] ["logInTime"] = logInTime
-			dataDict[ linebotId ] ["signUpTime"] = logInTime
-			dataDict[ linebotId ] ["command"] = command
-			dataDict[ linebotId ] ["runtime"] = runtime
-			dataDict[ linebotId ] ["uiStyle"] = uiStyle
+	else:  # 如果連檔案都不存在（googleToJson 也失敗了），建立新的
+		dataDict[linebotId] = {}
+		dataDict[linebotId]["userName"] = UserName
+		dataDict[linebotId]["userImage"] = userImage
+		dataDict[linebotId]["logInTime"] = logInTime
+		dataDict[linebotId]["signUpTime"] = logInTime
+		dataDict[linebotId]["command"] = command
+		dataDict[linebotId]["runtime"] = runtime
+		dataDict[linebotId]["uiStyle"] = uiStyle
+		dataDict[linebotId]["fontStyle"] = fontStyle
+		dataDict[linebotId]["tipsMode"] = tipsMode		
+		dataDict[linebotId]["subDataMode"] = subDataMode
+		dataDict[linebotId]["utc"] = utc		
+		dataDict[linebotId]["notionToken_pageId"] = notionToken_pageId		
+		dataDict[linebotId]["switch"] = switch
+		dataDict[linebotId]["temp"] = temp
 
-			dataDict[ linebotId ] ["fontStyle"] = fontStyle			
-			dataDict[ linebotId ] ["tipsMode"] = tipsMode
-
-			dataDict[ linebotId ] ["subDataMode"] = subDataMode
-			dataDict[ linebotId ] ["utc"] = utc		
-
-
-			dataDict[ linebotId ] ["notionToken_pageId"] = notionToken_pageId	
-			# dataDict[ linebotId ] ["other"] = other	
-
-			dataDict[ linebotId ] ["switch"] = switch
-			dataDict[ linebotId ] ["temp"] = temp
-			# print(dataDict)
+	# 存回 JSON，中文直接顯示
+	with open('__sixYoSet__.json', 'w', encoding="utf-8") as f:
+		json.dump(dataDict, f, indent=4, ensure_ascii=False)
 # line id	
 # user name	
 # user image	
@@ -207,53 +193,7 @@ def addToJson ( linebotId = None  ,
 # switch	
 # temp
 
-	## 如果連檔案都不存在，建立新的
-	else:
-		dataDict[ linebotId ] = {}
-		# dataDict[ "linebotId" ] = {}
-		dataDict[ linebotId ]["userName"] = UserName
-		dataDict[ linebotId ] ["userImage"] = userImage
-		dataDict[ linebotId ]["logInTime"] = logInTime
-		dataDict[ linebotId ] ["signUpTime"] = logInTime
-		dataDict[ linebotId ] ["command"] = command
-		dataDict[ linebotId ] ["runtime"] = runtime
-		dataDict[ linebotId ] ["uiStyle"] = uiStyle
 
-		dataDict[ linebotId ] ["fontStyle"] = fontStyle
-		dataDict[ linebotId ] ["tipsMode"] = tipsMode		
-
-		dataDict[ linebotId ] ["subDataMode"] = subDataMode
-		dataDict[ linebotId ] ["utc"] = utc		
-
-
-		dataDict[ linebotId ] ["notionToken_pageId"] = notionToken_pageId		
-		# dataDict[ linebotId ] ["other"] = other		
-
-		dataDict[ linebotId ] ["switch"] = switch
-		dataDict[ linebotId ] ["temp"] = temp
-
-	# print(dataDict)
-	# with open('__sixYoSet__.json','w') as f:
-	# 	json.dump(dataDict, f, indent = 4)
-	with open('__sixYoSet__.json', 'w', encoding="utf-8") as f:
-		json.dump(dataDict, f, indent=4, ensure_ascii=False)
-
-
-# ## 取得json所有檔案
-# def loadAllJson( jsonFile = "__sixYoSet__.json" ):
-# 	values_all = []
-# 	if os.path.isfile(jsonFile) == True: ## 如果檔案存在
-
-# 		with open(jsonFile) as f:
-# 			dataDict = json.load(f)
-# 		for eachUser in dataDict.keys():
-# 			values =[]
-# 			values.append( eachUser )
-# 			for eachValue in dataDict[eachUser]:
-# 				values.append( dataDict[eachUser][eachValue] )
-
-# 			values_all.append( values )
-# 	return values_all
 
 def loadAllJson(jsonFile="__sixYoSet__.json"):
 	values_all = []
@@ -780,8 +720,11 @@ if __name__ == '__main__':
 	# print("\n測試 logToGoogle:")
 	# logToGoogle()
 	# addToJson (  linebotId ="U21eaaf32db85b983a842d9a9da81d8f1"	,UserName = "Benno"	,logInTime ="2023-2-1 23:52",command =	"時盤-2023-02-01-21-51"	,runtime = 1	,signUpTime = "2023-2-1 11:18",  userImage ="https://profile.line-scdn.net/0m03d2961a72519e9ae023945979128659aaf19ece8932"	 ,uiStyle ="A"	,subDataMode ="Lite"	,switch = "ON")
+	
+	addToJson (  linebotId ="ttttt"	,UserName = "aaaa"	,logInTime ="2023-2-1 23:52",command =	"cooomm"	,runtime = 1	,signUpTime = "2023-2-1 11:18",  userImage ="https://profile.line-scdn.net/0m03d2961a72519e9ae023945979128659aaf19ece8932"	 ,uiStyle ="A"	,subDataMode ="Lite"	,switch = "ON")
+
 	# loadAllJson()
-	print(googleToJson())
+	# print(googleToJson())
 	# print(jsonToGoogle())
 	# logToGoogle()
 
