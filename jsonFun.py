@@ -323,9 +323,6 @@ def loadAllJson(jsonFile="__sixYoSet__.json"):
 			else:
 				values.append(value)
 		
-		# 🔥 測試：在最後加一個空字串，讓 temp 不是最後一個
-		values.append("")
-		
 		values_all.append(values)
 	
 	return values_all
@@ -375,7 +372,7 @@ def jsonToGoogle():
 	updateNum = 0
 	newNum = 0
 	
-	# ---- 🔥 保持正確的資料類型，不要全部轉字串 ----
+	# ---- 🔥 保持正確的資料類型，並處理可能被誤認為公式的字串 ----
 	def clean_and_fix_row(values, expected_fields=15):
 		new_values = []
 		for v in values:
@@ -385,15 +382,19 @@ def jsonToGoogle():
 			# 數字保持數字類型
 			elif isinstance(v, (int, float)):
 				new_values.append(v)
-			# 其他轉字串
+			# 字串：檢查是否可能被誤認為公式
 			else:
-				new_values.append(str(v))
+				v_str = str(v)
+				# 🔥 如果以 +, -, =, @ 開頭，加上單引號前綴防止被當成公式
+				if v_str and v_str[0] in ['+', '-', '=', '@']:
+					new_values.append("'" + v_str)
+				else:
+					new_values.append(v_str)
 		
-		# 只補齊到 15 欄（有標題的欄位），不管後面的空白欄
+		# 只補齊到指定欄位數
 		if len(new_values) < expected_fields:
 			new_values += ["NONE"] * (expected_fields - len(new_values))
 		elif len(new_values) > expected_fields:
-			# 如果超過就截斷
 			new_values = new_values[:expected_fields]
 		
 		return new_values
@@ -402,8 +403,8 @@ def jsonToGoogle():
 		eachId = values[0]
 		print(">", eachId)
 		
-		# 清理、保持數字類型，處理 16 欄（15 + 1 個 dummy）
-		values = clean_and_fix_row(values, expected_fields=16)
+		# 清理、保持數字類型，防止公式注入，處理 15 欄
+		values = clean_and_fix_row(values, expected_fields=15)
 		print(">> 寫入資料:", values)
 		
 		sheetNum = None
