@@ -131,7 +131,7 @@ class jsonDataClass:
 			# self.other = None
 
 			self.switch = "ON"             ## 權限
-			self.temp = "---"
+			self.temp = None
 																												
 		addToJson ( linebotId = self.linebotId  ,
 					UserName = self.linebotUserName  ,
@@ -228,7 +228,7 @@ class jsonDataClass:
 					supabase_io.delete_user_token( self.linebotId )
 					self.notionToken_pageId = False
 					rtn_message =  "Notion – Canceled"
-					
+
 				else:
 
 

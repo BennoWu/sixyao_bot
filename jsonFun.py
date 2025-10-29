@@ -276,72 +276,146 @@ def loadAllJson(jsonFile="__sixYoSet__.json"):
 # 			newNum += 1
 
 # 	return ( "Json data to GoogleSheet\nUpdate: %d New: %d"% ( updateNum,newNum ) )
+def loadAllJson(jsonFile="__sixYoSet__.json"):
+	"""
+	讀取 JSON 並按照固定順序輸出，確保和 Google Sheet 欄位順序一致
+	Google Sheet 欄位順序：
+	line id | user name | user image | login time | sign up time | command | 
+	runtime | ui style | font style | tips mode | sub data mode | utc | 
+	notion token/page id | switch | temp
+	"""
+	values_all = []
+	
+	if not os.path.isfile(jsonFile):
+		return values_all
+	
+	with open(jsonFile, 'r', encoding="utf-8") as f:
+		dataDict = json.load(f)
+	
+	# 🔥 定義欄位順序（必須和 Google Sheet 的欄位順序完全一致）
+	field_order = [
+		"userName",
+		"userImage",
+		"logInTime",
+		"signUpTime",
+		"command",
+		"runtime",
+		"uiStyle",
+		"fontStyle",
+		"tipsMode",
+		"subDataMode",
+		"utc",
+		"notionToken_pageId",
+		"switch",
+		"temp"
+	]
+	
+	for eachUser in dataDict:
+		# 第一個是 user ID
+		values = [eachUser]
+		
+		# 按照固定順序取值
+		for field in field_order:
+			value = dataDict[eachUser].get(field)
+			# None 轉成 "NONE"
+			if value is None:
+				values.append("NONE")
+			else:
+				values.append(value)
+		
+		# 🔥 測試：在最後加一個空字串，讓 temp 不是最後一個
+		values.append("")
+		
+		values_all.append(values)
+	
+	return values_all
+
+
+# ============================================
+# 配套的 jsonToGoogle 函數
+# ============================================
+
 def jsonToGoogle():
 	import os
 	import pygsheets
-
+	
 	# ---- 載入 Google 金鑰 ----
 	credentials_json = os.environ.get('GOOGLE_CREDENTIALS')
 	if credentials_json:
 		gc = pygsheets.authorize(service_account_env_var='GOOGLE_CREDENTIALS')
 	else:
 		gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
-
+	
 	globalSheet = gc.open_by_url(
 		'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'
 	)
-
+	
 	sheetName = "userID_list"
 	wks = globalSheet.worksheet_by_title(sheetName)
 	print(">> A")
 	print(wks)
-
+	
 	all_values = wks.get_all_values()
-
+	
 	if len(all_values) == 0:
 		print("工作表完全是空的")
 		return "Error: 工作表沒有任何資料"
-
+	
 	headers = all_values[0]
 	print(">> 標題列:", headers)
-
+	
 	allDataList = wks.get_all_records() if len(all_values) > 1 else []
 	print(">> B")
 	print(allDataList)
-
+	
 	totalNum = len(allDataList)
 	print(">> 現有資料筆數:", totalNum)
-
-	valuesList = loadAllJson()  # 取得 JSON 資料
+	
+	valuesList = loadAllJson()  # 取得 JSON 資料（已經處理好順序和 None）
 	updateNum = 0
 	newNum = 0
-
-	# ---- 將 None 轉 "" 並強制轉字串，補齊欄位長度 ----
-	def clean_and_fix_row(values, header_len):
-		new_values = ["" if v is None else str(v) for v in values]
-		# 補齊欄位長度
-		if len(new_values) < header_len:
-			new_values += [""] * (header_len - len(new_values))
+	
+	# ---- 🔥 保持正確的資料類型，不要全部轉字串 ----
+	def clean_and_fix_row(values, expected_fields=15):
+		new_values = []
+		for v in values:
+			# None 轉 "NONE"
+			if v is None:
+				new_values.append("NONE")
+			# 數字保持數字類型
+			elif isinstance(v, (int, float)):
+				new_values.append(v)
+			# 其他轉字串
+			else:
+				new_values.append(str(v))
+		
+		# 只補齊到 15 欄（有標題的欄位），不管後面的空白欄
+		if len(new_values) < expected_fields:
+			new_values += ["NONE"] * (expected_fields - len(new_values))
+		elif len(new_values) > expected_fields:
+			# 如果超過就截斷
+			new_values = new_values[:expected_fields]
+		
 		return new_values
-
+	
 	for values in valuesList:
 		eachId = values[0]
 		print(">", eachId)
-
-		# 清理 None、轉字串、補齊欄位長度
-		values = clean_and_fix_row(values, len(headers))
+		
+		# 清理、保持數字類型，處理 16 欄（15 + 1 個 dummy）
+		values = clean_and_fix_row(values, expected_fields=16)
 		print(">> 寫入資料:", values)
-
+		
 		sheetNum = None
 		newItem = True
-
+		
 		# 判斷是否已存在
 		for index, item in enumerate(allDataList):
 			if item['line id'] == eachId:
 				sheetNum = index
 				newItem = False
 				break
-
+		
 		if not newItem:
 			# 更新現有資料
 			row_number = sheetNum + 2
@@ -355,7 +429,7 @@ def jsonToGoogle():
 			wks.update_values('A' + str(new_row_number), [values])
 			totalNum += 1
 			newNum += 1
-
+	
 	return ("🆗 Json data to GoogleSheet\nUpdate: %d New: %d" % (updateNum, newNum))
 
 
