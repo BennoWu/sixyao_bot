@@ -232,11 +232,12 @@ class jsonDataClass:
 						pageId_buf = comList[3] ## get page
 
 
-
+						## ====== 如果token和page id都通過notion的測試 ======
 						if checkNotionAcc( token_buf , pageId_buf ) == True:
 							self.notionToken_pageId = True
 							rtn_message =  "Notion – Success"
 
+							## ===== 就寫入資料庫 =====
 							supabase_io.save_user_data(
 								user_id = self.linebotId,
 								notion_token = token_buf,
@@ -244,7 +245,7 @@ class jsonDataClass:
 							)
 
 
-
+						## ====== 否則回傳打槍訊息 ======
 						else:
 							rtn_message =  "API token is invalid....請檢查notion資料"
 					else:

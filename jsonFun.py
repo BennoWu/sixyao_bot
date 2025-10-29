@@ -215,71 +215,6 @@ def loadAllJson(jsonFile="__sixYoSet__.json"):
 	return values_all
 
 
-## 把json資料備回google sheet
-# # https://www.youtube.com/watch?v=tPfllMdhCUE&list=PL072M7JLb0r4sanE111yySXvoO_fRv3x6&index=64
-# def jsonToGoogle():
-# 	import pygsheets
-# 	# 金鑰位置
-# 	gc = pygsheets.authorize( service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
-# 	# e mail id : sixyao-id@sixyao-data.iam.gserviceaccount.com
-
-# 	# 開啟sheet檔案
-# 	globalSheet = gc.open_by_url(
-# 	# 'https://docs.google.com/spreadsheets/d/1Mx2Xzv-WJnQuE0AyCo-DGHMVdmOrLAr7akrf8_rwwL4/'
-# 	# 'https://docs.google.com/spreadsheets/d/1XlXKCz4GmhpoTvM8HnMLVIqpCK853FAVyS4tSPcE_kM/'
-# 	'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing' ## 六爻 sheet
-# 	)
-# 	sheetName = "userID_list"
-# 	wks = globalSheet.worksheet_by_title(sheetName)
-# 	print(">> A")
-# 	print(wks)
-# 	allDataList = wks.get_all_records() # 取得所有資料，字典檔
-# 	print(">> B")
-# 	print(allDataList)
-
-# 	totalNum = totalNumber = len( allDataList ) # 現有總共的項目數量
-# 	print(">> A")
-# 	print(totalNum)
-# 	# print(allDataList[0].keys())
-# 	# headers = wks.get_row(1)
-
-# 	valuesList = loadAllJson() ## 取得的json資料，會以json的順序，所以GOOGLE表單和JSON的資料順序要一樣，兜上去才會對
-
-# 	updateNum = 0
-# 	newNum = 0
-# 	for values in valuesList:
-# 		eachId = values[0]
-# 		print( ">",eachId )
-# 		sheetNum = None
-# 		newItem = True
-# 		add = 0
-# 		for item in allDataList:  # 跑一輪找出這個id的順序數字
-# 			# print( ">>>",item ,"\n", item['User ID'])
-# 			# print( item['User ID'],eachId )
-# 			# print( item['User ID'] == eachId)
-
-# 			if item['line id'] == eachId: ## 判斷這個名字在GOOGLE表單上是否已經存在
-# 				sheetNum = add
-# 				newItem = False
-# 				break
-# 				# print( "newItem:" , newItem )
-# 				# print( "sheetNum" , sheetNum )
-# 			add += 1
-# 		# print( "user::",eachId ,  "    newItem:" , newItem  )
-
-# 		if newItem != True:
-# 			print( eachId , " - get OLD\n")
-# 			wks.update_values('A'+str( sheetNum+2 ), [ values ]) # 橫的
-# 		# 	# sheet_test01.update_values('B2', [['A', 'B', 'C', 'D']]) # 從B2開始向後填入'A', 'B', 'C', 'D'
-# 			updateNum += 1
-
-
-# 		else: ## 新的就加在最下面
-# 			print( eachId , " - get NEW\n")
-# 			wks.update_values('A'+str( totalNum+2 ), [ values ]) # 橫的
-# 			newNum += 1
-
-# 	return ( "Json data to GoogleSheet\nUpdate: %d New: %d"% ( updateNum,newNum ) )
 def loadAllJson(jsonFile="__sixYoSet__.json"):
 	"""
 	讀取 JSON 並按照固定順序輸出，確保和 Google Sheet 欄位順序一致
@@ -444,24 +379,20 @@ def jsonToGoogle():
 def googleToJson():
 	import os
 	import pygsheets
-
-	# # 從環境變數讀取金鑰
+	
+	# 從環境變數讀取金鑰
 	credentials_json = os.environ.get('GOOGLE_CREDENTIALS')
-
-	# # # 金鑰位置
+	
+	# 金鑰位置
 	if credentials_json:
-		# pygsheets 直接從環境變數讀取
 		gc = pygsheets.authorize(service_account_env_var='GOOGLE_CREDENTIALS')
 	else:
-		# 本地開發用檔案
 		gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
-
+	
 	# 開啟sheet檔案
 	globalSheet = gc.open_by_url(
 		'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'
 	)
-
-
 	
 	dataDict = {}
 	sheetName = "userID_list"
@@ -470,35 +401,50 @@ def googleToJson():
 	totalNum = len(allDataList)  # 現有總共的項目數量
 	print(allDataList)
 	
+	# 🔥 清理資料的函數：處理空字串、公式前綴等
+	def clean_value(value):
+		"""
+		清理從 Google Sheets 讀取的值
+		- 空字串 → None
+		- 去除公式前綴（單引號開頭）
+		- 保持數字類型
+		"""
+		# 空字串轉 None
+		if value == "" or value is None:
+			return None
+		
+		# 如果是字串且以單引號開頭（我們加的公式保護），去除單引號
+		if isinstance(value, str) and value.startswith("'"):
+			return value[1:]  # 去掉第一個字元（單引號）
+		
+		# 其他保持原樣
+		return value
+	
 	for eachData in allDataList:
 		linebotId = eachData['line id']
 		dataDict[linebotId] = {}
-		dataDict[linebotId]["userName"] = eachData['user name']
-		dataDict[linebotId]["userImage"] = eachData['user image']
-		dataDict[linebotId]["logInTime"] = eachData['login time']
-		dataDict[linebotId]["signUpTime"] = eachData['sign up time']
-		dataDict[linebotId]["command"] = eachData['command']
-		dataDict[linebotId]["runtime"] = eachData['runtime']
-		dataDict[linebotId]["uiStyle"] = eachData['ui style']
-		dataDict[linebotId]["fontStyle"] = eachData['font style']
-		dataDict[linebotId]["tipsMode"] = eachData['tips mode']
-
-		dataDict[linebotId]["subDataMode"] = eachData['sub data mode']
-		dataDict[linebotId]["utc"] = eachData['utc']
-		dataDict[linebotId]["notionToken_pageId"] = eachData['notion token/page id']
-		# dataDict[linebotId]["other"] = eachData['other']
-		dataDict[linebotId]["switch"] = eachData['switch']
-		dataDict[linebotId]["temp"] = None
+		
+		# 🔥 使用 clean_value 處理每個欄位
+		dataDict[linebotId]["userName"] = clean_value(eachData['user name'])
+		dataDict[linebotId]["userImage"] = clean_value(eachData['user image'])
+		dataDict[linebotId]["logInTime"] = clean_value(eachData['login time'])
+		dataDict[linebotId]["signUpTime"] = clean_value(eachData['sign up time'])
+		dataDict[linebotId]["command"] = clean_value(eachData['command'])
+		dataDict[linebotId]["runtime"] = clean_value(eachData['runtime'])
+		dataDict[linebotId]["uiStyle"] = clean_value(eachData['ui style'])
+		dataDict[linebotId]["fontStyle"] = clean_value(eachData['font style'])
+		dataDict[linebotId]["tipsMode"] = clean_value(eachData['tips mode'])
+		dataDict[linebotId]["subDataMode"] = clean_value(eachData['sub data mode'])
+		dataDict[linebotId]["utc"] = clean_value(eachData['utc'])
+		dataDict[linebotId]["notionToken_pageId"] = clean_value(eachData['notion token/page id'])
+		dataDict[linebotId]["switch"] = clean_value(eachData['switch'])
+		dataDict[linebotId]["temp"] = clean_value(eachData['temp'])  # 🔥 改成從 Google Sheet 讀取
 	
-	# 關鍵修正：加上 ensure_ascii=False 和 encoding='utf-8'
+	# 存回 JSON
 	with open('__sixYoSet__.json', 'w', encoding='utf-8') as f:
 		json.dump(dataDict, f, indent=4, ensure_ascii=False)
 	
 	return ("🆗 Google Sheet data to Json\nTotal:%d" % len(allDataList))
-
-
-
-
 
 
 
@@ -775,10 +721,10 @@ def checkEnv():
 
 if __name__ == '__main__':
 	# print("測試 jsonToGoogle:")
-	print(jsonToGoogle())
+	# print(jsonToGoogle())
 	
 	# print("\n測試 googleToJson:")
-	# print(googleToJson())
+	print(googleToJson())
 	
 	# print("\n測試 logToGoogle:")
 	# logToGoogle()

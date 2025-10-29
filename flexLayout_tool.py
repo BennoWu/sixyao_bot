@@ -1130,9 +1130,9 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 
 # pushToNotion( apiToken , pageId , imageUrl , titleText )
-	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "⏳Uploading,please wait……" ).replace("__NOTION_CMD__", "n" + command )
+	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "☕ Uploading,please wait……" ).replace("__NOTION_CMD__", "n" + command )
 
-
+# ⏳⚡
 	print( reDataLayout )
 
 	# 文字轉換成字典

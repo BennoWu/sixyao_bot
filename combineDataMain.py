@@ -9,7 +9,7 @@ from fourPillar_tool import fourPillarToDateMain # 四柱得日期
 # from fourPillar_tool import getYear # 四柱得日期
 from fourPillar_tool import getNowTime # 現時日期時間取得
 
-from  supabase_io import check_user_exists , get_user_data
+# from  supabase_io import check_user_exists , get_user_data
 # from opencc import OpenCC
 import os
 
@@ -676,10 +676,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 		fullDataInput = fullDataInput[1:]
 		print ( "Notion mode ON")
 
-	# command_mode = False
-	# +XXX//XXXX//XXXXX    	產生圖檔模式
-	# command_mode = True	
-	#  XXX//XXXX//XXXXX		UI模式
+
 	print( "userSetting duct:",userSetting )
 	if userSetting == None:
 		print( "產生一組假的")
@@ -712,68 +709,27 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 
 
 
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	token_buf = ""
 	pageId_buf = ""
 
-	# if user_notion == True:
-	if check_user_exists( linebot_Id ) == True:	
-		print( "> supabase OK")
-		# 測試讀取 (會回傳字典)
-		data = get_user_data( linebot_Id )
-		if data:
-			token_buf = data['notion_token']
-			pageId_buf = data['page_id']
-			user_notion = True
-			save_json_data( linebot_Id, "notionToken_pageId", True )
+	# # if user_notion == True:
 
-	else:
-		print( "> supabase NG")
+	# ## 確認supabase這個id是否存在
+	# if check_user_exists( linebot_Id ) == True:	
+	# 	print( "> supabase OK")
+	# 	# 測試讀取 (會回傳字典)
+	# 	# "notion_token": notion_token,
+	# 	# "page_id": page_id
+	# 	data = get_user_data( linebot_Id )
 
+	# 	if data:
+	# 		token_buf = data['notion_token']
+	# 		pageId_buf = data['page_id']
+	# 		user_notion = True
+	# 		save_json_data( linebot_Id, "notionToken_pageId", True )
 
-	# jsonData = jsonDataClass( lineBotId , lineBotName , userImage  , fullDataInput ) ## class建立
-
-	# user_utc_hour   = jsonData.utc         ## 取得這個user的時區數字
-	# user_uiStyle    = jsonData.uiStyle       ## "UA , UB   uiStyle 決定介面顏色與排版
-	# user_fontStyle  = jsonData.fontStyle   ## "Fb" fontStyle 字型 宋體圓體黑體
-	# user_tipsMode   = jsonData.tipsMode     ## "ON"  tipsMode  小抄提示功能
-	# user_notion     = jsonData.notionToken_pageId    ## notion 的token , page id
-	
-
-	# # 測試讀取 (會回傳字典) 勿殺!!
-	# data = get_user_data( lineBotId )
-	# if data:
-	# 	print(f"Token: {data['notion_token']}")
-	# 	print(f"Page ID: {data['page_id']}")
-	# 	token_buf  = data['notion_token']
-	# 	pageId_buf = data['page_id']
-
-	# 	## 測試取得的token和page id是否正確
-	# 	notionAccount = checkNotionAcc( token_buf , pageId_buf )
-	# 	user_notion   = token_buf , pageId_buf 
-	# 	print( "notionAccount:" , notionAccount )
-	# 	print( "user_notion:" , user_notion )
-
-
-	# print( "((((((((()))))))))" , notionAccount)
+	# else:
+	# 	print( "> supabase NG")
 
 
 
@@ -1083,6 +1039,12 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 		# return image_url
 		# print( image_url )
 		if notionMode == True:
+			import supabase_io
+			data = get_user_data( linebot_Id )
+
+			token_buf = data['notion_token']
+			pageId_buf = data['page_id']
+
 			notionUrl = notionPush_pushUp(  image_url , preNote + noteText  , token_buf , pageId_buf )
 			print( "NOTION URL:" , notionUrl )
 			return notionUrl
