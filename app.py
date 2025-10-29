@@ -144,6 +144,7 @@ def callback():
 # ⭐ v3 的 handler 寫法
 @handler.add(MessageEvent, message=TextMessageContent )
 def handle_message(event):
+	my_id = "U21eaaf32db85b983a842d9a9da81d8f1"
 	# 取得用戶資訊
 	user_id = event.source.user_id
 	
@@ -180,7 +181,7 @@ def handle_message(event):
 	print("userData:", userData)
 
 	# 權限檢查
-	if jsonData.switch.upper() != "ON":
+	if jsonData.switch.upper() != "ON"  and  user_id != my_id:
 		print("404")
 		return
 
