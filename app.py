@@ -216,7 +216,10 @@ def handle_message(event):
 		dateBuf = ""
 		ganZiiList = inputMsg.split("/")
 
-		if len(ganZiiList) == 3:
+		if len(ganZiiList) == 2:
+			dateMode = ganZiiList[1]
+			runTimeBuf = 10
+		elif len(ganZiiList) == 3:
 			dateMode = ganZiiList[1]
 			runTimeBuf = ganZiiList[2]
 		elif len(ganZiiList) == 4:
