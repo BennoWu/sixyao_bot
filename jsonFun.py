@@ -132,8 +132,12 @@ def addToJson ( linebotId = None  ,
 				dataDict[linebotId]["subDataMode"] = subDataMode
 			if utc != None:
 				dataDict[linebotId]["utc"] = utc
+
 			if notionToken_pageId != None:
 				dataDict[linebotId]["notionToken_pageId"] = notionToken_pageId
+			if notionToken_pageId == "off":
+				dataDict[linebotId]["notionToken_pageId"] = None
+
 			if switch != None:
 				dataDict[linebotId]["switch"] = switch
 			if temp != None:

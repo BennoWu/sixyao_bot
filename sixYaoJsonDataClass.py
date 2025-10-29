@@ -222,7 +222,7 @@ class jsonDataClass:
 				import  supabase_io
 				if comList[2] == "none":
 					supabase_io.delete_user_token( self.linebotId )
-					self.notionToken_pageId = None
+					self.notionToken_pageId = "off"
 					rtn_message =  "Notion – Canceled"
 
 				else:
