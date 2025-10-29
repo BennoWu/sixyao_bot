@@ -317,9 +317,9 @@ def loadAllJson(jsonFile="__sixYoSet__.json"):
 		# 按照固定順序取值
 		for field in field_order:
 			value = dataDict[eachUser].get(field)
-			# None 轉成 "NONE"
+			# 🔥 None 轉成空字串
 			if value is None:
-				values.append("NONE")
+				values.append("")
 			else:
 				values.append(value)
 		
@@ -376,9 +376,9 @@ def jsonToGoogle():
 	def clean_and_fix_row(values, expected_fields=15):
 		new_values = []
 		for v in values:
-			# None 轉 "NONE"
-			if v is None:
-				new_values.append("NONE")
+			# None 或空字串保持空字串
+			if v is None or v == "":
+				new_values.append("")
 			# 數字保持數字類型
 			elif isinstance(v, (int, float)):
 				new_values.append(v)
@@ -391,9 +391,9 @@ def jsonToGoogle():
 				else:
 					new_values.append(v_str)
 		
-		# 只補齊到指定欄位數
+		# 只補齊到指定欄位數（用空字串）
 		if len(new_values) < expected_fields:
-			new_values += ["NONE"] * (expected_fields - len(new_values))
+			new_values += [""] * (expected_fields - len(new_values))
 		elif len(new_values) > expected_fields:
 			new_values = new_values[:expected_fields]
 		
