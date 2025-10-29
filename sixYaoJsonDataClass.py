@@ -219,19 +219,13 @@ class jsonDataClass:
 			# "set nt tokentoken,pageId"
 			elif  comList[1].lower() in  [ "nt" , "notion"]: ## set notion
 
-
-
 				import  supabase_io
-
-
 				if comList[2] == "none":
 					supabase_io.delete_user_token( self.linebotId )
-					self.notionToken_pageId = False
+					self.notionToken_pageId = None
 					rtn_message =  "Notion – Canceled"
 
 				else:
-
-
 
 					if len( comList ) == 4:
 						token_buf = comList[2]   ## get token
