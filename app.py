@@ -11,10 +11,11 @@ from sixYaoJsonDataClass import *
 import os , threading
 from flask import Flask, request, abort
 
+
 # ⭐ LINE Bot SDK v3 imports
 from linebot.v3 import WebhookHandler
 from linebot.v3.exceptions import InvalidSignatureError
-from linebot.v3.webhooks import MessageEvent, PostbackEvent, TextMessageContent, ImageMessageContent
+from linebot.v3.webhooks import MessageEvent, PostbackEvent, TextMessageContent, ImageMessageContent , StickerMessageContent
 from linebot.v3.messaging import (
 	Configuration,
 	ApiClient,
@@ -25,7 +26,8 @@ from linebot.v3.messaging import (
 	TextMessage,
 	ImageMessage as ImageMessageType,
 	FlexMessage,
-	FlexContainer
+	FlexContainer,
+	StickerMessage
 )
 
 app = Flask(__name__)
@@ -181,8 +183,22 @@ def handle_message(event):
 	print("userData:", userData)
 
 	# 權限檢查
-	if jsonData.switch.upper() != "ON"  and  user_id != my_id:
+	# if jsonData.switch.upper() != "ON"  and  user_id != my_id:	
+	if jsonData.switch.upper() != "ON":
 		print("404")
+
+			# V3 回覆貼圖
+		line_bot_api.reply_message(
+			ReplyMessageRequest(
+				reply_token=event.reply_token,
+				messages=[
+					StickerMessage(
+						package_id="8522",
+						sticker_id="16581280"
+					)
+				]
+			)
+		)
 		return
 
 	# 設定模式
@@ -512,6 +528,27 @@ def handle_postback(event):
 			)
 		)
 
+
+
+
+
+@handler.add(MessageEvent, message=StickerMessageContent)
+def handle_sticker_message(event):
+	user_id = event.source.user_id
+	stk_id = event.message.package_id + "-" + event.message.sticker_id
+	
+	# V3 回覆貼圖
+	line_bot_api.reply_message(
+		ReplyMessageRequest(
+			reply_token=event.reply_token,
+			messages=[
+				StickerMessage(
+					package_id="8522",
+					sticker_id="16581280"
+				)
+			]
+		)
+	)
 
 if __name__ == "__main__":
 	app.run()
