@@ -598,9 +598,9 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 	makeText ( allDataDict['home_rowHead']  , twoSideSpace + 32 , screenHight-256 , wordingSize = 45 , wordingFont = pf_TC_medium , color = subGray ) 
 	if allDataDict['home_mode'] == "六沖":
 		homeGuaSpace += 14
-		makeBallText( text = "沖" , x = screenWidth*0.5 + 25 -100 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = siIn_color , bt_font = pf_TC_bold , LineWidth = 4  )
+		makeBallText( text = "沖" , x = screenWidth*0.5 + 25 -100 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = titleGray , bt_font = pf_TC_bold , LineWidth = 4  )
 	if allDataDict['home_mode'] == "六合":
-		makeBallText( text = "合" , x = screenWidth*0.5 + 25 -100 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = siIn_color , bt_font = pf_TC_bold , LineWidth = 4  )
+		makeBallText( text = "合" , x = screenWidth*0.5 + 25 -100 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = titleGray , bt_font = pf_TC_bold , LineWidth = 4  )
 		homeGuaSpace += 14
 	if len(allDataDict['home_title'] ) == 4:
 		homeGuaSpace += 8
@@ -971,7 +971,7 @@ if __name__ == '__main__':
 	# drawUi_v1( mainFunction( "01X@@@" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,)
 	# drawUi_v1( mainFunction( "01X$01" ,noteText = "男問今年工作運勢",user_mouthZi = "巳月" , user_dayGanZi = "己丑", userDefineDate = "") , show = True ,)	 ## 三合
 	# drawUi_v1( mainFunction( "0X01X0" , noteText = "男問今年工作運勢" ) )
-	drawUi_v1( mainFunction( "$111$0" ,noteText = "占找A店家維修,能否順利修好電腦保住資料", userDefineDate = "") , show = True ,) ## 5字
+	drawUi_v1( mainFunction( "000100" ,noteText = "占找A店家維修,能否順利修好電腦保住資料", userDefineDate = "") , show = True ,) ## 5字
 
 	# drawUi_v1( mainFunction( "10010$" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,)
 	# drawUi_v1( mainFunction( "111@0X" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,) #6字

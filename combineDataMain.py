@@ -952,7 +952,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 			print( "日期現時" )
 
 		if noteText == "":
-			noteText = "no title"
+			noteText = "Untitled"
 			checkItem[2] = "占"
 		print( "- - - - - - - - - - - - - - - - - - - - - - - - - -")
 	# dateData = dateData.replace("/" , " ")

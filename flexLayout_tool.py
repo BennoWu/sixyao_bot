@@ -239,6 +239,8 @@ uiLayoutFront ='''
             "flex": 0,
             "height": "40px"
           },
+
+
           {
             "type": "box",
             "layout": "vertical",
@@ -246,27 +248,39 @@ uiLayoutFront ='''
               {
                 "type": "text",
                 "text": "|",
-                "size": "xxl",
+                "size": "3xl",
                 "margin": "none",
                 "color": "#dddddd",
-                "align": "end"
+                "align": "center"
               }
             ],
-            "width": "15px",
-            "offsetTop": "-5px",
-            "offsetStart": "7px"
+            "width": "10px",
+            "offsetStart": "7px",
+            "offsetBottom": "8px"
           },
           {
-            "type": "text",
-            "text": "12:00",
-            "size": "xxl",
-            "color": "#FCA32D",
-            "align": "end",
-            "weight": "regular"
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "12:00",
+                "size": "3xl",
+                "color": "#FCA32D",
+                "weight": "regular"
+              }
+            ],
+            "offsetStart": "7px",
+            "offsetBottom": "sm"
           }
         ],
         "margin": "none"
       },
+
+
+
+
+
       {
         "type": "separator",
         "margin": "none",
@@ -532,7 +546,7 @@ uiLayoutBack = '''
 		  }
 		],
 
-		"margin": "sm",
+		"margin": "md",
 		"cornerRadius": "10px",
 		"backgroundColor": "#E5E5E5"
 	  },
@@ -626,7 +640,7 @@ uiLayoutBack = '''
                 "width": "10px"
               }
             ],
-            "offsetTop": "xs"
+            "offsetTop": "sm"
           }
 
 
@@ -641,7 +655,7 @@ uiLayoutBack = '''
         "cornerRadius": "10px",
         "borderColor": "#999999",
         "borderWidth": "1px",
-        "height": "31px"
+        "height": "30px"
       },
 
 
@@ -829,7 +843,7 @@ uiLayoutBackExt = '''
                 "width": "10px"
               }
             ],
-            "offsetTop": "xs"
+            "offsetTop": "sm"
           }
 
 
@@ -844,7 +858,7 @@ uiLayoutBackExt = '''
         "cornerRadius": "10px",
         "borderColor": "#bbbbbb",
         "borderWidth": "2px",
-        "height": "31px"
+        "height": "30px"
       },
 
 
