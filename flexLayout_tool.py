@@ -55,10 +55,23 @@ uiLayoutFront ='''
         "margin": "none",
         "color": "#cccccc"
       },
-      {
+      
+
+{
         "type": "box",
         "layout": "horizontal",
         "contents": [
+          {
+            "type": "text",
+            "text": "年",
+            "size": "xxs",
+            "gravity": "bottom",
+            "flex": 0,
+            "color": "#888888",
+            "offsetBottom": "3px",
+            "weight": "bold",
+            "offsetEnd": "1px"
+          },
           {
             "type": "text",
             "text": "年柱",
@@ -67,17 +80,30 @@ uiLayoutFront ='''
             "margin": "none",
             "wrap": true,
             "flex": 0,
-            "color": "#000001"
+            "color": "#000001",
+            "offsetEnd": "xs"
           },
           {
             "type": "text",
             "text": "|",
             "size": "xl",
             "margin": "none",
-            "color": "#cccccc",
-            "flex": 0,
+            "color": "#dddddd",
             "gravity": "top",
-            "offsetTop": "-2px"
+            "offsetTop": "-2px",
+            "flex": 0,
+            "offsetEnd": "xs"
+          },
+          {
+            "type": "text",
+            "text": "月",
+            "size": "xxs",
+            "gravity": "bottom",
+            "flex": 0,
+            "color": "#888888",
+            "offsetBottom": "3px",
+            "offsetEnd": "1px",
+            "weight": "bold"
           },
           {
             "type": "text",
@@ -90,9 +116,10 @@ uiLayoutFront ='''
             "action": {
               "type": "message",
               "label": "action",
-              "text": "month_mode"
+              "text": "干支/月/6/2025-10-30"
             },
-            "color": "#000002"
+            "color": "#000002",
+            "offsetEnd": "xs"
           },
           {
             "type": "text",
@@ -100,9 +127,21 @@ uiLayoutFront ='''
             "size": "xl",
             "margin": "none",
             "color": "#cccccc",
-            "flex": 0,
             "gravity": "top",
-            "offsetTop": "-2px"
+            "offsetTop": "-2px",
+            "flex": 0,
+            "offsetEnd": "xs"
+          },
+          {
+            "type": "text",
+            "text": "日",
+            "size": "xxs",
+            "gravity": "bottom",
+            "flex": 0,
+            "color": "#888888",
+            "offsetBottom": "3px",
+            "offsetEnd": "1px",
+            "weight": "bold"
           },
           {
             "type": "text",
@@ -115,19 +154,32 @@ uiLayoutFront ='''
             "action": {
               "type": "message",
               "label": "action",
-              "text": "day_mode"
+              "text": "干支/日/6/2025-10-30"
             },
-            "color": "#000002"
+            "color": "#000002",
+            "offsetEnd": "xs"
           },
           {
             "type": "text",
             "text": "|",
             "size": "xl",
             "margin": "none",
-            "color": "#cccccc",
-            "flex": 0,
+            "color": "#dddddd",
             "gravity": "top",
-            "offsetTop": "-2px"
+            "offsetTop": "-2px",
+            "flex": 0,
+            "offsetEnd": "xs"
+          },
+          {
+            "type": "text",
+            "text": "時",
+            "size": "xxs",
+            "gravity": "bottom",
+            "flex": 0,
+            "color": "#888888",
+            "offsetBottom": "3px",
+            "offsetEnd": "2px",
+            "weight": "bold"
           },
           {
             "type": "text",
@@ -140,9 +192,10 @@ uiLayoutFront ='''
             "action": {
               "type": "message",
               "label": "action",
-              "text": "hour_mode"
+              "text": "干支/時/6/2025-10-30-10-21"
             },
-            "color": "#000003"
+            "color": "#000003",
+            "offsetEnd": "xs"
           }
         ],
         "spacing": "none",
@@ -150,6 +203,9 @@ uiLayoutFront ='''
         "cornerRadius": "7px",
         "justifyContent": "space-between"
       },
+
+
+
       {
         "type": "box",
         "layout": "horizontal",
@@ -240,7 +296,7 @@ uiLayoutFront ='''
                     "offsetTop": "-1px"
                   }
                 ],
-                "backgroundColor": "#9BB0CE",
+                "backgroundColor": "#91A4BC",
                 "width": "30px",
                 "height": "30px",
                 "cornerRadius": "20px"
