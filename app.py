@@ -236,7 +236,7 @@ def handle_message(event):
 
 		if len(ganZiiList) == 2:
 			dateMode = ganZiiList[1]
-			runTimeBuf = 10
+			runTimeBuf = 6
 		elif len(ganZiiList) == 3:
 			dateMode = ganZiiList[1]
 			runTimeBuf = ganZiiList[2]
@@ -308,11 +308,13 @@ def handle_message(event):
 
 	# 卦象UI
 	elif "//" in unifiedData(inputMsg):
-		ui_cmd_dict = sixYaoMain(inputMsg, userData)
+		ui_cmd_dict = sixYaoMain( inputMsg , userData)
 
 		print("UI")
-		print(ui_cmd_dict)
+		print( inputMsg )
+		print( ui_cmd_dict )
 		if "Untitled" in inputMsg:
+			print( "Untitled get")
 			save_json_data(user_id, "temp", ui_command )
 		
 		if inputMsg != "error":
