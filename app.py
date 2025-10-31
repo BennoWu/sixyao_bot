@@ -340,7 +340,7 @@ def handle_message(event):
 		print("UI")
 		# print( inputMsg )
 		# print( ui_cmd_dict )
-		value = getZhuangGuaData(ui_cmd_dict )
+		value = getZhuangGuaData( ui_cmd_dict )
 		print( value )
 		if value == "Untitled":
 			print( "Untitled get")
