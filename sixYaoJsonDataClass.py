@@ -255,11 +255,12 @@ class jsonDataClass:
 				user_id = comList[1]
 				item =  comList[2]
 				value =  comList[3]
-				rtn =  save_json_data( user_id , item , value )
+				rtn =  save_json_data( user_id , item , value.upper() )
 				print( ">>##" , rtn )
-				# 	rtn_message =  f"set {user_id} - {item} - {value}"
-				# else:
-				# 	rtn_message =  f"set {user_id} - {item} - {value} 失敗"
+				if rtn == True:
+					rtn_message =  f"set {user_id} - {item} - {value}"
+				else:
+					rtn_message =  f"set {user_id} - {item} - {value} 失敗"
 
 
 
