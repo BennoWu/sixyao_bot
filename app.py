@@ -114,6 +114,33 @@ def delayed_upJson():
 # 	t2.join()
 
 
+def getZhuangGuaData(ui_dict):
+	def dfs(obj):
+		if isinstance(obj, dict):
+			# 找 button + label = 裝卦
+			if obj.get("type") == "button":
+				action = obj.get("action", {})
+				if action.get("label") == "裝卦":
+					return action.get("data")
+
+			# 繼續往下找
+			for v in obj.values():
+				result = dfs(v)
+				if result:
+					return result
+
+		elif isinstance(obj, list):
+			for item in obj:
+				result = dfs(item)
+				if result:
+					return result
+
+		return None
+
+	return dfs(ui_dict)
+
+value = getZhuangGuaData(ui_cmd_dict)
+print(value)
 
 
 
@@ -313,7 +340,7 @@ def handle_message(event):
 		print("UI")
 		# print( inputMsg )
 		# print( ui_cmd_dict )
-		value = ui_cmd_dict["body"]["contents"][6]["contents"][0]["contents"][1]["text"]
+		value = getZhuangGuaData(ui_cmd_dict )
 		print( value )
 		if value == "Untitled":
 			print( "Untitled get")
