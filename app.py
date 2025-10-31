@@ -183,18 +183,18 @@ def handle_message(event):
 	print("userData:", userData)
 
 	# 權限檢查
-	# if jsonData.switch.upper() != "ON"  and  user_id != my_id:	
-	if jsonData.switch.upper() != "ON":
+	if jsonData.switch.upper() != "ON"  and  user_id != my_id:	
+	# if jsonData.switch.upper() != "ON":
 		print("404")
 
-			# V3 回覆貼圖
+		# V3 回覆貼圖
 		line_bot_api.reply_message(
 			ReplyMessageRequest(
 				reply_token=event.reply_token,
 				messages=[
 					StickerMessage(
 						package_id="8522",
-						sticker_id="16581280"
+						sticker_id="16581285"
 					)
 				]
 			)
@@ -204,6 +204,8 @@ def handle_message(event):
 	# 設定模式
 	if ("set" in inputMsg.lower()) or ("utc" in inputMsg.lower()):
 		returnMsg = jsonData.uiJsonSetting(inputMsg)
+
+
 
 	elif inputMsg == "id":
 		returnMsg = f"{user_id}//{displayName}//{picUrl}"
@@ -274,9 +276,9 @@ def handle_message(event):
 		)
 		return
 
-	# 卦象圖片上傳
+	# PIL圖片上傳
 	elif inputMsg.startswith("+"):
-		img_high, img_low = sixYaoMain(inputMsg, userData)
+		img_high, img_low = sixYaoMain( inputMsg, userData )
 
 		# ⭐ v3 的圖片訊息回覆
 		line_bot_api.reply_message(
@@ -310,6 +312,8 @@ def handle_message(event):
 
 		print("UI")
 		print(ui_cmd_dict)
+		if "Untitled" in inputMsg:
+			save_json_data(user_id, "temp", ui_command )
 		
 		if inputMsg != "error":
 			# ⭐ v3 的 Flex Message
@@ -335,6 +339,7 @@ def handle_message(event):
 			newCommand = uiCommand.replace("Untitled", changeNote)
 			new_flex_json = sixYaoMain( newCommand, userData )
 
+			## 修改完UI之後就把json中的暫存清空
 			save_json_data(user_id, "temp", None, json_path='__sixYoSet__.json')
 
 			# ⭐ v3 的 Flex Message

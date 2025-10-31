@@ -226,7 +226,6 @@ class jsonDataClass:
 					rtn_message =  "Notion – Canceled"
 
 				else:
-
 					if len( comList ) == 4:
 						token_buf = comList[2]   ## get token
 						pageId_buf = comList[3] ## get page
@@ -251,8 +250,12 @@ class jsonDataClass:
 					else:
 						rtn_message =  "輸入資料格式錯誤"
 
-
-
+			elif "switch" in comList:
+				## set U21eaaf32db85b983a842d9a9da81d8f1 switch on
+				user_id = comList[1]
+				item =  comList[2]
+				value =  comList[3]
+				save_json_data( user_id , item , value )
 
 
 

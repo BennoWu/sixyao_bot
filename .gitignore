@@ -27,6 +27,7 @@ Thumbs.db
 *.json
 googleSheetKey/
 *.csv
+*_test.py
 
 # 產生的中間資料
 *.png
