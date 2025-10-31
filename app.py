@@ -314,7 +314,7 @@ def handle_message(event):
 		# print( inputMsg )
 		# print( ui_cmd_dict )
 		value = ui_cmd_dict["body"]["contents"][3]["contents"][1]["text"]
-
+		print( value )
 		if value == "Untitled":
 			print( "Untitled get")
 			save_json_data(user_id, "temp", ui_command )
