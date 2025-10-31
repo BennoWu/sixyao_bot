@@ -339,12 +339,14 @@ def handle_message(event):
 
 		print("UI")
 		# print( inputMsg )
-		# print( ui_cmd_dict )
-		value = getZhuangGuaData( ui_cmd_dict )
-		print( value )
-		if value == "Untitled":
-			print( "Untitled get")
-			save_json_data(user_id, "temp", ui_command )
+		print( type(ui_cmd_dict) )		
+		print( ui_cmd_dict )
+
+		# value = getZhuangGuaData( ui_cmd_dict )
+		# print( value )
+		# if value == "Untitled":
+		# 	print( "Untitled get")
+		# 	save_json_data(user_id, "temp", ui_command )
 		
 		if inputMsg != "error":
 			# ⭐ v3 的 Flex Message
