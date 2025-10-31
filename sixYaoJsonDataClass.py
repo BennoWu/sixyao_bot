@@ -256,7 +256,7 @@ class jsonDataClass:
 				item =  comList[2]
 				value =  comList[3]
 				rtn =  save_json_data( user_id , item , value.upper() )
-				print( ">>##" , rtn )
+				# print( ">>##" , rtn )
 				if rtn == True:
 					rtn_message =  f"set {user_id} - {item} - {value}"
 				else:
