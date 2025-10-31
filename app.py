@@ -114,33 +114,6 @@ def delayed_upJson():
 # 	t2.join()
 
 
-def getZhuangGuaData(ui_dict):
-	def dfs(obj):
-		if isinstance(obj, dict):
-			# 找 button + label = 裝卦
-			if obj.get("type") == "button":
-				action = obj.get("action", {})
-				if action.get("label") == "裝卦":
-					return action.get("data")
-
-			# 繼續往下找
-			for v in obj.values():
-				result = dfs(v)
-				if result:
-					return result
-
-		elif isinstance(obj, list):
-			for item in obj:
-				result = dfs(item)
-				if result:
-					return result
-
-		return None
-
-	return dfs(ui_dict)
-
-value = getZhuangGuaData(ui_cmd_dict)
-print(value)
 
 
 
@@ -335,18 +308,12 @@ def handle_message(event):
 
 	# 卦象UI
 	elif "//" in unifiedData(inputMsg):
-		ui_cmd_dict = sixYaoMain( inputMsg , userData)
+		ui_cmd_dict = sixYaoMain(inputMsg, userData)
 
 		print("UI")
-		# print( inputMsg )
-		print( type(ui_cmd_dict) )		
-		print( ui_cmd_dict )
-
-		# value = getZhuangGuaData( ui_cmd_dict )
-		# print( value )
-		# if value == "Untitled":
-		# 	print( "Untitled get")
-		# 	save_json_data(user_id, "temp", ui_command )
+		print(ui_cmd_dict)
+		if "Untitled" in inputMsg:
+			save_json_data(user_id, "temp", ui_command )
 		
 		if inputMsg != "error":
 			# ⭐ v3 的 Flex Message
