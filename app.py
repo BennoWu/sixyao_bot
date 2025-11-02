@@ -362,8 +362,8 @@ def handle_message(event):
 
 	# 修改Title
 	elif inputMsg[0] in [">", "#", ":", "@", "#"]:
-		changeNote = changeNote.replace(' ', '')
 		changeNote = inputMsg[1:]
+		changeNote = changeNote.replace(' ', '')
 		changeNote = changeNote.replace('\n', '^')
 		print( "change note === " , changeNote )
 		uiCommand = get_json_item_data(user_id, "temp")
