@@ -364,7 +364,7 @@ def handle_message(event):
 	elif inputMsg[0] in [">", "#", ":", "@", "#"]:
 		changeNote = changeNote.replace(' ', '')
 		changeNote = inputMsg[1:]
-		changeNote = changeNote.replace('\n', ',')
+		changeNote = changeNote.replace('\n', '^')
 		uiCommand = get_json_item_data(user_id, "temp")
 
 		if uiCommand:
@@ -461,7 +461,7 @@ def handle_image_message(event):
 	user_id = event.source.user_id
 	userData = get_user_json_data(user_id)
 
-	
+
 	# 🔥 改用 blob_api 取得圖片內容
 	message_content = blob_api.get_message_content(message_id)
 	image_bytes = message_content
