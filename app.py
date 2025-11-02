@@ -365,6 +365,7 @@ def handle_message(event):
 		changeNote = changeNote.replace(' ', '')
 		changeNote = inputMsg[1:]
 		changeNote = changeNote.replace('\n', '^')
+		print( "change note === " , changeNote )
 		uiCommand = get_json_item_data(user_id, "temp")
 
 		if uiCommand:
