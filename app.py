@@ -115,6 +115,36 @@ def delayed_upJson():
 
 
 
+## 取出字典檔中的命令
+def getZhuangGuaData(ui_dict):
+    def dfs(obj):
+        if isinstance(obj, dict):
+            # 找 button + label = 裝卦
+            if obj.get("type") == "button":
+                action = obj.get("action", {})
+                if action.get("label") == "裝卦":
+                    return action.get("data")
+
+            # 繼續往下找
+            for v in obj.values():
+                result = dfs(v)
+                if result:
+                    return result
+
+        elif isinstance(obj, list):
+            for item in obj:
+                result = dfs(item)
+                if result:
+                    return result
+
+        return None
+
+    return dfs(ui_dict)
+
+# value = getZhuangGuaData(ui_cmd_dict)
+# print(value)
+
+
 
 
 
@@ -332,12 +362,15 @@ def handle_message(event):
 
 	# 修改Title
 	elif inputMsg[0] in [">", "#", ":", "@", "#"]:
+		changeNote = changeNote.replace(' ', '')
 		changeNote = inputMsg[1:]
+		changeNote = changeNote.replace('\n', ',')
 		uiCommand = get_json_item_data(user_id, "temp")
 
 		if uiCommand:
 			newCommand = uiCommand.replace("Untitled", changeNote)
 			new_flex_json = sixYaoMain( newCommand, userData )
+
 
 			## 修改完UI之後就把json中的暫存清空
 			save_json_data(user_id, "temp", None, json_path='__sixYoSet__.json')
@@ -426,7 +459,9 @@ def handle_message(event):
 def handle_image_message(event):
 	message_id = event.message.id
 	user_id = event.source.user_id
+	userData = get_user_json_data(user_id)
 
+	
 	# 🔥 改用 blob_api 取得圖片內容
 	message_content = blob_api.get_message_content(message_id)
 	image_bytes = message_content
@@ -434,6 +469,9 @@ def handle_image_message(event):
 	# OCR 處理
 	ui_command = getPicData(image_bytes)
 	print(">>>>>", ui_command)
+	if ui_command == False:
+		ui_command = getPicData(image_bytes)
+		print(">>>>> AGAIN")		
 
 	## ======== ocr 判斷不出時 =========
 	if ui_command == False: 
@@ -447,7 +485,7 @@ def handle_image_message(event):
 		)
 	## ======== ocr 判斷正確時 =========
 	else:
-		ui_cmd_dict = sixYaoMain(ui_command, userSetting=None)
+		ui_cmd_dict = sixYaoMain( ui_command , userData )
 
 		save_json_data(user_id, "temp", ui_command, json_path='__sixYoSet__.json')
 

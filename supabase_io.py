@@ -120,28 +120,28 @@ def delete_user_token(user_id):
 
 ## 確認這個id是否存在
 def check_user_exists(user_id):
-    url = f"{SUPABASE_URL}/rest/v1/user_tokens"
-    
-    headers = {
-        "apikey": SUPABASE_KEY,
-        "Authorization": f"Bearer {SUPABASE_KEY}",
-        "Prefer": "count=exact"  # 👈 記得放這裡
-    }
+	url = f"{SUPABASE_URL}/rest/v1/user_tokens"
+	
+	headers = {
+		"apikey": SUPABASE_KEY,
+		"Authorization": f"Bearer {SUPABASE_KEY}",
+		"Prefer": "count=exact"  # 👈 記得放這裡
+	}
 
-    params = {
-        "select": "user_id",
-        "user_id": f"eq.{user_id}"
-    }
+	params = {
+		"select": "user_id",
+		"user_id": f"eq.{user_id}"
+	}
 
-    response = requests.get(url, params=params, headers=headers)
+	response = requests.get(url, params=params, headers=headers)
 
-    if response.status_code == 200:
-        content_range = response.headers.get("content-range", "")
-        if "/" in content_range:
-            count = int(content_range.split("/")[-1])
-            return count > 0
+	if response.status_code == 200:
+		content_range = response.headers.get("content-range", "")
+		if "/" in content_range:
+			count = int(content_range.split("/")[-1])
+			return count > 0
 
-    return False
+	return False
 
 
 ### 目前沒有用到

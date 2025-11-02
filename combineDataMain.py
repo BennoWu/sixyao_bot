@@ -1040,8 +1040,8 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 		# print( image_url )
 		if notionMode == True:
 			import supabase_io
-			data = get_user_data( linebot_Id )
-
+			# data = get_user_data( linebot_Id ) ## << 這裏出錯  NameError: name 'get_user_data' is not defined
+			data = supabase_io.get_user_data( linebot_Id )
 			token_buf = data['notion_token']
 			pageId_buf = data['page_id']
 
@@ -1160,7 +1160,7 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "2寅年巳月寅日-申酉//華一希占高考考運//天火 1 3 5" )
 	# sixYaoMain( "0X@0X1" ) 
-	sixYaoMain( "2025,10,30//澤之節" ) 
+	# sixYaoMain( "2025,10,30//澤之節" ) 
 	# sixYaoMain( "Q媽的鑽石項鍊在那裏?//1X@001" ) 
 	# sixYaoMain( "++乙巳年卯月己丑日//自占4/6馬祖新村擺攤收入吉凶?//1X0$$0") ## 三合
 	# sixYaoMain( "乙巳卯月戌-辰巳//X10101//自占今日在台中舊酒廠業績?" ) ## 三缺一
@@ -1168,7 +1168,7 @@ if __name__ == '__main__':
 
 # 群組討論
 	# sixYaoMain( "辰年午月癸卯日//廖女占去XX案場工作吉凶//111$10" ) #第三問
-	# sixYaoMain( "2025/08/22/09/10 // 1001$0 // 占黃連老師台中經營課是否會開" )
+	sixYaoMain( "n+2025/08/22/09/10 // 1001$0 // 占黃連老師台中經營課是否會開" )
 	# sixYaoMain( "2025/08/31/12/28 // X011$0 // 舅舅為了生小孩想換女朋友")
 	# sixYaoMain( "2025-08-17 22:36 // 隨之困 // 占繳罰款去申訴有機會撤銷否?")
 	# sixYaoMain( "+2025/08/27/18/36 // 10111$ // 提供群友AB免費服務項目(已有)但部分服務另收費/有搞頭嗎" )
