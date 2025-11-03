@@ -26,7 +26,7 @@ def pushToNotion(imageUrl, titleText, apiToken, pageId):
                     {
                         "object": "block",
                         "type": "paragraph",
-                        "paragraph": {"rich_text": [{"type": "text", "text": {"content": "subtitle.."}}]}
+                        "paragraph": {"rich_text": [{"type": "heading_3", "heading_3": {"content": "subtitle.."}}]}
                     },
                     {
                         "object": "block",
