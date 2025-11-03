@@ -716,7 +716,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 		print ( "Notion mode ON")
 
 
-	print( "userSetting duct:",userSetting )
+	print( "##### userSetting dict:",userSetting )
 	if userSetting == None:
 		print( "產生一組假的")
 		linebot_Id =  "U21eaaf32db85b983a842d9a9da81d8f1"    
