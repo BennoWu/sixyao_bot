@@ -341,7 +341,7 @@ def handle_message(event):
 		ui_cmd_dict = sixYaoMain(inputMsg, userData)
 
 		print("UI")
-		print(ui_cmd_dict)
+		# print(ui_cmd_dict)
 		if "Untitled" in inputMsg:
 			save_json_data(user_id, "temp", ui_command )
 		
