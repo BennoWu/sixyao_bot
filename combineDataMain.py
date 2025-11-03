@@ -140,30 +140,69 @@ def _clean_subblock(s: str) -> str:
 	return s
 
 
+# def unifiedData(orgData, strong_sep='//', sep_for_app=None):
+# 	if not isinstance(orgData, str):
+# 		return orgData
+	
+# 	# Step 1: 分段落（大區塊）
+# 	STRONG_TOKEN = "STRONGSEPUNIQUE"
+# 	# 保護原本的 //，換行，" - " 統一替代為 token
+# 	s = orgData.replace(strong_sep, STRONG_TOKEN)
+# 	s = re.sub(r'\s-\s', STRONG_TOKEN, s)
+# 	s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
+	
+# 	# Step 2: 對每個段落清理
+# 	segments = s.split(STRONG_TOKEN)
+# 	cleaned_segments = [_clean_subblock(seg) for seg in segments if seg.strip()]
+	
+# 	# Step 3: 合併回單行，使用強分隔符
+# 	result = strong_sep.join(cleaned_segments)
+	
+# 	# Step 4: 可選替換為 app 分隔符號
+# 	if sep_for_app:
+# 		result = result.replace(strong_sep, sep_for_app)
+	
+# 	return result
 def unifiedData(orgData, strong_sep='//', sep_for_app=None):
-	if not isinstance(orgData, str):
-		return orgData
-	
-	# Step 1: 分段落（大區塊）
-	STRONG_TOKEN = "STRONGSEPUNIQUE"
-	# 保護原本的 //，換行，" - " 統一替代為 token
-	s = orgData.replace(strong_sep, STRONG_TOKEN)
-	s = re.sub(r'\s-\s', STRONG_TOKEN, s)
-	s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
-	
-	# Step 2: 對每個段落清理
-	segments = s.split(STRONG_TOKEN)
-	cleaned_segments = [_clean_subblock(seg) for seg in segments if seg.strip()]
-	
-	# Step 3: 合併回單行，使用強分隔符
-	result = strong_sep.join(cleaned_segments)
-	
-	# Step 4: 可選替換為 app 分隔符號
-	if sep_for_app:
-		result = result.replace(strong_sep, sep_for_app)
-	
-	return result
-
+    if not isinstance(orgData, str):
+        return orgData
+    
+    # Step 1: 判斷是否包含「日期/卦象/數字符號」
+    # 如果有這些特徵，換行 → //；否則換行 → ,
+    has_special_pattern = bool(
+        re.search(r'\d+[/\-]\d+', orgData) or  # 日期格式 2025/10/26
+        re.search(r'[0-9X$@]{2,}', orgData) or  # 卦象符號 10$01X
+        re.search(r'\d+,\d+,\d+', orgData)      # 米卦格式 27,71,42
+    )
+    
+    # Step 2: 分段落（大區塊）
+    STRONG_TOKEN = "STRONGSEPUNIQUE"
+    
+    # 保護原本的 //
+    s = orgData.replace(strong_sep, STRONG_TOKEN)
+    s = re.sub(r'\s-\s', STRONG_TOKEN, s)
+    
+    # 🔥 關鍵：根據內容類型決定換行的處理方式
+    if has_special_pattern:
+        # 有特殊符號 → 換行變成 //
+        s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
+    else:
+        # 純中文 → 換行變成 ,
+        s = re.sub(r'[\r\n]+', ',', s)
+    
+    # Step 3: 對每個段落清理
+    segments = s.split(STRONG_TOKEN)
+    cleaned_segments = [_clean_subblock(seg) for seg in segments if seg.strip()]
+    
+    # Step 4: 合併回單行
+    result = strong_sep.join(cleaned_segments)
+    
+    # Step 5: 可選替換為 app 分隔符號
+    if sep_for_app:
+        result = result.replace(strong_sep, sep_for_app)
+    
+    # print(result)
+    return result
 # print(unifiedData("店家維修，能否順利修好電腦保住資料 - 0-1-00-11-0-1"))
 
 
@@ -1128,7 +1167,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "+00$100" )	
 
 	# sixYaoMain( "+2025/9/4/11/35 // 00010$ // 小單近況" )	
-	sixYaoMain( "+2025/9/8/15/10 // 000$00 // 常秉賢近況吉凶0815" )
+	# sixYaoMain( "+2025/9/8/15/10 // 000$00 // 常秉賢近況吉凶0815" )
 	# sixYaoMain( "+2025/9/11/15/43 // 101010 // 常秉賢近況吉凶0911" )
 
 
@@ -1179,7 +1218,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "set nt 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,26a739d0e36080d29148e0f263b77986" )
 	# sixYaoMain( "set nt 123adf" )
 	# sixYaoMain( "+乙巳年辰月辰日-寅卯//00$01X//占一男終身財福" ) ## 三合 日
-	# sixYaoMain( "傑利的房貸吉凶//01$X10//2025,8,14,15,10" )
+	sixYaoMain( "傑利的房貸吉凶//01$X10//2025,8,14,15,10" )
 
 	# sixYaoMain( "2025/08/31/15:48//傑利的房貸吉凶0831//110000" ) ## 九月七日 酉月卯日
 	# sixYaoMain( "+2025/9/2/12/37 // 101X0X // 傑利的房貸吉凶0902" ) ## 九月七日 酉月卯日
