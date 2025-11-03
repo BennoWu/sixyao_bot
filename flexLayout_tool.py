@@ -1158,7 +1158,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 		uiLayout += ","	
 
 
-	if notionAccount == "TRUE":
+	if notionAccount == True:
 		uiLayout += uiLayoutBackExt  ## 有notion上傳的版本
 	else:
 		uiLayout += uiLayoutBack		

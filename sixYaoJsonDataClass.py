@@ -127,7 +127,7 @@ class jsonDataClass:
 			self.subDataMode = "Full"      ## 小抄模式
 			self.utc = 8                   ## 時區 ( 台灣為 UTC-8 )
 
-			self.notionToken_pageId = None
+			self.notionToken_pageId = False
 			# self.other = None
 
 			self.switch = "ON"             ## 權限

@@ -401,21 +401,28 @@ def googleToJson():
 	totalNum = len(allDataList)  # 現有總共的項目數量
 	print(allDataList)
 	
-	# 🔥 清理資料的函數：處理空字串、公式前綴等
+	# 🔥 清理資料的函數：處理空字串、公式前綴、布林值等
 	def clean_value(value):
 		"""
 		清理從 Google Sheets 讀取的值
 		- 空字串 → None
 		- 去除公式前綴（單引號開頭）
 		- 保持數字類型
+		- 🔥 將 "TRUE"/"FALSE" 轉換為布林值
 		"""
 		# 空字串轉 None
 		if value == "" or value is None:
 			return None
 		
-		# 如果是字串且以單引號開頭（我們加的公式保護），去除單引號
-		if isinstance(value, str) and value.startswith("'"):
-			return value[1:]  # 去掉第一個字元（單引號）
+		# 🔥 新增：處理布林值字串
+		if isinstance(value, str):
+			if value.upper() == "TRUE":
+				return True
+			elif value.upper() == "FALSE":
+				return False
+			# 如果以單引號開頭（我們加的公式保護），去除單引號
+			elif value.startswith("'"):
+				return value[1:]
 		
 		# 其他保持原樣
 		return value
@@ -438,13 +445,82 @@ def googleToJson():
 		dataDict[linebotId]["utc"] = clean_value(eachData['utc'])
 		dataDict[linebotId]["notionToken_pageId"] = clean_value(eachData['notion token/page id'])
 		dataDict[linebotId]["switch"] = clean_value(eachData['switch'])
-		dataDict[linebotId]["temp"] = clean_value(eachData['temp'])  # 🔥 改成從 Google Sheet 讀取
+		dataDict[linebotId]["temp"] = clean_value(eachData['temp'])
 	
 	# 存回 JSON
 	with open('__sixYoSet__.json', 'w', encoding='utf-8') as f:
 		json.dump(dataDict, f, indent=4, ensure_ascii=False)
 	
 	return ("🆗 Google Sheet data to Json\nTotal:%d" % len(allDataList))
+# def googleToJson():
+# 	import os
+# 	import pygsheets
+	
+# 	# 從環境變數讀取金鑰
+# 	credentials_json = os.environ.get('GOOGLE_CREDENTIALS')
+	
+# 	# 金鑰位置
+# 	if credentials_json:
+# 		gc = pygsheets.authorize(service_account_env_var='GOOGLE_CREDENTIALS')
+# 	else:
+# 		gc = pygsheets.authorize(service_file='googleSheetKey/sixyao-data-8f0c712298cd.json')
+	
+# 	# 開啟sheet檔案
+# 	globalSheet = gc.open_by_url(
+# 		'https://docs.google.com/spreadsheets/d/1Zlj55gQ5N75lWJYAyZ5Es6WTM_LS6SeFumZWlpLo6-0/edit?usp=sharing'
+# 	)
+	
+# 	dataDict = {}
+# 	sheetName = "userID_list"
+# 	wks = globalSheet.worksheet_by_title(sheetName)
+# 	allDataList = wks.get_all_records()  # 取得所有資料，字典檔
+# 	totalNum = len(allDataList)  # 現有總共的項目數量
+# 	print(allDataList)
+	
+# 	# 🔥 清理資料的函數：處理空字串、公式前綴等
+# 	def clean_value(value):
+# 		"""
+# 		清理從 Google Sheets 讀取的值
+# 		- 空字串 → None
+# 		- 去除公式前綴（單引號開頭）
+# 		- 保持數字類型
+# 		"""
+# 		# 空字串轉 None
+# 		if value == "" or value is None:
+# 			return None
+		
+# 		# 如果是字串且以單引號開頭（我們加的公式保護），去除單引號
+# 		if isinstance(value, str) and value.startswith("'"):
+# 			return value[1:]  # 去掉第一個字元（單引號）
+		
+# 		# 其他保持原樣
+# 		return value
+	
+# 	for eachData in allDataList:
+# 		linebotId = eachData['line id']
+# 		dataDict[linebotId] = {}
+		
+# 		# 🔥 使用 clean_value 處理每個欄位
+# 		dataDict[linebotId]["userName"] = clean_value(eachData['user name'])
+# 		dataDict[linebotId]["userImage"] = clean_value(eachData['user image'])
+# 		dataDict[linebotId]["logInTime"] = clean_value(eachData['login time'])
+# 		dataDict[linebotId]["signUpTime"] = clean_value(eachData['sign up time'])
+# 		dataDict[linebotId]["command"] = clean_value(eachData['command'])
+# 		dataDict[linebotId]["runtime"] = clean_value(eachData['runtime'])
+# 		dataDict[linebotId]["uiStyle"] = clean_value(eachData['ui style'])
+# 		dataDict[linebotId]["fontStyle"] = clean_value(eachData['font style'])
+# 		dataDict[linebotId]["tipsMode"] = clean_value(eachData['tips mode'])
+# 		dataDict[linebotId]["subDataMode"] = clean_value(eachData['sub data mode'])
+# 		dataDict[linebotId]["utc"] = clean_value(eachData['utc'])
+# 		dataDict[linebotId]["notionToken_pageId"] = clean_value(eachData['notion token/page id'])
+# 		dataDict[linebotId]["switch"] = clean_value(eachData['switch'])
+# 		dataDict[linebotId]["temp"] = clean_value(eachData['temp'])  # 🔥 改成從 Google Sheet 讀取
+	
+# 	# 存回 JSON
+# 	with open('__sixYoSet__.json', 'w', encoding='utf-8') as f:
+# 		json.dump(dataDict, f, indent=4, ensure_ascii=False)
+	
+# 	return ("🆗 Google Sheet data to Json\nTotal:%d" % len(allDataList))
 
 
 
