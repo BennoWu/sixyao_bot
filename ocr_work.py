@@ -135,7 +135,7 @@ def extract_datetime(text: str):
 	2025一10一0100:15
 	2025一10800:40
 	"""
-	text = text.replace(" ", "")
+	# text = text.replace(" ", "")
 	# 改為允許日期後面直接接時間(沒有分隔符)
 	m = re.search(r"(\d{4})\D*(\d{1,2})\D*(\d{1,2})(\d{2}):?(\d{2})", text)
 	if m:
