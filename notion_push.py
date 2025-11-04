@@ -24,10 +24,18 @@ def pushToNotion(imageUrl, titleText, apiToken, pageId):
                 properties={"title": [{"type": "text", "text": {"content": titleText}}]},
                 children=[
                     {
-                        "object": "block",
-                        "type": "paragraph",
-                        "paragraph": {"rich_text": [{"type": "heading_3", "heading_3": {"content": "subtitle.."}}]}
+                      "object": "block",
+                      "type": "heading_3",
+                      "heading_3": {
+                        "rich_text": [
+                          {
+                            "type": "text",
+                            "text": { "content": "subtitle.." }
+                          }
+                        ]
+                      }
                     },
+
                     {
                         "object": "block",
                         "type": "column_list",
