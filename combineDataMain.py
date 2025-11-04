@@ -1110,7 +1110,8 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 									note = preNote + noteText , 
 									command = command  ,
 									threePillar = threePil_mode , 
-									notionAccount = user_notion )
+									notionAccount = user_notion,
+                                    printMode = False  )
 		# print( ui_cmd_dict )
 		return ui_cmd_dict
 

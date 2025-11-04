@@ -109,6 +109,7 @@ def addToJson ( linebotId = None  ,
 			dataDict = json.load(f)
 			
 		if linebotId in dataDict.keys():  # 如果已經有這個 id
+			print( "GET google user ID")
 			# 更新現有用戶資料
 			if UserName != None:
 				dataDict[linebotId]["userName"] = UserName
@@ -156,7 +157,7 @@ def addToJson ( linebotId = None  ,
 
 
 
-				
+
 
 			if switch != None:
 				dataDict[linebotId]["switch"] = switch
