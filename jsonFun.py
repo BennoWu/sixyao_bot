@@ -133,10 +133,30 @@ def addToJson ( linebotId = None  ,
 			if utc != None:
 				dataDict[linebotId]["utc"] = utc
 
+			# if notionToken_pageId != None:
+			# 	dataDict[linebotId]["notionToken_pageId"] = notionToken_pageId
+			# if notionToken_pageId == "off":
+			# 	dataDict[linebotId]["notionToken_pageId"] = None
+
 			if notionToken_pageId != None:
-				dataDict[linebotId]["notionToken_pageId"] = notionToken_pageId
+				# 將 "TRUE"/"FALSE" 字串轉成 python Boolean
+				if isinstance(notionToken_pageId, str):
+					if notionToken_pageId.upper() == "TRUE":
+						dataDict[linebotId]["notionToken_pageId"] = True
+					elif notionToken_pageId.upper() == "FALSE":
+						dataDict[linebotId]["notionToken_pageId"] = False
+					else:
+						dataDict[linebotId]["notionToken_pageId"] = notionToken_pageId
+				else:
+					dataDict[linebotId]["notionToken_pageId"] = notionToken_pageId
+
+			# 特別處理 off
 			if notionToken_pageId == "off":
 				dataDict[linebotId]["notionToken_pageId"] = None
+
+
+
+				
 
 			if switch != None:
 				dataDict[linebotId]["switch"] = switch
