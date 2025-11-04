@@ -271,7 +271,7 @@ def handle_message(event):
 
 
 	elif inputMsg.startswith("--"):
-		ui_cmd_dict = yearListFlexLayout( inputMsg[3:] ) 
+		ui_cmd_dict = yearListFlexLayout( inputMsg[2:] ) 
 
 		# ⭐ v3 的 Flex Message
 		line_bot_api.reply_message(

@@ -1899,7 +1899,12 @@ item_yearListFlex = """
 			  }
 			],
 			"backgroundColor": "____bgColor_a",
-			"offsetBottom": "none"
+			"offsetBottom": "none",
+				"action": {
+				  "type": "message",
+				  "label": "action",
+				  "text": "____year_a"
+				}
 		  },
 		  {
 			"type": "box",
