@@ -1,11 +1,19 @@
 # -*- coding: utf-8 -*-
 from ocr_work import getPicData
 from combineDataMain import sixYaoMain,unifiedData
+
 from logBackup import uploadCsvToGoogleSheet
 # from supabase_io import *
 from supabase_io import get_user_data
 from cloudinary_helper import delete_older_than
-from flexLayout_tool import ganZiList_fun
+
+from flexLayout_tool import ganZiList_fun , yearListFlexLayout , getFlexMessage_GZ
+
+from fourPillar_tool import checkYear
+
+
+
+
 from sixYaoJsonDataClass import *
 
 import os , threading
@@ -117,29 +125,29 @@ def delayed_upJson():
 
 ## 取出字典檔中的命令
 def getZhuangGuaData(ui_dict):
-    def dfs(obj):
-        if isinstance(obj, dict):
-            # 找 button + label = 裝卦
-            if obj.get("type") == "button":
-                action = obj.get("action", {})
-                if action.get("label") == "裝卦":
-                    return action.get("data")
+	def dfs(obj):
+		if isinstance(obj, dict):
+			# 找 button + label = 裝卦
+			if obj.get("type") == "button":
+				action = obj.get("action", {})
+				if action.get("label") == "裝卦":
+					return action.get("data")
 
-            # 繼續往下找
-            for v in obj.values():
-                result = dfs(v)
-                if result:
-                    return result
+			# 繼續往下找
+			for v in obj.values():
+				result = dfs(v)
+				if result:
+					return result
 
-        elif isinstance(obj, list):
-            for item in obj:
-                result = dfs(item)
-                if result:
-                    return result
+		elif isinstance(obj, list):
+			for item in obj:
+				result = dfs(item)
+				if result:
+					return result
 
-        return None
+		return None
 
-    return dfs(ui_dict)
+	return dfs(ui_dict)
 
 # value = getZhuangGuaData(ui_cmd_dict)
 # print(value)
@@ -239,6 +247,46 @@ def handle_message(event):
 
 	elif inputMsg == "id":
 		returnMsg = f"{user_id}//{displayName}//{picUrl}"
+
+
+
+	# 歲次干支 - 輸入年份 - 輸入干支取得
+	elif ( inputMsg.isdigit() == True ) or ( inputMsg in ganZhi_Dict.values() ):
+	# elif inputMsg == "西元年","民國年","年干支":
+		ui_cmd_dict = getFlexMessage_GZ ( checkYear ( yearData = inputMsg ) )
+		# ⭐ v3 的 Flex Message
+		line_bot_api.reply_message(
+			ReplyMessageRequest(
+				reply_token=event.reply_token,
+				messages=[
+					FlexMessage(
+						alt_text='< 歲次UI >',
+						contents=FlexContainer.from_dict(ui_cmd_dict)
+					)
+				]
+			)
+		)
+		return
+
+
+	elif inputMsg.startswith("-- "):
+		ui_cmd_dict = yearListFlexLayout( inputMsg[3:] ) 
+
+		# ⭐ v3 的 Flex Message
+		line_bot_api.reply_message(
+			ReplyMessageRequest(
+				reply_token=event.reply_token,
+				messages=[
+					FlexMessage(
+						alt_text='< 年干支UI >',
+						contents=FlexContainer.from_dict(ui_cmd_dict)
+					)
+				]
+			)
+		)
+		return
+
+
 
 	# 測試 Notion
 	elif inputMsg.lower() == "notion":
@@ -425,17 +473,17 @@ def handle_message(event):
 				)
 			)
 
-			# 建立兩個執行緒
-			t1 = threading.Thread( target=delayed_upLog )
-			t2 = threading.Thread( target=delayed_upJson )
+		# 	# 建立兩個執行緒
+		# 	t1 = threading.Thread( target=delayed_upLog )
+		# 	t2 = threading.Thread( target=delayed_upJson )
 
-		# 啟動執行緒
-			t1.start()
-			t2.start()
+		# # 啟動執行緒
+		# 	t1.start()
+		# 	t2.start()
 
-		# 等待兩個執行緒都結束
-			t1.join()
-			t2.join()
+		# # 等待兩個執行緒都結束
+		# 	t1.join()
+		# 	t2.join()
 
 			return
 		else:

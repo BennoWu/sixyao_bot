@@ -1,6 +1,10 @@
 
 from fourPillar_tool import PPPPP # 四柱得日期
 from fourPillar_tool import getFourPillar # 四柱得日期
+from fourPillar_tool import getGanziYear # 取得年干支list
+from fourPillar_tool import ganZhi_Dict ## 六十甲子的字典
+from fourPillar_tool import checkYear
+
 
 from guaMatch import checkMainData as checkMainData
 
@@ -12,6 +16,10 @@ import json
 ##########################################################################################################################################################################
 ##########################################################################################################################################################################
 ##########################################################################################################################################################################
+
+
+
+
 
 
 uiLayoutFront ='''
@@ -116,7 +124,9 @@ uiLayoutFront ='''
 			"action": {
 			  "type": "message",
 			  "label": "action",
-			  "text": "干支/月/6/2025-10-30"
+			  "text": "month_mode"
+
+
 			},
 			"color": "#000002",
 			"offsetEnd": "xs"
@@ -154,7 +164,7 @@ uiLayoutFront ='''
 			"action": {
 			  "type": "message",
 			  "label": "action",
-			  "text": "干支/日/6/2025-10-30"
+			  "text": "day_mode"
 			},
 			"color": "#000002",
 			"offsetEnd": "xs"
@@ -192,7 +202,7 @@ uiLayoutFront ='''
 			"action": {
 			  "type": "message",
 			  "label": "action",
-			  "text": "干支/時/6/2025-10-30-10-21"
+			  "text": "hour_mode"
 			},
 			"color": "#000003",
 			"offsetEnd": "xs"
@@ -1842,355 +1852,582 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 
 
 
+
+
+
+
+
+start_yearListFlex = """
+
+{
+  "type": "bubble",
+  "body": {
+	"type": "box",
+	"layout": "vertical",
+	"contents": [
+
+"""
+
+
+
+item_yearListFlex = """
+{
+		"type": "box",
+		"layout": "horizontal",
+		"contents": [
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "____gz_a",
+				"color": "#555556",
+				"weight": "bold",
+				"size": "sm",
+				"align": "center",
+				"offsetTop": "sm"
+			  },
+			  {
+				"type": "text",
+				"text": "____year_a",
+				"weight": "regular",
+				"size": "sm",
+				"color": "#1E3850",
+				"align": "center",
+				"margin": "none"
+			  }
+			],
+			"backgroundColor": "____bgColor_a",
+			"offsetBottom": "none"
+		  },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "____gz_b",
+				"color": "#555556",
+				"weight": "bold",
+				"size": "sm",
+				"align": "center",
+				"offsetTop": "sm"
+			  },
+			  {
+				"type": "text",
+				"text": "____year_b",
+				"weight": "regular",
+				"size": "sm",
+				"color": "#1E3850",
+				"align": "center",
+				"margin": "none"
+			  }
+			],
+			"backgroundColor": "____bgColor_b",
+			"offsetBottom": "none"
+		  },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "____gz_c",
+				"color": "#555556",
+				"weight": "bold",
+				"size": "sm",
+				"align": "center",
+				"offsetTop": "sm"
+			  },
+			  {
+				"type": "text",
+				"text": "____year_c",
+				"weight": "regular",
+				"size": "sm",
+				"color": "#1E3850",
+				"align": "center",
+				"margin": "none"
+			  }
+			],
+			"backgroundColor": "____bgColor_c",
+			"offsetBottom": "none"
+		  },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "____gz_d",
+				"color": "#555556",
+				"weight": "bold",
+				"size": "sm",
+				"align": "center",
+				"offsetTop": "sm"
+			  },
+			  {
+				"type": "text",
+				"text": "____year_d",
+				"weight": "regular",
+				"size": "sm",
+				"color": "#1E3850",
+				"align": "center",
+				"margin": "none"
+			  }
+			],
+			"backgroundColor": "____bgColor_d",
+			"offsetBottom": "none"
+		  },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "____gz_e",
+				"color": "#555556",
+				"weight": "bold",
+				"size": "sm",
+				"align": "center",
+				"offsetTop": "sm"
+			  },
+			  {
+				"type": "text",
+				"text": "____year_e",
+				"weight": "regular",
+				"size": "sm",
+				"color": "#1E3850",
+				"align": "center",
+				"margin": "none"
+			  }
+			],
+			"backgroundColor": "____bgColor_e",
+			"offsetBottom": "none"
+		  }
+		],
+		"margin": "xs",
+		"spacing": "lg"
+	  }
+"""
+
+year_sep = """
+	  ,{
+		"type": "separator",
+		"color": "#888888"
+	  }
+
+"""
+
+
+end_yearListFlex = """
+
+	]
+  },
+  "styles": {
+	"footer": {
+	  "separator": true
+	}
+  }
+}
+
+"""
+
+
+
+
+# yearFlexLayout = start_yearListFlex
+# yearFlexLayout += item_yearListFlex
+# yearFlexLayout += year_sep
+# yearFlexLayout += ","
+# yearFlexLayout += item_yearListFlex
+# yearFlexLayout += end_yearListFlex
+
+## 列出前後二十年的干支
+def yearListFlexLayout( year , printMode = False ):
+	"""
+	依據 getGanziYear(year) 的結果,每輪取 5 筆產生 yearFlexLayout 字串。
+	如果最後不足 5 筆就跳出(不處理最後不足的一批)。
+	需要外部變數: start_yearListFlex, item_yearListFlex, ganZhi_Dict, getGanziYear()
+	"""
+	year = int( year )
+	allYearList = getGanziYear( year )
+
+	idx = (year - 1984) % 60 + 1
+	gan_zhi = ganZhi_Dict[idx]  # 完整干支,如 "甲子"
+	zhi = gan_zhi[1]  # 地支(第二個字),如 "子"
+
+	yearFlexLayout = start_yearListFlex
+
+	# 計算最後一輪完整五筆的起始 index
+	last_start_index = (len(allYearList) // 5 - 1) * 5
+
+	for i in range(0, len(allYearList), 5):
+		if i + 5 > len(allYearList):
+			break  # 不足五筆就跳過
+
+		# 🔥 關鍵: allYearList 的每個元素是 (干支, 年份) 的 tuple
+		gz_a, year_a = allYearList[i]      # gz_a 是干支字串,如 "辛未"
+		gz_b, year_b = allYearList[i + 1]
+		gz_c, year_c = allYearList[i + 2]
+		gz_d, year_d = allYearList[i + 3]
+		gz_e, year_e = allYearList[i + 4]
+
+		orgColor = "#ffffff"
+		currentYearColor = "#cee2ea"
+		homeColor = "#f7cbcb"
+
+		# 🔥 修正顏色判斷邏輯
+		def get_color(gz_str, year_num):
+			"""
+			gz_str: 干支字串,如 "乙巳"
+			year_num: 年份數字,如 2025
+			"""
+			# 1. 完全相同(天干地支 + 年份) → homeColor
+			# print( year_num , year )
+			# print( gz_str , gan_zhi )			
+			# if gz_str == gan_zhi and year_num == year:
+			if gz_str == gan_zhi and year_num == year:				
+				# print("HOME")
+				return homeColor
+			# 2. 只有地支相同 → currentYearColor
+			elif gz_str[1] == zhi:  # gz_str[1] 是地支
+				return currentYearColor
+			# 3. 其他 → orgColor
+			else:
+				return orgColor
+
+		bgColor_a = get_color(gz_a, year_a)
+		bgColor_b = get_color(gz_b, year_b)
+		bgColor_c = get_color(gz_c, year_c)
+		bgColor_d = get_color(gz_d, year_d)
+		bgColor_e = get_color(gz_e, year_e)
+
+		yearFlexLayout += (
+			item_yearListFlex
+				.replace("____gz_a", gz_a)
+				.replace("____year_a", str(year_a))
+				.replace("____gz_b", gz_b)
+				.replace("____year_b", str(year_b))
+				.replace("____gz_c", gz_c)
+				.replace("____year_c", str(year_c))
+				.replace("____gz_d", gz_d)
+				.replace("____year_d", str(year_d))
+				.replace("____gz_e", gz_e)
+				.replace("____year_e", str(year_e))
+				.replace("____bgColor_a", bgColor_a)
+				.replace("____bgColor_b", bgColor_b)
+				.replace("____bgColor_c", bgColor_c)
+				.replace("____bgColor_d", bgColor_d)
+				.replace("____bgColor_e", bgColor_e)
+		)
+
+		# 如果不是最後一輪就加分隔符
+		if i != last_start_index:
+			yearFlexLayout += year_sep
+			yearFlexLayout += ","
+
+	yearFlexLayout += end_yearListFlex
+
+	if printMode == True:
+		print( yearFlexLayout )
+
+	finalLayout_dict = json.loads(yearFlexLayout)
+	return finalLayout_dict
+
+
+
+
+
+
+
+
+# 年干支查詢
+## 從checkYear()得到年的資料，干支，生肖，前12年後12年，產生flex msg的UI
+def getFlexMessage_GZ ( dataList , printMode = False ):
+	# [1983, '癸亥', '豬', 1923, 1983, 2043]
+	print( dataList )
+	GZ = dataList[1]
+	animalType = dataList[2]
+	yearShow = "%s,%s,%s | %s"%( str(dataList[3]),str(dataList[4]),str(dataList[5]),animalType )
+	currentYear = dataList[0]
+
+
+	fm_command = """
+	{
+	  "type": "bubble",
+	  "body": {
+		"type": "box",
+		"layout": "vertical",
+		"contents": [
+		  {
+			"type": "text",
+			"text": "年干支",
+			"weight": "bold",
+			"color": "#6A8B91",
+			"size": "lg"
+		  },
+
+
+
+
+		{
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": "____GZ",
+            "weight": "bold",
+            "size": "xxl",
+            "margin": "none",
+            "flex": 5
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "____yearA",
+                "size": "lg",
+                "color": "#888888",
+                "wrap": true,
+                "weight": "bold",
+                "margin": "sm",
+                "flex": 2,
+                "gravity": "bottom",
+                "align": "end"
+              }
+            ],
+            "flex": 0
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [],
+            "width": "10px"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "____yearB",
+                "size": "lg",
+                "color": "#2769C0",
+                "wrap": true,
+                "weight": "bold",
+                "margin": "sm",
+                "flex": 2,
+                "gravity": "bottom",
+                "align": "end"
+              }
+            ],
+            "flex": 0
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [],
+            "width": "10px"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "____yearC",
+                "size": "lg",
+                "color": "#888888",
+                "wrap": true,
+                "weight": "bold",
+                "margin": "sm",
+                "flex": 2,
+                "gravity": "bottom",
+                "align": "end"
+              }
+            ],
+
+
+
+				"flex": 0
+			  }
+			]
+		  },
+		  {
+			"type": "separator",
+			"margin": "md"
+		  },
+		  {
+			"type": "box",
+			"layout": "horizontal",
+			"margin": "md",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "◀",
+					"size": "md",
+					"color": "#000000",
+					"flex": 0,
+					"action": {
+					  "type": "message",
+					  "label": "action",
+					  "text": "____pre"
+					},
+					"weight": "bold"
+				  }
+				],
+				"width": "20px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "◁",
+					"size": "md",
+					"color": "#000000",
+					"weight": "bold",
+					"action": {
+					  "type": "message",
+					  "label": "action",
+					  "text": "____preOne"
+					},
+					"align": "end"
+				  }
+				],
+				"width": "30px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "LIST",
+					"align": "center",
+					"size": "md",
+					"weight": "bold",
+					"color": "#174779",
+					"action": {
+					  "type": "message",
+					  "label": "action",
+					  "text": "____list"
+					}
+				  }
+				]
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "▷",
+					"size": "md",
+					"color": "#000000",
+					"flex": 0,
+					"action": {
+					  "type": "message",
+					  "label": "action",
+					  "text": "____postOne"
+					},
+					"weight": "bold"
+				  }
+				],
+				"width": "30px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "▶",
+					"size": "md",
+					"color": "#000000",
+					"weight": "bold",
+					"action": {
+					  "type": "message",
+					  "label": "action",
+					  "text": "____post"
+					},
+					"align": "end"
+				  }
+				],
+				"width": "20px"
+			  }
+			]
+		  }
+		]
+	  },
+	  "styles": {
+		"footer": {
+		  "separator": true
+		}
+	  }
+	}"""
+
+
+	# [1983, '癸亥', '豬', 1923, 1983, 2043]
+	# print( dataList )
+	GZ = dataList[1]
+	animalType = dataList[2]
+	yearShow = "%s,%s,%s | %s"%( str(dataList[3]),str(dataList[4]),str(dataList[5]),animalType )
+	yearA = str(dataList[3])
+	yearB = str(dataList[4])
+	yearC = "%s | %s"% ( str(dataList[5]),animalType )
+	currentYear = dataList[0]
+
+	final_flexLayout =  ( fm_command .replace( "____GZ", GZ )
+									.replace( "____yearA", yearA )
+									.replace( "____yearB", yearB )
+									.replace( "____yearC", yearC )
+
+									.replace( "____preOne" , str( currentYear - 1 ) ) 
+									.replace( "____postOne" , str( currentYear + 1 ) )
+									.replace( "____pre" , str( currentYear - 12 ) ) 
+									.replace( "____post" , str( currentYear + 12 ))
+									# .replace( "____list" , "-- "+ str( currentYear ))
+						)
+	if printMode == True:
+		print( final_flexLayout )
+
+	finalLayout_dict = json.loads( final_flexLayout )
+	return finalLayout_dict
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
-	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 )
-	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 )
-	ganZiList_fun( currentTime = "2025/05/08" , dayMode = "h" , index = "" , runtime = 5 )	
+# 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 )
+# 	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 )
+# 	ganZiList_fun( currentTime = "2025/05/08" , dayMode = "h" , index = "" , runtime = 5 )	
 
-# "干支/時/10/2025-08-31-15-48"
-	# "d" -- day
-	# "m" -- month
-	# "h" -- hour
-	# "節氣"
+# # "干支/時/10/2025-08-31-15-48"
+# 	# "d" -- day
+# 	# "m" -- month
+# 	# "h" -- hour
+# 	# "節氣"
 
-	# 干支/日/2025.5.11/10/申
-# ['乙巳-乙酉-己卯', '2025/09/07', '白露']
+# 	# 干支/日/2025.5.11/10/申
+# # ['乙巳-乙酉-己卯', '2025/09/07', '白露']
 
+	yearListFlexLayout( "2025" ) 
 
-
-# # 年干支
-# {
-
-
-#       "type": "bubble",
-#       "body": {
-#         "type": "box",
-#         "layout": "vertical",
-#         "contents": [
-#           {
-#             "type": "text",
-#             "text": "年干支",
-#             "weight": "bold",
-#             "color": "#1DB446",
-#             "size": "lg"
-#           },
-#           {
-#             "type": "box",
-#             "layout": "horizontal",
-#             "contents": [
-#               {
-#                 "type": "text",
-#                 "text": "_GZ",
-#                 "weight": "bold",
-#                 "size": "xxl",
-#                 "margin": "none",
-#                 "flex": 5
-#               },
-#               {
-#                 "type": "box",
-#                 "layout": "vertical",
-#                 "contents": [
-#                   {
-#                     "type": "text",
-#                     "text": "_yearShow",
-#                     "size": "lg",
-#                     "color": "#888888",
-#                     "wrap": true,
-#                     "weight": "bold",
-#                     "margin": "sm",
-#                     "flex": 2,
-#                     "gravity": "bottom",
-#                     "align": "end"
-#                   }
-#                 ],
-#                 "flex": 0
-#               }
-#             ]
-#           },
-#           {
-#             "type": "separator",
-#             "margin": "md"
-#           },
-#           {
-#             "type": "box",
-#             "layout": "horizontal",
-#             "margin": "sm",
-#             "contents": [
-#               {
-#                 "type": "text",
-#                 "text": "◁",
-#                 "size": "md",
-#                 "color": "#000000",
-#                 "flex": 0,
-#                 "action": {
-#                   "type": "message",
-#                   "label": "action",
-#                   "text": "_pre"
-#                 },
-#                 "weight": "bold"
-#               },
-#               {
-#                 "type": "text",
-#                 "text": "▷",
-#                 "size": "md",
-#                 "color": "#000000",
-#                 "weight": "bold",
-#                 "action": {
-#                   "type": "message",
-#                   "label": "action",
-#                   "text": "_next"
-#                 },
-#                 "align": "end"
-#               }
-#             ]
-#           }
-#         ]
-#       },
-#       "styles": {
-#         "footer": {
-#           "separator": true
-#         }
-#       }
-#     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# upLayoutFelx = """{  
-	
-#       "type": "bubble",
-#       "body": {
-#         "type": "box",
-#         "layout": "vertical",
-#         "contents": [
-#           {
-#             "type": "box",
-#             "layout": "vertical",
-#             "contents": [
-#               {
-#                 "type": "text",
-#                 "text": "_type",
-#                 "weight": "bold",
-#                 "color": "#1DB446",
-#                 "size": "lg",
-#                 "margin": "none"
-#               },
-#               {
-#                 "type": "box",
-#                 "layout": "horizontal",
-#                 "contents": [
-#                   {
-#                     "type": "text",
-#                     "text": "__TITLE__",
-#                     "weight": "bold",
-#                     "size": "3xl",
-#                     "wrap": true,
-#                     "margin": "none",
-#                     "offsetTop": "none",
-#                     "offsetBottom": "none",
-#                     "action": {
-#                       "type": "message",
-#                       "label": "action",
-#                       "text": "hello"
-#                     },
-#                     "offsetStart": "0px"
-#                   },
-
-
-#                   {
-#                     "type": "text",
-#                     "text": "__ETC__",
-#                     "weight": "bold",
-#                     "color": "#FF7777",
-#                     "size": "lg",
-#                     "margin": "none",
-#                     "wrap": true,
-#                     "gravity": "bottom",
-#                     "offsetBottom": "5px",
-#                     "offsetEnd": "6px",
-#                     "align": "end",
-#                     "flex": 1
-#                   }               
-
-#                 ]
-#               },
-#               {
-#                 "type": "text",
-#                 "text": "__SUB__",
-#                 "weight": "bold",
-#                 "size": "md",
-#                 "margin": "xs",
-#                 "wrap": true,
-#                 "offsetTop": "none",
-#                 "offsetBottom": "none",
-#                 "action": {
-#                   "type": "message",
-#                   "label": "action",
-#                   "text": "hello"
-#                 },
-#                 "color": "#888888"
-#               }
-#             ]
-#           },
-
-
-
-
-
-# 		  {
-#             "type": "separator",
-#             "margin": "md",
-#             "color": "#848484"
-#           },
-#           {
-#             "type": "box",
-#             "layout": "vertical",
-#             "contents": [
-
-#               {
-#                 "type": "text",
-#                 "text": "____title",
-#                 "size": "lg",
-#                 "color": "#555555",
-#                 "wrap": true,
-#                 "weight": "bold",
-#                 "margin": "lg"
-#               },
-#               {
-#                 "type": "text",
-#                 "text": "____text",
-#                 "size": "md",
-#                 "color": "#000000",
-#                 "wrap": true,
-#                 "margin": "xs"
-#               }
-#             ]
-#           },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#           {
-#             "type": "separator",
-#             "margin": "md",
-#             "color": "#ffffff"
-#           }
-#         ]
-#       },
-#       "styles": {
-#         "footer": {
-#           "separator": true
-#         }
-#       }
-#     }
-# """
-
-
-	# ## 兩塊色塊資訊
-	# useShin_flexMsg_color = """
-	#             ,
-	#               {
-	#                 "type": "box",
-	#                 "layout": "horizontal",
-	#                 "contents": [],
-	#                 "backgroundColor": "_colorA",
-	#                 "position": "absolute",
-	#                 "height": "37px",
-	#                 "width": "37px",
-	#                 "offsetStart": "172px",
-	#                 "offsetTop": "5px",
-	#                 "cornerRadius": "5px",
-	#                 "borderWidth": "2px",
-	#                 "borderColor": "#999999"
-	#               },
-	#               {
-	#                 "type": "box",
-	#                 "layout": "horizontal",
-	#                 "contents": [],
-	#                 "backgroundColor": "_colorB",
-	#                 "position": "absolute",
-	#                 "height": "37px",
-	#                 "width": "37px",
-	#                 "offsetStart": "216px",
-	#                 "offsetTop": "5px",
-	#                 "cornerRadius": "5px",
-	#                 "borderColor": "#999999",
-	#                 "borderWidth": "2px"
-	#               }"""
-
-	# ## 右邊補充文字
-	# etc_flex_layout = """
-	#             ,
-	#               {
-	#                 "type": "text",
-	#                 "text": "_subEtc",
-	#                 "weight": "bold",
-	#                 "color": "#FF7777",
-	#                 "size": "lg",
-	#                 "margin": "none",
-	#                 "wrap": true,
-	#                 "gravity": "bottom",
-	#                 "offsetBottom": "5px",
-	#                 "offsetEnd": "6px",
-	#                 "align": "end",
-	#                 "flex": 1
-	#               }"""
-
-	# ## 內容(可多塊)
-	# useShin_flexMsg_insert = """
-	#       {
-	#         "type": "separator",
-	#         "margin": "md",
-	#         "color": "#848484"
-	#       },
-	#       {
-	#         "type": "box",
-	#         "layout": "vertical",
-	#         "contents": [
-
-	#           {
-	#             "type": "text",
-	#             "text": "____title",
-	#             "size": "lg",
-	#             "color": "#555555",
-	#             "wrap": true,
-	#             "weight": "bold",
-	#             "margin": "lg"
-	#           },
-	#           {
-	#             "type": "text",
-	#             "text": "____text",
-	#             "size": "md",
-	#             "color": "#000000",
-	#             "wrap": true,
-	#             "margin": "xs"
-	#           }
-	#         ]
-	#       }"""
+	getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )

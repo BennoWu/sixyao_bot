@@ -28,6 +28,23 @@ ganZhi_Dict ={
 
 
 
+## 輸入年可得到 "干支+年"
+## getGanziYear(2018, 20, 20) -->> 庚午 1998,辛未 1999,壬申 2000,癸酉 2001.....
+def getGanziYear(year:int, before:int=22, after:int=18):
+	base_year = 1984  # 甲子
+	# 找到該年的干支序號（1~60）
+	offset = (year - base_year) % 60+1
+	center_index = offset if offset != 0 else 60
+
+	result = []
+
+	for i in range(center_index - before, center_index + after + 1):
+		idx = (i - 1) % 60 + 1  # 讓 index 循環 1~60
+		ganzi = ganZhi_Dict[idx]
+		this_year = year + (i - center_index)
+		result.append((ganzi, this_year))
+
+	return result
 
 
 
@@ -921,11 +938,26 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 
 if __name__ == '__main__':
 
-	# PPPPP ( currentTime = "2025-09-15" )
-	getList =  PPPPP ( currentTime = "2025-09-15" , dayMode = "d" , runtime = 20 ) 
-	# getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
-	for i in getList:
-		print(i)	
+	# # PPPPP ( currentTime = "2025-09-15" )
+	# getList =  PPPPP ( currentTime = "2025-09-15" , dayMode = "d" , runtime = 20 ) 
+	# # getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
+	# for i in getList:
+	# 	print(i)	
+
+
+
+
+	print( getGanziYear(2012) )
+
+
+
+
+
+
+
+
+
+
 
 
 	# print( getNowTime() )
