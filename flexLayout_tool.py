@@ -39,14 +39,14 @@ uiLayoutFront ='''
 			"text": "六爻排盤:",
 			"weight": "bold",
 			"color": "#6A8B91",
-			"size": "lg"
+			"size": "md"
 		  },
 		  {
 			"type": "text",
 			"text": "節氣",
 			"weight": "regular",
 			"color": "#666666",
-			"size": "lg",
+			"size": "md",
 			"align": "end",
 			"action": {
 			  "type": "message",
@@ -296,6 +296,8 @@ uiLayoutFront ='''
 		"margin": "none",
 		"color": "#aaaaaa"
 	  },
+
+
 	  {
 		"type": "box",
 		"layout": "vertical",
@@ -339,7 +341,7 @@ uiLayoutFront ='''
 			"margin": "xs"
 		  }
 		],
-		"margin": "sm"
+		"margin": "1px"
 	  },
 	  {
 		"type": "box",
@@ -555,7 +557,7 @@ uiLayoutBack = '''
 		  }
 		],
 
-		"margin": "5px",
+		"margin": "sm",
 		"cornerRadius": "10px",
 		"backgroundColor": "#E5E5E5"
 	  },
@@ -718,7 +720,7 @@ uiLayoutBack = '''
 				"height": "md"
 			  }
 			],
-			"margin": "xs"
+			"margin": "sm"
 		  }
 		],
 
@@ -942,7 +944,7 @@ uiLayoutBackExt = '''
 				]
 			  }
 			],
-			"margin": "xs"
+			"margin": "sm"
 		  }
 		],
 		"spacing": "sm",
