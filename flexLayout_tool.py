@@ -1204,7 +1204,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 # ⏳⚡
 	if printMode == True:
-	print( reDataLayout )
+		print( reDataLayout )
 
 	# 文字轉換成字典
 	reDataLayout_dict = json.loads(reDataLayout)
