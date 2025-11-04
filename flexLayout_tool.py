@@ -2197,84 +2197,84 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 
 
 		{
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-          {
-            "type": "text",
-            "text": "____GZ",
-            "weight": "bold",
-            "size": "xxl",
-            "margin": "none",
-            "flex": 5
-          },
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "____yearA",
-                "size": "lg",
-                "color": "#888888",
-                "wrap": true,
-                "weight": "bold",
-                "margin": "sm",
-                "flex": 2,
-                "gravity": "bottom",
-                "align": "end"
-              }
-            ],
-            "flex": 0
-          },
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [],
-            "width": "10px"
-          },
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "____yearB",
-                "size": "lg",
-                "color": "#2769C0",
-                "wrap": true,
-                "weight": "bold",
-                "margin": "sm",
-                "flex": 2,
-                "gravity": "bottom",
-                "align": "end"
-              }
-            ],
-            "flex": 0
-          },
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [],
-            "width": "10px"
-          },
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "____yearC",
-                "size": "lg",
-                "color": "#888888",
-                "wrap": true,
-                "weight": "bold",
-                "margin": "sm",
-                "flex": 2,
-                "gravity": "bottom",
-                "align": "end"
-              }
-            ],
+		"type": "box",
+		"layout": "horizontal",
+		"contents": [
+		  {
+			"type": "text",
+			"text": "____GZ",
+			"weight": "bold",
+			"size": "xxl",
+			"margin": "none",
+			"flex": 5
+		  },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "____yearA",
+				"size": "lg",
+				"color": "#888888",
+				"wrap": true,
+				"weight": "bold",
+				"margin": "sm",
+				"flex": 2,
+				"gravity": "bottom",
+				"align": "end"
+			  }
+			],
+			"flex": 0
+		  },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [],
+			"width": "10px"
+		  },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "____yearB",
+				"size": "lg",
+				"color": "#2769C0",
+				"wrap": true,
+				"weight": "bold",
+				"margin": "sm",
+				"flex": 2,
+				"gravity": "bottom",
+				"align": "end"
+			  }
+			],
+			"flex": 0
+		  },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [],
+			"width": "10px"
+		  },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "____yearC",
+				"size": "lg",
+				"color": "#888888",
+				"wrap": true,
+				"weight": "bold",
+				"margin": "sm",
+				"flex": 2,
+				"gravity": "bottom",
+				"align": "end"
+			  }
+			],
 
 
 
@@ -2286,6 +2286,12 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 			"type": "separator",
 			"margin": "md"
 		  },
+
+
+
+
+
+
 		  {
 			"type": "box",
 			"layout": "horizontal",
@@ -2298,7 +2304,7 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 				  {
 					"type": "text",
 					"text": "◀",
-					"size": "md",
+					"size": "lg",
 					"color": "#000000",
 					"flex": 0,
 					"action": {
@@ -2318,7 +2324,7 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 				  {
 					"type": "text",
 					"text": "◁",
-					"size": "md",
+					"size": "lg",
 					"color": "#000000",
 					"weight": "bold",
 					"action": {
@@ -2333,20 +2339,45 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 			  },
 			  {
 				"type": "box",
-				"layout": "vertical",
+				"layout": "horizontal",
 				"contents": [
 				  {
-					"type": "text",
-					"text": "LIST",
-					"align": "center",
-					"size": "lg",
-					"weight": "bold",
-					"color": "#174779",
-					"action": {
-					  "type": "message",
-					  "label": "action",
-					  "text": "____yearlist"
-					}
+					"type": "box",
+					"layout": "vertical",
+					"contents": [],
+					"width": "35px",
+					"flex": 0
+				  },
+				  {
+					"type": "box",
+					"layout": "baseline",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "LIST",
+						"align": "center",
+						"size": "lg",
+						"weight": "bold",
+						"color": "#174779",
+						"action": {
+						  "type": "message",
+						  "label": "action",
+						  "text": "____yearlist"
+						}
+					  }
+					],
+					"width": "84px",
+					"flex": 2,
+					"cornerRadius": "15px",
+					"borderWidth": "2px",
+					"borderColor": "#cccccc"
+				  },
+				  {
+					"type": "box",
+					"layout": "vertical",
+					"contents": [],
+					"width": "35px",
+					"flex": 0
 				  }
 				]
 			  },
@@ -2357,7 +2388,7 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 				  {
 					"type": "text",
 					"text": "▷",
-					"size": "md",
+					"size": "lg",
 					"color": "#000000",
 					"flex": 0,
 					"action": {
@@ -2377,7 +2408,7 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 				  {
 					"type": "text",
 					"text": "▶",
-					"size": "md",
+					"size": "lg",
 					"color": "#000000",
 					"weight": "bold",
 					"action": {
@@ -2390,10 +2421,19 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 				],
 				"width": "20px"
 			  }
-			]
+			],
+			"offsetTop": "xs"
 		  }
 		]
 	  },
+
+
+
+
+
+
+
+
 	  "styles": {
 		"footer": {
 		  "separator": true
