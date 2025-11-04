@@ -31,6 +31,16 @@ class jsonDataClass:
 
 	def __init__( self, linebotId , linebotUserName = None , userImage = None , command = "", sheetName = "userID_list" ):
 
+
+
+		# If JSON does not exist yet, sync first
+		if not os.path.isfile("__sixYoSet__.json"):
+			try:
+				print("⚠️ No JSON found. Syncing from Google...")
+				googleToJson()
+			except:
+				print("⚠️ Google sync failed, will create new JSON")
+
 		# logInTime = datetime.now ( timezone ( timedelta ( hours = int(self.utc) ) ) ).strftime( "%Y/%m/%d/%H/%M" ) ## '2025/06/14/12/46'
 		# command = command.replace( "​","")
 
