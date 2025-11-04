@@ -270,7 +270,7 @@ def handle_message(event):
 		return
 
 
-	elif inputMsg.startswith("-- "):
+	elif inputMsg.startswith("--"):
 		ui_cmd_dict = yearListFlexLayout( inputMsg[3:] ) 
 
 		# ⭐ v3 的 Flex Message

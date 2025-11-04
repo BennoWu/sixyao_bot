@@ -2320,7 +2320,7 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 					"action": {
 					  "type": "message",
 					  "label": "action",
-					  "text": "____list"
+					  "text": "____yearlist"
 					}
 				  }
 				]
@@ -2396,7 +2396,7 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 									.replace( "____postOne" , str( currentYear + 1 ) )
 									.replace( "____pre" , str( currentYear - 12 ) ) 
 									.replace( "____post" , str( currentYear + 12 ))
-									# .replace( "____list" , "-- "+ str( currentYear ))
+									.replace( "____yearlist" , "--"+ str( currentYear ))
 						)
 	if printMode == True:
 		print( final_flexLayout )
