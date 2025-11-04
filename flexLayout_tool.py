@@ -1057,7 +1057,7 @@ def clipData( fullDate ):
 
 
 ## 產生排盤 UI 
-def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command = "", threePillar = False , notionAccount = False):
+def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command = "", threePillar = False , notionAccount = False , printMode = False ):
 	# print( getFourPillar( fullDate = dateData , detail = True ))
 	dateBuf = getFourPillar( fullDate = dateData , detail = True )
 	# lightDate ,fullDarkDate ,fourPillar_Buf , jeChi_show , week , timeShow 
@@ -1203,7 +1203,8 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "☕ Uploading,please wait……" ).replace("__NOTION_CMD__", "n" + command )
 
 # ⏳⚡
-	# print( reDataLayout )
+  if printMode == True:
+  	print( reDataLayout )
 
 	# 文字轉換成字典
 	reDataLayout_dict = json.loads(reDataLayout)
