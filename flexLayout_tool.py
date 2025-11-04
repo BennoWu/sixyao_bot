@@ -19,339 +19,339 @@ uiLayoutFront ='''
   "type": "bubble",
   "size": "kilo",
   "body": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-          {
-            "type": "text",
-            "text": "六爻排盤:",
-            "weight": "bold",
-            "color": "#6A8B91",
-            "size": "lg"
-          },
-          {
-            "type": "text",
-            "text": "節氣",
-            "weight": "regular",
-            "color": "#666666",
-            "size": "lg",
-            "align": "end",
-            "action": {
-              "type": "message",
-              "label": "action",
-              "text": "jechi_mode"
-            },
-            "gravity": "center"
-          }
-        ],
-        "margin": "none"
-      },
-      {
-        "type": "separator",
-        "margin": "none",
-        "color": "#cccccc"
-      },
-      
+	"type": "box",
+	"layout": "vertical",
+	"contents": [
+	  {
+		"type": "box",
+		"layout": "horizontal",
+		"contents": [
+		  {
+			"type": "text",
+			"text": "六爻排盤:",
+			"weight": "bold",
+			"color": "#6A8B91",
+			"size": "lg"
+		  },
+		  {
+			"type": "text",
+			"text": "節氣",
+			"weight": "regular",
+			"color": "#666666",
+			"size": "lg",
+			"align": "end",
+			"action": {
+			  "type": "message",
+			  "label": "action",
+			  "text": "jechi_mode"
+			},
+			"gravity": "center"
+		  }
+		],
+		"margin": "none"
+	  },
+	  {
+		"type": "separator",
+		"margin": "none",
+		"color": "#cccccc"
+	  },
+	  
 
 {
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-          {
-            "type": "text",
-            "text": "年",
-            "size": "xxs",
-            "gravity": "bottom",
-            "flex": 0,
-            "color": "#888888",
-            "offsetBottom": "3px",
-            "weight": "bold",
-            "offsetEnd": "1px"
-          },
-          {
-            "type": "text",
-            "text": "年柱",
-            "weight": "bold",
-            "size": "xl",
-            "margin": "none",
-            "wrap": true,
-            "flex": 0,
-            "color": "#000001",
-            "offsetEnd": "xs"
-          },
-          {
-            "type": "text",
-            "text": "|",
-            "size": "xl",
-            "margin": "none",
-            "color": "#dddddd",
-            "gravity": "top",
-            "offsetTop": "-2px",
-            "flex": 0,
-            "offsetEnd": "xs"
-          },
-          {
-            "type": "text",
-            "text": "月",
-            "size": "xxs",
-            "gravity": "bottom",
-            "flex": 0,
-            "color": "#888888",
-            "offsetBottom": "3px",
-            "offsetEnd": "1px",
-            "weight": "bold"
-          },
-          {
-            "type": "text",
-            "text": "月柱",
-            "weight": "bold",
-            "size": "xl",
-            "margin": "none",
-            "wrap": true,
-            "flex": 0,
-            "action": {
-              "type": "message",
-              "label": "action",
-              "text": "干支/月/6/2025-10-30"
-            },
-            "color": "#000002",
-            "offsetEnd": "xs"
-          },
-          {
-            "type": "text",
-            "text": "|",
-            "size": "xl",
-            "margin": "none",
-            "color": "#cccccc",
-            "gravity": "top",
-            "offsetTop": "-2px",
-            "flex": 0,
-            "offsetEnd": "xs"
-          },
-          {
-            "type": "text",
-            "text": "日",
-            "size": "xxs",
-            "gravity": "bottom",
-            "flex": 0,
-            "color": "#888888",
-            "offsetBottom": "3px",
-            "offsetEnd": "1px",
-            "weight": "bold"
-          },
-          {
-            "type": "text",
-            "text": "日柱",
-            "weight": "bold",
-            "size": "xl",
-            "margin": "none",
-            "wrap": true,
-            "flex": 0,
-            "action": {
-              "type": "message",
-              "label": "action",
-              "text": "干支/日/6/2025-10-30"
-            },
-            "color": "#000002",
-            "offsetEnd": "xs"
-          },
-          {
-            "type": "text",
-            "text": "|",
-            "size": "xl",
-            "margin": "none",
-            "color": "#dddddd",
-            "gravity": "top",
-            "offsetTop": "-2px",
-            "flex": 0,
-            "offsetEnd": "xs"
-          },
-          {
-            "type": "text",
-            "text": "時",
-            "size": "xxs",
-            "gravity": "bottom",
-            "flex": 0,
-            "color": "#888888",
-            "offsetBottom": "3px",
-            "offsetEnd": "2px",
-            "weight": "bold"
-          },
-          {
-            "type": "text",
-            "text": "時柱",
-            "weight": "bold",
-            "size": "xl",
-            "margin": "none",
-            "wrap": true,
-            "flex": 0,
-            "action": {
-              "type": "message",
-              "label": "action",
-              "text": "干支/時/6/2025-10-30-10-21"
-            },
-            "color": "#000003",
-            "offsetEnd": "xs"
-          }
-        ],
-        "spacing": "none",
-        "margin": "xs",
-        "cornerRadius": "7px",
-        "justifyContent": "space-between"
-      },
+		"type": "box",
+		"layout": "horizontal",
+		"contents": [
+		  {
+			"type": "text",
+			"text": "年",
+			"size": "xxs",
+			"gravity": "bottom",
+			"flex": 0,
+			"color": "#888888",
+			"offsetBottom": "3px",
+			"weight": "bold",
+			"offsetEnd": "1px"
+		  },
+		  {
+			"type": "text",
+			"text": "年柱",
+			"weight": "bold",
+			"size": "xl",
+			"margin": "none",
+			"wrap": true,
+			"flex": 0,
+			"color": "#000001",
+			"offsetEnd": "xs"
+		  },
+		  {
+			"type": "text",
+			"text": "|",
+			"size": "xl",
+			"margin": "none",
+			"color": "#dddddd",
+			"gravity": "top",
+			"offsetTop": "-2px",
+			"flex": 0,
+			"offsetEnd": "xs"
+		  },
+		  {
+			"type": "text",
+			"text": "月",
+			"size": "xxs",
+			"gravity": "bottom",
+			"flex": 0,
+			"color": "#888888",
+			"offsetBottom": "3px",
+			"offsetEnd": "1px",
+			"weight": "bold"
+		  },
+		  {
+			"type": "text",
+			"text": "月柱",
+			"weight": "bold",
+			"size": "xl",
+			"margin": "none",
+			"wrap": true,
+			"flex": 0,
+			"action": {
+			  "type": "message",
+			  "label": "action",
+			  "text": "干支/月/6/2025-10-30"
+			},
+			"color": "#000002",
+			"offsetEnd": "xs"
+		  },
+		  {
+			"type": "text",
+			"text": "|",
+			"size": "xl",
+			"margin": "none",
+			"color": "#cccccc",
+			"gravity": "top",
+			"offsetTop": "-2px",
+			"flex": 0,
+			"offsetEnd": "xs"
+		  },
+		  {
+			"type": "text",
+			"text": "日",
+			"size": "xxs",
+			"gravity": "bottom",
+			"flex": 0,
+			"color": "#888888",
+			"offsetBottom": "3px",
+			"offsetEnd": "1px",
+			"weight": "bold"
+		  },
+		  {
+			"type": "text",
+			"text": "日柱",
+			"weight": "bold",
+			"size": "xl",
+			"margin": "none",
+			"wrap": true,
+			"flex": 0,
+			"action": {
+			  "type": "message",
+			  "label": "action",
+			  "text": "干支/日/6/2025-10-30"
+			},
+			"color": "#000002",
+			"offsetEnd": "xs"
+		  },
+		  {
+			"type": "text",
+			"text": "|",
+			"size": "xl",
+			"margin": "none",
+			"color": "#dddddd",
+			"gravity": "top",
+			"offsetTop": "-2px",
+			"flex": 0,
+			"offsetEnd": "xs"
+		  },
+		  {
+			"type": "text",
+			"text": "時",
+			"size": "xxs",
+			"gravity": "bottom",
+			"flex": 0,
+			"color": "#888888",
+			"offsetBottom": "3px",
+			"offsetEnd": "2px",
+			"weight": "bold"
+		  },
+		  {
+			"type": "text",
+			"text": "時柱",
+			"weight": "bold",
+			"size": "xl",
+			"margin": "none",
+			"wrap": true,
+			"flex": 0,
+			"action": {
+			  "type": "message",
+			  "label": "action",
+			  "text": "干支/時/6/2025-10-30-10-21"
+			},
+			"color": "#000003",
+			"offsetEnd": "xs"
+		  }
+		],
+		"spacing": "none",
+		"margin": "xs",
+		"cornerRadius": "7px",
+		"justifyContent": "space-between"
+	  },
 
 
 
-      {
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "國曆: __sunDate__",
-                "size": "sm",
-                "color": "#444443",
-                "wrap": true,
-                "weight": "regular",
-                "margin": "none",
-                "align": "start",
-                "offsetTop": "2px"
-              },
-              {
-                "type": "text",
-                "text": "農曆: __darkDate__",
-                "size": "sm",
-                "color": "#444443",
-                "wrap": true,
-                "weight": "regular",
-                "margin": "none"
-              }
-            ],
-            "margin": "none",
-            "flex": 0,
-            "height": "40px"
-          },
+	  {
+		"type": "box",
+		"layout": "horizontal",
+		"contents": [
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "國曆: __sunDate__",
+				"size": "sm",
+				"color": "#444443",
+				"wrap": true,
+				"weight": "regular",
+				"margin": "none",
+				"align": "start",
+				"offsetTop": "2px"
+			  },
+			  {
+				"type": "text",
+				"text": "農曆: __darkDate__",
+				"size": "sm",
+				"color": "#444443",
+				"wrap": true,
+				"weight": "regular",
+				"margin": "none"
+			  }
+			],
+			"margin": "none",
+			"flex": 0,
+			"height": "40px"
+		  },
 
 
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "|",
-                "size": "3xl",
-                "margin": "none",
-                "color": "#dddddd",
-                "align": "center"
-              }
-            ],
-            "width": "10px",
-            "offsetStart": "7px",
-            "offsetBottom": "8px"
-          },
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "12:00",
-                "size": "3xl",
-                "color": "#FCA32D",
-                "weight": "regular"
-              }
-            ],
-            "offsetStart": "7px",
-            "offsetBottom": "sm"
-          }
-        ],
-        "margin": "none"
-      },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "|",
+				"size": "3xl",
+				"margin": "none",
+				"color": "#dddddd",
+				"align": "center"
+			  }
+			],
+			"width": "10px",
+			"offsetStart": "7px",
+			"offsetBottom": "8px"
+		  },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "12:00",
+				"size": "3xl",
+				"color": "#FCA32D",
+				"weight": "regular"
+			  }
+			],
+			"offsetStart": "7px",
+			"offsetBottom": "sm"
+		  }
+		],
+		"margin": "none"
+	  },
 
 
 
 
 
-      {
-        "type": "separator",
-        "margin": "none",
-        "color": "#aaaaaa"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "text",
-                    "weight": "bold",
-                    "color": "#ffffff",
-                    "size": "xl",
-                    "text": "占",
-                    "contents": [],
-                    "gravity": "center",
-                    "align": "center",
-                    "offsetTop": "-1px"
-                  }
-                ],
-                "backgroundColor": "#91A4BC",
-                "width": "30px",
-                "height": "30px",
-                "cornerRadius": "20px"
-              },
-              {
-                "type": "text",
-                "color": "#333333",
-                "size": "lg",
-                "wrap": true,
-                "text": "__NOTE__",
-                "margin": "sm",
-                "contents": [],
-                "gravity": "center"
-              }
-            ],
-            "margin": "sm"
-          }
-        ],
-        "spacing": "none",
-        "margin": "sm"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [],
-                "width": "251px",
-                "margin": "none",
-                "spacing": "none",
-                "offsetStart": "sm"
-              }
-            ],
-            "height": "5px"
-          },'''
+	  {
+		"type": "separator",
+		"margin": "none",
+		"color": "#aaaaaa"
+	  },
+	  {
+		"type": "box",
+		"layout": "vertical",
+		"contents": [
+		  {
+			"type": "box",
+			"layout": "horizontal",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "text",
+					"weight": "bold",
+					"color": "#ffffff",
+					"size": "xl",
+					"text": "占",
+					"contents": [],
+					"gravity": "center",
+					"align": "center",
+					"offsetTop": "-1px"
+				  }
+				],
+				"backgroundColor": "#91A4BC",
+				"width": "30px",
+				"height": "30px",
+				"cornerRadius": "20px"
+			  },
+			  {
+				"type": "text",
+				"color": "#333333",
+				"size": "lg",
+				"wrap": true,
+				"text": "__NOTE__",
+				"margin": "sm",
+				"contents": [],
+				"gravity": "center"
+			  }
+			],
+			"margin": "sm"
+		  }
+		],
+		"spacing": "none",
+		"margin": "sm"
+	  },
+	  {
+		"type": "box",
+		"layout": "vertical",
+		"contents": [
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [],
+				"width": "251px",
+				"margin": "none",
+				"spacing": "none",
+				"offsetStart": "sm"
+			  }
+			],
+			"height": "5px"
+		  },'''
 
 
 
@@ -423,9 +423,9 @@ uiLayoutMidA = '''
 				  }
 				],
 
-                "margin": "xs",
-                "height": "35px",
-                "offsetTop": "5px"
+				"margin": "xs",
+				"height": "35px",
+				"offsetTop": "5px"
 
 
 			  }
@@ -516,9 +516,9 @@ uiLayoutMidB = '''
 					"flex": 2
 				  }
 				],
-                "margin": "xs",
-                "height": "35px",
-                "offsetTop": "5px"
+				"margin": "xs",
+				"height": "35px",
+				"offsetTop": "5px"
 			  }
 			]
 		  }
@@ -555,37 +555,35 @@ uiLayoutBack = '''
 
 
 
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [],
-                "width": "8px"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "__ORGGUA__",
-                    "align": "center",
-                    "size": "md",
+	  {
+		"type": "box",
+		"layout": "vertical",
+		"contents": [
+		  {
+			"type": "box",
+			"layout": "horizontal",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [],
+				"width": "8px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__ORGGUA__",
+					"align": "center",
+					"size": "md",
 
-                    "weight": "bold"
+					"weight": "bold"
 
-                  }
-                ]
-              },
-
-
+				  }
+				]
+			  },
 
 
 
@@ -598,67 +596,67 @@ uiLayoutBack = '''
 
 
 
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
+
+
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
 
 
 
 
-                  {
-                    "type": "text",
-                    "text": "•",
-                    "align": "center",
-                    "size": "md",
-                    "color": "#bbbbbb"
-                  }
+				  {
+					"type": "text",
+					"text": "•",
+					"align": "center",
+					"size": "md",
+					"color": "#bbbbbb"
+				  }
 
 
 
-                ],
-                "width": "20px"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "__CHGGUA__",
-                    "align": "center",
+				],
+				"width": "20px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__CHGGUA__",
+					"align": "center",
 
-                    "size": "md",
-                    "weight": "bold"
-                  }
-                ]
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [],
-                "width": "10px"
-              }
-            ],
-            "offsetTop": "sm"
-          }
-
-
-
-
+					"size": "md",
+					"weight": "bold"
+				  }
+				]
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [],
+				"width": "10px"
+			  }
+			],
+			"offsetTop": "sm"
+		  }
 
 
 
 
-        ],
-        "margin": "md",
-        "cornerRadius": "10px",
-        "borderColor": "#999999",
-        "borderWidth": "1px",
-        "height": "30px"
-      },
 
 
+
+
+		],
+		"margin": "md",
+		"cornerRadius": "10px",
+		"borderColor": "#999999",
+		"borderWidth": "1px",
+		"height": "30px"
+	  },
 
 
 
@@ -686,43 +684,45 @@ uiLayoutBack = '''
 
 
 
-      {
-        "type": "box",
-        "layout": "vertical",
-        "margin": "xs",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "button",
-                "style": "secondary",
-                "action": {
-                  "type": "postback",
-                  "label": "裝卦",
-                  "data": "__裝卦__",
-                  "displayText": "__dis裝卦__"
-                },
-                "color": "#91A4BC",
-                "margin": "none",
-                "height": "md"
-              }
-            ],
-            "margin": "xs"
-          }
-        ],
 
-        "cornerRadius": "10px",
-        "offsetTop": "3px"
-      }
-    ],
-    "backgroundColor": "#fefefe"
+
+	  {
+		"type": "box",
+		"layout": "vertical",
+		"margin": "xs",
+		"contents": [
+		  {
+			"type": "box",
+			"layout": "horizontal",
+			"contents": [
+			  {
+				"type": "button",
+				"style": "secondary",
+				"action": {
+				  "type": "postback",
+				  "label": "裝卦",
+				  "data": "__裝卦__",
+				  "displayText": "__dis裝卦__"
+				},
+				"color": "#91A4BC",
+				"margin": "none",
+				"height": "md"
+			  }
+			],
+			"margin": "xs"
+		  }
+		],
+
+		"cornerRadius": "10px",
+		"offsetTop": "3px"
+	  }
+	],
+	"backgroundColor": "#fefefe"
   },
   "styles": {
-    "footer": {
-      "separator": true
-    }
+	"footer": {
+	  "separator": true
+	}
   }
 }
 '''
@@ -758,37 +758,35 @@ uiLayoutBackExt = '''
 
 
 
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [],
-                "width": "8px"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "__ORGGUA__",
-                    "align": "center",
-                    "size": "md",
+	  {
+		"type": "box",
+		"layout": "vertical",
+		"contents": [
+		  {
+			"type": "box",
+			"layout": "horizontal",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [],
+				"width": "8px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__ORGGUA__",
+					"align": "center",
+					"size": "md",
 
-                    "weight": "bold"
+					"weight": "bold"
 
-                  }
-                ]
-              },
-
-
+				  }
+				]
+			  },
 
 
 
@@ -801,67 +799,67 @@ uiLayoutBackExt = '''
 
 
 
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
+
+
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
 
 
 
 
-                  {
-                    "type": "text",
-                    "text": "•",
-                    "align": "center",
-                    "size": "md",
-                    "color": "#bbbbbb"
-                  }
+				  {
+					"type": "text",
+					"text": "•",
+					"align": "center",
+					"size": "md",
+					"color": "#bbbbbb"
+				  }
 
 
 
-                ],
-                "width": "20px"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "__CHGGUA__",
-                    "align": "center",
+				],
+				"width": "20px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__CHGGUA__",
+					"align": "center",
 
-                    "size": "md",
-                    "weight": "bold"
-                  }
-                ]
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [],
-                "width": "10px"
-              }
-            ],
-            "offsetTop": "3px"
-          }
-
-
-
-
+					"size": "md",
+					"weight": "bold"
+				  }
+				]
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [],
+				"width": "10px"
+			  }
+			],
+			"offsetTop": "3px"
+		  }
 
 
 
 
-        ],
-        "margin": "md",
-        "cornerRadius": "10px",
-        "borderColor": "#bbbbbb",
-        "borderWidth": "2px",
-        "height": "30px"
-      },
 
 
+
+
+		],
+		"margin": "md",
+		"cornerRadius": "10px",
+		"borderColor": "#bbbbbb",
+		"borderWidth": "2px",
+		"height": "30px"
+	  },
 
 
 
@@ -878,74 +876,76 @@ uiLayoutBackExt = '''
 
 
 
-      {
-        "type": "box",
-        "layout": "vertical",
-        "margin": "xs",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "button",
-                    "style": "secondary",
-                    "action": {
-                      "type": "postback",
-                      "label": "裝卦",
-                      "data": "__裝卦__",
-                      "displayText": "__dis裝卦__"
-                    },
-                    "color": "#91A4BC",
-                    "margin": "none",
-                    "height": "md"
-                  }
-                ],
-                "width": "172px"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [],
-                "width": "10px"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "N",
-                      "data": "__NOTION_CMD__",
-                      "displayText": "__NOTION_DSP__"
-                    },
-                    "color": "#CEC6C0",
-                    "margin": "none",
-                    "height": "md",
-                    "style": "secondary"
-                  }
-                ]
-              }
-            ],
-            "margin": "xs"
-          }
-        ],
-        "spacing": "sm",
-        "offsetTop": "3px"
-      }
-    ],
-    "backgroundColor": "#fefefe"
+
+
+	  {
+		"type": "box",
+		"layout": "vertical",
+		"margin": "xs",
+		"contents": [
+		  {
+			"type": "box",
+			"layout": "horizontal",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "button",
+					"style": "secondary",
+					"action": {
+					  "type": "postback",
+					  "label": "裝卦",
+					  "data": "__裝卦__",
+					  "displayText": "__dis裝卦__"
+					},
+					"color": "#91A4BC",
+					"margin": "none",
+					"height": "md"
+				  }
+				],
+				"width": "172px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [],
+				"width": "10px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "button",
+					"action": {
+					  "type": "postback",
+					  "label": "N",
+					  "data": "__NOTION_CMD__",
+					  "displayText": "__NOTION_DSP__"
+					},
+					"color": "#CEC6C0",
+					"margin": "none",
+					"height": "md",
+					"style": "secondary"
+				  }
+				]
+			  }
+			],
+			"margin": "xs"
+		  }
+		],
+		"spacing": "sm",
+		"offsetTop": "3px"
+	  }
+	],
+	"backgroundColor": "#fefefe"
   },
   "styles": {
-    "footer": {
-      "separator": true
-    }
+	"footer": {
+	  "separator": true
+	}
   }
 }
 '''
@@ -988,7 +988,7 @@ uiLayoutBackExt = '''
 
 
 
-	          # }
+			  # }
 
 
 
@@ -1203,8 +1203,8 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "☕ Uploading,please wait……" ).replace("__NOTION_CMD__", "n" + command )
 
 # ⏳⚡
-  if printMode == True:
-  	print( reDataLayout )
+	if printMode == True:
+	print( reDataLayout )
 
 	# 文字轉換成字典
 	reDataLayout_dict = json.loads(reDataLayout)
@@ -1425,48 +1425,48 @@ hourModeLayout = """
 								"type": "box",
 								"layout": "horizontal",
 
-						        "contents": [
-						                  {
-								            "type": "box",
-								            "layout": "vertical",
-								            "contents": [],
-								            "flex": 0,
-								            "width": "20px"
-								          },
-								          {
-								            "type": "text",
-								            "text": "__JECHI__",
-								            "size": "sm",
-								            "color": "#ff5252",
-								            "wrap": true,
-								            "weight": "bold",
-								            "margin": "none",
-								            "gravity": "bottom",
-								            "offsetTop": "-1px",
-								            "align": "end",
-								            "flex": 1,
-								            "offsetStart": "-5px"
-								          },
+								"contents": [
+										  {
+											"type": "box",
+											"layout": "vertical",
+											"contents": [],
+											"flex": 0,
+											"width": "20px"
+										  },
+										  {
+											"type": "text",
+											"text": "__JECHI__",
+											"size": "sm",
+											"color": "#ff5252",
+											"wrap": true,
+											"weight": "bold",
+											"margin": "none",
+											"gravity": "bottom",
+											"offsetTop": "-1px",
+											"align": "end",
+											"flex": 1,
+											"offsetStart": "-5px"
+										  },
 
 
 
-								          {
-								            "type": "text",
-								            "text": "__TIME__",
-								            "size": "md",
-								            "color": "#34495e",
-								            "wrap": true,
-								            "weight": "regular",
-								            "margin": "none",
-								            "align": "end",
-								            "gravity": "bottom",
-								            "flex": 2
-								          }
-						            ],
+										  {
+											"type": "text",
+											"text": "__TIME__",
+											"size": "md",
+											"color": "#34495e",
+											"wrap": true,
+											"weight": "regular",
+											"margin": "none",
+											"align": "end",
+											"gravity": "bottom",
+											"flex": 2
+										  }
+									],
 
-						            "flex": 3,
-						            "offsetStart": "1px"
-						          },"""
+									"flex": 3,
+									"offsetStart": "1px"
+								  },"""
 
 
 
@@ -1541,41 +1541,41 @@ dayModeLayout = """{
 								
 
 
-												            "contents": [
-												              {
-												                "type": "text",
-												                "text": "__JECHI__",
-												                "size": "sm",
-												                "color": "#ff5252",
-												                "wrap": true,
-												                "weight": "bold",
-												                "margin": "none",
-												                "align": "end",
-												                "gravity": "bottom",
-												                "offsetTop": "-1px"
-												              }
+															"contents": [
+															  {
+																"type": "text",
+																"text": "__JECHI__",
+																"size": "sm",
+																"color": "#ff5252",
+																"wrap": true,
+																"weight": "bold",
+																"margin": "none",
+																"align": "end",
+																"gravity": "bottom",
+																"offsetTop": "-1px"
+															  }
 
-												            ],
-												            "flex": 3,
-												            "maxWidth": "28px",
-												            "offsetStart": "0px",
-												            "margin": "sm"
-												          },
+															],
+															"flex": 3,
+															"maxWidth": "28px",
+															"offsetStart": "0px",
+															"margin": "sm"
+														  },
 
 
-												          {
-												            "type": "text",
-												            "text": "__TIME__",
-												            "size": "md",
-												            "color": "#34495e",
-												            "weight": "regular",
-												            "margin": "none",
-												            "align": "end",
-												            "gravity": "bottom",
-												            "flex": 10,
-												            "wrap": true
-												          }
-												        ],
+														  {
+															"type": "text",
+															"text": "__TIME__",
+															"size": "md",
+															"color": "#34495e",
+															"weight": "regular",
+															"margin": "none",
+															"align": "end",
+															"gravity": "bottom",
+															"flex": 10,
+															"wrap": true
+														  }
+														],
 
 
 
@@ -1657,39 +1657,39 @@ monthModeLayout = """{
 															"type": "box",
 															"layout": "horizontal",
 
-												            "contents": [
-												              {
-												                "type": "text",
-												                "text": "__JECHI__",
-												                "size": "sm",
-												                "color": "#ff5252",
-												                "wrap": true,
-												                "weight": "bold",
-												                "margin": "none",
-												                "align": "end",
-												                "gravity": "bottom",
-												                "offsetTop": "-1px"
-												              }
+															"contents": [
+															  {
+																"type": "text",
+																"text": "__JECHI__",
+																"size": "sm",
+																"color": "#ff5252",
+																"wrap": true,
+																"weight": "bold",
+																"margin": "none",
+																"align": "end",
+																"gravity": "bottom",
+																"offsetTop": "-1px"
+															  }
 
-												            ],
-												            "flex": 3,
-												            "maxWidth": "28px",
-												            "offsetStart": "0px",
-												            "margin": "sm"
-												          },
-												          {
-												            "type": "text",
-												            "text": "__TIME__",
-												            "size": "md",
-												            "color": "#34495e",
-												            "weight": "regular",
-												            "margin": "none",
-												            "align": "end",
-												            "gravity": "bottom",
-												            "flex": 10,
-												            "wrap": true
-												          }
-												        ],
+															],
+															"flex": 3,
+															"maxWidth": "28px",
+															"offsetStart": "0px",
+															"margin": "sm"
+														  },
+														  {
+															"type": "text",
+															"text": "__TIME__",
+															"size": "md",
+															"color": "#34495e",
+															"weight": "regular",
+															"margin": "none",
+															"align": "end",
+															"gravity": "bottom",
+															"flex": 10,
+															"wrap": true
+														  }
+														],
 
 
 
@@ -1971,7 +1971,7 @@ if __name__ == '__main__':
 
 
 # upLayoutFelx = """{  
-    
+	
 #       "type": "bubble",
 #       "body": {
 #         "type": "box",
@@ -2113,84 +2113,84 @@ if __name__ == '__main__':
 # """
 
 
-    # ## 兩塊色塊資訊
-    # useShin_flexMsg_color = """
-    #             ,
-    #               {
-    #                 "type": "box",
-    #                 "layout": "horizontal",
-    #                 "contents": [],
-    #                 "backgroundColor": "_colorA",
-    #                 "position": "absolute",
-    #                 "height": "37px",
-    #                 "width": "37px",
-    #                 "offsetStart": "172px",
-    #                 "offsetTop": "5px",
-    #                 "cornerRadius": "5px",
-    #                 "borderWidth": "2px",
-    #                 "borderColor": "#999999"
-    #               },
-    #               {
-    #                 "type": "box",
-    #                 "layout": "horizontal",
-    #                 "contents": [],
-    #                 "backgroundColor": "_colorB",
-    #                 "position": "absolute",
-    #                 "height": "37px",
-    #                 "width": "37px",
-    #                 "offsetStart": "216px",
-    #                 "offsetTop": "5px",
-    #                 "cornerRadius": "5px",
-    #                 "borderColor": "#999999",
-    #                 "borderWidth": "2px"
-    #               }"""
+	# ## 兩塊色塊資訊
+	# useShin_flexMsg_color = """
+	#             ,
+	#               {
+	#                 "type": "box",
+	#                 "layout": "horizontal",
+	#                 "contents": [],
+	#                 "backgroundColor": "_colorA",
+	#                 "position": "absolute",
+	#                 "height": "37px",
+	#                 "width": "37px",
+	#                 "offsetStart": "172px",
+	#                 "offsetTop": "5px",
+	#                 "cornerRadius": "5px",
+	#                 "borderWidth": "2px",
+	#                 "borderColor": "#999999"
+	#               },
+	#               {
+	#                 "type": "box",
+	#                 "layout": "horizontal",
+	#                 "contents": [],
+	#                 "backgroundColor": "_colorB",
+	#                 "position": "absolute",
+	#                 "height": "37px",
+	#                 "width": "37px",
+	#                 "offsetStart": "216px",
+	#                 "offsetTop": "5px",
+	#                 "cornerRadius": "5px",
+	#                 "borderColor": "#999999",
+	#                 "borderWidth": "2px"
+	#               }"""
 
-    # ## 右邊補充文字
-    # etc_flex_layout = """
-    #             ,
-    #               {
-    #                 "type": "text",
-    #                 "text": "_subEtc",
-    #                 "weight": "bold",
-    #                 "color": "#FF7777",
-    #                 "size": "lg",
-    #                 "margin": "none",
-    #                 "wrap": true,
-    #                 "gravity": "bottom",
-    #                 "offsetBottom": "5px",
-    #                 "offsetEnd": "6px",
-    #                 "align": "end",
-    #                 "flex": 1
-    #               }"""
+	# ## 右邊補充文字
+	# etc_flex_layout = """
+	#             ,
+	#               {
+	#                 "type": "text",
+	#                 "text": "_subEtc",
+	#                 "weight": "bold",
+	#                 "color": "#FF7777",
+	#                 "size": "lg",
+	#                 "margin": "none",
+	#                 "wrap": true,
+	#                 "gravity": "bottom",
+	#                 "offsetBottom": "5px",
+	#                 "offsetEnd": "6px",
+	#                 "align": "end",
+	#                 "flex": 1
+	#               }"""
 
-    # ## 內容(可多塊)
-    # useShin_flexMsg_insert = """
-    #       {
-    #         "type": "separator",
-    #         "margin": "md",
-    #         "color": "#848484"
-    #       },
-    #       {
-    #         "type": "box",
-    #         "layout": "vertical",
-    #         "contents": [
+	# ## 內容(可多塊)
+	# useShin_flexMsg_insert = """
+	#       {
+	#         "type": "separator",
+	#         "margin": "md",
+	#         "color": "#848484"
+	#       },
+	#       {
+	#         "type": "box",
+	#         "layout": "vertical",
+	#         "contents": [
 
-    #           {
-    #             "type": "text",
-    #             "text": "____title",
-    #             "size": "lg",
-    #             "color": "#555555",
-    #             "wrap": true,
-    #             "weight": "bold",
-    #             "margin": "lg"
-    #           },
-    #           {
-    #             "type": "text",
-    #             "text": "____text",
-    #             "size": "md",
-    #             "color": "#000000",
-    #             "wrap": true,
-    #             "margin": "xs"
-    #           }
-    #         ]
-    #       }"""
+	#           {
+	#             "type": "text",
+	#             "text": "____title",
+	#             "size": "lg",
+	#             "color": "#555555",
+	#             "wrap": true,
+	#             "weight": "bold",
+	#             "margin": "lg"
+	#           },
+	#           {
+	#             "type": "text",
+	#             "text": "____text",
+	#             "size": "md",
+	#             "color": "#000000",
+	#             "wrap": true,
+	#             "margin": "xs"
+	#           }
+	#         ]
+	#       }"""
