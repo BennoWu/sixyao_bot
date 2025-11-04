@@ -1,4 +1,3 @@
-
 import json,os
 
 from jsonFun import *
@@ -115,24 +114,38 @@ class jsonDataClass:
 			# ## 取得現在時間 上面也定義過了...
 			# logInTime = datetime.now ( timezone ( timedelta ( hours = 8 ) ) ).strftime( "%Y/%m/%d/%H/%M" ) ## '2025/06/14/12/46'		
 
-			self.userImage = userImage     ## LINE的頭像
-			self.logInTime = logInTime     ## 登入時間
-			self.signUpTime = logInTime    ## 註冊時間
-			self.command = command         ## 指令
-			self.runtime = 1               ## 執行次數
-
-			self.uiStyle = "UA"             ## 顏色模式 UA UB UC
-			self.fontStyle = "FB"        ## 字型模式 FA宋體  FB圓體  FC黑體
-			self.tipsMode = "ON"        ## 提示用小字 ON , OFF
-			self.subDataMode = "Full"      ## 小抄模式
-			self.utc = 8                   ## 時區 ( 台灣為 UTC-8 )
-
-			self.notionToken_pageId = False
-			# self.other = None
-
-			self.switch = "ON"             ## 權限
-			self.temp = None
-																												
+			# 🔥 修改這裡：先檢查 JSON 中是否已有資料（可能是從 Google 同步來的）
+			if os.path.isfile("__sixYoSet__.json"):
+				with open('__sixYoSet__.json', 'r', encoding="utf-8") as f:
+					dataDict = json.load(f)
+					
+				# 🔥 如果 JSON 中已有這個用戶的資料（從 Google 同步），使用 JSON 中的值
+				if linebotId in dataDict:
+					existing_data = dataDict[linebotId]
+					
+					self.userImage = userImage if userImage else existing_data.get("userImage")
+					self.logInTime = logInTime
+					self.signUpTime = existing_data.get("signUpTime", logInTime)
+					self.command = command
+					self.runtime = existing_data.get("runtime", 1)
+					self.uiStyle = existing_data.get("uiStyle", "UA")
+					self.fontStyle = existing_data.get("fontStyle", "FB")
+					self.tipsMode = existing_data.get("tipsMode", "ON")
+					self.subDataMode = existing_data.get("subDataMode", "Full")
+					self.utc = existing_data.get("utc", 8)
+					
+					# 🔥 關鍵：從 JSON 讀取 notionToken_pageId（可能是 True/False/None）
+					self.notionToken_pageId = existing_data.get("notionToken_pageId", None)
+					
+					self.switch = existing_data.get("switch", "ON")
+					self.temp = existing_data.get("temp", None)
+				else:
+					# 真正的新用戶，使用預設值
+					self._set_default_values(userImage, logInTime, command)
+			else:
+				# JSON 檔案不存在，使用預設值
+				self._set_default_values(userImage, logInTime, command)
+																											
 		addToJson ( linebotId = self.linebotId  ,
 					UserName = self.linebotUserName  ,
 
@@ -159,6 +172,21 @@ class jsonDataClass:
 					)
 
 
+	def _set_default_values(self, userImage, logInTime, command):
+		"""設定預設值的輔助函數"""
+		self.userImage = userImage
+		self.logInTime = logInTime
+		self.signUpTime = logInTime
+		self.command = command
+		self.runtime = 1
+		self.uiStyle = "UA"
+		self.fontStyle = "FB"
+		self.tipsMode = "ON"
+		self.subDataMode = "Full"
+		self.utc = 8
+		self.notionToken_pageId = False
+		self.switch = "ON"
+		self.temp = None
 
 
 
@@ -223,7 +251,7 @@ class jsonDataClass:
 				if comList[2] == "none":
 					supabase_io.delete_user_token( self.linebotId )
 					self.notionToken_pageId = "off"
-					rtn_message =  "Notion – Canceled"
+					rtn_message =  "Notion — Canceled"
 
 				else:
 					if len( comList ) == 4:
@@ -234,7 +262,7 @@ class jsonDataClass:
 						## ====== 如果token和page id都通過notion的測試 ======
 						if checkNotionAcc( token_buf , pageId_buf ) == True:
 							self.notionToken_pageId = True
-							rtn_message =  "Notion – Success"
+							rtn_message =  "Notion — Success"
 
 							## ===== 就寫入資料庫 =====
 							supabase_io.save_user_data(
@@ -377,7 +405,7 @@ if __name__ == '__main__':
 	# utc_hour =  jsonData.utc:	
 
 	# # 如果不是ON，就代表權限被OFF掉了，程式中止
-	# if jsonData.switch.upper() != "ON": ## user的switch項如果不是ON，表示權限關閉狀態
+	# if jsonData.switch.upper() != "ON": ## user的switch… 如果不是ON，表示權限關閉狀態
 	# 	print ( "404" )
 	# 	exit()
 
