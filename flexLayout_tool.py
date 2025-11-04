@@ -1930,7 +1930,12 @@ item_yearListFlex = """
 			  }
 			],
 			"backgroundColor": "____bgColor_b",
-			"offsetBottom": "none"
+			"offsetBottom": "none",
+				"action": {
+				  "type": "message",
+				  "label": "action",
+				  "text": "____year_b"
+				}
 		  },
 		  {
 			"type": "box",
@@ -1956,7 +1961,12 @@ item_yearListFlex = """
 			  }
 			],
 			"backgroundColor": "____bgColor_c",
-			"offsetBottom": "none"
+			"offsetBottom": "none",
+				"action": {
+				  "type": "message",
+				  "label": "action",
+				  "text": "____year_c"
+				}
 		  },
 		  {
 			"type": "box",
@@ -1982,7 +1992,12 @@ item_yearListFlex = """
 			  }
 			],
 			"backgroundColor": "____bgColor_d",
-			"offsetBottom": "none"
+			"offsetBottom": "none",
+				"action": {
+				  "type": "message",
+				  "label": "action",
+				  "text": "____year_d"
+				}
 		  },
 		  {
 			"type": "box",
@@ -2008,7 +2023,12 @@ item_yearListFlex = """
 			  }
 			],
 			"backgroundColor": "____bgColor_e",
-			"offsetBottom": "none"
+			"offsetBottom": "none",
+				"action": {
+				  "type": "message",
+				  "label": "action",
+				  "text": "____year_e"
+				}
 		  }
 		],
 		"margin": "xs",
@@ -2056,7 +2076,7 @@ def yearListFlexLayout( year , printMode = False ):
 	需要外部變數: start_yearListFlex, item_yearListFlex, ganZhi_Dict, getGanziYear()
 	"""
 	year = int( year )
-	allYearList = getGanziYear( year )
+	allYearList = getGanziYear( year = year, before = 22, after = 18 )
 
 	idx = (year - 1984) % 60 + 1
 	gan_zhi = ganZhi_Dict[idx]  # 完整干支,如 "甲子"
@@ -2319,7 +2339,7 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 					"type": "text",
 					"text": "LIST",
 					"align": "center",
-					"size": "md",
+					"size": "lg",
 					"weight": "bold",
 					"color": "#174779",
 					"action": {
