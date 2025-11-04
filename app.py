@@ -10,6 +10,7 @@ from cloudinary_helper import delete_older_than
 from flexLayout_tool import ganZiList_fun , yearListFlexLayout , getFlexMessage_GZ
 
 from fourPillar_tool import checkYear
+from fourPillar_tool import ganZhi_Dict ## 六十甲子的字典
 
 
 
