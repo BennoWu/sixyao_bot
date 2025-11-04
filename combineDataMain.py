@@ -1111,7 +1111,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 									command = command  ,
 									threePillar = threePil_mode , 
 									notionAccount = user_notion,
-                                    printMode = False  )
+                                    printMode = True  )
 		# print( ui_cmd_dict )
 		return ui_cmd_dict
 

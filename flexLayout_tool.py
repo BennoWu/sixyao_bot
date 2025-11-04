@@ -336,10 +336,9 @@ uiLayoutFront ='''
 				"gravity": "center"
 			  }
 			],
-			"margin": "sm"
+			"margin": "xs"
 		  }
 		],
-		"spacing": "none",
 		"margin": "sm"
 	  },
 	  {
@@ -556,7 +555,7 @@ uiLayoutBack = '''
 		  }
 		],
 
-		"margin": "md",
+		"margin": "5px",
 		"cornerRadius": "10px",
 		"backgroundColor": "#E5E5E5"
 	  },
@@ -1882,7 +1881,7 @@ item_yearListFlex = """
 			  {
 				"type": "text",
 				"text": "____gz_a",
-				"color": "#555556",
+				"color": "#333334",
 				"weight": "bold",
 				"size": "sm",
 				"align": "center",
@@ -1913,7 +1912,7 @@ item_yearListFlex = """
 			  {
 				"type": "text",
 				"text": "____gz_b",
-				"color": "#555556",
+				"color": "#333334",
 				"weight": "bold",
 				"size": "sm",
 				"align": "center",
@@ -1944,7 +1943,7 @@ item_yearListFlex = """
 			  {
 				"type": "text",
 				"text": "____gz_c",
-				"color": "#555556",
+				"color": "#333334",
 				"weight": "bold",
 				"size": "sm",
 				"align": "center",
@@ -1975,7 +1974,7 @@ item_yearListFlex = """
 			  {
 				"type": "text",
 				"text": "____gz_d",
-				"color": "#555556",
+				"color": "#333334",
 				"weight": "bold",
 				"size": "sm",
 				"align": "center",
@@ -2006,7 +2005,7 @@ item_yearListFlex = """
 			  {
 				"type": "text",
 				"text": "____gz_e",
-				"color": "#555556",
+				"color": "#333334",
 				"weight": "bold",
 				"size": "sm",
 				"align": "center",
@@ -2099,8 +2098,8 @@ def yearListFlexLayout( year , printMode = False ):
 		gz_e, year_e = allYearList[i + 4]
 
 		orgColor = "#ffffff"
-		currentYearColor = "#cee2ea"
-		homeColor = "#f7cbcb"
+		currentYearColor = "#9ae2c5"
+		homeColor = "#ff979c"
 
 		# 🔥 修正顏色判斷邏輯
 		def get_color(gz_str, year_num):
@@ -2493,6 +2492,6 @@ if __name__ == '__main__':
 # 	# 干支/日/2025.5.11/10/申
 # # ['乙巳-乙酉-己卯', '2025/09/07', '白露']
 
-	yearListFlexLayout( "2025" ) 
+	yearListFlexLayout( "2025",True ) 
 
-	getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )
+	# getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )
