@@ -553,7 +553,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 
 	## 直槓
-	draw_InfoLine (  center = 627 , hight = 298   , size = 101 , lineColor = titleGray , lineWidth= 4 )
+	draw_InfoLine (  center = 630 , hight = 298   , size = 101 , lineColor = titleGray , lineWidth= 6 )
 
 	## 時間
 	if ( allDataDict['user_define'] == True )  or ( allDataDict['hourGanZi'] == "X" ):
