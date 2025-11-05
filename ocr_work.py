@@ -1,46 +1,66 @@
 # -*- coding: utf-8 -*-
 
-from PIL import Image, ImageEnhance, ImageFilter
+from PIL import Image
 import re
+
+
+## 原本的OCR，可用但太吃系統
+
+# import numpy as np
+# from paddleocr import PaddleOCR
+
+# # 初始化 OCR（中文+英文）
+# ocr = PaddleOCR(use_angle_cls=True, lang="ch")
+
+# def ocr_image_to_text(img):
+#     """
+#     輸入 PIL Image 或路徑字串，返回辨識到的文字（連成一行）
+#     """
+#     if isinstance(img, str):
+#         results = ocr.ocr(img, cls=True)
+#     else:
+#         results = ocr.ocr(np.array(img), cls=True)
+	
+#     text_list = []
+#     all_text = ""
+#     for line in results[0]:
+#         text = line[1][0]
+#         text_list.append(text)
+#         all_text += " " + text
+#     return all_text
+
+
+
 import requests
+# from PIL import Image
 from io import BytesIO
 
 
 # OCR SPACE
 ################################################################################
-def ocr_image_to_text(input_data, preprocess=True):
+def ocr_image_to_text(input_data):
 	"""
 	自動判斷輸入類型並進行 OCR
 	input_data: 可以是檔案路徑(str) 或 PIL Image 物件
-	preprocess: 是否進行圖像預處理
 	"""
 	url = 'https://api.ocr.space/parse/image'
 	data_payload = {
 		'apikey': 'K82723710988957',
 		'language': 'cht',
-		'detectOrientation': False,
+		'detectOrientation': False,  # 強制橫排
 	}
-	
-	# 判斷輸入類型並進行預處理
+	# 判斷輸入類型
 	if isinstance(input_data, str):
-		img = Image.open(input_data)
-		if preprocess:
-			img = preprocess_image(img)
-		
-		img_byte_arr = BytesIO()
-		img.save(img_byte_arr, format='PNG')
-		img_byte_arr.seek(0)
-		
-		response = requests.post(
-			url,
-			files={'file': ('image.png', img_byte_arr, 'image/png')},
-			data=data_payload
-		)
+		# 是字串 → 當作檔案路徑處理
+		with open(input_data, 'rb') as f:
+			response = requests.post(
+				url,
+				files={'file': f},
+				data=data_payload
+			)
 	
 	elif isinstance(input_data, Image.Image):
-		if preprocess:
-			input_data = preprocess_image(input_data)
-		
+		# 是 PIL Image 物件
 		img_byte_arr = BytesIO()
 		input_data.save(img_byte_arr, format='PNG')
 		img_byte_arr.seek(0)
@@ -50,6 +70,7 @@ def ocr_image_to_text(input_data, preprocess=True):
 			files={'file': ('image.png', img_byte_arr, 'image/png')},
 			data=data_payload
 		)
+	
 	else:
 		raise TypeError("input_data 必須是檔案路徑(str)或 PIL Image 物件")
 	
@@ -57,51 +78,143 @@ def ocr_image_to_text(input_data, preprocess=True):
 	result = response.json()
 	if result['IsErroredOnProcessing']:
 		return None
-	print("OCR 原始結果:", result['ParsedResults'][0]['ParsedText'])
+	print(result['ParsedResults'][0] )
 	return result['ParsedResults'][0]['ParsedText']
 
 
-def preprocess_image(img):
-	"""
-	圖像預處理：增強對比度、銳化、去噪
-	"""
-	# 轉換為 RGB
-	if img.mode != 'RGB':
-		img = img.convert('RGB')
-	
-	# 增強對比度
-	enhancer = ImageEnhance.Contrast(img)
-	img = enhancer.enhance(2.0)
-	
-	# 增強銳利度
-	enhancer = ImageEnhance.Sharpness(img)
-	img = enhancer.enhance(1.5)
-	
-	# 輕微去噪
-	img = img.filter(ImageFilter.MedianFilter(size=3))
-	
-	return img
+# # API_NINJAS
+# ################################################################################
+
+# import requests
+# from io import BytesIO
+
+# def ocr_ninjas_api(input_img):
+#     url = "https://api.api-ninjas.com/v1/imagetotext"
+#     api_key = "K/5emWH/7hJ5sXD5/ujH+w==Ci9HgvDablZxLZhQ"  # 換成你的 API Key
+
+#     # 確保是 RGB
+#     if input_img.mode != "RGB":
+#         input_img = input_img.convert("RGB")
+
+#     # 存成 JPEG 並壓縮，避免超過 200 KB
+#     buffer = BytesIO()
+#     input_img.save(buffer, format="JPEG", quality=80)
+#     image_data = buffer.getvalue()
+
+#     headers = {
+#         "X-Api-Key": api_key,
+#         "Content-Type": "application/octet-stream"
+#     }
+
+#     response = requests.post(url, headers=headers, data=image_data)
+
+#     if response.status_code == 200:
+#         result = response.json()
+#         text = result.get("text", "")
+#         print("辨識結果:", text)
+#     else:
+#         print("錯誤:", response.status_code, response.text)
+#         text = ""
+
+#     return text
+
+
+
+
+
+
+
+
 
 
 def extract_datetime(text: str):
 	"""
-	支援格式如：
-	2025-09-29 01:48 或 2025-9-29 01:48
-	返回 YYYY/MM/DD/HH/MM 字串
+	解析模糊日期時間 → YYYY/MM/DD/HH/MM
+	支援:
+	2025-11一0518.58
+	2025一10一0100:15
+	2025一10800:40
+	2025-09-29 01:48
+	2025/9/29 0148
 	"""
-	# 改為允許日期後面直接接時間(沒有分隔符)
-	m = re.search(r"(\d{4})\D*(\d{1,2})\D*(\d{1,2})\D*(\d{2}):?(\d{2})", text)
+	m = re.search(
+		r"(\d{4})\D*(\d{1,2})\D*(\d{1,2})\D*(\d{2})\D*(\d{2})",
+		text
+	)
 	if m:
-		year = m.group(1)
-		month = m.group(2).zfill(2)
-		day = m.group(3).zfill(2)
-		hour = m.group(4).zfill(2)
-		minute = m.group(5).zfill(2)
-		return f"{year}/{month}/{day}/{hour}/{minute}"
+		year, month, day, hour, minute = m.groups()
+		return f"{year}/{month.zfill(2)}/{day.zfill(2)}/{hour.zfill(2)}/{minute.zfill(2)}"
 	return None
 
 
-# 64 卦列表
+
+
+
+
+
+
+
+
+
+
+def extract_hexagrams(text: str):
+    """
+    提取本卦與變卦，最小變動實現規則：
+    - 本卦名稱與變卦名稱：
+        1. 先判斷最後一個字是否存在於字典 key 中，有的話直接取字典對應值
+        2. 三個字取最後一個字，四個字取最後兩個字
+    - 返回格式: "本卦之變卦卦"
+    """
+    # 移除干擾字符
+    cleaned = text.replace("\n", " ").replace("【", "").replace("】", "")
+    guaName_dict = { "天":"乾","澤":"兌","火":"離","雷":"震","風":"巽","水":"坎","山":"艮","地":"坤" }
+
+    def process_gua(name):
+        if not name:
+            return None
+        # 先判斷最後一個字是否存在字典 key
+        last_char = name[-1]
+        if last_char in guaName_dict:
+            return guaName_dict[last_char]
+        # 沒匹配再依字數取字
+        if len(name) == 3:
+            return name[-1]
+        elif len(name) == 4:
+            return name[-2:]
+        else:
+            return name
+
+    # 找本卦
+    ben_gua = None
+    if "本卦" in cleaned:
+        after_bengua = cleaned.split("本卦", 1)[1].strip()
+        ben_gua_full = refindGuaName(after_bengua.split()[0])
+        ben_gua = process_gua(ben_gua_full)
+
+    # 找變卦
+    bian_gua = None
+    if "變卦" in cleaned:
+        after_biangua = cleaned.split("變卦", 1)[1].strip()
+        bian_gua_full = refindGuaName(after_biangua.split()[0])
+        bian_gua = process_gua(bian_gua_full)
+
+    if ben_gua and bian_gua:
+        return f"{ben_gua}之{bian_gua}卦"
+
+    return None
+
+
+
+
+
+
+import difflib
+
+# 模糊比對卦名
+# 保留字的順序 → “天山X” 只能匹配“天山遯”，不能匹配“山天遯”。
+# 三字卦 → 允許一個字錯
+# 四字卦 → 允許一到兩個字錯
+# OCR 錯字校正 → 返回最接近的正確卦名
 guaList = [
 	"乾為天","天風姤","天山遯","天地否","風地觀","山地剝","火地晉","火天大有",
 	"坎為水","水澤節","水雷屯","水火既濟","澤火革","雷火豐","地火明夷","地水師",
@@ -112,145 +225,101 @@ guaList = [
 	"坤為地","地雷復","地澤臨","地天泰","雷天大壯","澤天夬","水天需","水地比",
 	"兌為澤","澤水困","澤地萃","澤山咸","水山蹇","地山謙","雷山小過","雷澤歸妹"
 ]
-
-
-def extract_hexagrams(text: str):
-	"""
-	提取本卦與變卦 - 改進版
-	- 優先完整匹配卦名
-	- 使用模糊匹配糾錯
-	- 返回格式: "本卦之變卦卦"
-	"""
-	cleaned = text.replace("\n", " ").replace("【", "").replace("】", "").replace("\r", " ")
-	
-	# 八純卦轉換字典
-	guaName_dict = {
-		"天":"乾", "澤":"兌", "火":"離", "雷":"震",
-		"風":"巽", "水":"坎", "山":"艮", "地":"坤"
-	}
-	
-	ben_gua = None
-	bian_gua = None
-	
-	# === 提取本卦 ===
-	if "本卦" in cleaned:
-		after_bengua = cleaned.split("本卦", 1)[1].strip()
-		print(f"本卦後文字: {after_bengua}")
-		
-		# 先嘗試直接完整匹配
-		for gua in guaList:
-			if gua in after_bengua[:10]:  # 只檢查前10個字
-				ben_gua = gua
-				print(f"✓ 本卦完整匹配: {ben_gua}")
-				break
-		
-		# 如果沒有完整匹配，使用模糊匹配
-		if not ben_gua:
-			raw_name = after_bengua.split()[0] if after_bengua.split() else after_bengua[:4]
-			ben_gua = refindGuaName(raw_name)
-			if ben_gua:
-				print(f"✓ 本卦模糊匹配: {raw_name} → {ben_gua}")
-	
-	# === 提取變卦 ===
-	if "變卦" in cleaned:
-		after_biangua = cleaned.split("變卦", 1)[1].strip()
-		print(f"變卦後文字: {after_biangua}")
-		
-		# 先嘗試直接完整匹配
-		for gua in guaList:
-			if gua in after_biangua[:10]:
-				bian_gua = gua
-				print(f"✓ 變卦完整匹配: {bian_gua}")
-				break
-		
-		# 如果沒有完整匹配，使用模糊匹配
-		if not bian_gua:
-			raw_name = after_biangua.split()[0] if after_biangua.split() else after_biangua[:4]
-			bian_gua = refindGuaName(raw_name)
-			if bian_gua:
-				print(f"✓ 變卦模糊匹配: {raw_name} → {bian_gua}")
-	
-	# === 組合結果 ===
-	if ben_gua and bian_gua:
-		# 提取本卦名（去掉「為」字）
-		if "為" in ben_gua:
-			homeGua = ben_gua.split("為")[-1]
-		else:
-			homeGua = ben_gua[2:]
-		
-		# 提取變卦名（判斷是否為八純卦）
-		if "為" in bian_gua:
-			# 八純卦：如「離為火」→ 取「火」再轉換成「離」
-			changeGua_element = bian_gua.split("為")[-1]  # 取得「火」
-			changeGua = guaName_dict.get(changeGua_element, changeGua_element)  # 轉換成「離」
-		else:
-			# 非八純卦：如「天火同人」→ 取後兩字「同人」
-			changeGua = bian_gua[2:]
-		
-		result = f"{homeGua}之{changeGua}卦"
-		print(f">>> 最終結果: {result}")
-		return result
-	
-	print("⚠ 未能提取完整卦名")
-	return None
-
-
 def refindGuaName(inputName):
-	"""
-	模糊比對卦名 - 改進版
-	優先順序：
-	1. 完整包含匹配
-	2. 前綴匹配
-	3. 字數相同且錯字在容許範圍內
-	"""
-	if not inputName:
-		return None
-	
-	inputName = inputName.strip()
-	best_match = None
-	min_distance = float('inf')
-	
-	# === Case 1: 完整包含匹配（優先度最高）===
-	for gua in guaList:
-		if inputName in gua or gua in inputName:
-			return gua
-	
-	# === Case 2: 前綴匹配 ===
-	if len(inputName) >= 2:
-		for gua in guaList:
-			if gua.startswith(inputName[:2]):
-				# 如果輸入較短，直接返回
-				if len(inputName) < len(gua):
-					return gua
-	
-	# === Case 3: 同長度字串的容錯匹配 ===
-	for gua in guaList:
-		if len(gua) != len(inputName):
-			continue
-		
-		distance = sum(1 for a, b in zip(gua, inputName) if a != b)
-		
-		# 三字卦容許 1 字錯，四字卦容許 2 字錯
-		if len(gua) == 3 and distance <= 1:
-			if distance < min_distance:
-				best_match = gua
-				min_distance = distance
-		elif len(gua) == 4 and distance <= 2:
-			if distance < min_distance:
-				best_match = gua
-				min_distance = distance
-	
-	if best_match:
-		print(f"  模糊匹配: {inputName} → {best_match} (錯字數: {min_distance})")
-	
-	return best_match
+    best_match = None
+    min_distance = None
+
+    # 🔹 Case1: 完全匹配，直接返回
+    for gua in guaList:
+        if gua == inputName:
+            return gua
+
+    # 🔹 Case2: 前兩字或後兩字能對上，直接挑候選
+    for gua in guaList:
+        if inputName in gua:
+            return gua
+        if len(inputName) >= 2 and gua.startswith(inputName[:2]):
+            if len(inputName) < len(gua):
+                return gua
+
+    # 🔹 Case3: 原本距離比對（錯一字/兩字）
+    for gua in guaList:
+        if len(gua) != len(inputName):
+            continue
+        distance = sum(1 for a, b in zip(gua, inputName) if a != b)
+        if len(gua) == 3 and distance <= 1:
+            if min_distance is None or distance < min_distance:
+                best_match = gua
+                min_distance = distance
+        elif len(gua) == 4 and distance <= 2:
+            if min_distance is None or distance < min_distance:
+                best_match = gua
+                min_distance = distance
+
+    return best_match
 
 
+
+
+# # 範例
+# print(refindGuaName("天火同人"))  # -> 天山遯
+# print(refindGuaName("允為天"))  # -> 乾為天
+
+
+
+
+
+# def cropTool(img: Image.Image, 
+# 			 w_ratio=0.5, h_ratio=0.25, 
+# 			 quadrant=1, mode="datetime"):
+# 	"""
+# 	裁切圖片指定區域，並回傳 OCR 結果
+# 	img: PIL Image
+# 	w_ratio, h_ratio: 裁切區域相對於整張圖的寬高比例
+# 	quadrant: 1=右上, 2=左上, 3=左下, 4=右下
+# 	mode: "datetime" / "hexagrams" / "raw"
+# 	"""
+# 	w, h = img.size
+# 	# print( img.size )
+# 	crop_w, crop_h = int(w * w_ratio), int(h * h_ratio)
+
+# 	if quadrant == 1:      # 右上
+# 		left, top = w - crop_w, 0
+# 	elif quadrant == 2:    # 左上
+# 		left, top = 0, 0
+# 	elif quadrant == 3:    # 左下
+# 		left, top = 0, h - crop_h
+# 	elif quadrant == 4:    # 右下
+# 		left, top = w - crop_w, h - crop_h
+# 	else:
+# 		raise ValueError("quadrant must be 1,2,3,4")
+
+# 	right, bottom = left + crop_w, top + crop_h
+# 	crop_img = img.crop((left, top, right, bottom))
+# 	# crop_img = crop_img.rotate(90, expand=True)
+# 	# crop_img.show()
+# 	# OCR
+# 	text = ocr_image_to_text(crop_img)
+# 	# text = ocr_ninjas_api(crop_img)	
+# 	print( ">>>> ",text )
+
+# 	if mode == "datetime":
+# 		return extract_datetime(text)
+# 	elif mode == "hexagrams":
+# 		return extract_hexagrams(text)
+# 	else:
+# 		return text  # debug: 回傳原始 OCR 文字
+from PIL import Image
 def cropTool(img: Image.Image, 
 			 w_ratio=0.5, h_ratio=0.25, 
 			 quadrant=1, mode="datetime", h_split=1):
 	"""
-	裁切圖片指定區域，並回傳 OCR 結果 - 改進版
+	裁切圖片指定區域，並回傳 OCR 結果
+	img: PIL Image
+	w_ratio, h_ratio: 裁切區域相對於整張圖的寬高比例
+	quadrant: 1=右上, 2=左上, 3=左下, 4=右下
+	mode: "datetime" / "hexagrams" / "raw"
+	h_split: 將裁切區沿高度分成幾份，預設 1 = 不分
 	"""
 	w, h = img.size
 	crop_w, crop_h = int(w * w_ratio), int(h * h_ratio)
@@ -268,112 +337,114 @@ def cropTool(img: Image.Image,
 
 	right, bottom = left + crop_w, top + crop_h
 	full_crop = img.crop((left, top, right, bottom))
-
+	full_crop.show()
 	# --- 分段 OCR ---
 	if h_split > 1:
+		split_h = crop_h // h_split
 		combined_text = ""
 		found_result = None
 
 		for i in range(h_split):
-			split_top = i * (crop_h // h_split)
-			split_bottom = split_top + (crop_h // h_split) if i < h_split - 1 else crop_h
+			split_top = i * split_h
+			split_bottom = split_top + split_h if i < h_split - 1 else crop_h
 			sub_crop = full_crop.crop((0, split_top, crop_w, split_bottom))
 
-			text = ocr_image_to_text(sub_crop, preprocess=True)
-			if not text:
-				continue
-			
+			text = ocr_image_to_text(sub_crop)
 			combined_text += " " + text
 
 			if mode == "hexagrams":
 				parsed = extract_hexagrams(text)
-				if parsed:
-					print(f"✓ [{i+1}/{h_split}] 提前成功辨識：{parsed}")
+				if parsed:  # ✅ 找到卦名就中斷
+					print(f">>>> [{i+1}/{h_split}] 提前成功辨識：{parsed}")
 					found_result = parsed
 					break
 
+		# 如果中途找到結果，直接回傳
 		if found_result:
 			return found_result
 
+		# 沒有提前找到，就回傳全部合併結果
 		text = combined_text.strip()
-		print(f">>>> 最終合併文字: {text}")
+		print(">>>> 最終合併:", text)
 
 	else:
-		text = ocr_image_to_text(full_crop, preprocess=True)
-		if text:
-			print(f">>>> OCR 結果: {text}")
+		text = ocr_image_to_text(full_crop)
+		print(">>>> ", text)
 
 	# --- 模式回傳 ---
-	if not text:
-		return None
-	
 	if mode == "datetime":
 		return extract_datetime(text)
 	elif mode == "hexagrams":
 		return extract_hexagrams(text)
 	else:
-		return text
+		return text  # debug: 回傳原始 OCR 文字
 
+
+
+
+
+
+
+from PIL import Image
+import io
 
 def getPicData(image_input):
 	"""
-	支援四種輸入並進行 OCR 辨識 - 改進版
+	支援四種輸入:
+	1. Local 路徑（字串）
+	2. PIL.Image 物件
+	3. BytesIO 或類檔案物件
+	4. bytes (原始二進位資料)
 	"""
-	import io
-	
-	# 解析輸入類型
+	# PIL.Image 物件直接用
 	if isinstance(image_input, Image.Image):
-		print(">> PIL Image")
+		print(">>PIL Image")
 		img = image_input
+	
+	# bytes 型別 (LINE Bot 的 content.content)
 	elif isinstance(image_input, bytes):
-		print(">> bytes")
+		print(">>bytes")
 		img = Image.open(io.BytesIO(image_input))
+	
+	# BytesIO 或類檔案物件
 	elif hasattr(image_input, "read"):
-		print(">> BytesIO/file-like")
-		img = Image.open(image_input)
+		print(">>BytesIO/file-like")
+		img = Image.open(image_input)  # BytesIO 不用再包一層!
+	
+	# 字串當檔案路徑
 	elif isinstance(image_input, str):
-		print(">> local path")
+		print(">>local path")
 		img = Image.open(image_input)
+	
 	else:
 		raise TypeError("image_input 必須是 PIL.Image, str 路徑, bytes 或 BytesIO 類型")
 	
 	# ===== 裁切 OCR =====
-	print("\n=== 開始辨識日期時間 ===")
+	# dt = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=2, mode="datetime")     ## 日期
+	# hx = cropTool(img, w_ratio=0.6, h_ratio=0.25, quadrant=3, mode="hexagrams")   ## 卦名
 	dt = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=2, mode="datetime", h_split=1)
-	
-	print("\n=== 開始辨識卦名 ===")
-	# 先嘗試單次辨識
+
 	hx = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=3, mode="hexagrams", h_split=1)
-	
-	# 如果失敗，嘗試分段辨識
 	if not hx:
-		print("⚠ 單次辨識失敗，嘗試分段辨識...")
-		hx = cropTool(img, w_ratio=0.5, h_ratio=0.3, quadrant=3, mode="hexagrams", h_split=3)
-	
-	print(f"\n=== 辨識結果 ===")
-	print(f"日期時間: {dt}")
-	print(f"卦名: {hx}")
+		print ( "try again")
+		hx = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=3, mode="hexagrams", h_split=3)	
+	# hx = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=3, mode="hexagrams", h_split=3)
+	# hx = cropTool(img, w_ratio=0.6, h_ratio=0.25, h_split = 3 , quadrant=3, mode="hexagrams")   ## 卦名
+
+	print("Datetime:", dt)
+	print("Hexagrams:", hx)
 	
 	if dt and hx:
-		result = f"{dt}//{hx}//Untitled"
-		print(f"\n>>> 最終命令: {result}")
-		return result
+
+		## 產生命令的本番
+		# ============================================
+		print(f"{dt}//{hx}//Untitled")
+		return f"{dt}//{hx}//Untitled"      
+		# return dt, hx
+		# ============================================
 	else:
-		print("⚠ 辨識失敗")
 		return False
 
-
-# # ===== 測試 =====
-# if __name__ == '__main__':
-# 	# 測試模糊匹配
-# 	print("=== 測試模糊匹配 ===")
-# 	print(refindGuaName("天火同人"))  # 應該返回 天火同人
-# 	print(refindGuaName("天火"))      # 應該返回 天火同人
-# 	print(refindGuaName("天山頓"))    # 應該返回 天山遯
-# 	print(refindGuaName("離為火"))    # 應該返回 離為火
-	
-# 	print("\n=== 測試圖片辨識 ===")
-	# getPicData("your_image_path.jpg")
 # ===== 範例 =====
 if __name__ == '__main__':
 	# local 路徑
