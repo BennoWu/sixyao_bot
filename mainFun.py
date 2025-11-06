@@ -677,6 +677,7 @@ def mainFunction( inputData = "1X10@1" , noteText = None , user_mouthZi = "" , u
 			## 如個有暗動，就把changeIdIndex暗動爻位的X改成D
 			for i, val in enumerate(mainDataDict['home_naGia_rank']):  
 				if "^" in val:
+					# print( ">>>>>>",mainDataDict['changeIdIndex'] )
 					if mainDataDict['changeIdIndex'][i] == "X":
 						mainDataDict['changeIdIndex'][i] = "D"
 
@@ -937,7 +938,7 @@ if __name__ == '__main__':
 	# 	mainFunction( e )
 
 
-	mainFunction( "110$0$")
+	mainFunction( "100100")
 	# mainFunction( "1,0,11,0,00,1@2024 12 5 10 31@樂透會不會中獎?")
 	# mainFunction( "1,0,11,0,00,1@乙月,丙子日@樂透會不會中獎?")
 

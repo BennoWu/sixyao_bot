@@ -37,6 +37,143 @@ def strQ2B(ustring):
 
 
 
+## 產生文字排卦
+def format_gua_text(data):
+	"""
+	將卦象字典格式化為文字輸出
+	
+	Args:
+		data: 卦象資料字典
+	
+	Returns:
+		str: 格式化後的卦象文字
+	"""
+	# 基本資訊
+	note = data['note']
+	user_define = data['user_define']
+	
+	# 六親簡稱映射
+	family_abbr = {
+		'父母': '父',
+		'子孫': '孫',
+		'兄弟': '兄',
+		'妻財': '財',
+		'官鬼': '官'
+	}
+	
+	# 構建輸出文字
+	lines = []
+	lines.append(f"占: {note}")
+	
+	# 根據 user_define 決定日期和四柱格式
+	if user_define:
+		# 自訂模式：只顯示月柱和日柱
+		month_zi = data['user_mouthZi']
+		day_ganzi = data['user_dayGanZi']
+		# 取月柱最後一個字（地支）+ "月"
+		month_display = month_zi[-1] + "月"
+		day_display = day_ganzi + "日"
+		lines.append(f"{month_display} | {day_display}")
+	else:
+		# 正常模式：顯示日期和完整四柱
+		date = data['fullDate']
+		year = data['yearGanZi']
+		month = data['monthGanZi']
+		day = data['dayGanZi']
+		hour = data['hourGanZi']
+		lines.append(f"{date}")
+		lines.append(f"{year} | {month} | {day} | {hour}")
+	
+	gua_name = data['mainGuaName']
+	kong_wang = data['home_kongWang']
+	lines.append(f"> {gua_name}        空:{kong_wang}")
+	lines.append("=====================")
+	
+	# 世應位置
+	shi_yao = int(data['home_shiYao'])
+	yin_yao = int(data['home_innYao'])
+	
+	# 六爻資料（從下往上：index 0-5 對應初爻-上爻）
+	six_animals = data['home_sixAnimal']
+	families = data['home_family']
+	na_gias = data['home_naGia']
+	
+	# 變爻資料
+	change_index = data['changeIdIndex']
+	change_na_gias = data['change_naGia'] if data['change_naGia'] else []
+	change_families = data['change_family'] if data['change_family'] else []
+	
+	# 伏神資料
+	hide_families = data['hide_family']
+	hide_na_gias = data['hide_naGia']
+	
+	# 六爻（從上往下：index 5-0）
+	for i in range(5, -1, -1):
+		yao_idx = i + 1  # 實際爻位（1-6）
+		
+		# 伏神（4個字寬）
+		if hide_families[i] != 'X':
+			hide_dizhi = hide_na_gias[i][1] if len(hide_na_gias[i]) > 1 else hide_na_gias[i]
+			hide_family = family_abbr.get(hide_families[i], hide_families[i])
+			fu_shen = f"{hide_dizhi}{hide_family}"
+		else:
+			fu_shen = "　　"
+		
+		# 六神
+		animal = six_animals[i]
+		
+		# 六親簡稱
+		family = family_abbr.get(families[i], families[i])
+		
+		# 世應標記
+		if yao_idx == shi_yao:
+			shi_ying = '世'
+		elif yao_idx == yin_yao:
+			shi_ying = '應'
+		else:
+			shi_ying = '　'
+		
+		# 地支（只取納甲的地支部分）
+		dizhi = na_gias[i][1] if len(na_gias[i]) > 1 else na_gias[i]
+		
+		# 動爻標記
+		dong_mark = '.' if change_index[i] == 'D' else ''
+
+		
+		# 變爻（4個字寬）
+		if change_index[i] == 'O' and change_na_gias:
+			change_dizhi = change_na_gias[i][1] if len(change_na_gias[i]) > 1 else change_na_gias[i]
+			# change_family = change_families[i]  # 變爻用全稱
+			change_family = family_abbr.get( change_families[i], change_families[i])
+			bian_yao = f"{dong_mark}{change_dizhi}{change_family}"
+		else:
+			bian_yao = dong_mark
+		
+		# 組合完整行
+		line = f" {fu_shen}   {animal}|{family}  --  {shi_ying}  {dizhi}  {bian_yao} "
+		lines.append(line)
+	
+	lines.append("=====================")
+	
+	# 神煞
+	horse = data['horse_po']
+	flower = data['flower_po']
+	yang_knife = data['yangKnife_po']
+	god_happy = data['godHappy_po']
+	guan = data['guan_po']
+	helpful = data['helpful_po']
+	
+	lines.append(f"馬:{horse}  桃:{flower}  刃:{yang_knife}  貴:{helpful}")
+	# lines.append(f"馬:{horse}|桃:{flower}|刃:{yang_knife}|喜:{god_happy}|祿:{guan}|貴:{helpful}")	
+	
+	print( '\n'.join(lines) )
+	return '\n'.join(lines)
+
+
+
+
+
+
 ## 轉換成簡單符號模式 //
 ## ========================================================================================================================================
 def riceGua( fullDataInput ):	
@@ -164,45 +301,45 @@ def _clean_subblock(s: str) -> str:
 	
 # 	return result
 def unifiedData(orgData, strong_sep='//', sep_for_app=None):
-    if not isinstance(orgData, str):
-        return orgData
-    
-    # Step 1: 判斷是否包含「日期/卦象/數字符號」
-    # 如果有這些特徵，換行 → //；否則換行 → ,
-    has_special_pattern = bool(
-        re.search(r'\d+[/\-]\d+', orgData) or  # 日期格式 2025/10/26
-        re.search(r'[0-9X$@]{2,}', orgData) or  # 卦象符號 10$01X
-        re.search(r'\d+,\d+,\d+', orgData)      # 米卦格式 27,71,42
-    )
-    
-    # Step 2: 分段落（大區塊）
-    STRONG_TOKEN = "STRONGSEPUNIQUE"
-    
-    # 保護原本的 //
-    s = orgData.replace(strong_sep, STRONG_TOKEN)
-    s = re.sub(r'\s-\s', STRONG_TOKEN, s)
-    
-    # 🔥 關鍵：根據內容類型決定換行的處理方式
-    if has_special_pattern:
-        # 有特殊符號 → 換行變成 //
-        s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
-    else:
-        # 純中文 → 換行變成 ,
-        s = re.sub(r'[\r\n]+', ',', s)
-    
-    # Step 3: 對每個段落清理
-    segments = s.split(STRONG_TOKEN)
-    cleaned_segments = [_clean_subblock(seg) for seg in segments if seg.strip()]
-    
-    # Step 4: 合併回單行
-    result = strong_sep.join(cleaned_segments)
-    
-    # Step 5: 可選替換為 app 分隔符號
-    if sep_for_app:
-        result = result.replace(strong_sep, sep_for_app)
-    
-    # print(result)
-    return result
+	if not isinstance(orgData, str):
+		return orgData
+	
+	# Step 1: 判斷是否包含「日期/卦象/數字符號」
+	# 如果有這些特徵，換行 → //；否則換行 → ,
+	has_special_pattern = bool(
+		re.search(r'\d+[/\-]\d+', orgData) or  # 日期格式 2025/10/26
+		re.search(r'[0-9X$@]{2,}', orgData) or  # 卦象符號 10$01X
+		re.search(r'\d+,\d+,\d+', orgData)      # 米卦格式 27,71,42
+	)
+	
+	# Step 2: 分段落（大區塊）
+	STRONG_TOKEN = "STRONGSEPUNIQUE"
+	
+	# 保護原本的 //
+	s = orgData.replace(strong_sep, STRONG_TOKEN)
+	s = re.sub(r'\s-\s', STRONG_TOKEN, s)
+	
+	# 🔥 關鍵：根據內容類型決定換行的處理方式
+	if has_special_pattern:
+		# 有特殊符號 → 換行變成 //
+		s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
+	else:
+		# 純中文 → 換行變成 ,
+		s = re.sub(r'[\r\n]+', ',', s)
+	
+	# Step 3: 對每個段落清理
+	segments = s.split(STRONG_TOKEN)
+	cleaned_segments = [_clean_subblock(seg) for seg in segments if seg.strip()]
+	
+	# Step 4: 合併回單行
+	result = strong_sep.join(cleaned_segments)
+	
+	# Step 5: 可選替換為 app 分隔符號
+	if sep_for_app:
+		result = result.replace(strong_sep, sep_for_app)
+	
+	# print(result)
+	return result
 # print(unifiedData("店家維修，能否順利修好電腦保住資料 - 0-1-00-11-0-1"))
 
 
@@ -695,7 +832,7 @@ from sixYaoJsonDataClass import *
 
 
 
-def sixYaoMain ( fullDataInput , userSetting = None ):
+def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 	print( "========================= MAIN =========================")
 	fullDataInput = fullDataInput.replace( '\u200b' , '' )
 	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\n" , '//' )
@@ -708,12 +845,14 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	notionAccount = False
 	# ui_mode = ""
 	notionMode = False
+	textUIMode = False
+
 
 	## 開頭為"n"則為上傳notion模式，差異在上傳圖床的檔案夾是會保存的
 	if fullDataInput[:1] == "n":
 		notionMode = True
 		fullDataInput = fullDataInput[1:]
-		print ( "Notion mode ON")
+		print ( "Notion mode ON")		
 
 
 	print( "##### userSetting dict:",userSetting )
@@ -751,40 +890,6 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	token_buf = ""
 	pageId_buf = ""
 
-	# # if user_notion == True:
-
-	# ## 確認supabase這個id是否存在
-	# if check_user_exists( linebot_Id ) == True:	
-	# 	print( "> supabase OK")
-	# 	# 測試讀取 (會回傳字典)
-	# 	# "notion_token": notion_token,
-	# 	# "page_id": page_id
-	# 	data = get_user_data( linebot_Id )
-
-	# 	if data:
-	# 		token_buf = data['notion_token']
-	# 		pageId_buf = data['page_id']
-	# 		user_notion = True
-	# 		save_json_data( linebot_Id, "notionToken_pageId", True )
-
-	# else:
-	# 	print( "> supabase NG")
-
-
-
-	# # 如果不是ON，就代表權限被OFF掉了，程式中止
-	# if jsonData.switch.upper() != "ON": ## user的switch項如果不是ON，表示權限關閉狀態
-	# 	print ( "404" )
-	# 	exit()
-
-	# # 設定模式
-	# if ("set" in fullDataInput.lower())  or ("utc" in fullDataInput.lower()) :
-	# 	returnMsg = jsonData.uiJsonSetting( fullDataInput )
-	# 	# lineSend_fun( replyUrl )
-	# 	print ( returnMsg )
-	# 	return returnMsg
-
-
 
 
 	build_mode = False
@@ -794,6 +899,11 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 		fullDataInput = fullDataInput[1:]
 
 
+	## 開頭為"t"則為文字裝卦版本	
+	if fullDataInput[:1] == "t":
+		textUIMode = True
+		fullDataInput = fullDataInput[2:]
+		print ( "Text mode ON")	
 
 	# jsonData.showData()
 
@@ -1037,7 +1147,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 
 
 
-	showBuf = False  ## 上傳時記得OFF掉
+	showBuf = showPic ## 上傳時記得OFF掉
 
 	if notionMode:
 		showBuf = False
@@ -1054,10 +1164,19 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 	print ( "user_tipsMode --" , user_tipsMode )
 	print ( "user_notion --" , user_notion )
 
+	# textUI = format_gua_text(
+	# 				mainFunction( 
+	# 					inputData = finalGua ,
+	# 					noteText = preNote + noteText  , 
+	# 					user_mouthZi = dateMonth , 
+	# 					user_dayGanZi = dateDay , 
+	# 					userDefineDate = dateData )
+	# 				)
 
 
 
 	if build_mode == True:
+		print ( "\n\n\n==== 圖片裝卦模式 ====\n\n\n")
 		## 產生圖片，回傳連結
 		image_url = drawUi_v1(  
 			mainFunction( 
@@ -1075,6 +1194,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 			savePic = False,
 			notion = notionMode )
 
+
 		# return image_url
 		# print( image_url )
 		if notionMode == True:
@@ -1090,10 +1210,22 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 		else:
 			return image_url
 
-
+	## 產生UI模式
+	elif textUIMode == True:
+		print( "\n\n\n==== TEXT UI模式 ====\n\n\n")
+		textUI = format_gua_text(
+						mainFunction( 
+							inputData = finalGua ,
+							noteText = preNote + noteText  , 
+							user_mouthZi = dateMonth , 
+							user_dayGanZi = dateDay , 
+							userDefineDate = dateData )
+						)
+		return textUI
 
 	## 產生UI模式
 	elif fullDataInput[:1] != "+":
+		print( "\n\n\n==== UI 模式 ====\n\n\n")
 	# else: 
 		# dateData =  getNowTime( user_utc_hour )
 		## 產生裝卦UI時，記錄到log中
@@ -1104,6 +1236,8 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 			dateData = dateData[:-1]
 			threePil_mode = True
 
+
+
 		ui_cmd_dict = uiInputData(  dateData , 
 									date_ganZiList , 
 									finalGua = finalGua , 
@@ -1111,7 +1245,7 @@ def sixYaoMain ( fullDataInput , userSetting = None ):
 									command = command  ,
 									threePillar = threePil_mode , 
 									notionAccount = user_notion,
-                                    printMode = True  )
+									printMode = False  )
 		# print( ui_cmd_dict )
 		return ui_cmd_dict
 
@@ -1137,19 +1271,18 @@ if __name__ == '__main__':
 	# sixYaoMain( "乙巳年寅月申日-戌亥//大过之鼎卦")	
 	# sixYaoMain( "+巳年卯月戊戌日//大过之鼎卦")	## 三合太多
 	# sixYaoMain( "吃不吃辣//X10011")	
-	# sixYaoMain( "嬰兒健康吉凶//山風 .,2.3//己卯月甲午日")  ## 三合 跳格
+	# sixYaoMain( "+嬰兒健康吉凶//山風 .,2.3//己卯月甲午日",showPic = True )  ## 三合 跳格
 	# sixYaoMain( "去學習是否順利 // 火地晉卦5 // 丙月，丙子日")
 	# sixYaoMain( "去學習是否順利//100X10//己亥 辛未 壬申")
 # 110$0$
 	# sixYaoMain( "占盧女甲辰年流年//甲辰年辰月癸亥日//10X01$" ) # 三合缺一，靜爻有
 	# sixYaoMain( "占一男終身財福//乙巳年辰月辰日-寅卯//00$01X" )
 	# sixYaoMain( "占家宅人口平安否//卯月癸亥日//111X1X" )
-	# sixYaoMain( "占開店//寅月辛酉日//X0100$" )
+	# sixYaoMain( "+占開店//寅月辛酉日//X0100$" ,showPic = True)
 	# sixYaoMain( "卯月乙未日//一人占賣貨?////家人之小畜卦")
-	# sixYaoMain( "酉月丙寅日//占何日雨?//升之師卦")
+	# sixYaoMain( "+酉月丙寅日//占何日雨?//升之師卦",showPic = True )
 	# sixYaoMain( "卯月戊辰日//占父官事?//萃之同人卦")
-	# sixYaoMain( "巳月丁亥日//一人占僕何日回?//夬之屢卦")
-	# sixYaoMain( "午月丙寅日//一人占自病?//1X$$X$")
+	# sixYaoMain( "+巳月丁亥日//一人占僕何日回?//夬之屢卦",showPic = True)
 	# sixYaoMain( "申月戊辰日//占具題?//中孚之損卦")
 	# sixYaoMain( "卯年丑月酉日-午未//柯男占甲辰年流年//1X1110")
 	# sixYaoMain( "傑利如果漲房租租客是否會續租//898887")  # 二合
@@ -1192,7 +1325,7 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "理事長病危?//丙戌，戊戌，戊寅，戊午//110101, 4,6" )           ## 三合 四格
 	# sixYaoMain( "黃連老師狗狗生病//2025/07/09/22/58//011100.3" ) ## 暗動  沖脫
-	# sixYaoMain( "一女占前男友是否有機會復合//旅之小過卦//甲申月戊申日" )
+	# sixYaoMain( "+一女占前男友是否有機會復合//旅之小過卦//甲申月戊申日" ,showPic = True)
 	# sixYaoMain( "某男占陳女有法助本人事業否?//明夷之泰卦//庚子年甲申月丙申日" )	## 雙沖
 	# sixYaoMain( "占今年房價貴賤//旅之小過卦//癸卯年辛酉月庚午日丁亥時" )	
 	# sixYaoMain( "蔡男占租一地方做教室吉凶//兌為澤//癸卯 丁巳 己卯 庚午" ) ## 日沖月沖
@@ -1218,15 +1351,15 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "set nt 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,26a739d0e36080d29148e0f263b77986" )
 	# sixYaoMain( "set nt 123adf" )
-	# sixYaoMain( "+乙巳年辰月辰日-寅卯//00$01X//占一男終身財福" ) ## 三合 日
-	sixYaoMain( "傑利的房貸吉凶//01$X10//2025,8,14,15,10" )
+	# sixYaoMain( "+乙巳年辰月辰日-寅卯//00$01X//占一男終身財福",showPic = True ) ## 三合 日
+	# sixYaoMain( "傑利的房貸吉凶//01$X10//2025,8,14,15,10" )
 
-	# sixYaoMain( "2025/08/31/15:48//傑利的房貸吉凶0831//110000" ) ## 九月七日 酉月卯日
+	# sixYaoMain( "+2025/08/31/15:48//傑利的房貸吉凶0831//110000",showPic = True) ## 九月七日 酉月卯日
 	# sixYaoMain( "+2025/9/2/12/37 // 101X0X // 傑利的房貸吉凶0902" ) ## 九月七日 酉月卯日
 	# sixYaoMain( "2025/9/2/14/11 // X1$110 // 傑利漲房租有沒有望" )
-	# sixYaoMain( "++2025/9/17/2/4 // 1$0$00 // 傑利與同學見面錢財吉凶")
-	# sixYaoMain( "乙巳年乙酉月丁亥日//男占小孩突發疾病吉凶//011100" )
-	# sixYaoMain("2025/10/02/20/41//恆之解卦//no title" )
+	# sixYaoMain( "+2025/9/17/2/4 // 1$0$00 // 傑利與同學見面錢財吉凶",showPic = True)
+	# sixYaoMain( "+乙巳年乙酉月丁亥日//男占小孩突發疾病吉凶//011100" ,showPic = True )
+	sixYaoMain("t+2025/10/02/20/41//恆之解卦//no title" )
 
 
 	# sixYaoMain( "+2025/8/31/17/1 // 01X0XX // 陳佩吟流年感情吉凶0831") ## 丑月
@@ -1243,9 +1376,9 @@ if __name__ == '__main__':
 	# sixYaoMain( "++2025/10/7/20/18 // 0X011X // 是否能得到小奴" )
 	# sixYaoMain( "++2025/10/8/20/9 // 0XX01$ // 是否能得到電話中的小奴")
 
-	# sixYaoMain("++乙巳,乙酉,辛丑,甲午//火雷之天雷//妹妹否應接受現在手上的工作offer")
-	# sixYaoMain("++2025/9/18/15/19 // 10110$ // 自占是否能接到越南的大筆訂單？" ) # 缺一待用
-	# sixYaoMain( "++2025/10/1/0/15 // 01X10$ // 自占工作-留在原公司" )
+	# sixYaoMain("+乙巳,乙酉,辛丑,甲午//火雷之天雷//妹妹否應接受現在手上的工作offer",showPic = True )
+	# sixYaoMain("+2025/9/18/15/19 // 10110$ // 自占是否能接到越南的大筆訂單？",showPic = True ) # 缺一待用
+	# sixYaoMain( "+2025/10/1/0/15 // 01X10$ // 自占工作-留在原公司" ,showPic = True)
 	# sixYaoMain( "++2025/10/1/0/15 // 101100 // 自占工作-去C公司" )
 	# sixYaoMain( "++2025/10/1/0/15 // 001$0$ //  自占工作-去D公司" )
 	# sixYaoMain( "+2025-10-01 00:15//旅之震//no title" )

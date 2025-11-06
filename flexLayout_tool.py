@@ -325,7 +325,14 @@ uiLayoutFront ='''
 				"backgroundColor": "#91A4BC",
 				"width": "30px",
 				"height": "30px",
-				"cornerRadius": "20px"
+
+                "cornerRadius": "20px",
+                "action": {
+                  "type": "postback",
+                  "label": "text UI",
+                  "data": "__TXT__",
+                  "displayText": "text UI"
+                }
 			  },
 			  {
 				"type": "text",
@@ -1188,11 +1195,14 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 								.replace("日柱", fourP[2] )
 								.replace("時柱", fourP[3] )
 								.replace("__NOTE__", note )
+								.replace("__TXT__", "t" + command )	
+															
 								.replace("12:00", currentTime )
 								.replace("__裝卦__", command )
 								.replace("__dis裝卦__", display_command )								
 								.replace("__ORGGUA__" , orgGuaName)
 								.replace("__CHGGUA__" , chgGuaName)
+
 						)
 
 	if date_ganZiList: ## 自定月日
