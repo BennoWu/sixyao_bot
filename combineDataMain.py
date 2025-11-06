@@ -38,6 +38,7 @@ def strQ2B(ustring):
 
 
 ## 產生文字排卦
+## 產生文字排卦
 def format_gua_text(data):
 	"""
 	將卦象字典格式化為文字輸出
@@ -86,8 +87,8 @@ def format_gua_text(data):
 	
 	gua_name = data['mainGuaName']
 	kong_wang = data['home_kongWang']
-	lines.append(f"> {gua_name}        空:{kong_wang}")
-	lines.append("=====================")
+	lines.append(f"{gua_name}        空:{kong_wang}")
+	lines.append("=======================")
 	
 	# 世應位置
 	shi_yao = int(data['home_shiYao'])
@@ -97,6 +98,7 @@ def format_gua_text(data):
 	six_animals = data['home_sixAnimal']
 	families = data['home_family']
 	na_gias = data['home_naGia']
+	input_gua = data['inputGua']
 	
 	# 變爻資料
 	change_index = data['changeIdIndex']
@@ -136,40 +138,49 @@ def format_gua_text(data):
 		# 地支（只取納甲的地支部分）
 		dizhi = na_gias[i][1] if len(na_gias[i]) > 1 else na_gias[i]
 		
-		# 動爻標記
-		dong_mark = '.' if change_index[i] == 'D' else ''
-
+		# 爻的符號（根據 inputGua）
+		input_val = input_gua[i]
 		
-		# 變爻（4個字寬）
-		if change_index[i] == 'O' and change_na_gias:
-			change_dizhi = change_na_gias[i][1] if len(change_na_gias[i]) > 1 else change_na_gias[i]
-			# change_family = change_families[i]  # 變爻用全稱
-			change_family = family_abbr.get( change_families[i], change_families[i])
-			bian_yao = f"{dong_mark}{change_dizhi}{change_family}"
+		if input_val == '1':
+			yao_symbol = '⚊'  # 陽爻
+		elif input_val == '0':
+			yao_symbol = '⚋'  # 陰爻
+		elif input_val == '@':
+			yao_symbol = '〇'  # 老陽(動爻,陽變陰)
+		elif input_val == 'X':
+			yao_symbol = '✕'  # 老陰(動爻,陰變陽)
 		else:
-			bian_yao = dong_mark
+			yao_symbol = '⚊'  # 預設陽爻
+		
+		# 變爻（只在有變化時顯示）
+		if input_val in ['@', 'X'] and change_na_gias:
+			change_dizhi = change_na_gias[i][1] if len(change_na_gias[i]) > 1 else change_na_gias[i]
+			change_family = family_abbr.get(change_families[i], change_families[i])
+			bian_yao = f"{change_dizhi}{change_family}"
+		else:
+			bian_yao = ""
 		
 		# 組合完整行
-		line = f" {fu_shen}   {animal}|{family}  --  {shi_ying}  {dizhi}  {bian_yao} "
+		line = f" {fu_shen}   {animal}|{family}  {yao_symbol}  {shi_ying}  {dizhi}  {bian_yao} "
 		lines.append(line)
 	
-	lines.append("=====================")
+	lines.append("=======================")
 	
 	# 神煞
 	horse = data['horse_po']
 	flower = data['flower_po']
 	yang_knife = data['yangKnife_po']
-	god_happy = data['godHappy_po']
-	guan = data['guan_po']
 	helpful = data['helpful_po']
 	
 	lines.append(f"馬:{horse}  桃:{flower}  刃:{yang_knife}  貴:{helpful}")
-	# lines.append(f"馬:{horse}|桃:{flower}|刃:{yang_knife}|喜:{god_happy}|祿:{guan}|貴:{helpful}")	
 	
-	print( '\n'.join(lines) )
+	print('\n'.join(lines))
 	return '\n'.join(lines)
 
-
+# ⚋
+# ⚊
+# ✕
+# 〇
 
 
 
@@ -1359,7 +1370,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "2025/9/2/14/11 // X1$110 // 傑利漲房租有沒有望" )
 	# sixYaoMain( "+2025/9/17/2/4 // 1$0$00 // 傑利與同學見面錢財吉凶",showPic = True)
 	# sixYaoMain( "+乙巳年乙酉月丁亥日//男占小孩突發疾病吉凶//011100" ,showPic = True )
-	sixYaoMain("t+2025/10/02/20/41//恆之解卦//no title" )
+	sixYaoMain("t+2025/10/02/20/41//01$10X//測試測試測試" )
 
 
 	# sixYaoMain( "+2025/8/31/17/1 // 01X0XX // 陳佩吟流年感情吉凶0831") ## 丑月
