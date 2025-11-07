@@ -41,8 +41,17 @@ from linebot.v3.messaging import (
 
 app = Flask(__name__)
 
+
+
+
+
 from dotenv import load_dotenv
 load_dotenv()
+
+
+# 在檔案最上方，import 後面加
+line_bot_api.get_bot_info()  # 啟動時就初始化 LINE SDK
+
 
 # ⭐ v3 初始化方式
 configuration = Configuration(
@@ -154,7 +163,10 @@ def getZhuangGuaData(ui_dict):
 # print(value)
 
 
-
+@app.route("/")
+def home():
+    current_time = time.time()
+    return f"Bot is alive! {current_time}"
 
 
 

@@ -372,6 +372,7 @@ def checkInData( testData ):
 	print( "----->>>-----",testData )
 	# textDate  =  testData.replace("月","").replace("日","").replace("/","" )
 	tgdz = ["0","1","X","$","@","6","7","8","9"]
+
 	for td in testData:
 		if td not in tgdz:
 			return False
@@ -1370,7 +1371,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "2025/9/2/14/11 // X1$110 // 傑利漲房租有沒有望" )
 	# sixYaoMain( "+2025/9/17/2/4 // 1$0$00 // 傑利與同學見面錢財吉凶",showPic = True)
 	# sixYaoMain( "+乙巳年乙酉月丁亥日//男占小孩突發疾病吉凶//011100" ,showPic = True )
-	sixYaoMain("t+2025/10/02/20/41//01$10X//測試測試測試" )
+	# sixYaoMain("+2025/10/02/20/41//01$10X//測試測試測試",showPic = True )
 
 
 	# sixYaoMain( "+2025/8/31/17/1 // 01X0XX // 陳佩吟流年感情吉凶0831") ## 丑月
@@ -1421,8 +1422,8 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "傑利是否可貸到330萬?//1$01X0" )
 	# sixYaoMain( "2025/8/16/19/41//0​X​$​1​0​1//瑞豐近況0816" )
-	# sixYaoMain( "2025/8/16/19/41 //瑞豐近況0816//0X$101" )
-	# sixYaoMain( "n++2025/8/30/18/17 // 011$X1 // 瑞豐近況0830" )
+	# sixYaoMain( "+2025/8/16/19/41 //瑞豐近況0816//0X$101" ,showPic = True)
+	# sixYaoMain( "n++2025/8/30/18/17 // 011$X1 // 瑞豐近況0830" ,showPic = True)
 	# ['乙巳-丁亥-庚辰', '2025/11/07', '立冬'] 亥月鬆一點
 	# sixYaoMain( "++2025/9/21/13/5 // 001X1$ // 盧卡斯最近工作吉凶" )
 	# sixYaoMain( "++2025/9/21/13/26 // 0010XX // 瑞豐工作吉凶0921" )
@@ -1471,7 +1472,7 @@ if __name__ == '__main__':
 # 高雄場課程""" ) ## 三合局
 
 	# sixYaoMain( "占今年幾時換工作較好//0,1,00,11,0,1" )
-	# sixYaoMain( "+2025/10/21/14/45 // X$1000 // 瑞豐最近的財運吉凶1021" )
+	sixYaoMain( "t+2025/10/21/14/45 // X$1000 // 瑞豐最近的財運吉凶1021",showPic = True  )
 	# sixYaoMain( "占今年幾時換工作較好好好好好好//27,71,42" )
 
 
@@ -1498,7 +1499,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "大壯之大過//病//癸卯，丙辰，乙未" )
 	# sixYaoMain( "X001$$//瑞豐近況" )
 	# sixYaoMain( "訟之升//瑞豐近況" )
-	# sixYaoMain( "2025/8/29/16/50 // 1X000$ // 瑞豐近況0829" )
+	# sixYaoMain( "+2025/8/29/16/50 // 1X000$ // 瑞豐近況0829",showPic = True )
 
 
 
