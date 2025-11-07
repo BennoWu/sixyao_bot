@@ -163,11 +163,6 @@ def getZhuangGuaData(ui_dict):
 # print(value)
 
 
-@app.route("/")
-def home():
-    current_time = time.time()
-    return f"Bot is alive! {current_time}"
-
 
 
 
@@ -175,6 +170,7 @@ def home():
 
 @app.route("/")
 def home():
+	# current_time = time.time()
 	logger.debug("收到 GET / 請求")
 	return 'home OK'
 
