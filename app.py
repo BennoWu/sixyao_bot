@@ -49,8 +49,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-# 在檔案最上方，import 後面加
-line_bot_api.get_bot_info()  # 啟動時就初始化 LINE SDK
 
 
 # ⭐ v3 初始化方式
@@ -68,6 +66,8 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger()
 
+# 在檔案最上方，import 後面加
+line_bot_api.get_bot_info()  # 啟動時就初始化 LINE SDK
 
 # ⭐ pushMsg 改用 v3
 def pushMsg(msg, user_id=None):
