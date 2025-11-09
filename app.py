@@ -613,17 +613,17 @@ def handle_postback(event):
 				)
 			)
 
-		# 文字版UI 處理
-		elif data.startswith("t+"):
-			text_UI = sixYaoMain( data , userSetting=userData)
+		# # 文字版UI 處理
+		# elif data.startswith("t+"):
+		# 	text_UI = sixYaoMain( data , userSetting=userData)
 
-			# ⭐ v3 文字訊息回覆
-			line_bot_api.reply_message(
-				ReplyMessageRequest(
-					reply_token=event.reply_token,
-					messages=[TextMessage(text= text_UI)]
-				)
-			)
+		# 	# ⭐ v3 文字訊息回覆
+		# 	line_bot_api.reply_message(
+		# 		ReplyMessageRequest(
+		# 			reply_token=event.reply_token,
+		# 			messages=[TextMessage(text= text_UI)]
+		# 		)
+		# 	)
 
 
 		# 卦象完成圖片處理
