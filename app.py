@@ -596,7 +596,7 @@ def handle_postback(event):
 		userData = get_user_json_data(user_id)
 		print("@@@ userData:", userData)
 
-		time.sleep(2)
+		# time.sleep(2)
 		# richmenu 切換
 		if data.startswith("change-to-"):
 			return

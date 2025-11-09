@@ -328,10 +328,9 @@ uiLayoutFront ='''
 
                 "cornerRadius": "20px",
                 "action": {
-                  "type": "postback",
-                  "label": "text UI",
-                  "data": "__TXT__",
-                  "displayText": "text UI"
+                  "type": "message",
+                  "label": "action",
+                  "text": "__TXT__"
                 }
 			  },
 			  {

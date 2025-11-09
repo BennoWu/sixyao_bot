@@ -1257,7 +1257,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 									command = command  ,
 									threePillar = threePil_mode , 
 									notionAccount = user_notion,
-									printMode = False  )
+									printMode = showPic  )
 		# print( ui_cmd_dict )
 		return ui_cmd_dict
 
@@ -1472,7 +1472,7 @@ if __name__ == '__main__':
 # 高雄場課程""" ) ## 三合局
 
 	# sixYaoMain( "占今年幾時換工作較好//0,1,00,11,0,1" )
-	sixYaoMain( "t+2025/10/21/14/45 // X$1000 // 瑞豐最近的財運吉凶1021",showPic = True  )
+	sixYaoMain( "2025/10/21/14/45 // X$1000 // 瑞豐最近的財運吉凶1021",showPic = True  )
 	# sixYaoMain( "占今年幾時換工作較好好好好好好//27,71,42" )
 
 
