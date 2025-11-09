@@ -390,7 +390,7 @@ def handle_message(event):
 		
 	# 文字版UI 處理
 	elif inputMsg.startswith("t+"):
-		text_UI = sixYaoMain( data , userSetting=userData)
+		text_UI = sixYaoMain( inputMsg , userSetting=userData)
 
 		# ⭐ v3 文字訊息回覆
 		line_bot_api.reply_message(
