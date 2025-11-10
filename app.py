@@ -534,7 +534,7 @@ def handle_message(event):
 			# if "Untitled" in inputMsg:
 
 			dictTxt = json.dumps( ui_cmd_dict , default=str)
-			matchList = re.findall(r'#(.*?)#', dictTxt)
+			matchList = re.findall(r'&(.*?)&', dictTxt)
 
 			if matchList:
 				print( matchList[0] )
