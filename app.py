@@ -267,7 +267,9 @@ def handle_message(event):
 
 
 	# 歲次干支 - 輸入年份 - 輸入干支取得
-	elif ( inputMsg.isdigit() == True ) or ( inputMsg in ganZhi_Dict.values() ):
+	## 兩位數(民國) ，四位數(西元) 可通過
+	elif (  bool(re.fullmatch(r'\d{2}|\d{4}', returnMsg)) ) or ( inputMsg in ganZhi_Dict.values() ):
+	# elif ( inputMsg.isdigit() == True ) or ( inputMsg in ganZhi_Dict.values() ):		
 	# elif inputMsg == "西元年","民國年","年干支":
 		ui_cmd_dict = getFlexMessage_GZ ( checkYear ( yearData = inputMsg ) )
 		# ⭐ v3 的 Flex Message
