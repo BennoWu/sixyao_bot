@@ -439,29 +439,6 @@ def handle_message(event):
 
 
 
-	# 卦象UI
-	elif "//" in unifiedData(inputMsg):
-		ui_cmd_dict = sixYaoMain(inputMsg, userData)
-
-		print("UI")
-		# print(ui_cmd_dict)
-		if "Untitled" in inputMsg:
-			save_json_data(user_id, "temp", ui_command )
-		
-		if inputMsg != "error":
-			# ⭐ v3 的 Flex Message
-			line_bot_api.reply_message(
-				ReplyMessageRequest(
-					reply_token=event.reply_token,
-					messages=[
-						FlexMessage(
-							alt_text='< 卦象UI >',
-							contents=FlexContainer.from_dict(ui_cmd_dict)
-						)
-					]
-				)
-			)
-			return
 
 	# 修改Title
 	elif inputMsg[0] in [">", "#", ":", "@", "#"]:
@@ -544,8 +521,39 @@ def handle_message(event):
 		else:
 			returnMsg = f"No command - {inputMsg}"
 
+
+
+	# 卦象UI
+	# elif "//" in unifiedData(inputMsg):
 	else:
-		returnMsg = f"未知指令: {inputMsg}"
+		ui_cmd_dict = sixYaoMain(inputMsg, userData)
+
+		print("UI")
+		print(ui_cmd_dict)
+		if "Untitled" in inputMsg:
+			save_json_data(user_id, "temp", ui_command )
+		
+		if inputMsg != "error":
+			# ⭐ v3 的 Flex Message
+			line_bot_api.reply_message(
+				ReplyMessageRequest(
+					reply_token=event.reply_token,
+					messages=[
+						FlexMessage(
+							alt_text='< 卦象UI >',
+							contents=FlexContainer.from_dict(ui_cmd_dict)
+						)
+					]
+				)
+			)
+			return
+
+		else:
+			returnMsg = f"未知指令: {inputMsg}"
+
+
+	# else:
+	# 	returnMsg = f"未知指令: {inputMsg}"
 
 	# 統一回覆文字訊息
 	if returnMsg:

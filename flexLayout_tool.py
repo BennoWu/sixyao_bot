@@ -1233,8 +1233,8 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 # pushToNotion( apiToken , pageId , imageUrl , titleText )
 	reDataLayout = reDataLayout.replace("__NOTION_DSP__",  display_notion_command )
-	print( "Notion:")
-	print ( display_notion_command.replace("☕...\\n" , ""))
+	# print( "Notion:")
+	# print ( display_notion_command.replace("☕...\\n" , ""))
 
 # ⏳⚡
 	if printMode == True:
