@@ -447,7 +447,7 @@ def handle_message(event):
 		# changeNote = changeNote.replace('\n', '^')
 		print( "change note === " , changeNote )
 		uiCommand = get_json_item_data(user_id, "temp")
-
+		print( ">>>>> ", uiCommand )
 		if uiCommand:
 			newCommand = uiCommand.replace("Untitled", changeNote)
 			new_flex_json = sixYaoMain( newCommand, userData )
@@ -526,7 +526,7 @@ def handle_message(event):
 	# 卦象UI
 	# elif "//" in unifiedData(inputMsg):
 	else:
-		ui_cmd_dict = sixYaoMain(inputMsg, userData)
+		ui_cmd_dict = sixYaoMain( inputMsg, userData )
 
 		if inputMsg != "error":
 			print("UI")

@@ -865,6 +865,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 	## 開頭為"n"則為上傳notion模式，差異在上傳圖床的檔案夾是會保存的
 	if fullDataInput[:1] == "n":
+		print( ">> 上傳Notion模式")
 		notionMode = True
 		fullDataInput = fullDataInput[1:]
 		print ( "Notion mode ON")		
@@ -910,12 +911,14 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 	build_mode = False
 
 	if fullDataInput[:1] == "+":
+		print( ">> 出圖模式")
 		build_mode = True
 		fullDataInput = fullDataInput[1:]
 
 
 	## 開頭為"t"則為文字裝卦版本	
 	if fullDataInput[:1] == "t":
+		print( ">> 文字卦模式")
 		textUIMode = True
 		fullDataInput = fullDataInput[2:]
 		print ( "Text mode ON")	
