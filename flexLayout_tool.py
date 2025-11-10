@@ -329,7 +329,7 @@ uiLayoutFront ='''
                 "cornerRadius": "20px",
                 "action": {
                   "type": "message",
-                  "label": "action",
+                  "label": "文字版",
                   "text": "__TXT__"
                 }
 			  },
@@ -716,10 +716,9 @@ uiLayoutBack = '''
 				"type": "button",
 				"style": "secondary",
 				"action": {
-				  "type": "postback",
+				  "type": "message",
 				  "label": "裝卦",
-				  "data": "__裝卦__",
-				  "displayText": "__dis裝卦__"
+				  "text": "__dis裝卦__"
 				},
 				"color": "#91A4BC",
 				"margin": "none",
@@ -911,12 +910,18 @@ uiLayoutBackExt = '''
 				  {
 					"type": "button",
 					"style": "secondary",
+
+
+
+
 					"action": {
-					  "type": "postback",
+					  "type": "message",
 					  "label": "裝卦",
-					  "data": "__裝卦__",
-					  "displayText": "__dis裝卦__"
+
+					  "text": "__dis裝卦__"
 					},
+
+
 					"color": "#91A4BC",
 					"margin": "none",
 					"height": "md"
@@ -936,12 +941,16 @@ uiLayoutBackExt = '''
 				"contents": [
 				  {
 					"type": "button",
+
+
 					"action": {
-					  "type": "postback",
+					  "type": "message",
 					  "label": "N",
-					  "data": "__NOTION_CMD__",
-					  "displayText": "__NOTION_DSP__"
+					  "text": "__NOTION_DSP__"
 					},
+
+
+
 					"color": "#CEC6C0",
 					"margin": "none",
 					"height": "md",
