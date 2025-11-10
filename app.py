@@ -387,7 +387,33 @@ def handle_message(event):
 		t.start()
 		return
 
-		
+
+
+
+
+		# Notion 處理
+		elif inputMsg.startswith("n+"):
+			notion_url = sixYaoMain(inputMsg, userSetting=userData)
+
+			# ⭐ v3 文字訊息回覆
+			line_bot_api.reply_message(
+				ReplyMessageRequest(
+					reply_token=event.reply_token,
+					messages=[TextMessage(text=notion_url)]
+				)
+			)
+
+
+
+
+
+
+
+
+
+
+
+
 	# 文字版UI 處理
 	elif inputMsg.startswith("t+"):
 		text_UI = sixYaoMain( inputMsg , userSetting=userData)
@@ -614,17 +640,17 @@ def handle_postback(event):
 		if data.startswith("change-to-"):
 			return
 
-		# Notion 處理
-		elif data.startswith("n+"):
-			notion_url = sixYaoMain(data, userSetting=userData)
+		# # Notion 處理
+		# elif data.startswith("n+"):
+		# 	notion_url = sixYaoMain(data, userSetting=userData)
 
-			# ⭐ v3 文字訊息回覆
-			line_bot_api.reply_message(
-				ReplyMessageRequest(
-					reply_token=event.reply_token,
-					messages=[TextMessage(text=notion_url)]
-				)
-			)
+		# 	# ⭐ v3 文字訊息回覆
+		# 	line_bot_api.reply_message(
+		# 		ReplyMessageRequest(
+		# 			reply_token=event.reply_token,
+		# 			messages=[TextMessage(text=notion_url)]
+		# 		)
+		# 	)
 
 		# # 文字版UI 處理
 		# elif data.startswith("t+"):
@@ -639,31 +665,31 @@ def handle_postback(event):
 		# 	)
 
 
-		# 卦象完成圖片處理
-		elif data.startswith("+"):
-			img_high, img_low = sixYaoMain(data, userSetting=userData)
+		# # 卦象完成圖片處理
+		# elif data.startswith("+"):
+		# 	img_high, img_low = sixYaoMain(data, userSetting=userData)
 
-			print("image url:")
-			print(img_high, img_low)
+		# 	print("image url:")
+		# 	print(img_high, img_low)
 			
-			# ⭐ v3 圖片訊息回覆
-			line_bot_api.reply_message(
-				ReplyMessageRequest(
-					reply_token=event.reply_token,
-					messages=[
-						ImageMessageType(
-							original_content_url=img_high,
-							preview_image_url=img_low
-						)
-					]
-				)
-			)
+		# 	# ⭐ v3 圖片訊息回覆
+		# 	line_bot_api.reply_message(
+		# 		ReplyMessageRequest(
+		# 			reply_token=event.reply_token,
+		# 			messages=[
+		# 				ImageMessageType(
+		# 					original_content_url=img_high,
+		# 					preview_image_url=img_low
+		# 				)
+		# 			]
+		# 		)
+		# 	)
 
-			print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", flush=True)
+		# 	print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", flush=True)
 
-			# 背景清理
-			t = threading.Thread(target=delayed_cleanup, args=(15,))
-			t.start()
+		# 	# 背景清理
+		# 	t = threading.Thread(target=delayed_cleanup, args=(15,))
+		# 	t.start()
 
 		else:
 			# ⭐ v3 fallback 回覆
