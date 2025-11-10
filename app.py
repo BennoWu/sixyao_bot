@@ -39,9 +39,9 @@ from linebot.v3.messaging import (
 	StickerMessage
 )
 
-## 讓所有print都失效
-import builtins
-builtins.print = lambda *args, **kwargs: None
+# ## 讓所有print都失效
+# import builtins
+# builtins.print = lambda *args, **kwargs: None
 
 
 
