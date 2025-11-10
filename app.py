@@ -528,12 +528,13 @@ def handle_message(event):
 	else:
 		ui_cmd_dict = sixYaoMain(inputMsg, userData)
 
-		print("UI")
-		print(ui_cmd_dict)
-		if "Untitled" in inputMsg:
-			save_json_data(user_id, "temp", ui_command )
-		
 		if inputMsg != "error":
+			print("UI")
+			print(ui_cmd_dict)
+			# if "Untitled" in inputMsg:
+			if "Untitled" in json.dumps( ui_cmd_dict , default=str):
+				save_json_data(user_id, "temp", ui_command )
+		
 			# ⭐ v3 的 Flex Message
 			line_bot_api.reply_message(
 				ReplyMessageRequest(
