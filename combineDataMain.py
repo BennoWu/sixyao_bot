@@ -88,7 +88,7 @@ def format_gua_text(data):
 	gua_name = data['mainGuaName']
 	kong_wang = data['home_kongWang']
 	lines.append(f"{gua_name}        空:{kong_wang}")
-	lines.append("= = = = = = = = = = =")
+	lines.append("= = = = = = = = = = = = =")
 	
 	# 世應位置
 	shi_yao = int(data['home_shiYao'])
@@ -164,7 +164,7 @@ def format_gua_text(data):
 		line = f" {fu_shen}   {animal}|{family}  {yao_symbol}  {shi_ying}  {dizhi}  {bian_yao} "
 		lines.append(line)
 	
-	lines.append("= = = = = = = = = = =")
+	lines.append("= = = = = = = = = = = = =")
 	
 	# 神煞
 	horse = data['horse_po']

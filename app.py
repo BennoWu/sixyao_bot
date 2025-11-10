@@ -393,7 +393,7 @@ def handle_message(event):
 
 	# Notion 處理
 	elif inputMsg.startswith("n+")  or inputMsg.startswith("☕"):
-		inputMsg = inputMsg.replace( "☕...","")
+		inputMsg = inputMsg.replace("☕...\\n" , "")
 		notion_url = sixYaoMain(inputMsg, userSetting=userData)
 
 		# ⭐ v3 文字訊息回覆
