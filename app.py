@@ -538,8 +538,9 @@ def handle_message(event):
 
 			if matchList:
 				print( matchList[0] )
-				save_json_data(user_id, "temp", matchList[0] )
-		
+				save_json_data(user_id, "temp", matchList[0] ) 
+				# +2025/11/10/21/55//1X$111//新主題  前面的+去掉才會進入UI模式，否則起卦模式到下面的flex格式是不行的
+
 			# ⭐ v3 的 Flex Message
 			line_bot_api.reply_message(
 				ReplyMessageRequest(
