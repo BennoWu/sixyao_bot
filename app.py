@@ -532,8 +532,13 @@ def handle_message(event):
 			print("UI")
 			print(ui_cmd_dict)
 			# if "Untitled" in inputMsg:
-			if "Untitled" in json.dumps( ui_cmd_dict , default=str):
-				save_json_data(user_id, "temp", ui_command )
+
+			dictTxt = json.dumps( ui_cmd_dict , default=str)
+			matchList = re.findall(r'#(.*?)#', dictTxt)
+
+			if matchList:
+				print( matchList[0] )
+				save_json_data(user_id, "temp", matchList[0] )
 		
 			# ⭐ v3 的 Flex Message
 			line_bot_api.reply_message(

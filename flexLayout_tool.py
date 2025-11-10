@@ -364,7 +364,13 @@ uiLayoutFront ='''
 				"width": "251px",
 				"margin": "none",
 				"spacing": "none",
-				"offsetStart": "sm"
+				"offsetStart": "sm",
+
+                "action": {
+                  "type": "message",
+                  "label": "cmd",
+                  "text": "__裝卦__"
+                }
 			  }
 			],
 			"height": "5px"
@@ -556,7 +562,13 @@ uiLayoutBack = '''
 				"width": "251px",
 				"margin": "none",
 				"spacing": "none",
-				"offsetStart": "sm"
+				"offsetStart": "sm",
+				
+                "action": {
+                  "type": "message",
+                  "label": "cmd",
+                  "text": "__裝卦__"
+                }
 			  }
 			],
 			"height": "10px"
@@ -1141,6 +1153,9 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	display_command = display_command.replace( " // " , "\\n"  )
 	display_notion_command = "☕ Uploading... // " + "n" + display_command
 	display_notion_command = display_notion_command.replace( " // " , "\\n"  )
+
+	commandExt = "#"+ command + "#"
+
  # Uploading,please wait……"
 	# display_command = re.sub( " // " , "\\n" , display_command, count=2 )
 
@@ -1209,7 +1224,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 								.replace("__TXT__", "t" + display_command )	
 															
 								.replace("12:00", currentTime )
-								.replace("__裝卦__", command )
+								.replace("__裝卦__", commandExt )
 								.replace("__dis裝卦__", display_command )								
 								.replace("__ORGGUA__" , orgGuaName)
 								.replace("__CHGGUA__" , chgGuaName)
@@ -1226,7 +1241,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	else:
 		reDataLayout = reDataLayout.replace( "month_mode" , "干支/月/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "day_mode" , "干支/日/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "hour_mode" , "干支/時/" + "6/" + dateData.replace("/","-")  ).replace( "jechi_mode" , "干支/節氣/" + "6/" + clipData(dateData).replace("/","-") )
 
-	if note == "no title":
+	if note == "Untitled":
 		reDataLayout = reDataLayout.replace( "#9BB0CE" , "#FF6470" )
 
 
