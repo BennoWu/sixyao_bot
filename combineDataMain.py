@@ -315,7 +315,7 @@ def _clean_subblock(s: str) -> str:
 	
 # 	return result
 def unifiedData( orgData, strong_sep='//', sep_for_app=None ):
-	orgData = orgData if '//' in orgData else orgData.replace('/', '//') if '/' in orgData else orgData
+	
 	## XXXX/XXXXX/XXXX 變成 XXXX//XXXXX//XXXX
 	if not isinstance(orgData, str):
 		return orgData
@@ -852,6 +852,7 @@ from sixYaoJsonDataClass import *
 def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 	print( "========================= MAIN =========================")
 	fullDataInput = fullDataInput.replace( '\u200b' , '' )
+	fullDataInput = fullDataInput if '//' in fullDataInput else fullDataInput.replace('/', '//') if '/' in fullDataInput else fullDataInput
 	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\n" , '//' )
 	fullDataInput = fullDataInput.strip() ## 清除頭尾空格
 
