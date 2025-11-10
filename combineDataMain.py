@@ -853,8 +853,8 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 	print( "========================= MAIN =========================")
 	fullDataInput = fullDataInput.replace( '\u200b' , '' )
 	# fullDataInput = fullDataInput if '//' in fullDataInput else fullDataInput.replace('/', '//') if '/' in fullDataInput else fullDataInput
-	# if "//" not in fullDataInput:
-	# 	fullDataInput = fullDataInput.replace( '/' , '//' )
+	if ("//" not in fullDataInput) and (" - " not in fullDataInput) and ( "\n" not in fullDataInput ):
+		fullDataInput = fullDataInput.replace( '/' , '//' )
 
 
 
@@ -863,7 +863,8 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 	# fullDataInput = fullDataInput.replace("，","#")
 	fullDataInput = unifiedData(fullDataInput)
-	print( fullDataInput)
+	print( "MMMMM")
+	print( fullDataInput )
 
 	notionAccount = False
 	# ui_mode = ""
