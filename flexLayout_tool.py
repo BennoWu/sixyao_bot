@@ -1194,7 +1194,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 								.replace("日柱", fourP[2] )
 								.replace("時柱", fourP[3] )
 								.replace("__NOTE__", note )
-								.replace("__TXT__", "t" + command )	
+								.replace("__TXT__", "t" + display_command )	
 															
 								.replace("12:00", currentTime )
 								.replace("__裝卦__", command )
