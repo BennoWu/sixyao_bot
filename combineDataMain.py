@@ -314,7 +314,9 @@ def _clean_subblock(s: str) -> str:
 # 		result = result.replace(strong_sep, sep_for_app)
 	
 # 	return result
-def unifiedData(orgData, strong_sep='//', sep_for_app=None):
+def unifiedData( orgData, strong_sep='//', sep_for_app=None ):
+	orgData = orgData if '//' in orgData else orgData.replace('/', '//') if '/' in orgData else orgData
+	## XXXX/XXXXX/XXXX 變成 XXXX//XXXXX//XXXX
 	if not isinstance(orgData, str):
 		return orgData
 	
