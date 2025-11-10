@@ -392,8 +392,8 @@ def handle_message(event):
 
 
 	# Notion 處理
-	elif inputMsg.startswith("n+")  or inputMsg.startswith("☕...n+"):
-		inputMsg = inputMsg.replace( "☕...","")
+	elif inputMsg.startswith("n+")  or inputMsg.startswith("☕"):
+		inputMsg = inputMsg.replace( "☕ Uploading……\n","")
 		notion_url = sixYaoMain(inputMsg, userSetting=userData)
 
 		# ⭐ v3 文字訊息回覆

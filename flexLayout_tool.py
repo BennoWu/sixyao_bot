@@ -1139,6 +1139,8 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 	display_command = command.replace( " // " , " - " , 1  )
 	display_command = display_command.replace( " // " , "\\n"  )
+
+
 	# display_command = re.sub( " // " , "\\n" , display_command, count=2 )
 
 	# if date_ganZi != "":
@@ -1229,7 +1231,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 
 # pushToNotion( apiToken , pageId , imageUrl , titleText )
-	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "☕...n" + command )
+	reDataLayout = reDataLayout.replace("__NOTION_DSP__", "☕ Uploading……\nn" + display_command )
 
 # ⏳⚡
 	if printMode == True:
