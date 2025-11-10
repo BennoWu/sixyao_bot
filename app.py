@@ -393,7 +393,7 @@ def handle_message(event):
 
 	# Notion 處理
 	elif inputMsg.startswith("n+")  or inputMsg.startswith("☕"):
-		inputMsg = inputMsg.replace("☕..." , "")
+		inputMsg = inputMsg.replace("☕ Uploading..." , "")
 
 		# s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
 
