@@ -1154,7 +1154,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	display_notion_command = "☕ Uploading... // " + "n" + display_command
 	display_notion_command = display_notion_command.replace( " // " , "\\n"  )
 
-	commandExt = "#"+ command + "#"
+	commandExt = "&"+ command + "&"
 
  # Uploading,please wait……"
 	# display_command = re.sub( " // " , "\\n" , display_command, count=2 )
