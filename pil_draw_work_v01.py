@@ -241,7 +241,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 
 
-	print( "allDataDict ->> ", allDataDict )
+	# print( "allDataDict ->> ", allDataDict )
 	# print( "fontStyle ->> ", fontStyle )
 	print( "tipsMode ->> ", tipsMode )
 	# print( "uiStyle ->> ", uiStyle )
