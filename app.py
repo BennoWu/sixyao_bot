@@ -17,7 +17,7 @@ from fourPillar_tool import ganZhi_Dict ## 六十甲子的字典
 
 from sixYaoJsonDataClass import *
 
-import os , threading
+import os , threading , re
 from flask import Flask, request, abort
 
 
@@ -393,7 +393,12 @@ def handle_message(event):
 
 	# Notion 處理
 	elif inputMsg.startswith("n+")  or inputMsg.startswith("☕"):
-		inputMsg = inputMsg.replace("☕...\\n" , "")
+		inputMsg = inputMsg.replace("☕..." , "")
+
+		# s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
+
+		inputMsg = re.sub(r'[\r\n]+', '', inputMsg , count=1 )
+
 		print( "N command:" , inputMsg )
 		notion_url = sixYaoMain(inputMsg, userSetting=userData)
 
