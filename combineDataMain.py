@@ -853,8 +853,8 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 	print( "========================= MAIN =========================")
 	fullDataInput = fullDataInput.replace( '\u200b' , '' )
 	# fullDataInput = fullDataInput if '//' in fullDataInput else fullDataInput.replace('/', '//') if '/' in fullDataInput else fullDataInput
-	if "//" not in fullDataInput:
-		fullDataInput = fullDataInput.replace( '/' , '//' )
+	# if "//" not in fullDataInput:
+	# 	fullDataInput = fullDataInput.replace( '/' , '//' )
 
 
 
