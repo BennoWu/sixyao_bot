@@ -262,6 +262,9 @@ def _clean_subblock(s: str) -> str:
 	
 	# '-' 無空白 -> '/'
 	s = re.sub(r'(?<!\s)-(?!\s)', '/', s)
+
+	# '.' 無空白 -> '/'
+	s = re.sub(r'(?<!\s)\.(?!\s)', '/', s)	
 	
 	# 逗號處理（重點）
 	# 1. 數字/英文字母間的逗號 → '/'
@@ -849,10 +852,10 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 	fullDataInput = fullDataInput.replace( '\u200b' , '' )
 	fullDataInput = fullDataInput.replace( " - " , '//' ).replace( "\n" , '//' )
 	fullDataInput = fullDataInput.strip() ## 清除頭尾空格
-	# print( fullDataInput)
 
 	# fullDataInput = fullDataInput.replace("，","#")
 	fullDataInput = unifiedData(fullDataInput)
+	print( fullDataInput)
 
 	notionAccount = False
 	# ui_mode = ""
@@ -1278,11 +1281,11 @@ if __name__ == '__main__':
 	# sixYaoMain( "癸卯,乙卯,庚午,丙戌//火水之解//今年財運" )
 	# sixYaoMain( "是否要投資台績電//0,1,11,0,0,1//丁月乙亥日" )
 	# sixYaoMain( "+某某集團的發展//地風,3,1//丁月乙亥日") 
-	# sixYaoMain( "兩村相爭//離為火.1,3,4,6//卯月丁巳日") ## 三合
+	sixYaoMain( "兩村相爭//離為火.1,3,4,6//卯月丁巳日") ## 三合
 
 	# sixYaoMain( "乙巳年寅月申日-戌亥//大过之鼎卦")	
 	# sixYaoMain( "+巳年卯月戊戌日//大过之鼎卦")	## 三合太多
-	# sixYaoMain( "吃不吃辣//X10011")	
+	# sixYaoMain( "吃不吃辣//100010.2")	
 	# sixYaoMain( "+嬰兒健康吉凶//山風 .,2.3//己卯月甲午日",showPic = True )  ## 三合 跳格
 	# sixYaoMain( "去學習是否順利 // 火地晉卦5 // 丙月，丙子日")
 	# sixYaoMain( "去學習是否順利//100X10//己亥 辛未 壬申")
@@ -1472,7 +1475,7 @@ if __name__ == '__main__':
 # 高雄場課程""" ) ## 三合局
 
 	# sixYaoMain( "占今年幾時換工作較好//0,1,00,11,0,1" )
-	sixYaoMain( "2025/10/21/14/45 // X$1000 // 瑞豐最近的財運吉凶1021",showPic = True  )
+	# sixYaoMain( "2025/10/21/14/45 // X$1000 // 瑞豐最近的財運吉凶1021",showPic = True  )
 	# sixYaoMain( "占今年幾時換工作較好好好好好好//27,71,42" )
 
 
