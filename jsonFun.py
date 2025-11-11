@@ -788,6 +788,7 @@ def save_json_data(user_id, item, value, json_path='__sixYoSet__.json'):
 		json.dump(data, f, ensure_ascii=False, indent=4)
 
 	print(f"✅ 已更新 {user_id} 的 '{item}'：{old_value} → {value}")
+	jsonToGoogle()
 	return True
 
 
@@ -821,7 +822,9 @@ if __name__ == '__main__':
 	# print(jsonToGoogle())
 	
 	# print("\n測試 googleToJson:")
-	print(googleToJson())
+	# print(googleToJson())
+
+	save_json_data("U21eaaf32db85b983a842d9a9da81d8f1", "notionToken_pageId", None ) 
 	
 	# print("\n測試 logToGoogle:")
 	# logToGoogle()

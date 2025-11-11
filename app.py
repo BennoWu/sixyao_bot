@@ -236,6 +236,7 @@ def handle_message(event):
 
 	print("userData:", userData)
 
+
 	# 權限檢查
 	if jsonData.switch.upper() != "ON"  and  user_id != my_id:	
 	# if jsonData.switch.upper() != "ON":
@@ -261,7 +262,7 @@ def handle_message(event):
 
 
 
-	elif inputMsg == "id":
+	elif inputMsg.lower() == "id":
 		returnMsg = f"{user_id}//{displayName}//{picUrl}"
 
 
@@ -321,6 +322,9 @@ def handle_message(event):
 				returnMsg = "Notion Ready"
 		else:
 			returnMsg = "⚠Notion not Ready"
+			save_json_data(user_id, "notionToken_pageId", None ) 
+
+
 
 	# 干支列表
 	elif inputMsg[:3] == "干支/":
@@ -403,24 +407,28 @@ def handle_message(event):
 
 	# Notion 處理
 	elif inputMsg.startswith("n+")  or inputMsg.startswith("☕"):
-		inputMsg = inputMsg.replace("☕ Uploading..." , "")
+		if userData [ "notionToken_pageId" ] == True:
+			inputMsg = inputMsg.replace("☕ Uploading..." , "")
 
-		# s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
+			# s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
 
-		inputMsg = re.sub(r'[\r\n]+', '', inputMsg , count=1 )
+			inputMsg = re.sub(r'[\r\n]+', '', inputMsg , count=1 )
 
-		print( "N command:" , inputMsg )
-		notion_url = sixYaoMain(inputMsg, userSetting=userData)
+			print( "N command:" , inputMsg )
+			notion_url = sixYaoMain(inputMsg, userSetting=userData)
+			returnMsg = notion_url
+
+		else:
+			returnMsg = "⚠Notion not Ready"
+
 
 		# ⭐ v3 文字訊息回覆
 		line_bot_api.reply_message(
 			ReplyMessageRequest(
 				reply_token=event.reply_token,
-				messages=[TextMessage(text=notion_url)]
+				messages=[TextMessage(text = returnMsg)]
 			)
 		)
-
-
 
 
 
@@ -542,14 +550,16 @@ def handle_message(event):
 			# print("UI")
 			# print(ui_cmd_dict)
 			# if "Untitled" in inputMsg:
-
-			dictTxt = json.dumps( ui_cmd_dict , default=str)
+			dictTxt = json.dumps(ui_cmd_dict, ensure_ascii=False, default=str) ## 變成人可以讀的中文
+			# dictTxt = json.dumps( ui_cmd_dict , default=str)
 			matchList = re.findall(r'&(.*?)&', dictTxt)
 
 			if matchList:
 				print( matchList[0] )
-				save_json_data(user_id, "temp", matchList[0] ) 
-				# +2025/11/10/21/55//1X$111//新主題  前面的+去掉才會進入UI模式，否則起卦模式到下面的flex格式是不行的
+				## 命令中如果沒內容(Untitled)，才存進json
+				if "Untitled" in matchList[0]: 
+					save_json_data(user_id, "temp", matchList[0] ) 
+					# +2025/11/10/21/55//1X$111//新主題  前面的+去掉才會進入UI模式，否則起卦模式到下面的flex格式是不行的
 
 			# ⭐ v3 的 Flex Message
 			line_bot_api.reply_message(
