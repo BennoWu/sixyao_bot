@@ -397,6 +397,12 @@ def handle_message(event):
 				]
 			)
 		)
+
+		# 建立兩個執行緒
+		t1 = threading.Thread( target=delayed_upLog )
+		# 啟動執行緒
+		t1.start()
+
 		return
 
 	# PIL圖片上傳
@@ -418,7 +424,7 @@ def handle_message(event):
 
 		print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", flush=True)
 
-		# 背景清理
+		# 背景清理超過15天的圖片
 		t = threading.Thread(target=delayed_cleanup, args=(15,))
 		t.start()
 		return
@@ -472,7 +478,7 @@ def handle_message(event):
 				messages=[TextMessage(text= text_UI)]
 			)
 		)
-		
+
 
 
 
