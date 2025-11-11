@@ -2115,7 +2115,7 @@ def yearListFlexLayout( year , printMode = False ):
 	需要外部變數: start_yearListFlex, item_yearListFlex, ganZhi_Dict, getGanziYear()
 	"""
 	year = int( year )
-	allYearList = getGanziYear( year = year, before = 22, after = 18 )
+	allYearList = getGanziYear( year = year, before = 27, after = 23 )
 
 	idx = (year - 1984) % 60 + 1
 	gan_zhi = ganZhi_Dict[idx]  # 完整干支,如 "甲子"

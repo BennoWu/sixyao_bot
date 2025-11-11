@@ -28,11 +28,9 @@ ganZhi_Dict ={
 
 
 
-
-
 ## 輸入年可得到 "干支+年"
 ## getGanziYear(2018, 20, 20) -->> 庚午 1998,辛未 1999,壬申 2000,癸酉 2001.....
-def getGanziYear(year:int, before:int=27, after:int=23):
+def getGanziYear(year:int, before:int=22, after:int=18):
 	base_year = 1984  # 甲子
 	# 找到該年的干支序號（1~60）
 	offset = (year - base_year) % 60+1
