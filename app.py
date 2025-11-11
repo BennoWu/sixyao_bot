@@ -325,11 +325,11 @@ def handle_message(event):
 
 			notionAccount = checkNotionAcc(token_buf, pageId_buf)
 			if notionAccount == True:
-				returnMsg = "Notion Ready"
+				returnMsg = "\udbc0\udc93 Notion Ready"
 		else:
-			returnMsg = "⚠Notion not Ready"
+			returnMsg = "\udbc0\udc91 Notion not Ready"
 			save_json_data(user_id, "notionToken_pageId", None ) 
-
+# ⚠
 
 
 	# 干支列表
@@ -425,7 +425,7 @@ def handle_message(event):
 			returnMsg = notion_url
 
 		else:
-			returnMsg = "⚠Notion not Ready"
+			returnMsg = "\udbc0\udc2e Notion not Ready..."
 
 
 		# ⭐ v3 文字訊息回覆
@@ -582,7 +582,7 @@ def handle_message(event):
 			return
 
 		else:
-			returnMsg = f"未知指令: {inputMsg}"
+			returnMsg = f"❌ 未知指令: {inputMsg}"
 			# ⭐ v3 文字訊息回覆
 			line_bot_api.reply_message(
 				ReplyMessageRequest(
