@@ -652,6 +652,22 @@ def get_user_json_data( user_id , json_path= '__sixYoSet__.json' ):
 
 
 
+def get_user_info(user_id, json_path='__sixYoSet__.json'):
+	with open(json_path, encoding="utf-8") as f:
+		data = json.load(f)
+
+	user = data.get(user_id)
+	if not user:
+		return f"⚠️ 找不到 ID：{user_id}"
+
+	text = f"""使用者資料
+ID：{user_id}
+====================
+""" + "\n".join([f"{k}：{v}" for k, v in user.items()])
+
+	return text
+
+
 
 
 
@@ -788,7 +804,8 @@ def save_json_data(user_id, item, value, json_path='__sixYoSet__.json'):
 		json.dump(data, f, ensure_ascii=False, indent=4)
 
 	print(f"✅ 已更新 {user_id} 的 '{item}'：{old_value} → {value}")
-	jsonToGoogle()
+	if value in [ "uiStyle","fontStyle","tipsMode","subDataMode","utc","notionToken_pageId" ]:
+		jsonToGoogle()
 	return True
 
 
@@ -824,8 +841,8 @@ if __name__ == '__main__':
 	# print("\n測試 googleToJson:")
 	# print(googleToJson())
 
-	save_json_data("U21eaaf32db85b983a842d9a9da81d8f1", "notionToken_pageId", None ) 
-	
+	# save_json_data("U21eaaf32db85b983a842d9a9da81d8f1", "notionToken_pageId", None ) 
+	print(get_user_info("U21eaaf32db85b983a842d9a9da81d8f1"))
 	# print("\n測試 logToGoogle:")
 	# logToGoogle()
 	# addToJson (  linebotId ="U21eaaf32db85b983a842d9a9da81d8f1"	,UserName = "Benno"	,logInTime ="2023-2-1 23:52",command =	"時盤-2023-02-01-21-51"	,runtime = 1	,signUpTime = "2023-2-1 11:18",  userImage ="https://profile.line-scdn.net/0m03d2961a72519e9ae023945979128659aaf19ece8932"	 ,uiStyle ="A"	,subDataMode ="Lite"	,switch = "ON")

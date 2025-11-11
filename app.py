@@ -259,11 +259,17 @@ def handle_message(event):
 	# 設定模式
 	if ("set" in inputMsg.lower()) or ("utc" in inputMsg.lower()):
 		returnMsg = jsonData.uiJsonSetting(inputMsg)
+		jsonToGoogle()
 
 
 
 	elif inputMsg.lower() == "id":
 		returnMsg = f"{user_id}//{displayName}//{picUrl}"
+
+
+	elif inputMsg.lower() == "info":
+		returnMsg = get_user_info(user_id)
+
 
 
 
