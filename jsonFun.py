@@ -804,8 +804,8 @@ def save_json_data(user_id, item, value, json_path='__sixYoSet__.json'):
 		json.dump(data, f, ensure_ascii=False, indent=4)
 
 	print(f"✅ 已更新 {user_id} 的 '{item}'：{old_value} → {value}")
-	if value in [ "uiStyle","fontStyle","tipsMode","subDataMode","utc","notionToken_pageId" ]:
-		jsonToGoogle()
+	# if value in [ "uiStyle","fontStyle","tipsMode","subDataMode","utc","notionToken_pageId" ]:
+	# 	jsonToGoogle()
 	return True
 
 

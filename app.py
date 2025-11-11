@@ -583,6 +583,15 @@ def handle_message(event):
 
 		else:
 			returnMsg = f"未知指令: {inputMsg}"
+			# ⭐ v3 文字訊息回覆
+			line_bot_api.reply_message(
+				ReplyMessageRequest(
+					reply_token=event.reply_token,
+					messages=[TextMessage(text= returnMsg )]
+				)
+			)
+
+
 
 
 	# else:
@@ -651,20 +660,20 @@ def handle_image_message(event):
 		)
 
 
-def handle_postback(event):
-	try:  # ⭐ 加上這行
-		print(f"📥 Postback: {event.postback.data}")  # ⭐ 加上這行，方便 debug
+# def handle_postback(event):
+# 	try:  # ⭐ 加上這行
+# 		print(f"📥 Postback: {event.postback.data}")  # ⭐ 加上這行，方便 debug
 		
-		# 你原本的邏輯保持不變
-		data = event.postback.data
-		# ... 你的處理邏輯 ...
-		line_bot_api.reply_message(
-			event.reply_token,
-			TextMessage(text="...")
-		)
+# 		# 你原本的邏輯保持不變
+# 		data = event.postback.data
+# 		# ... 你的處理邏輯 ...
+# 		line_bot_api.reply_message(
+# 			event.reply_token,
+# 			TextMessage(text="...")
+# 		)
 		
-	except Exception as e:  # ⭐ 加上這段
-		print(f"❌ Postback 錯誤: {e}")  # ⭐ 錯誤會被印出來
+# 	except Exception as e:  # ⭐ 加上這段
+# 		print(f"❌ Postback 錯誤: {e}")  # ⭐ 錯誤會被印出來
 
 
 
