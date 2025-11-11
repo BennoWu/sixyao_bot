@@ -92,6 +92,9 @@ def pushMsg(msg, user_id=None):
 		print("pushMsg error:", e)
 
 
+addToJson()
+pushMsg("start now...", user_id = None )
+
 ## 多線程 - 刪除圖庫中過期的圖檔
 def delayed_cleanup(days):
 	try:
@@ -781,6 +784,4 @@ def handle_sticker_message(event):
 	)
 
 if __name__ == "__main__":
-	addToJson()
-	pushMsg("start now...", user_id=None)
 	app.run()
