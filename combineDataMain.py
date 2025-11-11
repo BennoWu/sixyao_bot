@@ -1159,7 +1159,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 	if checkItem != ['卦', '日', '占']:
 		print ("error")
-		return "error"
+		return "ERROR"
 
 
 

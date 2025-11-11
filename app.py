@@ -552,8 +552,8 @@ def handle_message(event):
 	else:
 		ui_cmd_dict = sixYaoMain( inputMsg, userData )
 
-		if inputMsg != "error":
-			# print("UI")
+		if ui_cmd_dict != "ERROR":
+			print("UI mode")
 			# print(ui_cmd_dict)
 			# if "Untitled" in inputMsg:
 			dictTxt = json.dumps(ui_cmd_dict, ensure_ascii=False, default=str) ## 變成人可以讀的中文
