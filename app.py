@@ -92,8 +92,8 @@ def pushMsg(msg, user_id=None):
 		print("pushMsg error:", e)
 
 
-addToJson()
-pushMsg("start now...", user_id = None )
+addToJson( linebotId = "U21eaaf32db85b983a842d9a9da81d8f1" )
+pushMsg("✈️ start now...", user_id = None )
 
 ## 多線程 - 刪除圖庫中過期的圖檔
 def delayed_cleanup(days):
