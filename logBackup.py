@@ -3,7 +3,7 @@ import csv
 import os
 
 
-def logDataFun(userID, userName, logTime, inputData, command , file_path="__log__.csv"):
+def logDataFun( userID , userName, logTime = "", inputData = "", command = "" , file_path="__log__.csv"):
 	# 檢查檔案是否存在，以及是否需要加標題列
 	file_exists = os.path.isfile(file_path)
 	write_header = not file_exists or os.path.getsize(file_path) == 0

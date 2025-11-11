@@ -55,6 +55,7 @@ app = Flask(__name__)
 from dotenv import load_dotenv
 load_dotenv()
 
+from logBackup import ( logDataFun as logBK_logDataFun,    uploadCsvToGoogleSheet as logBK_uploadCsv  )
 
 
 
@@ -175,7 +176,9 @@ def getZhuangGuaData(ui_dict):
 
 
 
-
+# @app.route("/", methods=['GET'])
+# def home():
+#     return "Bot is running", 200
 
 
 @app.route("/")
@@ -239,6 +242,11 @@ def handle_message(event):
 
 	print("userData:", userData)
 
+	linebotId = userData["linebotId"]
+	linebotUserName = userData["linebotUserName"]
+
+
+
 
 	# 權限檢查
 	if jsonData.switch.upper() != "ON"  and  user_id != my_id:	
@@ -264,6 +272,8 @@ def handle_message(event):
 		returnMsg = jsonData.uiJsonSetting(inputMsg)
 		jsonToGoogle()
 
+		logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = "", inputData = inputMsg )
+
 
 
 	elif inputMsg.lower() == "id":
@@ -283,6 +293,7 @@ def handle_message(event):
 	# elif inputMsg == "西元年","民國年","年干支":
 		print ( "干支模式")
 		ui_cmd_dict = getFlexMessage_GZ ( checkYear ( yearData = inputMsg ) )
+		logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = "", inputData = inputMsg )
 		# ⭐ v3 的 Flex Message
 		line_bot_api.reply_message(
 			ReplyMessageRequest(
@@ -301,6 +312,7 @@ def handle_message(event):
 	elif inputMsg.startswith("--"):
 		ui_cmd_dict = yearListFlexLayout( inputMsg[2:] ) 
 
+		logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = "", inputData = inputMsg )
 		# ⭐ v3 的 Flex Message
 		line_bot_api.reply_message(
 			ReplyMessageRequest(
@@ -373,6 +385,7 @@ def handle_message(event):
 		)
 
 		# ⭐ v3 的 Flex Message 回覆方式
+		logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = "", inputData = inputMsg )
 		line_bot_api.reply_message(
 			ReplyMessageRequest(
 				reply_token=event.reply_token,
@@ -432,6 +445,7 @@ def handle_message(event):
 
 
 		# ⭐ v3 文字訊息回覆
+		logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = "", inputData = inputMsg )
 		line_bot_api.reply_message(
 			ReplyMessageRequest(
 				reply_token=event.reply_token,
@@ -447,11 +461,10 @@ def handle_message(event):
 
 
 
-
 	# 文字版UI 處理
 	elif inputMsg.startswith("t+"):
 		text_UI = sixYaoMain( inputMsg , userSetting=userData)
-
+		logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = "", inputData = inputMsg )
 		# ⭐ v3 文字訊息回覆
 		line_bot_api.reply_message(
 			ReplyMessageRequest(
@@ -459,7 +472,7 @@ def handle_message(event):
 				messages=[TextMessage(text= text_UI)]
 			)
 		)
-
+		
 
 
 
