@@ -781,4 +781,6 @@ def handle_sticker_message(event):
 	)
 
 if __name__ == "__main__":
+	addToJson()
+	pushMsg("start now...", user_id=None)
 	app.run()
