@@ -1798,6 +1798,8 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 	print( currentTime )
 	kongWangList = [  "甲子","甲戌","甲申","甲午","甲辰","甲寅"  ]
 
+	hourMuuList = [ "乙未","丙戌","辛丑","壬辰" ]
+
 	dayMode	= dayMode.replace( "jechi","jc" ).replace( "節氣","jc" ).replace( "月","m" ).replace( "日","d" ).replace( "時","h" )
 	dateDataList = PPPPP ( currentTime = currentTime , dayMode = dayMode , index = index , runtime = runtime )
 	for i in dateDataList:
@@ -1806,7 +1808,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 	if dayMode.lower() == "m":
 		startLayout_buf = startLayout.replace("日","月")
 	elif dayMode.lower() == "h":
-		startLayout_buf = startLayout.replace("日","時")		
+		startLayout_buf = startLayout.replace("日","時")	
 
 	elif dayMode == "jc": ## 如果為節氣，則以"日"模式進行
 		startLayout_buf = startLayout.replace("日","節氣")	
@@ -1879,6 +1881,9 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 		if dayMode.lower() == "h":		
 			# 時
 			buf_hourModeLayout = hourModeLayout.replace("年柱", row[0].split("-")[0] ).replace("月柱", row[0].split("-")[1] ).replace("日柱", row[0].split("-")[2] ).replace("時柱", row[0].split("-")[3] ).replace("__TIME__", row[1]+row[2] ).replace("__JECHI__", row[3] if row[3] != '' else '　')
+			if  row[0].split("-")[3] in hourMuuList:
+				buf_hourModeLayout = buf_hourModeLayout.replace( "#2E4E7C" , "#998675")
+			
 			finalLayout += buf_hourModeLayout	
 			if i != len( dateDataList ) -1:
 				finalLayout += date_separator
@@ -2521,7 +2526,7 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 if __name__ == '__main__':
 # 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 )
 # 	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 )
-# 	ganZiList_fun( currentTime = "2025/05/08" , dayMode = "h" , index = "" , runtime = 5 )	
+	ganZiList_fun( currentTime = "2025/05/08" , dayMode = "h" , index = "" , runtime = 15 ) 
 
 # # "干支/時/10/2025-08-31-15-48"
 # 	# "d" -- day
@@ -2532,6 +2537,6 @@ if __name__ == '__main__':
 # 	# 干支/日/2025.5.11/10/申
 # # ['乙巳-乙酉-己卯', '2025/09/07', '白露']
 
-	yearListFlexLayout( "2025",True ) 
+	# yearListFlexLayout( "2025",True ) 
 
 	# getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )
