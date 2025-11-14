@@ -96,15 +96,15 @@ def pushMsg(msg, user_id=None):
 addToJson( linebotId = "U21eaaf32db85b983a842d9a9da81d8f1" )
 pushMsg("✈️ start now...", user_id = None )
 
-## 多線程 - 刪除圖庫中過期的圖檔
-def delayed_cleanup(days):
-	try:
-		print(f"🧹 delayed_cleanup start for {days} days", flush=True)
-		delete_older_than(folder="line_temp", days=days)
-		print("✅ delayed_cleanup done", flush=True)
-		# pushMsg( "殺完圖檔" )
-	except Exception as e:
-		print("delayed_cleanup error:", e, flush=True)
+# ## 多線程 - 刪除圖庫中過期的圖檔
+# def delayed_cleanup(days):
+# 	try:
+# 		print(f"🧹 delayed_cleanup start for {days} days", flush=True)
+# 		delete_older_than(folder="line_temp", days=days)
+# 		print("✅ delayed_cleanup done", flush=True)
+# 		# pushMsg( "殺完圖檔" )
+# 	except Exception as e:
+# 		print("delayed_cleanup error:", e, flush=True)
 
 
 ## 多線程 - 儲存LOG至GOOGLE
@@ -193,8 +193,9 @@ def home():
 def upload_csv_task():
 	try:
 		# 直接執行，不用管時間邏輯
-		returnMsg = jsonToGoogle()
-		result = uploadCsvToGoogleSheet()
+		print( jsonToGoogle() )
+		print(  uploadCsvToGoogleSheet() )
+		print( delete_older_than(folder="line_temp", days=days) )
 		
 		print(f"上傳任務執行成功")
 		return 'OK', 200
@@ -442,10 +443,10 @@ def handle_message(event):
 
 		print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", flush=True)
 
-		# 背景清理超過15天的圖片
-		t = threading.Thread(target=delayed_cleanup, args=(15,))
-		t.start()
-		return
+		# # 背景清理超過15天的圖片
+		# t = threading.Thread(target=delayed_cleanup, args=(15,))
+		# t.start()
+		# return
 
 
 
