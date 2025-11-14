@@ -108,13 +108,13 @@ def delayed_cleanup(days):
 
 
 ## 多線程 - 儲存LOG至GOOGLE
-def delayed_upLog():
-	try:
-		print(f"🧹 log upload to google sheet", flush=True)
-		uploadCsvToGoogleSheet()
-		# pushMsg( "上傳log完成" )
-	except Exception as e:
-		print("delayed_upLog error:", e, flush=True)
+# def delayed_upLog():
+# 	try:
+# 		print(f"🧹 log upload to google sheet", flush=True)
+# 		uploadCsvToGoogleSheet()
+# 		# pushMsg( "上傳log完成" )
+# 	except Exception as e:
+# 		print("delayed_upLog error:", e, flush=True)
 
 	# # 背景備份
 	# t = threading.Thread(target=delayed_upLog)
@@ -186,6 +186,24 @@ def home():
 	# current_time = time.time()
 	logger.debug("收到 GET / 請求")
 	return 'home OK'
+
+
+## 上傳備份用，從uptimerobot呼叫 https://sixyao-bot.onrender.com/upload-csv-task
+@app.route('/upload-csv-task', methods=['GET'])
+def upload_csv_task():
+	try:
+		# 直接執行，不用管時間邏輯
+		returnMsg = jsonToGoogle()
+		result = uploadCsvToGoogleSheet()
+		
+		print(f"上傳任務執行成功")
+		return 'OK', 200
+		
+	except Exception as e:
+		print(f"上傳任務失敗: {str(e)}")
+		return f'Error: {str(e)}', 500
+
+
 
 
 @app.route("/callback", methods=['POST'])
@@ -398,10 +416,10 @@ def handle_message(event):
 			)
 		)
 
-		# 建立兩個執行緒
-		t1 = threading.Thread( target=delayed_upLog )
-		# 啟動執行緒
-		t1.start()
+		# # 建立兩個執行緒
+		# t1 = threading.Thread( target=delayed_upLog )
+		# # 啟動執行緒
+		# t1.start()
 
 		return
 
