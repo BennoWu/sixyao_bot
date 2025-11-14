@@ -195,7 +195,7 @@ def upload_csv_task():
 		# 直接執行，不用管時間邏輯
 		print( jsonToGoogle() )
 		print(  uploadCsvToGoogleSheet() )
-		print( delete_older_than(folder="line_temp", days=days) )
+		print( delete_older_than(folder="line_temp", days= 15 ) )
 		
 		print(f"上傳任務執行成功")
 		return 'OK', 200
