@@ -337,7 +337,7 @@ def cropTool(img: Image.Image,
 
 	right, bottom = left + crop_w, top + crop_h
 	full_crop = img.crop((left, top, right, bottom))
-	full_crop.show()
+	# full_crop.show()
 	# --- 分段 OCR ---
 	if h_split > 1:
 		split_h = crop_h // h_split
@@ -448,7 +448,7 @@ def getPicData(image_input):
 # ===== 範例 =====
 if __name__ == '__main__':
 	# local 路徑
-	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\占軍官正規班訓練是否合格.jpg")
+	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\2025.jpg")
 
 	# # PIL.Image
 	# img_obj = Image.open("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__117137475.jpg")
