@@ -431,7 +431,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 	one_index = get_cutoff_index( allDataDict['note'] , target_weight = 15 )
 	print( one_index )
 
-	if allDataDict['note'] != "XXX":
+	if allDataDict['note'] != "Untitled":
 		if one_index != None:
 
 
