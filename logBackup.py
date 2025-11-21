@@ -67,7 +67,6 @@ def resource_path(relative_path):
 
 
 
-
 def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
 	import os
 	import csv
@@ -107,7 +106,7 @@ def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
 	
 	data_to_upload = rows[1:]  # 排除第一列表頭
 	
-	# 清洗資料：確保所有內容都以文字格式上傳
+	# 清洗資料：只處理 None/空值 和 + 開頭的字串
 	cleaned_data = []
 	for row in data_to_upload:
 		cleaned_row = []
@@ -115,14 +114,12 @@ def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
 			# 處理 None 或空值
 			if cell is None or cell == 'None' or cell == 'null' or cell == '':
 				cleaned_row.append('')
+			# 只處理以 + 開頭的字串（避免被當成公式）
+			elif isinstance(cell, str) and cell.startswith("+"):
+				cleaned_row.append("'" + cell)
 			else:
-				# 將所有內容轉換為字串，確保以文字格式儲存
-				cell_str = str(cell)
-				# 如果是純數字或以 + 開頭，加上單引號前綴強制為文字
-				if cell_str.isdigit() or cell_str.startswith("+"):
-					cleaned_row.append("'" + cell_str)
-				else:
-					cleaned_row.append(cell_str)
+				# 其他內容（包括數字）保持原樣
+				cleaned_row.append(cell)
 		cleaned_data.append(cleaned_row)
 	
 	total = len(cleaned_data)
@@ -139,7 +136,6 @@ def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
 	print("🧹 已清空本地 __log__.csv，只保留表頭。")
 	
 	return f"🆗 上傳 {total} 筆 log 到 Google Sheet(從第 {start_row} 行開始)"
-
 
 # def uploadCsvToGoogleSheet(csv_path="__log__.csv"):
 #     import os
