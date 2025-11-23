@@ -937,8 +937,7 @@ if __name__ == '__main__':
 	# for e in loopMaker( "01@X" , 6 ):
 	# 	mainFunction( e )
 
-
-	mainFunction( "100100")
+	mainFunction( "X001$0")
 	# mainFunction( "1,0,11,0,00,1@2024 12 5 10 31@樂透會不會中獎?")
 	# mainFunction( "1,0,11,0,00,1@乙月,丙子日@樂透會不會中獎?")
 

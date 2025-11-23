@@ -189,13 +189,16 @@ def home():
 	return 'home OK'
 
 
-## 上傳備份用，從uptimerobot呼叫 https://sixyao-bot.onrender.com/upload-csv-task
+
+## 上傳備份用，從uptimerobot呼叫 https://web-production-e20a6.up.railway.app/upload-csv-task
+## Render用的 https://sixyao-bot.onrender.com/upload-csv-task
+
 @app.route('/upload-csv-task', methods=['GET'])
 def upload_csv_task():
 	try:
 		# 直接執行，不用管時間邏輯
 		print( jsonToGoogle() )
-		print(  uploadCsvToGoogleSheet() )
+		print( uploadCsvToGoogleSheet() )
 		print( delete_older_than(folder="line_temp", days= 15 ) )
 		
 		print(f"上傳任務執行成功")

@@ -1,4 +1,6 @@
 
+print = lambda *args, **kwargs: None
+
 def print_threeho_table(zhis_list):
 
 	threeHo_dict = {
@@ -26,24 +28,64 @@ def print_threeho_table(zhis_list):
 			#     line.append("-")
 		print(" ．".join(line))
 
+def combineListFun(newDataList, orgDataList):
+	# print()
+	# print("newDataList - ", newDataList)
+	# print("orgDataList - ", orgDataList)
+	# print()
 
-def combineListFun( newDataList , orgDataList ):
-	# if newDataList is None:
-	#     newDataList = ['-', '-', '-', '-', '-', 'Oa1']
-	# if orgDataList is None:
-	#     orgDataList = ['-', 'Oc3', '-', 'Ob1', '-', '-']
-	# print(">>>",newDataList)
-	# 確保兩個列表長度相同，取最短長度
 	length = min(len(newDataList), len(orgDataList))
-	
+
+	# 先找出 orgDataList 中 O 開頭元素的代號（例如 Oa2 → a2）
+	o_codes = set()
+	for item in orgDataList:
+		if isinstance(item, str) and item.startswith("O") and len(item) > 1:
+			o_codes.add(item[1:])  # 把 a2 存起來
+
+	# print("O codes:", o_codes)
+
+	# 先把 newDataList 中與 O code 衝突的 P 項目清掉
+	cleaned_new = []
+	for item in newDataList:
+		if isinstance(item, str) and item.startswith("P"):
+			code = item[1:]
+			if code in o_codes:   # 與 O 衝突 → 不要
+				cleaned_new.append('-')
+				continue
+		cleaned_new.append(item)
+
+	# 合併邏輯（原本的）
 	combined = []
 	for i in range(length):
 		if orgDataList[i] != '-':
 			combined.append(orgDataList[i])
 		else:
-			combined.append(newDataList[i])
-	# print ( ">" , combined )
+			combined.append(cleaned_new[i])
+
 	return combined
+
+
+# def combineListFun( newDataList , orgDataList ):
+# 	print()
+# 	print( "newDataList - " , newDataList )
+# 	print( "orgDataList - " , orgDataList )
+# 	print()
+# 	# if newDataList is None:
+# 	#     newDataList = ['-', '-', '-', '-', '-', 'Oa1']
+# 	# if orgDataList is None:
+# 	#     orgDataList = ['-', 'Oc3', '-', 'Ob1', '-', '-']
+# 	# print(">>>",newDataList)
+# 	# 確保兩個列表長度相同，取最短長度
+# 	length = min(len(newDataList), len(orgDataList))
+	
+# 	combined = []
+# 	for i in range(length):
+# 		if orgDataList[i] != '-':
+# 			combined.append(orgDataList[i])
+# 		else:
+# 			combined.append(newDataList[i])
+# 	# print ( ">" , combined )
+# 	return combined
 
 
 # ## print的關閉功能
@@ -291,11 +333,18 @@ def threeHoTest(
 
 			homeBuf = combineListFun( newDataList = homeAllBuf , orgDataList = homeBuf )
 			P_mode_total += 1 ## 缺一待補的數量
-
 			clear_homeIdBuf      = ['X' if x != '-' else '-' for x in homeBuf]
+			# ['Oa2', '-', 'Pa1', '-', '-', '-'] -> ['X', '-', 'X', '-', '-', '-']
 			clear_changeIdBuf    = ['X' if x != '-' else '-' for x in changeBuf]
 			clear_month_dayIdBuf = ['X' if x != '-' else '-' for x in month_day_Buf]
+			# print(">>>", homeBuf,clear_homeIdBuf)
 
+			# clear_homeIdBuf = []
+			# for x in homeBuf:
+			#     if x != '-':
+			#         clear_homeIdBuf.append('X')
+			#     else:
+			#         clear_homeIdBuf.append('-')
 
 
 			# print( clear_homeId,clear_changeId,clear_month_dayId)
@@ -399,12 +448,12 @@ if __name__ == '__main__':
 				 # change_naGia = ['己卯', '己丑', '己亥', '戊申', '戊戌', '戊子']
 
 
-				monthGanZi = "乙酉",
-				dayGanZi = "庚寅",
-				changeIdIndex = ['X', 'X', 'X', 'X', 'X', 'O'],
-				home_naGia = ['己卯', '己丑', '己亥', '己酉', '己未', '己巳'],
+				monthGanZi = "丁卯",
+				dayGanZi = "丙申",
+				changeIdIndex = ['O', 'X', 'X', 'X', 'O', 'X'],
+				home_naGia = ['乙未', '乙巳', '乙卯', '丁亥', '丁酉', '丁未'],
 				hide_naGia = ['X', 'X', 'X', 'X', 'X', 'X'],
-				change_naGia = ['己卯', '己丑', '己亥', '庚午', '庚申', '庚戌']
+				change_naGia = ['庚子', '庚寅', '庚辰', '庚午', '庚申', '庚戌']
 
 
 
