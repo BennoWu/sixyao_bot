@@ -1,5 +1,5 @@
 
-print = lambda *args, **kwargs: None
+# print = lambda *args, **kwargs: None
 
 def print_threeho_table(zhis_list):
 

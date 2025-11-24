@@ -364,13 +364,7 @@ uiLayoutFront ='''
 				"width": "251px",
 				"margin": "none",
 				"spacing": "none",
-				"offsetStart": "sm",
-
-                "action": {
-                  "type": "message",
-                  "label": "cmd",
-                  "text": "__裝卦__"
-                }
+				"offsetStart": "sm"
 			  }
 			],
 			"height": "5px"
@@ -567,7 +561,7 @@ uiLayoutBack = '''
                 "action": {
                   "type": "message",
                   "label": "cmd",
-                  "text": "__裝卦__"
+                  "text": "__裝卦buf__"
                 }
 			  }
 			],
@@ -1224,9 +1218,10 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 								.replace("時柱", fourP[3] )
 								.replace("__NOTE__", note )
 								.replace("__TXT__", "t" + display_command )	
-															
+
+								.replace("__裝卦buf__", commandExt )															
 								.replace("12:00", currentTime )
-								.replace("__裝卦__", commandExt )
+								.replace("__裝卦__", command )
 								.replace("__dis裝卦__", display_command )								
 								.replace("__ORGGUA__" , orgGuaName)
 								.replace("__CHGGUA__" , chgGuaName)
@@ -1249,7 +1244,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 
 # pushToNotion( apiToken , pageId , imageUrl , titleText )
-	reDataLayout = reDataLayout.replace("__NOTION_DSP__",  display_notion_command )
+	reDataLayout = reDataLayout.replace("__NOTION_DSP__",  display_notion_command ).replace("__NOTION_CMD__", "n" + command )
 	# print( "Notion:")
 	# print ( display_notion_command.replace("☕...\\n" , ""))
 
