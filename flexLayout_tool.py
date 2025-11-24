@@ -932,7 +932,7 @@ uiLayoutBackExt = '''
                       "type": "postback",
                       "label": "裝卦",
                       "data": "__裝卦__",
-                      "displayText": "__裝卦__"
+                      "displayText": "__dis裝卦__"
 					},
 
 
