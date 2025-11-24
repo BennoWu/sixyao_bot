@@ -327,11 +327,18 @@ uiLayoutFront ='''
 				"height": "30px",
 
                 "cornerRadius": "20px",
-                "action": {
-                  "type": "message",
+
+
+				"action": {
+                  "type": "postback",
                   "label": "文字版",
-                  "text": "__TXT__"
-                }
+                  "data": "__TXT__",
+                  "displayText": "txt go!"
+				}
+
+
+
+
 			  },
 			  {
 				"type": "text",
