@@ -728,9 +728,10 @@ uiLayoutBack = '''
 				"type": "button",
 				"style": "secondary",
 				"action": {
-				  "type": "message",
-				  "label": "裝卦",
-				  "text": "__dis裝卦__"
+                  "type": "postback",
+                  "label": "裝卦",
+                  "data": "__裝卦__",
+                  "displayText": "__dis裝卦__"
 				},
 				"color": "#91A4BC",
 				"margin": "none",
@@ -927,10 +928,10 @@ uiLayoutBackExt = '''
 
 
 					"action": {
-					  "type": "message",
-					  "label": "裝卦",
-
-					  "text": "__dis裝卦__"
+                      "type": "postback",
+                      "label": "裝卦",
+                      "data": "__裝卦__",
+                      "displayText": "__裝卦__"
 					},
 
 
@@ -956,9 +957,10 @@ uiLayoutBackExt = '''
 
 
 					"action": {
-					  "type": "message",
-					  "label": "N",
-					  "text": "__NOTION_DSP__"
+                      "type": "postback",
+                      "label": "N",
+                      "data": "__NOTION_CMD__",
+                      "displayText": "__NOTION_DSP__"
 					},
 
 

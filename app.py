@@ -428,61 +428,59 @@ def handle_message(event):
 
 		return
 
-	# PIL圖片上傳
-	elif inputMsg.startswith("+"):
-		img_high, img_low = sixYaoMain( inputMsg, userData )
+	# # PIL圖片上傳
+	# elif inputMsg.startswith("+"):
+	# 	img_high, img_low = sixYaoMain( inputMsg, userData )
 
-		# ⭐ v3 的圖片訊息回覆
-		line_bot_api.reply_message(
-			ReplyMessageRequest(
-				reply_token=event.reply_token,
-				messages=[
-					ImageMessageType(
-						original_content_url=img_high,
-						preview_image_url=img_low
-					)
-				]
-			)
-		)
+	# 	# ⭐ v3 的圖片訊息回覆
+	# 	line_bot_api.reply_message(
+	# 		ReplyMessageRequest(
+	# 			reply_token=event.reply_token,
+	# 			messages=[
+	# 				ImageMessageType(
+	# 					original_content_url=img_high,
+	# 					preview_image_url=img_low
+	# 				)
+	# 			]
+	# 		)
+	# 	)
 
-		print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", flush=True)
+	# 	print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", flush=True)
 
-		# # 背景清理超過15天的圖片
-		# t = threading.Thread(target=delayed_cleanup, args=(15,))
-		# t.start()
-		# return
-
-
+	# 	# # 背景清理超過15天的圖片
+	# 	# t = threading.Thread(target=delayed_cleanup, args=(15,))
+	# 	# t.start()
+	# 	# return
 
 
 
-	# Notion 處理
-	elif inputMsg.startswith("n+")  or inputMsg.startswith("☕"):
-		if userData [ "notionToken_pageId" ] == True:
-			inputMsg = inputMsg.replace("☕ Uploading..." , "")
-
-			# s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
-
-			inputMsg = re.sub(r'[\r\n]+', '', inputMsg , count=1 )
-
-			print( "N command:" , inputMsg )
-			notion_url = sixYaoMain(inputMsg, userSetting=userData)
-			returnMsg = notion_url
-
-		else:
-			returnMsg = "\udbc0\udc2e Notion not Ready..."
 
 
-		# ⭐ v3 文字訊息回覆
-		# logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = "", inputData = inputMsg )
-		line_bot_api.reply_message(
-			ReplyMessageRequest(
-				reply_token=event.reply_token,
-				messages=[TextMessage(text = returnMsg)]
-			)
-		)
+	# # Notion 處理
+	# elif inputMsg.startswith("n+")  or inputMsg.startswith("☕"):
+	# 	if userData [ "notionToken_pageId" ] == True:
+	# 		inputMsg = inputMsg.replace("☕ Uploading..." , "")
+
+	# 		# s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
+
+	# 		inputMsg = re.sub(r'[\r\n]+', '', inputMsg , count=1 )
+
+	# 		print( "N command:" , inputMsg )
+	# 		notion_url = sixYaoMain(inputMsg, userSetting=userData)
+	# 		returnMsg = notion_url
+
+	# 	else:
+	# 		returnMsg = "\udbc0\udc2e Notion not Ready..."
 
 
+	# 	# ⭐ v3 文字訊息回覆
+	# 	# logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = "", inputData = inputMsg )
+	# 	line_bot_api.reply_message(
+	# 		ReplyMessageRequest(
+	# 			reply_token=event.reply_token,
+	# 			messages=[TextMessage(text = returnMsg)]
+	# 		)
+	# 	)
 
 
 
@@ -490,17 +488,19 @@ def handle_message(event):
 
 
 
-	# 文字版UI 處理
-	elif inputMsg.startswith("t+"):
-		text_UI = sixYaoMain( inputMsg , userSetting=userData)
-		# logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = "", inputData = inputMsg )
-		# ⭐ v3 文字訊息回覆
-		line_bot_api.reply_message(
-			ReplyMessageRequest(
-				reply_token=event.reply_token,
-				messages=[TextMessage(text= text_UI)]
-			)
-		)
+
+
+	# # 文字版UI 處理
+	# elif inputMsg.startswith("t+"):
+	# 	text_UI = sixYaoMain( inputMsg , userSetting=userData)
+	# 	# logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = "", inputData = inputMsg )
+	# 	# ⭐ v3 文字訊息回覆
+	# 	line_bot_api.reply_message(
+	# 		ReplyMessageRequest(
+	# 			reply_token=event.reply_token,
+	# 			messages=[TextMessage(text= text_UI)]
+	# 		)
+	# 	)
 
 
 
@@ -727,86 +727,86 @@ def handle_image_message(event):
 
 
 
-# # ⭐ v3 的 Postback 處理
-# @handler.add(PostbackEvent)
-# def handle_postback(event):
+# ⭐ v3 的 Postback 處理
+@handler.add(PostbackEvent)
+def handle_postback(event):
 
-# 	try:  # ⭐ 加上這行
-# 		postDataMsg = event.postback.data
-# 		print(f"📥 Postback: { postDataMsg }")  # ⭐ 加上這行，方便 debug
-# 		user_id = event.source.user_id
+	try:  # ⭐ 加上這行
+		postDataMsg = event.postback.data
+		print(f"📥 Postback: { postDataMsg }")  # ⭐ 加上這行，方便 debug
+		user_id = event.source.user_id
 
-# 		data = postDataMsg.replace('\u200b', '')
+		data = postDataMsg.replace('\u200b', '')
 
-# 		userData = get_user_json_data(user_id)
-# 		print("@@@ userData:", userData)
+		userData = get_user_json_data(user_id)
+		print("@@@ userData:", userData)
 
-# 		# time.sleep(2)
-# 		# richmenu 切換
-# 		if data.startswith("change-to-"):
-# 			return
+		# time.sleep(2)
+		# richmenu 切換
+		if data.startswith("change-to-"):
+			return
 
-# 		# # Notion 處理
-# 		# elif data.startswith("n+"):
-# 		# 	notion_url = sixYaoMain(data, userSetting=userData)
+		# Notion 處理
+		elif data.startswith("n+"):
+			notion_url = sixYaoMain(data, userSetting=userData)
 
-# 		# 	# ⭐ v3 文字訊息回覆
-# 		# 	line_bot_api.reply_message(
-# 		# 		ReplyMessageRequest(
-# 		# 			reply_token=event.reply_token,
-# 		# 			messages=[TextMessage(text=notion_url)]
-# 		# 		)
-# 		# 	)
+			# ⭐ v3 文字訊息回覆
+			line_bot_api.reply_message(
+				ReplyMessageRequest(
+					reply_token=event.reply_token,
+					messages=[TextMessage(text=notion_url)]
+				)
+			)
 
-# 		# # 文字版UI 處理
-# 		# elif data.startswith("t+"):
-# 		# 	text_UI = sixYaoMain( data , userSetting=userData)
+		# 文字版UI 處理
+		elif data.startswith("t+"):
+			text_UI = sixYaoMain( data , userSetting=userData)
 
-# 		# 	# ⭐ v3 文字訊息回覆
-# 		# 	line_bot_api.reply_message(
-# 		# 		ReplyMessageRequest(
-# 		# 			reply_token=event.reply_token,
-# 		# 			messages=[TextMessage(text= text_UI)]
-# 		# 		)
-# 		# 	)
+			# ⭐ v3 文字訊息回覆
+			line_bot_api.reply_message(
+				ReplyMessageRequest(
+					reply_token=event.reply_token,
+					messages=[TextMessage(text= text_UI)]
+				)
+			)
 
 
-# 		# # 卦象完成圖片處理
-# 		# elif data.startswith("+"):
-# 		# 	img_high, img_low = sixYaoMain(data, userSetting=userData)
+		# 卦象完成圖片處理
+		elif data.startswith("+"):
+			img_high, img_low = sixYaoMain(data, userSetting=userData)
 
-# 		# 	print("image url:")
-# 		# 	print(img_high, img_low)
+			print("image url:")
+			print(img_high, img_low)
 			
-# 		# 	# ⭐ v3 圖片訊息回覆
-# 		# 	line_bot_api.reply_message(
-# 		# 		ReplyMessageRequest(
-# 		# 			reply_token=event.reply_token,
-# 		# 			messages=[
-# 		# 				ImageMessageType(
-# 		# 					original_content_url=img_high,
-# 		# 					preview_image_url=img_low
-# 		# 				)
-# 		# 			]
-# 		# 		)
-# 		# 	)
+			# ⭐ v3 圖片訊息回覆
+			line_bot_api.reply_message(
+				ReplyMessageRequest(
+					reply_token=event.reply_token,
+					messages=[
+						ImageMessageType(
+							original_content_url=img_high,
+							preview_image_url=img_low
+						)
+					]
+				)
+			)
 
-# 		# 	print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", flush=True)
+			# print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", flush=True)
 
-# 		# 	# 背景清理
-# 		# 	t = threading.Thread(target=delayed_cleanup, args=(15,))
-# 		# 	t.start()
+			# # 背景清理
+			# t = threading.Thread(target=delayed_cleanup, args=(15,))
+			# t.start()
 
-# 		else:
-# 			# ⭐ v3 fallback 回覆
-# 			line_bot_api.reply_message(
-# 				ReplyMessageRequest(
-# 					reply_token=event.reply_token,
-# 					messages=[TextMessage(text="未知指令格式")]
-# 				)
-# 			)
-# 	except Exception as e:  # ⭐ 加上這段
-# 		print(f"❌ Postback 錯誤: {e}")  # ⭐ 錯誤會被印出來
+		else:
+			# ⭐ v3 fallback 回覆
+			line_bot_api.reply_message(
+				ReplyMessageRequest(
+					reply_token=event.reply_token,
+					messages=[TextMessage(text="未知指令格式")]
+				)
+			)
+	except Exception as e:  # ⭐ 加上這段
+		print(f"❌ Postback 錯誤: {e}")  # ⭐ 錯誤會被印出來
 
 
 
