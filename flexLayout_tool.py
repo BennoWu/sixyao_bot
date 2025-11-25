@@ -2571,7 +2571,8 @@ eachRawDrawFlex ='''
 					"weight": "bold",
 					"margin": "none",
 					"align": "center",
-					"color": "#ffffff"
+					"color": "#ffffff",
+					"gravity": "top"
 				  }
 				],
 				"width": "18px",
@@ -2661,7 +2662,8 @@ eachRawDrawFlex ='''
 					"weight": "bold",
 					"margin": "none",
 					"align": "center",
-					"color": "#ffffff"
+					"color": "#ffffff",
+					"gravity": "top"
 				  }
 				],
 				"width": "18px",
@@ -2750,7 +2752,8 @@ eachRawDrawFlex ='''
 					"weight": "bold",
 					"margin": "none",
 					"align": "center",
-					"color": "#ffffff"
+					"color": "#ffffff",
+					"gravity": "top"
 				  }
 				],
 				"width": "18px",
@@ -2839,7 +2842,8 @@ eachRawDrawFlex ='''
 					"weight": "bold",
 					"margin": "none",
 					"align": "center",
-					"color": "#ffffff"
+					"color": "#ffffff",
+					"gravity": "top"
 				  }
 				],
 				"width": "18px",
