@@ -592,6 +592,39 @@ def handle_message(event):
 
 
 
+
+
+
+
+
+
+	elif ("//" not in inputMsg) and ("$" not in inputMsg) and ("X" not in inputMsg) and ("0" not in inputMsg) and ("占" in inputMsg ) :
+
+		gridFlexDict = getDrawRiceGua(inputMsg)
+
+		# ⭐ v3 的 Flex Message
+		line_bot_api.reply_message(
+			ReplyMessageRequest(
+				reply_token=event.reply_token,
+				messages=[
+					FlexMessage(
+						alt_text='< list all >',
+						contents=FlexContainer.from_dict(gridFlexDict)
+					)
+				]
+			)
+		)
+
+
+
+
+
+
+
+
+
+
+
 	# 卦象UI
 	# elif "//" in unifiedData(inputMsg):
 	else:

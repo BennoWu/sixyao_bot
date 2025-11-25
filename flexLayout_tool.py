@@ -333,7 +333,7 @@ uiLayoutFront ='''
                   "type": "postback",
                   "label": "文字版",
                   "data": "__TXT__",
-                  "displayText": "txt go!"
+                  "displayText": "\udbc0\udc80 text version..."
 				}
 
 
@@ -1157,6 +1157,9 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	display_notion_command = "☕ Uploading... // " + "n" + display_command
 	display_notion_command = display_notion_command.replace( " // " , "\\n"  )
 
+	display_notion_command = "☕ Uploading..... "
+
+
 	commandExt = "&"+ command + "&"
 
  # Uploading,please wait……"
@@ -1213,7 +1216,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	# note = note.replace("#",",")
 	# command = command.replace("#",",")
 	# display_command = display_command.replace("#",",")
-
+# 📄
 
 # 干支/日/2025.5.11/10/申
 	reDataLayout =   (  uiLayout.replace("節氣", jeChi )
@@ -2521,6 +2524,453 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 
 
 
+drawUiLayoutFront ='''
+{
+  "type": "bubble",
+  "body": {
+	"type": "box",
+	"layout": "vertical",
+	"contents": [
+	  {
+		"type": "box",
+		"layout": "vertical",
+		"contents": [
+		  {
+			"type": "text",
+			"text": "__占__",
+			"weight": "regular",
+			"size": "xl"
+		  }
+		]
+	  },
+	  {
+		"type": "separator",
+		"color": "#888888",
+		"margin": "sm"
+	  },
+
+'''
+
+eachRawDrawFlex ='''
+	  {
+		"type": "box",
+		"layout": "horizontal",
+		"contents": [
+		  {
+			"type": "box",
+			"layout": "horizontal",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__NUM1__",
+					"size": "xs",
+					"weight": "bold",
+					"margin": "none",
+					"align": "center",
+					"color": "#ffffff"
+				  }
+				],
+				"width": "18px",
+				"height": "18px",
+				"backgroundColor": "#8691a5",
+				"offsetTop": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [],
+				"width": "5px",
+				"height": "50px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "__UP1__",
+						"size": "md",
+						"color": "#1E3850"
+					  }
+					],
+					"height": "20px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "__MID1__",
+						"size": "md",
+						"color": "#1E3850"
+					  }
+					],
+					"height": "20px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "__DN1__",
+						"size": "md",
+						"color": "#1E3850"
+					  }
+					],
+					"height": "20px"
+				  }
+				]
+			  }
+			],
+			"width": "50px",
+			"action": {
+			  "type": "message",
+			  "label": "action",
+			  "text": "__DRAW1__"
+			}
+		  },
+
+		  {
+			"type": "box",
+			"layout": "horizontal",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__NUM2__",
+					"size": "xs",
+					"weight": "bold",
+					"margin": "none",
+					"align": "center",
+					"color": "#ffffff"
+				  }
+				],
+				"width": "18px",
+				"height": "18px",
+				"backgroundColor": "#8691a5",
+				"offsetTop": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [],
+				"width": "5px",
+				"height": "50px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "__UP2__",
+						"size": "md",
+						"color": "#1E3850"
+					  }
+					],
+					"height": "20px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "__MID2__",
+						"size": "md",
+						"color": "#1E3850"
+					  }
+					],
+					"height": "20px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "__DN2__",
+						"size": "md",
+						"color": "#1E3850"
+					  }
+					],
+					"height": "20px"
+				  }
+				]
+			  }
+			],
+			"width": "50px",
+			"action": {
+			  "type": "message",
+			  "label": "action",
+			  "text": "__DRAW2__"
+			}
+		  },
+		  {
+			"type": "box",
+			"layout": "horizontal",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__NUM3__",
+					"size": "xs",
+					"weight": "bold",
+					"margin": "none",
+					"align": "center",
+					"color": "#ffffff"
+				  }
+				],
+				"width": "18px",
+				"height": "18px",
+				"backgroundColor": "#8691a5",
+				"offsetTop": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [],
+				"width": "5px",
+				"height": "50px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "__UP3__",
+						"size": "md",
+						"color": "#1E3850"
+					  }
+					],
+					"height": "20px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "__MID3__",
+						"size": "md",
+						"color": "#1E3850"
+					  }
+					],
+					"height": "20px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "__DN3__",
+						"size": "md",
+						"color": "#1E3850"
+					  }
+					],
+					"height": "20px"
+				  }
+				]
+			  }
+			],
+			"width": "50px",
+			"action": {
+			  "type": "message",
+			  "label": "action",
+			  "text": "__DRAW3__"
+			}
+		  },
+		  {
+			"type": "box",
+			"layout": "horizontal",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__NUM4__",
+					"size": "xs",
+					"weight": "bold",
+					"margin": "none",
+					"align": "center",
+					"color": "#ffffff"
+				  }
+				],
+				"width": "18px",
+				"height": "18px",
+				"backgroundColor": "#8691a5",
+				"offsetTop": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [],
+				"width": "5px",
+				"height": "50px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "__UP4__",
+						"size": "md",
+						"color": "#1E3850"
+					  }
+					],
+					"height": "20px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "__MID4__",
+						"size": "md",
+						"color": "#1E3850"
+					  }
+					],
+					"height": "20px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "__DN4__",
+						"size": "md",
+						"color": "#1E3850"
+					  }
+					],
+					"height": "20px"
+				  }
+				]
+			  }
+			],
+			"width": "50px",
+			"action": {
+			  "type": "message",
+			  "label": "action",
+			  "text": "__DRAW4__"
+			}
+		  }
+		],
+		"margin": "sm",
+		"spacing": "xxl"
+	  }'''
+
+sep ='''
+	  {
+		"type": "separator",
+		"color": "#888888",
+		"margin": "sm"
+	  }'''
+
+
+drawUiLayoutBack ='''
+	]
+  },
+  "size": "mega",
+  "styles": {
+	"footer": {
+	  "separator": true
+	}
+  }
+}'''
+
+
+import random
+
+def getRandomNum( min_val = 30 , max_val = 1000 ):
+	result = []
+	for _ in range(3):
+
+		r = random.random()  # 0~1
+		if r < 0.7:
+			# 70% 機率落在 100 ~ 300
+			num =  random.randint(100, 300)
+			# num = random.randint(min_val, max_val)
+		elif r < 0.85:
+			# 15% 機率落在 100 ~ 300
+			num =  random.randint(300, 600)
+			# num = random.randint(min_val, max_val)
+		else:
+			# 15% 機率落在 700 ~ 1000
+			num =  random.randint(10, 100)
+			# num = random.randint(min_val, max_val)
+		# num = random.randint(min_val, max_val)
+		result.append(str(num))
+	# print ( result )
+	return result
+
+
+def getDrawRiceGua( note = "" , printMode = False ):
+	draw_FinalLayout = ""
+	draw_FinalLayout = drawUiLayoutFront.replace( "__占__" , note )
+
+	for i in range(4):
+		randList1 = getRandomNum()
+		randList2 = getRandomNum()
+		randList3 = getRandomNum()
+		randList4 = getRandomNum()
+
+		eachRawDrawFlex_Buf = eachRawDrawFlex.replace( "__UP1__" , randList1[0] ).replace( "__MID1__" , randList1[1] ).replace( "__DN1__" , randList1[2] ).replace( "__NUM1__", str(i*4+1)).replace( "__DRAW1__" , ",".join(randList1) + " // " + note )
+		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP2__" , randList2[0] ).replace( "__MID2__" , randList2[1] ).replace( "__DN2__" , randList2[2] ).replace( "__NUM2__", str(i*4+2)).replace( "__DRAW2__" , ",".join(randList2) + " // " + note )
+		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP3__" , randList3[0] ).replace( "__MID3__" , randList3[1] ).replace( "__DN3__" , randList3[2] ).replace( "__NUM3__", str(i*4+3)).replace( "__DRAW3__" , ",".join(randList3) + " // " + note )
+		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP4__" , randList4[0] ).replace( "__MID4__" , randList4[1] ).replace( "__DN4__" , randList4[2] ).replace( "__NUM4__", str(i*4+4)).replace( "__DRAW4__" , ",".join(randList4) + " // " + note )
+		
+		if i != 3:
+			draw_FinalLayout += eachRawDrawFlex_Buf
+			draw_FinalLayout += ","		
+			draw_FinalLayout += sep
+			draw_FinalLayout += ","
+		else:
+			draw_FinalLayout += eachRawDrawFlex_Buf
+			draw_FinalLayout += drawUiLayoutBack
+		
+	# print(draw_FinalLayout)
+	if printMode == True:
+		print( draw_FinalLayout )
+
+	draw_FinalLayout_dict = json.loads( draw_FinalLayout )
+	return draw_FinalLayout_dict
+
+
 
 
 
@@ -2530,7 +2980,7 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 if __name__ == '__main__':
 # 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 )
 # 	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 )
-	ganZiList_fun( currentTime = "2025/05/08" , dayMode = "h" , index = "" , runtime = 15 ) 
+	# ganZiList_fun( currentTime = "2025/05/08" , dayMode = "h" , index = "" , runtime = 15 ) 
 
 # # "干支/時/10/2025-08-31-15-48"
 # 	# "d" -- day
@@ -2541,6 +2991,7 @@ if __name__ == '__main__':
 # 	# 干支/日/2025.5.11/10/申
 # # ['乙巳-乙酉-己卯', '2025/09/07', '白露']
 
+	getDrawRiceGua("占明天天氣" , printMode = True )
 	# yearListFlexLayout( "2025",True ) 
 
 	# getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )
