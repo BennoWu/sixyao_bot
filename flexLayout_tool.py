@@ -2939,6 +2939,7 @@ def getRandomNum( min_val = 30 , max_val = 1000 ):
 	return result
 
 
+## 產生16格抽籤模式UI
 def getDrawRiceGua( note = "" , printMode = False ):
 	draw_FinalLayout = ""
 	draw_FinalLayout = drawUiLayoutFront.replace( "__占__" , note )
