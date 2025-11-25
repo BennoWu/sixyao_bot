@@ -2567,7 +2567,7 @@ eachRawDrawFlex ='''
 				  {
 					"type": "text",
 					"text": "__NUM1__",
-					"size": "xs",
+					"size": "sm",
 					"weight": "bold",
 					"margin": "none",
 					"align": "center",
@@ -2657,7 +2657,7 @@ eachRawDrawFlex ='''
 				  {
 					"type": "text",
 					"text": "__NUM2__",
-					"size": "xs",
+					"size": "sm",
 					"weight": "bold",
 					"margin": "none",
 					"align": "center",
@@ -2746,7 +2746,7 @@ eachRawDrawFlex ='''
 				  {
 					"type": "text",
 					"text": "__NUM3__",
-					"size": "xs",
+					"size": "sm",
 					"weight": "bold",
 					"margin": "none",
 					"align": "center",
@@ -2835,7 +2835,7 @@ eachRawDrawFlex ='''
 				  {
 					"type": "text",
 					"text": "__NUM4__",
-					"size": "xs",
+					"size": "sm",
 					"weight": "bold",
 					"margin": "none",
 					"align": "center",
