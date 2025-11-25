@@ -608,7 +608,7 @@ def handle_message(event):
 				reply_token=event.reply_token,
 				messages=[
 					FlexMessage(
-						alt_text='< list all >',
+						alt_text='< 亂數取卦 >',
 						contents=FlexContainer.from_dict(gridFlexDict)
 					)
 				]
