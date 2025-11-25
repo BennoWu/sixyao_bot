@@ -2583,7 +2583,7 @@ eachRawDrawFlex ='''
 				"type": "box",
 				"layout": "vertical",
 				"contents": [],
-				"width": "5px",
+				"width": "4px",
 				"height": "50px"
 			  },
 			  {
@@ -2673,7 +2673,7 @@ eachRawDrawFlex ='''
 				"type": "box",
 				"layout": "vertical",
 				"contents": [],
-				"width": "5px",
+				"width": "4px",
 				"height": "50px"
 			  },
 			  {
@@ -2762,7 +2762,7 @@ eachRawDrawFlex ='''
 				"type": "box",
 				"layout": "vertical",
 				"contents": [],
-				"width": "5px",
+				"width": "4px",
 				"height": "50px"
 			  },
 			  {
@@ -2851,7 +2851,7 @@ eachRawDrawFlex ='''
 				"type": "box",
 				"layout": "vertical",
 				"contents": [],
-				"width": "5px",
+				"width": "4px",
 				"height": "50px"
 			  },
 			  {
