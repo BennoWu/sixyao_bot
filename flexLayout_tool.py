@@ -2600,7 +2600,7 @@ eachRawDrawFlex ='''
 						"size": "md",
 						"align": "end",
 						"weight": "bold",
-						"color": "#8F989E"
+						"color": "#1E3850"
 					  }
 					],
 					"height": "20px"
@@ -2615,7 +2615,7 @@ eachRawDrawFlex ='''
 						"size": "md",
 						"align": "end",
 						"weight": "bold",
-						"color": "#8F989E"
+						"color": "#1E3850"
 					  }
 					],
 					"height": "20px"
@@ -2630,7 +2630,7 @@ eachRawDrawFlex ='''
 						"size": "md",
 						"align": "end",
 						"weight": "bold",
-						"color": "#8F989E"
+						"color": "#1E3850"
 					  }
 					],
 					"height": "20px"
@@ -2690,7 +2690,7 @@ eachRawDrawFlex ='''
 						"size": "md",
 						"align": "end",
 						"weight": "bold",
-						"color": "#8F989E"
+						"color": "#1E3850"
 					  }
 					],
 					"height": "20px"
@@ -2705,7 +2705,7 @@ eachRawDrawFlex ='''
 						"size": "md",
 						"align": "end",
 						"weight": "bold",
-						"color": "#8F989E"
+						"color": "#1E3850"
 					  }
 					],
 					"height": "20px"
@@ -2720,7 +2720,7 @@ eachRawDrawFlex ='''
 						"size": "md",
 						"align": "end",
 						"weight": "bold",
-						"color": "#8F989E"
+						"color": "#1E3850"
 					  }
 					],
 					"height": "20px"
@@ -2779,7 +2779,7 @@ eachRawDrawFlex ='''
 						"size": "md",
 						"align": "end",
 						"weight": "bold",
-						"color": "#8F989E"
+						"color": "#1E3850"
 					  }
 					],
 					"height": "20px"
@@ -2794,7 +2794,7 @@ eachRawDrawFlex ='''
 						"size": "md",
 						"align": "end",
 						"weight": "bold",
-						"color": "#8F989E"
+						"color": "#1E3850"
 					  }
 					],
 					"height": "20px"
@@ -2809,7 +2809,7 @@ eachRawDrawFlex ='''
 						"size": "md",
 						"align": "end",
 						"weight": "bold",
-						"color": "#8F989E"
+						"color": "#1E3850"
 					  }
 					],
 					"height": "20px"
@@ -2868,7 +2868,7 @@ eachRawDrawFlex ='''
 						"size": "md",
 						"align": "end",
 						"weight": "bold",
-						"color": "#8F989E"
+						"color": "#1E3850"
 					  }
 					],
 					"height": "20px"
@@ -2883,7 +2883,7 @@ eachRawDrawFlex ='''
 						"size": "md",
 						"align": "end",
 						"weight": "bold",
-						"color": "#8F989E"
+						"color": "#1E3850"
 					  }
 					],
 					"height": "20px"
@@ -2898,7 +2898,7 @@ eachRawDrawFlex ='''
 						"size": "md",
 						"align": "end",
 						"weight": "bold",
-						"color": "#8F989E"
+						"color": "#1E3850"
 					  }
 					],
 					"height": "20px"
