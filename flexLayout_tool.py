@@ -2598,6 +2598,8 @@ eachRawDrawFlex ='''
 						"type": "text",
 						"text": "__UP1__",
 						"size": "md",
+						"align": "end",
+						"weight": "bold",
 						"color": "#1E3850"
 					  }
 					],
@@ -2611,6 +2613,8 @@ eachRawDrawFlex ='''
 						"type": "text",
 						"text": "__MID1__",
 						"size": "md",
+						"align": "end",
+						"weight": "bold",
 						"color": "#1E3850"
 					  }
 					],
@@ -2624,6 +2628,8 @@ eachRawDrawFlex ='''
 						"type": "text",
 						"text": "__DN1__",
 						"size": "md",
+						"align": "end",
+						"weight": "bold",
 						"color": "#1E3850"
 					  }
 					],
@@ -2682,6 +2688,8 @@ eachRawDrawFlex ='''
 						"type": "text",
 						"text": "__UP2__",
 						"size": "md",
+						"align": "end",
+						"weight": "bold",
 						"color": "#1E3850"
 					  }
 					],
@@ -2695,6 +2703,8 @@ eachRawDrawFlex ='''
 						"type": "text",
 						"text": "__MID2__",
 						"size": "md",
+						"align": "end",
+						"weight": "bold",
 						"color": "#1E3850"
 					  }
 					],
@@ -2708,6 +2718,8 @@ eachRawDrawFlex ='''
 						"type": "text",
 						"text": "__DN2__",
 						"size": "md",
+						"align": "end",
+						"weight": "bold",
 						"color": "#1E3850"
 					  }
 					],
@@ -2765,6 +2777,8 @@ eachRawDrawFlex ='''
 						"type": "text",
 						"text": "__UP3__",
 						"size": "md",
+						"align": "end",
+						"weight": "bold",
 						"color": "#1E3850"
 					  }
 					],
@@ -2778,6 +2792,8 @@ eachRawDrawFlex ='''
 						"type": "text",
 						"text": "__MID3__",
 						"size": "md",
+						"align": "end",
+						"weight": "bold",
 						"color": "#1E3850"
 					  }
 					],
@@ -2791,6 +2807,8 @@ eachRawDrawFlex ='''
 						"type": "text",
 						"text": "__DN3__",
 						"size": "md",
+						"align": "end",
+						"weight": "bold",
 						"color": "#1E3850"
 					  }
 					],
@@ -2848,6 +2866,8 @@ eachRawDrawFlex ='''
 						"type": "text",
 						"text": "__UP4__",
 						"size": "md",
+						"align": "end",
+						"weight": "bold",
 						"color": "#1E3850"
 					  }
 					],
@@ -2861,6 +2881,8 @@ eachRawDrawFlex ='''
 						"type": "text",
 						"text": "__MID4__",
 						"size": "md",
+						"align": "end",
+						"weight": "bold",
 						"color": "#1E3850"
 					  }
 					],
@@ -2874,6 +2896,8 @@ eachRawDrawFlex ='''
 						"type": "text",
 						"text": "__DN4__",
 						"size": "md",
+						"align": "end",
+						"weight": "bold",
 						"color": "#1E3850"
 					  }
 					],
