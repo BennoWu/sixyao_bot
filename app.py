@@ -7,7 +7,7 @@ from logBackup import uploadCsvToGoogleSheet
 from supabase_io import get_user_data
 from cloudinary_helper import delete_older_than
 
-from flexLayout_tool import ganZiList_fun , yearListFlexLayout , getFlexMessage_GZ
+from flexLayout_tool import ganZiList_fun , yearListFlexLayout , getFlexMessage_GZ , getDrawRiceGua
 
 from fourPillar_tool import checkYear
 from fourPillar_tool import ganZhi_Dict ## 六十甲子的字典
