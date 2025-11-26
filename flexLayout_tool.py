@@ -2951,17 +2951,13 @@ def getRandomNum( min_val = 30 , max_val = 1000 ):
 		r = random.random()  # 0~1
 		if r < 0.7:
 			# 70% 機率落在 100 ~ 300
-			num =  random.randint(100, 300)
-			# num = random.randint(min_val, max_val)
-		elif r < 0.85:
+			num =  random.randint(10, 100)
+		elif r > 0.8:
 			# 15% 機率落在 100 ~ 300
-			num =  random.randint(300, 600)
-			# num = random.randint(min_val, max_val)
+			num =  random.randint(100, 200)
 		else:
 			# 15% 機率落在 700 ~ 1000
-			num =  random.randint(10, 100)
-			# num = random.randint(min_val, max_val)
-		# num = random.randint(min_val, max_val)
+			num =  random.randint(300, 900)
 		result.append(str(num))
 	# print ( result )
 	return result
@@ -3020,7 +3016,7 @@ if __name__ == '__main__':
 # 	# 干支/日/2025.5.11/10/申
 # # ['乙巳-乙酉-己卯', '2025/09/07', '白露']
 
-	getDrawRiceGua("占明天天氣" , printMode = True )
+	getDrawRiceGua("占明天天氣" , printMode = False )
 	# yearListFlexLayout( "2025",True ) 
 
 	# getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )
