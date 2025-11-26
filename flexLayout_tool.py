@@ -333,7 +333,7 @@ uiLayoutFront ='''
                   "type": "postback",
                   "label": "文字版",
                   "data": "__TXT__",
-                  "displayText": "\udbc0\udc80 text version..."
+                  "displayText": "/(^o^)/ text version"
 				}
 
 
