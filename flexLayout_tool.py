@@ -1232,7 +1232,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 								.replace("__裝卦buf__", commandExt )															
 								.replace("12:00", currentTime )
 								.replace("__裝卦__", command )
-								.replace("__dis裝卦__", display_command )								
+								.replace("__dis裝卦__", command )								
 								.replace("__ORGGUA__" , orgGuaName)
 								.replace("__CHGGUA__" , chgGuaName)
 
