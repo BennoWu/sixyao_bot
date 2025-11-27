@@ -362,7 +362,7 @@ uiLayoutFront ="""
                 "type": "box",
                 "layout": "vertical",
                 "contents": [],
-                "width": "32px"
+                "width": "15px"
               },
               {
                 "type": "box",
@@ -371,19 +371,19 @@ uiLayoutFront ="""
                   {
                     "type": "text",
                     "text": "__YO1__",
-                    "size": "lg",
+                    "size": "xl",
                     "weight": "bold",
                     "align": "center",
-                    "color": "#1F3B6A"
+                    "color": "#91A4BC"
                   }
                 ],
-                "width": "20px"
+                "width": "30px"
               },
               {
                 "type": "box",
                 "layout": "vertical",
                 "contents": [],
-                "width": "10px"
+                "width": "5px"
               },
               {
                 "type": "box",
@@ -392,19 +392,19 @@ uiLayoutFront ="""
                   {
                     "type": "text",
                     "text": "__YO2__",
-                    "size": "lg",
+                    "size": "xl",
                     "weight": "bold",
                     "align": "center",
-                    "color": "#1F3B6A"
+                    "color": "#91A4BC"
                   }
                 ],
-                "width": "20px"
+                "width": "30px"
               },
               {
                 "type": "box",
                 "layout": "vertical",
                 "contents": [],
-                "width": "10px"
+                "width": "5px"
               },
               {
                 "type": "box",
@@ -413,19 +413,19 @@ uiLayoutFront ="""
                   {
                     "type": "text",
                     "text": "__YO3__",
-                    "size": "lg",
+                    "size": "xl",
                     "weight": "bold",
                     "align": "center",
-                    "color": "#1F3B6A"
+                    "color": "#91A4BC"
                   }
                 ],
-                "width": "20px"
+                "width": "30px"
               },
               {
                 "type": "box",
                 "layout": "vertical",
                 "contents": [],
-                "width": "10px"
+                "width": "5px"
               },
               {
                 "type": "box",
@@ -434,19 +434,19 @@ uiLayoutFront ="""
                   {
                     "type": "text",
                     "text": "__YO4__",
-                    "size": "lg",
+                    "size": "xl",
                     "weight": "bold",
                     "align": "center",
-                    "color": "#1F3B6A"
+                    "color": "#91A4BC"
                   }
                 ],
-                "width": "20px"
+                "width": "30px"
               },
               {
                 "type": "box",
                 "layout": "vertical",
                 "contents": [],
-                "width": "10px"
+                "width": "5px"
               },
               {
                 "type": "box",
@@ -455,19 +455,19 @@ uiLayoutFront ="""
                   {
                     "type": "text",
                     "text": "__YO5__",
-                    "size": "lg",
+                    "size": "xl",
                     "weight": "bold",
                     "align": "center",
-                    "color": "#1F3B6A"
+                    "color": "#91A4BC"
                   }
                 ],
-                "width": "20px"
+                "width": "30px"
               },
               {
                 "type": "box",
                 "layout": "vertical",
                 "contents": [],
-                "width": "10px"
+                "width": "5px"
               },
               {
                 "type": "box",
@@ -476,13 +476,13 @@ uiLayoutFront ="""
                   {
                     "type": "text",
                     "text": "__YO6__",
-                    "size": "lg",
+                    "size": "xl",
                     "weight": "bold",
                     "align": "center",
                     "color": "#1F3B6A"
                   }
                 ],
-                "width": "20px"
+                "width": "30px"
               }
             ],
             "backgroundColor": "#eeeeee",
