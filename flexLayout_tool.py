@@ -191,7 +191,10 @@ uiLayoutFront ="""
         "cornerRadius": "7px",
         "justifyContent": "space-between"
       },
-      {
+
+
+
+ 	  {
         "type": "box",
         "layout": "horizontal",
         "contents": [
@@ -200,24 +203,62 @@ uiLayoutFront ="""
             "layout": "vertical",
             "contents": [
               {
-                "type": "text",
-                "text": "國曆: __sunDate__",
-                "size": "sm",
-                "color": "#444443",
-                "wrap": true,
-                "weight": "regular",
-                "margin": "none",
-                "align": "start",
-                "offsetTop": "2px"
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "__sunDate__",
+                        "size": "sm",
+                        "color": "#444443",
+                        "wrap": true,
+                        "weight": "regular",
+                        "margin": "none",
+                        "align": "start",
+                        "offsetTop": "2px",
+                        "flex": 0
+                      }
+                    ],
+                    "width": "150px"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [],
+                    "width": "46px"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "22:20",
+                        "size": "sm",
+                        "color": "#444443",
+                        "wrap": true,
+                        "weight": "regular",
+                        "align": "end",
+                        "offsetTop": "2px"
+                      }
+                    ]
+                  }
+                ]
               },
+
+
               {
                 "type": "text",
-                "text": "農曆: __darkDate__",
+                "text": "__darkDate__",
                 "size": "sm",
                 "color": "#444443",
                 "wrap": true,
                 "weight": "regular",
-                "margin": "none"
+                "margin": "xs"
               }
             ],
             "margin": "none",
@@ -237,9 +278,13 @@ uiLayoutFront ="""
       },
       {
         "type": "separator",
-        "margin": "none",
+        "margin": "sm",
         "color": "#aaaaaa"
       },
+
+
+
+
       {
         "type": "box",
         "layout": "vertical",
@@ -542,7 +587,7 @@ uiLayoutBackExt = """
 					"height": "sm"
 				  }
 				],
-				"width": "182px"
+				"width": "176px"
 			  },
 			  {
 				"type": "box",
@@ -1818,8 +1863,8 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 # 📄
 
 # 干支/日/2025.5.11/10/申
-	reDataLayout =   (  uiLayout.replace("__sunDate__", sun_date + "       " + currentTime)
-								.replace("__darkDate__", dark_date + " · " + jeChi )
+	reDataLayout =   (  uiLayout.replace("__sunDate__",  "國曆: " + sun_date )
+								.replace("__darkDate__", "農曆: " + dark_date + " · " + jeChi )
 								.replace("年柱", fourP[0] )
 								.replace("月柱", fourP[1] )
 								.replace("日柱", fourP[2] )
@@ -1828,7 +1873,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 								.replace("__TXT__", "t" + display_command )	
 
 								.replace("__裝卦buf__", commandExt )															
-								# .replace("12:00", currentTime )
+								.replace("12:00", currentTime )
 								.replace("__裝卦__", command )
 								.replace("__dis裝卦__", display_command )								
 								.replace("__ORGGUA__" , orgGuaName)
