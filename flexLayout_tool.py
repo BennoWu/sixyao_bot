@@ -194,7 +194,7 @@ uiLayoutFront ="""
 
 
 
- 	  {
+ {
         "type": "box",
         "layout": "horizontal",
         "contents": [
@@ -228,29 +228,22 @@ uiLayoutFront ="""
                   {
                     "type": "box",
                     "layout": "vertical",
-                    "contents": [],
-                    "width": "40px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
                     "contents": [
                       {
                         "type": "text",
-                        "text": "22:20",
+                        "text": "　22:20",
                         "size": "sm",
                         "color": "#444443",
                         "wrap": true,
                         "weight": "regular",
-                        "align": "end",
-                        "offsetTop": "2px"
+                        "offsetTop": "2px",
+                        "align": "end"
                       }
-                    ]
+                    ],
+                    "width": "80px"
                   }
                 ]
               },
-
-
               {
                 "type": "text",
                 "text": "__darkDate__",
@@ -1864,7 +1857,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 # 干支/日/2025.5.11/10/申
 	reDataLayout =   (  uiLayout.replace("__sunDate__",  "國曆: " + sun_date )
-								.replace("__darkDate__", "農曆: " + dark_date + " · " + jeChi )
+								.replace("__darkDate__", "農曆: " + dark_date + " • " + jeChi )
 								.replace("年柱", fourP[0] )
 								.replace("月柱", fourP[1] )
 								.replace("日柱", fourP[2] )
