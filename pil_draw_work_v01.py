@@ -539,7 +539,8 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 			jeChiBuf = "．" + allDataDict['jeChi'][0]+ " > " + allDataDict['jeChi'][2] 
 			# makeText ( "•"   , twoSideSpace + 292  , 358 , wordingSize = 30 , wordingFont = pf_TC_medium , color = midGray )
 			# makeText (  allDataDict['jeChi'][0]+ ">" + allDataDict['jeChi'][2]  , twoSideSpace + 318  , 348 , wordingSize = 41 , wordingFont = pf_TC_medium , color = mainColor )
-
+	if len( allDataDict['fullDarkDate'] ) != 4:
+		jeChiBuf = jeChiBuf.replace( "．" , "·" )
 
 
 	## 國曆

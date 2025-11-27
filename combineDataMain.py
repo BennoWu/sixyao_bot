@@ -221,8 +221,8 @@ def riceGua( fullDataInput ):
 				outGua += gua
 			index += 1
 
-		downGua = int(str(downGua).replace("0","8")) 
-		upGua = int(str(upGua).replace("0","8")) 
+		downGua = int(str(downGua)) 
+		upGua = int(str(upGua)) 
 		return( outGua,"%d.%d.%d "%(downGua,upGua,changeGua) ) 
 
 	elif len( bufList ) == 6: ## ['1,0,11,0,00,1'] 六爻卦
@@ -1332,7 +1332,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "+2025/9/8/15/10 // 000$00 // 常秉賢近況吉凶0815" )
 	# sixYaoMain( "+2025/9/11/15/43 // 101010 // 常秉賢近況吉凶0911" )
 
-	sixYaoMain( "/ (^o^)/" )
+	sixYaoMain( "+2025/01/19/22/20 - 111001" ,showPic = True)
 	# sixYaoMain( "2025/8/25/0/47 // 10XX1$ // 赫女占回北部工作吉凶?",showPic = True )	 ## 三合 四格
 	# sixYaoMain( "+2024/04/13/12/00<//10XX1$//赫女占回北部工作吉凶?")  ## 三合 四格
 
