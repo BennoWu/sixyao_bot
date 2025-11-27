@@ -428,22 +428,22 @@ def handle_message(event):
 
 		return
 
-	# # PIL圖片上傳
-	# elif inputMsg.startswith("+"):
-	# 	img_high, img_low = sixYaoMain( inputMsg, userData )
+	# PIL圖片上傳
+	elif inputMsg.startswith("+"):
+		img_high, img_low = sixYaoMain( inputMsg, userData )
 
-	# 	# ⭐ v3 的圖片訊息回覆
-	# 	line_bot_api.reply_message(
-	# 		ReplyMessageRequest(
-	# 			reply_token=event.reply_token,
-	# 			messages=[
-	# 				ImageMessageType(
-	# 					original_content_url=img_high,
-	# 					preview_image_url=img_low
-	# 				)
-	# 			]
-	# 		)
-	# 	)
+		# ⭐ v3 的圖片訊息回覆
+		line_bot_api.reply_message(
+			ReplyMessageRequest(
+				reply_token=event.reply_token,
+				messages=[
+					ImageMessageType(
+						original_content_url=img_high,
+						preview_image_url=img_low
+					)
+				]
+			)
+		)
 
 	# 	print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", flush=True)
 
