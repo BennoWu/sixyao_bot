@@ -514,11 +514,12 @@ def handle_message(event):
 		changeNote = inputMsg[1:]
 		changeNote = changeNote.replace(' ', '')
 		# changeNote = changeNote.replace('\n', '^')
-		print( "change note === " , changeNote )
+		print( "@@@@@@@ change note === " , changeNote )
 		uiCommand = get_json_item_data(user_id, "temp")
 		print( ">>>>> ", uiCommand )
 		if uiCommand:
 			newCommand = uiCommand.replace("Untitled", changeNote)
+			print( "NEW COMMAND: " , newCommand )
 			new_flex_json = sixYaoMain( newCommand, userData )
 
 
