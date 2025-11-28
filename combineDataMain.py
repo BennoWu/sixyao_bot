@@ -377,6 +377,10 @@ def checkInData( testData ):
 	print( "----->>>-----",testData )
 	# textDate  =  testData.replace("月","").replace("日","").replace("/","" )
 	tgdz = ["0","1","X","$","@","6","7","8","9"]
+	if len(testData) != 6:
+		return False
+
+
 
 	for td in testData:
 		if td not in tgdz:
@@ -1332,7 +1336,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "+2025/9/8/15/10 // 000$00 // 常秉賢近況吉凶0815" )
 	# sixYaoMain( "+2025/9/11/15/43 // 101010 // 常秉賢近況吉凶0911" )
 
-	sixYaoMain( "2025/01/19/22/20 - 11$0X1//測試" ,showPic = True)
+	sixYaoMain( "2025/01/19/22/20 - 101000,6//測試" ,showPic = True)
 	# sixYaoMain( "2025/8/25/0/47 // 10XX1$ // 赫女占回北部工作吉凶?",showPic = True )	 ## 三合 四格
 	# sixYaoMain( "+2024/04/13/12/00<//10XX1$//赫女占回北部工作吉凶?")  ## 三合 四格
 
