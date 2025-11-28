@@ -7,7 +7,7 @@ from logBackup import uploadCsvToGoogleSheet
 from supabase_io import get_user_data
 from cloudinary_helper import delete_older_than
 
-from flexLayout_tool import ganZiList_fun , yearListFlexLayout , getFlexMessage_GZ , getDrawRiceGua
+from flexLayout_tool import ganZiList_fun , yearListFlexLayout , getFlexMessage_GZ , getDrawRiceGua , howToUse
 
 from fourPillar_tool import checkYear
 from fourPillar_tool import ganZhi_Dict ## 六十甲子的字典
@@ -299,14 +299,27 @@ def handle_message(event):
 
 
 
-	elif inputMsg.lower() == "id":
-		returnMsg = f"{user_id}//{displayName}//{picUrl}"
+	# elif inputMsg.lower() == "id":
+	# 	returnMsg = f"{user_id}//{displayName}//{picUrl}"
 
 
-	elif inputMsg.lower() == "info":
-		returnMsg = get_user_info(user_id)
+	# elif inputMsg.lower() == "info":
+	# 	returnMsg = get_user_info(user_id)
 
-
+	elif inputMsg.lower() == "help":
+		how_dict = howToUse()
+		line_bot_api.reply_message(
+			ReplyMessageRequest(
+				reply_token=event.reply_token,
+				messages=[
+					FlexMessage(
+						alt_text='< 使用說明 >',
+						contents=FlexContainer.from_dict(how_dict)
+					)
+				]
+			)
+		)
+		return
 
 
 	# 歲次干支 - 輸入年份 - 輸入干支取得
@@ -805,6 +818,15 @@ def handle_postback(event):
 					messages=[TextMessage(text= text_UI)]
 				)
 			)
+
+		# 文字版UI 處理
+		elif data == "sendMe":
+			
+			pushMsg("userData["userName"] + push...", user_id = None )
+
+
+
+
 
 
 		# 卦象完成圖片處理
