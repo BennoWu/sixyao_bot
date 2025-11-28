@@ -3635,6 +3635,7 @@ def getDrawRiceGua( note = "" , printMode = False ):
 how_to_use = """
 {
   "type": "bubble",
+  "size": "giga",
   "body": {
     "type": "box",
     "layout": "vertical",
@@ -3763,7 +3764,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "70px"
+                                "width": "80px"
                               },
                               {
                                 "type": "box",
@@ -3777,7 +3778,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "80px"
+                                "width": "83px"
                               },
                               {
                                 "type": "box",
@@ -3791,7 +3792,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "80px"
+                                "width": "85px"
                               },
                               {
                                 "type": "box",
@@ -3833,7 +3834,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "70px"
+                                "width": "80px"
                               },
                               {
                                 "type": "box",
@@ -3847,7 +3848,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "80px"
+                                "width": "83px"
                               },
                               {
                                 "type": "box",
@@ -3861,7 +3862,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "80px"
+                                "width": "85px"
                               },
                               {
                                 "type": "box",
@@ -3903,7 +3904,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "67px"
+                                "width": "78px"
                               },
                               {
                                 "type": "box",
@@ -3917,7 +3918,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "83px"
+                                "width": "85px"
                               },
                               {
                                 "type": "box",
@@ -3931,7 +3932,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "80px"
+                                "width": "85px"
                               },
                               {
                                 "type": "box",
@@ -3973,7 +3974,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "70px"
+                                "width": "80px"
                               },
                               {
                                 "type": "box",
@@ -3987,7 +3988,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "80px"
+                                "width": "84px"
                               },
                               {
                                 "type": "box",
@@ -4001,7 +4002,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "80px"
+                                "width": "85px"
                               },
                               {
                                 "type": "box",
@@ -4756,7 +4757,7 @@ how_to_use = """
                       }
                     ],
                     "margin": "sm",
-                    "width": "10px"
+                    "width": "14px"
                   },
                   {
                     "type": "box",
@@ -4787,7 +4788,7 @@ how_to_use = """
                       }
                     ],
                     "margin": "sm",
-                    "width": "10px"
+                    "width": "14px"
                   },
                   {
                     "type": "box",
@@ -4842,7 +4843,7 @@ how_to_use = """
                       }
                     ],
                     "margin": "sm",
-                    "width": "10px"
+                    "width": "14px"
                   },
                   {
                     "type": "box",
@@ -4873,7 +4874,7 @@ how_to_use = """
                       }
                     ],
                     "margin": "sm",
-                    "width": "10px"
+                    "width": "14px"
                   },
                   {
                     "type": "box",
@@ -4928,7 +4929,7 @@ how_to_use = """
                       }
                     ],
                     "margin": "sm",
-                    "width": "10px"
+                    "width": "14px"
                   },
                   {
                     "type": "box",
@@ -4958,7 +4959,7 @@ how_to_use = """
                       }
                     ],
                     "margin": "sm",
-                    "width": "10px"
+                    "width": "14px"
                   },
                   {
                     "type": "box",
@@ -5013,7 +5014,7 @@ how_to_use = """
                       }
                     ],
                     "margin": "sm",
-                    "width": "10px"
+                    "width": "14px"
                   },
                   {
                     "type": "box",
@@ -5043,7 +5044,7 @@ how_to_use = """
                       }
                     ],
                     "margin": "sm",
-                    "width": "10px"
+                    "width": "14px"
                   },
                   {
                     "type": "box",
