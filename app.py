@@ -822,7 +822,7 @@ def handle_postback(event):
 		# 文字版UI 處理
 		elif data == "sendMe":
 			
-			pushMsg("userData['userName'] + push...", user_id = None )
+			pushMsg( "⚡ " +  userData['userName'] + " push...", user_id = None )
 
 
 
