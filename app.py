@@ -3,6 +3,7 @@ from ocr_work import getPicData
 from combineDataMain import sixYaoMain,unifiedData
 
 from logBackup import uploadCsvToGoogleSheet
+from logBackup import ( logDataFun as logBK_logDataFun )
 # from supabase_io import *
 from supabase_io import get_user_data
 from cloudinary_helper import delete_older_than
@@ -55,7 +56,6 @@ app = Flask(__name__)
 from dotenv import load_dotenv
 load_dotenv()
 
-# from logBackup import ( logDataFun as logBK_logDataFun,    uploadCsvToGoogleSheet as logBK_uploadCsv  )
 
 
 
@@ -269,7 +269,7 @@ def handle_message(event):
 	linebotUserName = userData["linebotUserName"]
 
 
-
+	logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = "", inputData = inputMsg )
 
 	# 權限檢查
 	if jsonData.switch.upper() != "ON"  and  user_id != my_id:	
@@ -289,6 +289,13 @@ def handle_message(event):
 			)
 		)
 		return
+
+
+
+
+
+
+
 
 	# 設定模式
 	if ("set" in inputMsg.lower()) or ("utc" in inputMsg.lower()):
@@ -822,7 +829,7 @@ def handle_postback(event):
 		# 文字版UI 處理
 		elif data == "sendMe":
 			
-			pushMsg( "⚡ " +  userData['userName'] + " push...", user_id = None )
+			pushMsg( "⚡ " +  userData['linebotUserName'] + " push...", user_id = None )
 
 
 
