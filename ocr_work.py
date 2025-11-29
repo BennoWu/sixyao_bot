@@ -154,61 +154,120 @@ def extract_datetime(text: str):
 
 
 
-
-
-
 def extract_hexagrams(text: str):
-    """
-    提取本卦與變卦，最小變動實現規則：
-    - 本卦名稱與變卦名稱：
-        1. 先判斷最後一個字是否存在於字典 key 中，有的話直接取字典對應值
-        2. 三個字取最後一個字，四個字取最後兩個字
-    - 返回格式: "本卦之變卦卦"
-    """
-    # 移除干擾字符
-    cleaned = text.replace("\n", " ").replace("【", "").replace("】", "")
-    guaName_dict = { "天":"乾","澤":"兌","火":"離","雷":"震","風":"巽","水":"坎","山":"艮","地":"坤" }
+	"""
+	提取本卦與變卦，最小變動實現規則：
+	- 本卦名稱與變卦名稱：
+		1. 先判斷最後一個字是否存在於字典 key 中，有的話直接取字典對應值
+		2. 三個字取最後一個字，四個字取最後兩個字
+	- 返回格式: "本卦之變卦卦"
+	- 若未找到「本卦」「變卦」關鍵字，則從文本中依序找64卦名稱
+	"""
+	# 移除干擾字符
+	cleaned = text.replace("\n", " ").replace("【", "").replace("】", "")
+	guaName_dict = { "天":"乾","澤":"兌","火":"離","雷":"震","風":"巽","水":"坎","山":"艮","地":"坤" }
+	
+	def process_gua(name):
+		if not name:
+			return None
+		# 先判斷最後一個字是否存在字典 key
+		last_char = name[-1]
+		if last_char in guaName_dict:
+			return guaName_dict[last_char]
+		# 沒匹配再依字數取字
+		if len(name) == 3:
+			return name[-1]
+		elif len(name) == 4:
+			return name[-2:]
+		else:
+			return name
+	
+	# 找本卦
+	ben_gua = None
+	if "本卦" in cleaned:
+		after_bengua = cleaned.split("本卦", 1)[1].strip()
+		ben_gua_full = refindGuaName(after_bengua.split()[0])
+		ben_gua = process_gua(ben_gua_full)
+	
+	# 找變卦
+	bian_gua = None
+	if "變卦" in cleaned:
+		after_biangua = cleaned.split("變卦", 1)[1].strip()
+		bian_gua_full = refindGuaName(after_biangua.split()[0])
+		bian_gua = process_gua(bian_gua_full)
+	
+	# 如果沒有找到本卦或變卦，則從文本中依序查找64卦
+	if not ben_gua or not bian_gua:
+		found_guas = []
+		for gua in guaList:
+			if gua in text:
+				found_guas.append(gua)
+				if len(found_guas) == 2:
+					break
+		
+		# 第一個是本卦，第二個是變卦
+		if len(found_guas) >= 1 and not ben_gua:
+			ben_gua = process_gua(found_guas[0])
+		if len(found_guas) >= 2 and not bian_gua:
+			bian_gua = process_gua(found_guas[1])
+	
+	if ben_gua and bian_gua:
+		return f"{ben_gua}之{bian_gua}卦"
+	return None
 
-    def process_gua(name):
-        if not name:
-            return None
-        # 先判斷最後一個字是否存在字典 key
-        last_char = name[-1]
-        if last_char in guaName_dict:
-            return guaName_dict[last_char]
-        # 沒匹配再依字數取字
-        if len(name) == 3:
-            return name[-1]
-        elif len(name) == 4:
-            return name[-2:]
-        else:
-            return name
 
-    # 找本卦
-    ben_gua = None
-    if "本卦" in cleaned:
-        after_bengua = cleaned.split("本卦", 1)[1].strip()
-        ben_gua_full = refindGuaName(after_bengua.split()[0])
-        ben_gua = process_gua(ben_gua_full)
+# def extract_hexagrams(text: str):
+#     """
+#     提取本卦與變卦，最小變動實現規則：
+#     - 本卦名稱與變卦名稱：
+#         1. 先判斷最後一個字是否存在於字典 key 中，有的話直接取字典對應值
+#         2. 三個字取最後一個字，四個字取最後兩個字
+#     - 返回格式: "本卦之變卦卦"
+#     """
+#     # 移除干擾字符
+#     cleaned = text.replace("\n", " ").replace("【", "").replace("】", "")
+#     guaName_dict = { "天":"乾","澤":"兌","火":"離","雷":"震","風":"巽","水":"坎","山":"艮","地":"坤" }
 
-    # 找變卦
-    bian_gua = None
-    if "變卦" in cleaned:
-        after_biangua = cleaned.split("變卦", 1)[1].strip()
-        bian_gua_full = refindGuaName(after_biangua.split()[0])
-        bian_gua = process_gua(bian_gua_full)
+#     def process_gua(name):
+#         if not name:
+#             return None
+#         # 先判斷最後一個字是否存在字典 key
+#         last_char = name[-1]
+#         if last_char in guaName_dict:
+#             return guaName_dict[last_char]
+#         # 沒匹配再依字數取字
+#         if len(name) == 3:
+#             return name[-1]
+#         elif len(name) == 4:
+#             return name[-2:]
+#         else:
+#             return name
 
-    if ben_gua and bian_gua:
-        return f"{ben_gua}之{bian_gua}卦"
+#     # 找本卦
+#     ben_gua = None
+#     if "本卦" in cleaned:
+#         after_bengua = cleaned.split("本卦", 1)[1].strip()
+#         ben_gua_full = refindGuaName(after_bengua.split()[0])
+#         ben_gua = process_gua(ben_gua_full)
 
-    return None
+#     # 找變卦
+#     bian_gua = None
+#     if "變卦" in cleaned:
+#         after_biangua = cleaned.split("變卦", 1)[1].strip()
+#         bian_gua_full = refindGuaName(after_biangua.split()[0])
+#         bian_gua = process_gua(bian_gua_full)
+
+#     if ben_gua and bian_gua:
+#         return f"{ben_gua}之{bian_gua}卦"
+
+#     return None
 
 
 
 
 
 
-import difflib
+# import difflib
 
 # 模糊比對卦名
 # 保留字的順序 → “天山X” 只能匹配“天山遯”，不能匹配“山天遯”。
@@ -226,37 +285,37 @@ guaList = [
 	"兌為澤","澤水困","澤地萃","澤山咸","水山蹇","地山謙","雷山小過","雷澤歸妹"
 ]
 def refindGuaName(inputName):
-    best_match = None
-    min_distance = None
+	best_match = None
+	min_distance = None
 
-    # 🔹 Case1: 完全匹配，直接返回
-    for gua in guaList:
-        if gua == inputName:
-            return gua
+	# 🔹 Case1: 完全匹配，直接返回
+	for gua in guaList:
+		if gua == inputName:
+			return gua
 
-    # 🔹 Case2: 前兩字或後兩字能對上，直接挑候選
-    for gua in guaList:
-        if inputName in gua:
-            return gua
-        if len(inputName) >= 2 and gua.startswith(inputName[:2]):
-            if len(inputName) < len(gua):
-                return gua
+	# 🔹 Case2: 前兩字或後兩字能對上，直接挑候選
+	for gua in guaList:
+		if inputName in gua:
+			return gua
+		if len(inputName) >= 2 and gua.startswith(inputName[:2]):
+			if len(inputName) < len(gua):
+				return gua
 
-    # 🔹 Case3: 原本距離比對（錯一字/兩字）
-    for gua in guaList:
-        if len(gua) != len(inputName):
-            continue
-        distance = sum(1 for a, b in zip(gua, inputName) if a != b)
-        if len(gua) == 3 and distance <= 1:
-            if min_distance is None or distance < min_distance:
-                best_match = gua
-                min_distance = distance
-        elif len(gua) == 4 and distance <= 2:
-            if min_distance is None or distance < min_distance:
-                best_match = gua
-                min_distance = distance
+	# 🔹 Case3: 原本距離比對（錯一字/兩字）
+	for gua in guaList:
+		if len(gua) != len(inputName):
+			continue
+		distance = sum(1 for a, b in zip(gua, inputName) if a != b)
+		if len(gua) == 3 and distance <= 1:
+			if min_distance is None or distance < min_distance:
+				best_match = gua
+				min_distance = distance
+		elif len(gua) == 4 and distance <= 2:
+			if min_distance is None or distance < min_distance:
+				best_match = gua
+				min_distance = distance
 
-    return best_match
+	return best_match
 
 
 
@@ -448,7 +507,7 @@ def getPicData(image_input):
 # ===== 範例 =====
 if __name__ == '__main__':
 	# local 路徑
-	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\2025.jpg")
+	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__40951814.jpg")
 
 	# # PIL.Image
 	# img_obj = Image.open("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__117137475.jpg")
