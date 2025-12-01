@@ -2528,7 +2528,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 				if row[0] in zhong_qi:
 					buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "777777") ## 中氣顏色
 				else:
-					buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "888888")					
+					buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "333333")					
 
 			currentTimeBuf = row[1].replace( "/" , ",")  ## "干支/日/2023-05-06/15"
 			hour_command =  f"干支/時/{8}/{currentTimeBuf}" ##"干支/日/%s/%s"% ( "2023-05-06" , "15" )
