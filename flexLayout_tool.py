@@ -2436,8 +2436,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 	# dayMode	= dayMode.lower().replace( "jc","節氣").replace("jechi","節氣") 
 # "2023/5/17/12/00"
 # "2023/5/17"  --> "2023/5/17/00/00"
-	if runtime == 20:
-		runtime = runtime+1
+	
 	print( currentTime )
 	kongWangList = [  "甲子","甲戌","甲申","甲午","甲辰","甲寅"  ]
 
@@ -2531,7 +2530,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 			if i != len( dateDataList ) -1:
 				finalLayout += date_separator
 	finalLayout +=endLayout
-	print ( finalLayout )
+	# print ( finalLayout )
 
 	# 文字轉換成字典
 	finalLayout_dict = json.loads(finalLayout)
