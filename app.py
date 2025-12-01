@@ -10,7 +10,7 @@ from cloudinary_helper import delete_older_than
 
 from flexLayout_tool import ganZiList_fun , yearListFlexLayout , getFlexMessage_GZ , getDrawRiceGua , howToUse
 
-from fourPillar_tool import checkYear
+from fourPillar_tool import checkYear,getNowTime
 from fourPillar_tool import ganZhi_Dict ## 六十甲子的字典
 
 
@@ -267,9 +267,9 @@ def handle_message(event):
 
 	linebotId = userData["linebotId"]
 	linebotUserName = userData["linebotUserName"]
-
-
-	logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = "", inputData = inputMsg )
+# current_time = time.time()
+	## 所有的輸入都寫入log 
+	logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = getNowTime( utc_hour = 8 ) , inputData = inputMsg )
 
 	# 權限檢查
 	if jsonData.switch.upper() != "ON"  and  user_id != my_id:	
