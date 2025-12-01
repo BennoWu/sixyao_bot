@@ -2481,6 +2481,20 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 	    "大雪",
 	    "冬至"
 	]
+	zhong_qi = [
+	    "雨水",
+	    "春分",
+	    "穀雨",
+	    "小滿",
+	    "夏至",
+	    "大暑",
+	    "處暑",
+	    "秋分",
+	    "霜降",
+	    "小雪",
+	    "冬至"
+	]
+
 
 	# dayModeLayout
 	# finalLayout = startLayout_buf
