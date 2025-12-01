@@ -269,7 +269,8 @@ def handle_message(event):
 	linebotUserName = userData["linebotUserName"]
 # current_time = time.time()
 	## 所有的輸入都寫入log 
-	logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = getNowTime( utc_hour = 8 ) , inputData = inputMsg )
+	if inputMsg[0:4] != "____":
+		logBK_logDataFun( userID = linebotId  , userName = linebotUserName , logTime = getNowTime( utc_hour = 8 ) , inputData = inputMsg )
 
 	# 權限檢查
 	if jsonData.switch.upper() != "ON"  and  user_id != my_id:	
@@ -289,10 +290,6 @@ def handle_message(event):
 			)
 		)
 		return
-
-
-
-
 
 
 
