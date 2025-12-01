@@ -3719,7 +3719,7 @@ how_to_use = """
                     "contents": [
                       {
                         "type": "text",
-                        "text": "符號一覽",
+                        "text": "輸入符號請參考以下原則",
                         "size": "sm",
                         "gravity": "bottom",
                         "color": "#333333"
@@ -3810,7 +3810,8 @@ how_to_use = """
                               }
                             ],
                             "margin": "md",
-                            "backgroundColor": "#eeeeee"
+                            "backgroundColor": "#eeeeee",
+                            "width": "320px"
                           },
                           {
                             "type": "box",
@@ -3880,7 +3881,8 @@ how_to_use = """
                               }
                             ],
                             "margin": "md",
-                            "backgroundColor": "#eeeeee"
+                            "backgroundColor": "#eeeeee",
+                            "width": "320px"
                           },
                           {
                             "type": "box",
@@ -3950,7 +3952,8 @@ how_to_use = """
                               }
                             ],
                             "margin": "md",
-                            "backgroundColor": "#eeeeee"
+                            "backgroundColor": "#eeeeee",
+                            "width": "320px"
                           },
                           {
                             "type": "box",
@@ -4020,7 +4023,8 @@ how_to_use = """
                               }
                             ],
                             "margin": "md",
-                            "backgroundColor": "#eeeeee"
+                            "backgroundColor": "#eeeeee",
+                            "width": "320px"
                           }
                         ]
                       }
@@ -4045,13 +4049,13 @@ how_to_use = """
                     "contents": [
                       {
                         "type": "text",
-                        "text": "範例與規則:",
+                        "text": "其他使用範例:",
                         "size": "md",
                         "weight": "bold",
                         "align": "start"
                       }
                     ],
-                    "width": "100px"
+                    "width": "110px"
                   },
                   {
                     "type": "box",
@@ -4080,7 +4084,7 @@ how_to_use = """
                     "size": "sm",
                     "gravity": "bottom",
                     "color": "#295F87",
-                    "weight": "regular"
+                    "weight": "bold"
                   }
                 ],
                 "margin": "xs"
@@ -4259,7 +4263,7 @@ how_to_use = """
                     "size": "sm",
                     "gravity": "bottom",
                     "color": "#295F87",
-                    "weight": "regular"
+                    "weight": "bold"
                   }
                 ],
                 "margin": "lg"
@@ -4439,7 +4443,7 @@ how_to_use = """
                     "size": "sm",
                     "gravity": "bottom",
                     "color": "#295F87",
-                    "weight": "regular"
+                    "weight": "bold"
                   }
                 ],
                 "margin": "lg"
@@ -4551,13 +4555,13 @@ how_to_use = """
                     "contents": [
                       {
                         "type": "text",
-                        "text": "占天氣",
+                        "text": "占明日天氣",
                         "size": "md",
                         "weight": "regular",
                         "align": "start"
                       }
                     ],
-                    "width": "50px"
+                    "width": "82px"
                   },
                   {
                     "type": "box",
@@ -4635,13 +4639,13 @@ how_to_use = """
                     "contents": [
                       {
                         "type": "text",
-                        "text": "占天氣",
+                        "text": "占明日天氣",
                         "size": "md",
                         "weight": "regular",
                         "align": "start"
                       }
                     ],
-                    "width": "50px"
+                    "width": "82px"
                   },
                   {
                     "type": "box",
@@ -4735,13 +4739,13 @@ how_to_use = """
                     "contents": [
                       {
                         "type": "text",
-                        "text": "占財",
+                        "text": "占今年財運",
                         "size": "md",
                         "weight": "regular",
                         "align": "start"
                       }
                     ],
-                    "width": "32px"
+                    "width": "82px"
                   },
                   {
                     "type": "box",
@@ -4821,13 +4825,13 @@ how_to_use = """
                     "contents": [
                       {
                         "type": "text",
-                        "text": "占財",
+                        "text": "占今年財運",
                         "size": "md",
                         "weight": "regular",
                         "align": "start"
                       }
                     ],
-                    "width": "32px"
+                    "width": "82px"
                   },
                   {
                     "type": "box",
