@@ -739,10 +739,16 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 		out = ( dt + datetime.timedelta( hours= -4 )).strftime("%Y/%m/%d/%H/%M")
 		inDate = out
 
-	if (dayMode == "d") or (dayMode == "jc"): ## 日 或 節氣
+	if dayMode == "d": ## 日 或 節氣
 		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")		# 把起點提前一天
 		out = ( dt + datetime.timedelta( days=-1 )).strftime("%Y/%m/%d/%H/%M")
 		inDate = out	
+
+	if dayMode == "jc": ## 日 或 節氣
+		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")		# 把起點提前十四天
+		out = ( dt + datetime.timedelta( days=-14 )).strftime("%Y/%m/%d/%H/%M")
+		inDate = out	
+
 
 	if dayMode == "m":
 		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")		# 把起點提前一天 // 只輸出年月柱  '癸卯-癸亥'

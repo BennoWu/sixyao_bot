@@ -2436,7 +2436,8 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 	# dayMode	= dayMode.lower().replace( "jc","節氣").replace("jechi","節氣") 
 # "2023/5/17/12/00"
 # "2023/5/17"  --> "2023/5/17/00/00"
-	
+	if runtime > 20:
+		runtime = 20
 	print( currentTime )
 	kongWangList = [  "甲子","甲戌","甲申","甲午","甲辰","甲寅"  ]
 
@@ -2464,6 +2465,22 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 	else:
 		indexColor = "#777777"
 		finalLayout = startLayout_buf.replace( "#bbbbb0" , indexColor )
+
+
+	zhong_qi = [
+	    "大寒",
+	    "雨水",
+	    "春分",
+	    "穀雨",
+	    "小滿",
+	    "夏至",
+	    "大暑",
+	    "處暑",
+	    "秋分",
+	    "霜降",
+	    "大雪",
+	    "冬至"
+	]
 
 	# dayModeLayout
 	# finalLayout = startLayout_buf
@@ -2499,7 +2516,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 			# print( row[0].split("-")[0] , row[0].split("-")[1] , row[0].split("-")[2]  , row[0].split("-")[3] )
 			# ['乙巳-乙酉-丙申', '2025/09/23', '秋分', '(二)']
 			lightDate = "'" + row[1][2:]  +row[2]
-
+			# ['乙巳-辛巳-甲戌', '2025/05/05', '(一)', '立夏']
 
 			buf_dayModeLayout = dayModeLayout.replace("年柱", row[0].split("-")[0] ).replace("月柱", row[0].split("-")[1] ).replace("日柱", row[0].split("-")[2] ).replace("__TIME__", lightDate ).replace("__JECHI__", row[3] if row[3] != '' else '　')
 			
@@ -2508,7 +2525,10 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 				buf_dayModeLayout = buf_dayModeLayout.replace ( "#2e4e7c" , "#3aa078" )
 			
 			if dayMode == "jc":
-				buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "888888")
+				if row[0] in zhong_qi:
+					buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "777777") ## 中氣顏色
+				else:
+					buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "888888")					
 
 			currentTimeBuf = row[1].replace( "/" , ",")  ## "干支/日/2023-05-06/15"
 			hour_command =  f"干支/時/{8}/{currentTimeBuf}" ##"干支/日/%s/%s"% ( "2023-05-06" , "15" )
@@ -5182,7 +5202,7 @@ def howToUse( printMode = False ):
 if __name__ == '__main__':
 # 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 )
 # 	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 )
-	ganZiList_fun( currentTime = "2025/05/08" , dayMode = "h" , index = "" , runtime = 20 ) 
+	ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
 
 # # "干支/時/10/2025-08-31-15-48"
 # 	# "d" -- day
