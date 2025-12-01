@@ -2445,8 +2445,8 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 
 	dayMode	= dayMode.replace( "jechi","jc" ).replace( "節氣","jc" ).replace( "月","m" ).replace( "日","d" ).replace( "時","h" )
 	dateDataList = PPPPP ( currentTime = currentTime , dayMode = dayMode , index = index , runtime = runtime )
-	for i in dateDataList:
-		print(i)  
+	# for i in dateDataList:
+	# 	print(i)  
 
 	if dayMode.lower() == "m":
 		startLayout_buf = startLayout.replace("日","月")
@@ -2525,7 +2525,8 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 				buf_dayModeLayout = buf_dayModeLayout.replace ( "#2e4e7c" , "#3aa078" )
 			
 			if dayMode == "jc":
-				if row[0] in zhong_qi:
+				# print(row[3])
+				if row[3] in zhong_qi:
 					buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "777777") ## 中氣顏色
 				else:
 					buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "333333")					
