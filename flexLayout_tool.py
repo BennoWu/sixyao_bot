@@ -228,10 +228,10 @@ uiLayoutFront ="""
 				  {
 					"type": "box",
 					"layout": "vertical",
-					"contents": [
+					"contents": [ 
 					  {
 						"type": "text",
-						"text": "　22:20",
+						"text": "12:00",
 						"size": "sm",
 						"color": "#444443",
 						"wrap": true,
