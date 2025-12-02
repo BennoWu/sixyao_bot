@@ -144,6 +144,21 @@ def check_user_exists(user_id):
 	return False
 
 
+## 喚醒Supabase，不然notion的token一星期沒用就要重新resure
+def supabase_health_check():
+	"""保持 Supabase 活躍 - 輕量快速"""
+	try:
+		url = f"{SUPABASE_URL}/rest/v1/user_tokens?limit=1"
+		response = requests.get(url, headers=headers, timeout=5)
+
+		if response.status_code == 200:
+			return 'ok', 200
+		else:
+			return 'error', response.status_code
+	except Exception:
+		return 'error', 500
+
+
 ### 目前沒有用到
 # def update_page_id(user_id, page_id):
 # 	"""只更新 page_id (不動 token)"""
@@ -179,15 +194,18 @@ if __name__ == "__main__":
 	# )
 	
 
-	print(check_user_exists("U21eaaf32db85b983a842d9a9da81d8f1"))
+	# print(check_user_exists("U21eaaf32db85b983a842d9a9da81d8f1"))
 
 
-	# 測試讀取 (會回傳字典)
-	data = get_user_data("U21eaaf32db85b983a842d9a9da81d8f1")
-	if data:
-		print(f"Token: {data['notion_token']}")
-		print(f"Page ID: {data['page_id']}")
+	# # 測試讀取 (會回傳字典)
+	# data = get_user_data("U21eaaf32db85b983a842d9a9da81d8f1")
+	# if data:
+	# 	print(f"Token: {data['notion_token']}")
+	# 	print(f"Page ID: {data['page_id']}")
 	
+
+
+	print(supabase_health_check())
 	# # 測試只更新 page_id
 	# update_page_id("line_user_456", "new-page-id-xyz")
 	

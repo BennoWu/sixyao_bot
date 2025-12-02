@@ -5,7 +5,7 @@ from combineDataMain import sixYaoMain,unifiedData
 from logBackup import uploadCsvToGoogleSheet
 from logBackup import ( logDataFun as logBK_logDataFun )
 # from supabase_io import *
-from supabase_io import get_user_data
+from supabase_io import get_user_data,supabase_health_check
 from cloudinary_helper import delete_older_than
 
 from flexLayout_tool import ganZiList_fun , yearListFlexLayout , getFlexMessage_GZ , getDrawRiceGua , howToUse
@@ -122,6 +122,8 @@ pushMsg("✈️ start now...", user_id = None )
 	# t.start()
 
 
+
+
 ## 多線程 - 儲存JSON至GOOGLE
 def delayed_upJson():
 	try:
@@ -192,7 +194,7 @@ def home():
 
 ## 上傳備份用，從uptimerobot呼叫 https://web-production-e20a6.up.railway.app/upload-csv-task
 ## Render用的 https://sixyao-bot.onrender.com/upload-csv-task
-
+## 12小時備份一次
 @app.route('/upload-csv-task', methods=['GET'])
 def upload_csv_task():
 	try:
@@ -209,7 +211,14 @@ def upload_csv_task():
 		return f'Error: {str(e)}', 500
 
 
+# 24小時叫一次
+# 新增:專門保持 Supabase 活躍的輕量端點
+@app.route('/health', methods=['GET'])
+def health():
+	return supabase_health_check()
 
+
+	
 
 @app.route("/callback", methods=['POST'])
 def callback():
