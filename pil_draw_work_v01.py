@@ -292,7 +292,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 	titleGray =  "#B1B1B1"  ## 四柱用的灰色
 	timeColor = "#F9AE3B"  ## 右上時間橘黃色
 
-	subGray = "#656565"
+	subGray = "#555555"
 
 
 
@@ -386,7 +386,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 	roundSquare (  hight = screenHight-268 , hightSize = 90 , sideSpace = twoSideSpace+3 , fillColor = None , outlineColor = "#777777" , LineWidth = 4 )
 
 	## 最大邊框"#ACA899"
-	draw_SquareFull ( hightSize = screenHight , widthSize = screenWidth , offset = 0 , fillColor = None , outlineColor = "#284560" ,  LineWidth = 18 )
+	draw_SquareFull ( hightSize = screenHight , widthSize = screenWidth , offset = 0 , fillColor = None , outlineColor = "#284560" ,  LineWidth = 19 )
 	# draw_SquareFull ( hightSize = screenHight , widthSize = screenWidth , offset = 23 , fillColor = None , outlineColor = "#1E3752" ,  LineWidth = 3 )	
 	# roundSquare (  hight = 8 , hightSize = screenHight-18, sideSpace = 8 ,roundSize = 30 ,   fillColor = None , outlineColor = "#959799" , LineWidth = 8 )
 
