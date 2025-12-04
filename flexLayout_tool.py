@@ -3189,7 +3189,7 @@ drawUiLayoutFront ='''
 	"contents": [
 	  {
 		"type": "box",
-		"layout": "vertical",
+		"layout": "horizontal",
 		"contents": [
 		  {
 			"type": "text",
@@ -3616,7 +3616,8 @@ eachRawDrawFlex ='''
 		  }
 		],
 		"margin": "sm",
-		"spacing": "xxl"
+		"spacing": "xxl",
+        "offsetEnd": "xs"
 	  }'''
 
 sep ='''
