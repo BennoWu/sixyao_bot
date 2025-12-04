@@ -3616,8 +3616,8 @@ eachRawDrawFlex ='''
 		  }
 		],
 		"margin": "sm",
-		"spacing": "xxl",
-        "offsetEnd": "xs"
+		"spacing": "xxl"
+		
 	  }'''
 
 sep ='''
