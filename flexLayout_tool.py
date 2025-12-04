@@ -3196,7 +3196,21 @@ drawUiLayoutFront ='''
 			"text": "__占__",
 			"weight": "regular",
 			"size": "xl"
-		  }
+		  },
+          {
+            "type": "text",
+            "text": "reload",
+            "weight": "bold",
+            "size": "lg",
+            "align": "end",
+            "gravity": "bottom",
+            "action": {
+              "type": "message",
+              "label": "action",
+              "text": "__占__"
+            },
+            "color": "#8CC63F"
+          }
 		]
 	  },
 	  {
@@ -3206,6 +3220,13 @@ drawUiLayoutFront ='''
 	  },
 
 '''
+
+
+
+
+
+
+
 
 eachRawDrawFlex ='''
 	  {
@@ -5261,14 +5282,14 @@ if __name__ == '__main__':
 # 	# 干支/日/2025.5.11/10/申
 # # ['乙巳-乙酉-己卯', '2025/09/07', '白露']
 
-	# getDrawRiceGua("占明天天氣" , printMode = False )
+	getDrawRiceGua("占明天天氣" , printMode = True )
 	# yearListFlexLayout( "2025",True ) 
 
 	# getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )
 
 	# howToUse( printMode = True )
 
-
+# getDrawRiceGua( note = "" , printMode = False )
 
 
 
