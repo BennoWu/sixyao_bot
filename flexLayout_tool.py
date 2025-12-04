@@ -3647,17 +3647,17 @@ def getRandomNum():
 
 		if r < 0.7:
 			# 70% 機率：10 ~ 100
-			minv, maxv = 40, 200
+			minv, maxv = 40, 150
 			num = secrets.randbelow(maxv - minv + 1) + minv
 
 		elif r > 0.8:
 			# 20% 機率：100 ~ 200
-			minv, maxv = 200, 400
+			minv, maxv = 105, 300
 			num = secrets.randbelow(maxv - minv + 1) + minv
 
 		else:
 			# 10% 機率：300 ~ 900
-			minv, maxv = 400, 900
+			minv, maxv = 300, 800
 			num = secrets.randbelow(maxv - minv + 1) + minv
 
 		result.append(str(num))
