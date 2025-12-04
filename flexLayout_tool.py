@@ -3330,7 +3330,12 @@ eachRawDrawFlex ='''
 				"width": "18px",
 				"height": "19px",
 				"backgroundColor": "#8691a5",
-				"offsetTop": "xs"
+				"offsetTop": "xs",
+				"action": {
+				  "type": "message",
+				  "label": "action",
+				  "text": "__DRAW2x__"
+				}
 			  },
 			  {
 				"type": "box",
@@ -3420,7 +3425,12 @@ eachRawDrawFlex ='''
 				"width": "18px",
 				"height": "19px",
 				"backgroundColor": "#8691a5",
-				"offsetTop": "xs"
+				"offsetTop": "xs",
+				"action": {
+				  "type": "message",
+				  "label": "action",
+				  "text": "__DRAW31x__"
+				}
 			  },
 			  {
 				"type": "box",
@@ -3510,7 +3520,12 @@ eachRawDrawFlex ='''
 				"width": "18px",
 				"height": "19px",
 				"backgroundColor": "#8691a5",
-				"offsetTop": "xs"
+				"offsetTop": "xs",
+				"action": {
+				  "type": "message",
+				  "label": "action",
+				  "text": "__DRAW4x__"
+				}
 			  },
 			  {
 				"type": "box",
@@ -3632,17 +3647,17 @@ def getRandomNum():
 
 		if r < 0.7:
 			# 70% 機率：10 ~ 100
-			minv, maxv = 10, 100
+			minv, maxv = 40, 200
 			num = secrets.randbelow(maxv - minv + 1) + minv
 
 		elif r > 0.8:
 			# 20% 機率：100 ~ 200
-			minv, maxv = 100, 200
+			minv, maxv = 200, 400
 			num = secrets.randbelow(maxv - minv + 1) + minv
 
 		else:
 			# 10% 機率：300 ~ 900
-			minv, maxv = 300, 900
+			minv, maxv = 400, 900
 			num = secrets.randbelow(maxv - minv + 1) + minv
 
 		result.append(str(num))
