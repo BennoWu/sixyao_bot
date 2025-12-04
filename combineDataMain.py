@@ -376,7 +376,7 @@ def checkInData( testData ):
 
 	print( "----->>>-----",testData )
 	# textDate  =  testData.replace("月","").replace("日","").replace("/","" )
-	tgdz = ["0","1","X","$","@","6","7","8","9"]
+	tgdz = ["0","1","x","X","$","@","6","7","8","9"]
 	if len(testData) != 6:
 		return False
 
@@ -1012,7 +1012,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 		elif checkInData( buf_org ) == True:
 			print(">>進入直上模式")
 			if len( buf_org ) == 6:
-				finalGua = buf_org.replace("/","").replace("@","$").replace("6","X").replace("7","1").replace("8","0").replace("9","$")
+				finalGua = buf_org.replace("/","").replace("@","$").replace("6","X").replace("7","1").replace("8","0").replace("9","$").replace("x","X")
 				checkItem[0] = "卦"
 			else:
 				print( "卦有問題")

@@ -3234,7 +3234,12 @@ eachRawDrawFlex ='''
 				"width": "18px",
 				"height": "19px",
 				"backgroundColor": "#8691a5",
-				"offsetTop": "xs"
+				"offsetTop": "xs",
+				"action": {
+				  "type": "message",
+				  "label": "action",
+				  "text": "__DRAW1__"
+				}
 			  },
 			  {
 				"type": "box",
@@ -3598,24 +3603,46 @@ drawUiLayoutBack ='''
 }'''
 
 
-import random
+# import random
 
-def getRandomNum( min_val = 30 , max_val = 1000 ):
+# def getRandomNum( ):
+# 	result = []
+# 	for _ in range(3):
+
+# 		r = random.random()  # 0~1
+# 		if r < 0.7:
+# 			# 70% 機率落在 100 ~ 300
+# 			num =  random.randint(10, 100)
+# 		elif r > 0.8:
+# 			# 15% 機率落在 100 ~ 300
+# 			num =  random.randint(100, 200)
+# 		else:
+# 			# 15% 機率落在 700 ~ 1000
+# 			num =  random.randint(300, 900)
+# 		result.append(str(num))
+# 	# print ( result )
+# 	return result
+import secrets
+
+def getRandomNum():
 	result = []
 	for _ in range(3):
 
-		r = random.random()  # 0~1
+		# 換成 secrets，0~1 的浮點亂數
+		r = secrets.randbelow(10_000_000) / 10_000_000
+
 		if r < 0.7:
-			# 70% 機率落在 100 ~ 300
-			num =  random.randint(10, 100)
+			# 70%：10~100
+			num = secrets.randbelow(91) + 10      # 10~100
 		elif r > 0.8:
-			# 15% 機率落在 100 ~ 300
-			num =  random.randint(100, 200)
+			# 20%：100~200
+			num = secrets.randbelow(101) + 100    # 100~200
 		else:
-			# 15% 機率落在 700 ~ 1000
-			num =  random.randint(300, 900)
+			# 10%：300~900
+			num = secrets.randbelow(601) + 300    # 300~900
+
 		result.append(str(num))
-	# print ( result )
+
 	return result
 
 
@@ -5220,3 +5247,15 @@ if __name__ == '__main__':
 	# getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )
 
 	# howToUse( printMode = True )
+
+
+
+
+
+# https://res.cloudinary.com/ds9jcwwcw/image/upload/v1764789817/sLiuZen-icon-32_irqzv9.png
+# https://res.cloudinary.com/ds9jcwwcw/image/upload/v1764789817/sLiuZen-icon-33_con14v.png
+# https://res.cloudinary.com/ds9jcwwcw/image/upload/v1764789817/sLiuZen-icon-34_orxqvb.png
+# https://res.cloudinary.com/ds9jcwwcw/image/upload/v1764789817/sLiuZen-icon-37_mgzov9.png
+# https://res.cloudinary.com/ds9jcwwcw/image/upload/v1764789818/sLiuZen-icon-35_d4b434.png
+# https://res.cloudinary.com/ds9jcwwcw/image/upload/v1764789817/sLiuZen-icon-36_co4t8q.png
+

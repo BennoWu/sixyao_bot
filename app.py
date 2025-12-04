@@ -407,7 +407,7 @@ def handle_message(event):
 
 		if len(ganZiiList) == 2:
 			dateMode = ganZiiList[1]
-			runTimeBuf = 6
+			runTimeBuf = 9
 		elif len(ganZiiList) == 3:
 			dateMode = ganZiiList[1]
 			runTimeBuf = ganZiiList[2]

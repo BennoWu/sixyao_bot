@@ -2,7 +2,7 @@ from notion_client import Client
 from notion_client.errors import APIResponseError
 import requests, os
 
-def pushToNotion(imageUrl, titleText, apiToken, pageId):
+def pushToNotion( imageUrl , titleText , apiToken , pageId ):
     """
     在指定頁面下建立子頁面，並置換左欄圖片為同一路徑（刷新用）
     """
