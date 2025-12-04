@@ -3238,7 +3238,7 @@ eachRawDrawFlex ='''
 				"action": {
 				  "type": "message",
 				  "label": "action",
-				  "text": "__DRAW1__"
+				  "text": "__DRAW1x__"
 				}
 			  },
 			  {
@@ -3628,22 +3628,27 @@ def getRandomNum():
 	result = []
 	for _ in range(3):
 
-		# 換成 secrets，0~1 的浮點亂數
-		r = secrets.randbelow(10_000_000) / 10_000_000
+		r = secrets.randbelow(10_000_000) / 10_000_000  # 0~1 高亂度浮點
 
 		if r < 0.7:
-			# 70%：10~100
-			num = secrets.randbelow(91) + 10      # 10~100
+			# 70% 機率：10 ~ 100
+			minv, maxv = 10, 100
+			num = secrets.randbelow(maxv - minv + 1) + minv
+
 		elif r > 0.8:
-			# 20%：100~200
-			num = secrets.randbelow(101) + 100    # 100~200
+			# 20% 機率：100 ~ 200
+			minv, maxv = 100, 200
+			num = secrets.randbelow(maxv - minv + 1) + minv
+
 		else:
-			# 10%：300~900
-			num = secrets.randbelow(601) + 300    # 300~900
+			# 10% 機率：300 ~ 900
+			minv, maxv = 300, 900
+			num = secrets.randbelow(maxv - minv + 1) + minv
 
 		result.append(str(num))
 
 	return result
+
 
 
 ## 產生16格抽籤模式UI
