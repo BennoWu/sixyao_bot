@@ -2,7 +2,7 @@
 
 from PIL import Image
 import re
-
+from fourPillar_tool import getFourPillar # 四柱得日期
 
 ## 原本的OCR，可用但太吃系統
 
@@ -121,8 +121,92 @@ def ocr_image_to_text(input_data):
 
 
 
+import re
 
+# 農曆日、月對照表
+datBuf = {
+    1:"初一",2:"初二" ,3:"初三" ,4:"初四" ,5:"初五" ,6:"初六" ,7:"初七" ,8:"初八" ,9:"初九" ,10:"初十" ,
+    11:"十一" ,12:"十二" ,13:"十三" ,14:"十四" ,15:"十五" ,16:"十六" ,17:"十七" ,18:"十八" ,19:"十九" ,20:"二十" ,
+    21:"廿一" ,22:"廿二" ,23:"廿三" ,24:"廿四" ,25:"廿五" ,26:"廿六" ,27:"廿七" ,28:"廿八" ,29:"廿九" ,30:"三十" ,31:"三一"
+}
+monthBuf = {
+    1:"正月",2:"二月" ,3:"三月" ,4:"四月" ,5:"五月" ,6:"六月" ,7:"七月" ,8:"八月" ,9:"九月" ,10:"十月" ,11:"十一月" ,12:"十二月"
+}
 
+def getDarkDateOcr(ocr_txt, date_tuple):
+    """
+    OCR 文本 + tuple 比對，農曆月日 & 日柱地支是否一致
+    date_tuple = ('2025/11/08/10:30', '九月十九', ['乙巳','丁亥','辛巳','癸巳'], ['立冬','>','小雪'], '(六)', '10:30')
+    """
+
+    # ========================
+    # 0️⃣ OCR 文本清理
+    # ========================
+    text = ocr_txt.replace("ㄗ", "1").replace("○","0")
+    text = re.sub(r"\s+", "", text)  # 移除空格換行
+
+    # ========================
+    # 1️⃣ 從 OCR 文本抓農曆月日
+    # ========================
+    m_md = re.search(r"([正一二三四五六七八九十]+)月([初一二三四五六七八九十廿三]+)", text)
+    month_ocr = m_md.group(1) if m_md else None
+    day_ocr = m_md.group(2) if m_md else None
+
+    # ========================
+    # 2️⃣ 從 OCR 文本抓地支
+    # ========================
+    m_zhi = re.search(r"(子|丑|寅|卯|辰|巳|午|未|申|酉|戌|亥)", text)
+    zhi_ocr = m_zhi.group(1) if m_zhi else None
+
+    # ========================
+    # 3️⃣ 從 tuple 拿資料
+    # ========================
+    lunar_md = date_tuple[1]          # tuple 的農曆月日 e.g., '九月十九'
+    day_zhi = date_tuple[2][3]       # tuple 的日柱 e.g., '癸巳'
+
+    # 抓 tuple 日柱地支
+    m_day_zhi = re.search(r"(子|丑|寅|卯|辰|巳|午|未|申|酉|戌|亥)$", day_zhi)
+    day_zhi_only = m_day_zhi.group(1) if m_day_zhi else None
+
+    # ========================
+    # 4️⃣ 農曆月日比對
+    # ========================
+    # tuple 月日拆開
+    m_match = re.match(r"(.+)月(.+)", lunar_md)
+    tuple_month, tuple_day = m_match.groups() if m_match else (None, None)
+
+    # OCR 農曆月日轉數字
+    month_num = None
+    for k,v in monthBuf.items():
+        if v == month_ocr:
+            month_num = k
+            break
+    day_num = None
+    for k,v in datBuf.items():
+        if v == day_ocr:
+            day_num = k
+            break
+
+    # tuple 月日轉數字
+    tuple_month_num = None
+    for k,v in monthBuf.items():
+        if v == tuple_month:
+            tuple_month_num = k
+            break
+    tuple_day_num = None
+    for k,v in datBuf.items():
+        if v == tuple_day:
+            tuple_day_num = k
+            break
+
+    # ========================
+    # 5️⃣ 判斷是否一致
+    # ========================
+    lunar_match = (month_num == tuple_month_num) and (day_num == tuple_day_num)
+    zhi_match = (zhi_ocr == day_zhi_only)
+
+    return lunar_match and zhi_match
+# fourPillarToDateMain( inputDate = '乙巳/卯/戊戌'  )
 
 
 
@@ -136,14 +220,25 @@ def extract_datetime(text: str):
 	2025一10800:40
 	2025-09-29 01:48
 	2025/9/29 0148
+	2025一1ㄗ0810:30  <- ㄗ自動轉1
 	"""
+	# 先把 ㄗ 轉成 1
+	text = text.replace("ㄗ", "1")
 	m = re.search(
 		r"(\d{4})\D*(\d{1,2})\D*(\d{1,2})\D*(\d{2})\D*(\d{2})",
 		text
 	)
 	if m:
 		year, month, day, hour, minute = m.groups()
-		return f"{year}/{month.zfill(2)}/{day.zfill(2)}/{hour.zfill(2)}/{minute.zfill(2)}"
+		rtmDate =  f"{year}/{month.zfill(2)}/{day.zfill(2)}/{hour.zfill(2)}/{minute.zfill(2)}"
+
+		print(getFourPillar( fullDate = rtmDate , detail = True ))
+		date_tuple = getFourPillar( fullDate = rtmDate , detail = True )
+
+		if getDarkDateOcr( text , date_tuple ):
+			return rtmDate
+		else:
+			return rtmDate + "?"
 	return None
 
 
@@ -507,7 +602,7 @@ def getPicData(image_input):
 # ===== 範例 =====
 if __name__ == '__main__':
 	# local 路徑
-	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__40951814.jpg")
+	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__117137474.jpg")
 
 	# # PIL.Image
 	# img_obj = Image.open("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__117137475.jpg")
