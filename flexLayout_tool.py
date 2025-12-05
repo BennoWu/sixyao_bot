@@ -637,6 +637,11 @@ uiLayoutBackExt = """
 
 
 
+
+
+
+
+
 ### 從號碼取得卦名
 def getName(binary):
 	for item in baGuaAllDict:
@@ -2189,390 +2194,440 @@ eachRawDrawFlex ='''
 		"type": "box",
 		"layout": "horizontal",
 		"contents": [
-		  {
-			"type": "box",
-			"layout": "horizontal",
-			"contents": [
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "__NUM1__",
-					"size": "sm",
-					"weight": "bold",
-					"margin": "none",
-					"align": "center",
-					"color": "#ffffff",
-					"gravity": "top"
-				  }
-				],
-				"width": "18px",
-				"height": "19px",
-				"backgroundColor": "#8691a5",
-				"offsetTop": "xs",
-				"action": {
-				  "type": "message",
-				  "label": "action",
-				  "text": "__DRAW1x__"
-				}
-			  },
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [],
-				"width": "4px",
-				"height": "50px"
-			  },
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [
-				  {
-					"type": "box",
-					"layout": "horizontal",
-					"contents": [
-					  {
-						"type": "text",
-						"text": "__UP1__",
-						"size": "md",
-						"align": "end",
-						"weight": "regular",
-						"color": "#1E3850"
-					  }
-					],
-					"height": "20px"
-				  },
-				  {
-					"type": "box",
-					"layout": "horizontal",
-					"contents": [
-					  {
-						"type": "text",
-						"text": "__MID1__",
-						"size": "md",
-						"align": "end",
-						"weight": "regular",
-						"color": "#1E3850"
-					  }
-					],
-					"height": "20px"
-				  },
-				  {
-					"type": "box",
-					"layout": "horizontal",
-					"contents": [
-					  {
-						"type": "text",
-						"text": "__DN1__",
-						"size": "md",
-						"align": "end",
-						"weight": "regular",
-						"color": "#1E3850"
-					  }
-					],
-					"height": "20px"
-				  }
-				]
-			  }
-			],
-			"width": "50px",
-			"action": {
-			  "type": "message",
-			  "label": "action",
-			  "text": "__DRAW1__"
-			}
-		  },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__NUM1__",
+                    "size": "sm",
+                    "weight": "bold",
+                    "margin": "none",
+                    "align": "center",
+                    "color": "#ffffff",
+                    "gravity": "top"
+                  }
+                ],
+                "width": "18px",
+                "height": "19px",
+                "backgroundColor": "#606b7c",
+                "offsetTop": "xs",
+                "action": {
+                  "type": "message",
+                  "label": "action",
+                  "text": "__DRAW1x__"
+                }
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "4px",
+                "height": "50px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "__UP1__",
+                        "size": "md",
+                        "align": "end",
+                        "weight": "regular",
+                        "color": "#1E3850"
+                      }
+                    ],
+                    "height": "19px"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "__MID1__",
+                        "size": "md",
+                        "align": "end",
+                        "weight": "regular",
+                        "color": "#1E3850"
+                      }
+                    ],
+                    "height": "19px"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "__DN1__",
+                        "size": "md",
+                        "align": "end",
+                        "weight": "regular",
+                        "color": "#1E3850"
+                      }
+                    ],
+                    "height": "19px"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "5px",
+                "backgroundColor": "#eeeeea"
+              }
+            ],
+            "width": "62px",
+            "action": {
+              "type": "message",
+              "label": "action",
+              "text": "__DRAW1__"
+            },
+            "backgroundColor": "#eeeeea"
+          },
 
-		  {
-			"type": "box",
-			"layout": "horizontal",
-			"contents": [
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "__NUM2__",
-					"size": "sm",
-					"weight": "bold",
-					"margin": "none",
-					"align": "center",
-					"color": "#ffffff",
-					"gravity": "top"
-				  }
-				],
-				"width": "18px",
-				"height": "19px",
-				"backgroundColor": "#8691a5",
-				"offsetTop": "xs",
-				"action": {
-				  "type": "message",
-				  "label": "action",
-				  "text": "__DRAW2x__"
-				}
-			  },
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [],
-				"width": "4px",
-				"height": "50px"
-			  },
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [
-				  {
-					"type": "box",
-					"layout": "horizontal",
-					"contents": [
-					  {
-						"type": "text",
-						"text": "__UP2__",
-						"size": "md",
-						"align": "end",
-						"weight": "regular",
-						"color": "#1E3850"
-					  }
-					],
-					"height": "20px"
-				  },
-				  {
-					"type": "box",
-					"layout": "horizontal",
-					"contents": [
-					  {
-						"type": "text",
-						"text": "__MID2__",
-						"size": "md",
-						"align": "end",
-						"weight": "regular",
-						"color": "#1E3850"
-					  }
-					],
-					"height": "20px"
-				  },
-				  {
-					"type": "box",
-					"layout": "horizontal",
-					"contents": [
-					  {
-						"type": "text",
-						"text": "__DN2__",
-						"size": "md",
-						"align": "end",
-						"weight": "regular",
-						"color": "#1E3850"
-					  }
-					],
-					"height": "20px"
-				  }
-				]
-			  }
-			],
-			"width": "50px",
-			"action": {
-			  "type": "message",
-			  "label": "action",
-			  "text": "__DRAW2__"
-			}
-		  },
-		  {
-			"type": "box",
-			"layout": "horizontal",
-			"contents": [
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "__NUM3__",
-					"size": "sm",
-					"weight": "bold",
-					"margin": "none",
-					"align": "center",
-					"color": "#ffffff",
-					"gravity": "top"
-				  }
-				],
-				"width": "18px",
-				"height": "19px",
-				"backgroundColor": "#8691a5",
-				"offsetTop": "xs",
-				"action": {
-				  "type": "message",
-				  "label": "action",
-				  "text": "__DRAW31x__"
-				}
-			  },
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [],
-				"width": "4px",
-				"height": "50px"
-			  },
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [
-				  {
-					"type": "box",
-					"layout": "horizontal",
-					"contents": [
-					  {
-						"type": "text",
-						"text": "__UP3__",
-						"size": "md",
-						"align": "end",
-						"weight": "regular",
-						"color": "#1E3850"
-					  }
-					],
-					"height": "20px"
-				  },
-				  {
-					"type": "box",
-					"layout": "horizontal",
-					"contents": [
-					  {
-						"type": "text",
-						"text": "__MID3__",
-						"size": "md",
-						"align": "end",
-						"weight": "regular",
-						"color": "#1E3850"
-					  }
-					],
-					"height": "20px"
-				  },
-				  {
-					"type": "box",
-					"layout": "horizontal",
-					"contents": [
-					  {
-						"type": "text",
-						"text": "__DN3__",
-						"size": "md",
-						"align": "end",
-						"weight": "regular",
-						"color": "#1E3850"
-					  }
-					],
-					"height": "20px"
-				  }
-				]
-			  }
-			],
-			"width": "50px",
-			"action": {
-			  "type": "message",
-			  "label": "action",
-			  "text": "__DRAW3__"
-			}
-		  },
-		  {
-			"type": "box",
-			"layout": "horizontal",
-			"contents": [
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "__NUM4__",
-					"size": "sm",
-					"weight": "bold",
-					"margin": "none",
-					"align": "center",
-					"color": "#ffffff",
-					"gravity": "top"
-				  }
-				],
-				"width": "18px",
-				"height": "19px",
-				"backgroundColor": "#8691a5",
-				"offsetTop": "xs",
-				"action": {
-				  "type": "message",
-				  "label": "action",
-				  "text": "__DRAW4x__"
-				}
-			  },
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [],
-				"width": "4px",
-				"height": "50px"
-			  },
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [
-				  {
-					"type": "box",
-					"layout": "horizontal",
-					"contents": [
-					  {
-						"type": "text",
-						"text": "__UP4__",
-						"size": "md",
-						"align": "end",
-						"weight": "regular",
-						"color": "#1E3850"
-					  }
-					],
-					"height": "20px"
-				  },
-				  {
-					"type": "box",
-					"layout": "horizontal",
-					"contents": [
-					  {
-						"type": "text",
-						"text": "__MID4__",
-						"size": "md",
-						"align": "end",
-						"weight": "regular",
-						"color": "#1E3850"
-					  }
-					],
-					"height": "20px"
-				  },
-				  {
-					"type": "box",
-					"layout": "horizontal",
-					"contents": [
-					  {
-						"type": "text",
-						"text": "__DN4__",
-						"size": "md",
-						"align": "end",
-						"weight": "regular",
-						"color": "#1E3850"
-					  }
-					],
-					"height": "20px"
-				  }
-				]
-			  }
-			],
-			"width": "50px",
-			"action": {
-			  "type": "message",
-			  "label": "action",
-			  "text": "__DRAW4__"
-			}
-		  }
+
+
+
+
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__NUM2__",
+                    "size": "sm",
+                    "weight": "bold",
+                    "margin": "none",
+                    "align": "center",
+                    "color": "#ffffff",
+                    "gravity": "top"
+                  }
+                ],
+                "width": "18px",
+                "height": "19px",
+                "backgroundColor": "#606b7c",
+                "offsetTop": "xs",
+                "action": {
+                  "type": "message",
+                  "label": "action",
+                  "text": "__DRAW2x__"
+                }
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "4px",
+                "height": "50px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "__UP2__",
+                        "size": "md",
+                        "align": "end",
+                        "weight": "regular",
+                        "color": "#1E3850"
+                      }
+                    ],
+                    "height": "19px"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "__MID2__",
+                        "size": "md",
+                        "align": "end",
+                        "weight": "regular",
+                        "color": "#1E3850"
+                      }
+                    ],
+                    "height": "19px"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "__DN2__",
+                        "size": "md",
+                        "align": "end",
+                        "weight": "regular",
+                        "color": "#1E3850"
+                      }
+                    ],
+                    "height": "19px"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "5px",
+                "backgroundColor": "#eeeeeb"
+              }
+            ],
+            "width": "62px",
+            "action": {
+              "type": "message",
+              "label": "action",
+              "text": "__DRAW2__"
+            },
+            "backgroundColor": "#eeeeeb"
+          },
+
+
+
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__NUM3__",
+                    "size": "sm",
+                    "weight": "bold",
+                    "margin": "none",
+                    "align": "center",
+                    "color": "#ffffff",
+                    "gravity": "top"
+                  }
+                ],
+                "width": "18px",
+                "height": "19px",
+                "backgroundColor": "#606b7c",
+                "offsetTop": "xs",
+                "action": {
+                  "type": "message",
+                  "label": "action",
+                  "text": "__DRAW3x__"
+                }
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "4px",
+                "height": "50px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "__UP3__",
+                        "size": "md",
+                        "align": "end",
+                        "weight": "regular",
+                        "color": "#1E3850"
+                      }
+                    ],
+                    "height": "19px"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "__MID3__",
+                        "size": "md",
+                        "align": "end",
+                        "weight": "regular",
+                        "color": "#1E3850"
+                      }
+                    ],
+                    "height": "19px"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "__DN3__",
+                        "size": "md",
+                        "align": "end",
+                        "weight": "regular",
+                        "color": "#1E3850"
+                      }
+                    ],
+                    "height": "19px"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "5px",
+                "backgroundColor": "#eeeeec"
+              }
+            ],
+            "width": "62px",
+            "action": {
+              "type": "message",
+              "label": "action",
+              "text": "__DRAW3__"
+            },
+            "backgroundColor": "#eeeeec"
+          },
+
+
+
+
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__NUM4__",
+                    "size": "sm",
+                    "weight": "bold",
+                    "margin": "none",
+                    "align": "center",
+                    "color": "#ffffff",
+                    "gravity": "top"
+                  }
+                ],
+                "width": "18px",
+                "height": "19px",
+                "backgroundColor": "#606b7c",
+                "offsetTop": "xs",
+                "action": {
+                  "type": "message",
+                  "label": "action",
+                  "text": "__DRAW4x__"
+                }
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "4px",
+                "height": "50px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "__UP4__",
+                        "size": "md",
+                        "align": "end",
+                        "weight": "regular",
+                        "color": "#1E3850"
+                      }
+                    ],
+                    "height": "19px"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "__MID4__",
+                        "size": "md",
+                        "align": "end",
+                        "weight": "regular",
+                        "color": "#1E3850"
+                      }
+                    ],
+                    "height": "19px"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "__DN4__",
+                        "size": "md",
+                        "align": "end",
+                        "weight": "regular",
+                        "color": "#1E3850"
+                      }
+                    ],
+                    "height": "19px"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "5px",
+                "backgroundColor": "#eeeeed"
+              }
+            ],
+            "width": "62px",
+            "action": {
+              "type": "message",
+              "label": "action",
+              "text": "__DRAW4__"
+            },
+            "backgroundColor": "#eeeeed"
+          }
+
+
+
+
+
+
+
 		],
-		"margin": "sm",
-		"spacing": "xxl"
+        "margin": "sm",
+        "spacing": "4px"
 
 	  }'''
 
@@ -2625,17 +2680,17 @@ def getRandomNum():
 
 		if r < 0.7:
 			# 70% 機率：10 ~ 100
-			minv, maxv = 40, 150
+			minv, maxv = 30, 150
 			num = secrets.randbelow(maxv - minv + 1) + minv
 
 		elif r > 0.8:
 			# 20% 機率：100 ~ 200
-			minv, maxv = 105, 300
+			minv, maxv = 100, 300
 			num = secrets.randbelow(maxv - minv + 1) + minv
 
 		else:
 			# 10% 機率：300 ~ 900
-			minv, maxv = 300, 800
+			minv, maxv = 300, 600
 			num = secrets.randbelow(maxv - minv + 1) + minv
 
 		result.append(str(num))
@@ -2643,11 +2698,27 @@ def getRandomNum():
 	return result
 
 
+pool = ["#eeeeee" ,"#CCD4D6" ,"#ededed" ,"#E7E6E5" ,"#dddddd","#E7E6E1","#EBE1D8","#C4BFBB","#EBECE7","#eeeeee" ,"#CCD4D6" ,"#ededed" ,"#E7E6E5" ,"#dddddd","#E7E6E1","#EBE1D8","#B8B4C1","#EBECE7", "#B4BFB9","#9bad7d"]
+queue = []
 
 ## 產生16格抽籤模式UI
 def getDrawRiceGua( note = "" , printMode = False ):
+	import random
 	draw_FinalLayout = ""
 	draw_FinalLayout = drawUiLayoutFront.replace( "__占__" , note )
+
+
+
+
+
+	def get_one():
+	    global queue
+	    if not queue:
+	        queue = pool[:]          # 複製
+	        random.shuffle(queue)    # 打亂順序
+	    return queue.pop()           # 每拿一個就少一個
+
+
 
 	for i in range(4):
 		randList1 = getRandomNum()
@@ -2655,7 +2726,25 @@ def getDrawRiceGua( note = "" , printMode = False ):
 		randList3 = getRandomNum()
 		randList4 = getRandomNum()
 
-		eachRawDrawFlex_Buf = eachRawDrawFlex.replace( "__UP1__" , randList1[0] ).replace( "__MID1__" , randList1[1] ).replace( "__DN1__" , randList1[2] ).replace( "__NUM1__", str(i*4+1)).replace( "__DRAW1__" , ",".join(randList1) + " // " + note )
+		color1 = get_one()
+		color2 = get_one()
+		color3 = get_one()
+		color4 = get_one()
+		print(color1,color2,color3,color4)
+
+    	
+
+
+
+
+
+
+
+
+
+
+
+		eachRawDrawFlex_Buf = eachRawDrawFlex.replace( "__UP1__" , randList1[0] ).replace( "__MID1__" , randList1[1] ).replace( "__DN1__" , randList1[2] ).replace( "__NUM1__", str(i*4+1)).replace( "__DRAW1__" , ",".join(randList1) + " // " + note ).replace( "#eeeeea" , color1).replace( "#eeeeeb" , color2).replace( "#eeeeec" , color3).replace( "#eeeeed" , color4)
 		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP2__" , randList2[0] ).replace( "__MID2__" , randList2[1] ).replace( "__DN2__" , randList2[2] ).replace( "__NUM2__", str(i*4+2)).replace( "__DRAW2__" , ",".join(randList2) + " // " + note )
 		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP3__" , randList3[0] ).replace( "__MID3__" , randList3[1] ).replace( "__DN3__" , randList3[2] ).replace( "__NUM3__", str(i*4+3)).replace( "__DRAW3__" , ",".join(randList3) + " // " + note )
 		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP4__" , randList4[0] ).replace( "__MID4__" , randList4[1] ).replace( "__DN4__" , randList4[2] ).replace( "__NUM4__", str(i*4+4)).replace( "__DRAW4__" , ",".join(randList4) + " // " + note )
