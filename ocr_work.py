@@ -236,7 +236,7 @@ def extract_datetime(text: str):
 		date_tuple = getFourPillar( fullDate = rtmDate , detail = True )
 
 		if getDarkDateOcr( text , date_tuple ):
-			return rtmDate
+			return rtmDate+ "?"
 		else:
 			return rtmDate + "?"
 	return None
