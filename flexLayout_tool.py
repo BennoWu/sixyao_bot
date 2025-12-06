@@ -799,13 +799,13 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	# 	# 	uiLayout += ui_separator
 	# 	uiLayout += ","	
 
-	# uiLayout =  (   uiLayout.replace( "__YO1__", finalGua[0] )
-	# 						.replace( "__YO2__", finalGua[1] )
-	# 						.replace( "__YO3__", finalGua[2] )
-	# 						.replace( "__YO4__", finalGua[3] )
-	# 						.replace( "__YO5__", finalGua[4] )
-	# 						.replace( "__YO6__", finalGua[5] )
-	# 			)
+	uiLayout =  (   uiLayout.replace( "__YO1__", finalGua[0] )
+							.replace( "__YO2__", finalGua[1] )
+							.replace( "__YO3__", finalGua[2] )
+							.replace( "__YO4__", finalGua[3] )
+							.replace( "__YO5__", finalGua[4] )
+							.replace( "__YO6__", finalGua[5] )
+				)
 
 	if notionAccount == True:
 		uiLayout += uiLayoutBackExt  ## 有notion上傳的版本
