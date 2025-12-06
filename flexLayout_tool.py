@@ -214,7 +214,7 @@ uiLayoutFront ="""
 						"type": "text",
 						"text": "__sunDate__",
 						"size": "sm",
-						"color": "#444443",
+						"color": "#444445",
 						"wrap": true,
 						"weight": "regular",
 						"margin": "none",
@@ -233,7 +233,7 @@ uiLayoutFront ="""
 						"type": "text",
 						"text": "12:00",
 						"size": "sm",
-						"color": "#444443",
+						"color": "#444445",
 						"wrap": true,
 						"weight": "regular",
 						"offsetTop": "2px",
@@ -684,7 +684,7 @@ def clipData( fullDate ):
 
 
 ## 產生排盤 UI 
-def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command = "", threePillar = False , notionAccount = False , printMode = False ):
+def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command = "", threePillar = False , notionAccount = False , printMode = False , dateSureMark = False ):
 	# print( getFourPillar( fullDate = dateData , detail = True ))
 	dateBuf = getFourPillar( fullDate = dateData , detail = True )
 	# lightDate ,fullDarkDate ,fourPillar_Buf , jeChi_show , week , timeShow 
@@ -798,13 +798,14 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	# 	# 	uiLayout += ","
 	# 	# 	uiLayout += ui_separator
 	# 	uiLayout += ","	
-	uiLayout =  (   uiLayout.replace( "__YO1__", finalGua[0] )
-							.replace( "__YO2__", finalGua[1] )
-							.replace( "__YO3__", finalGua[2] )
-							.replace( "__YO4__", finalGua[3] )
-							.replace( "__YO5__", finalGua[4] )
-							.replace( "__YO6__", finalGua[5] )
-				)
+
+	# uiLayout =  (   uiLayout.replace( "__YO1__", finalGua[0] )
+	# 						.replace( "__YO2__", finalGua[1] )
+	# 						.replace( "__YO3__", finalGua[2] )
+	# 						.replace( "__YO4__", finalGua[3] )
+	# 						.replace( "__YO5__", finalGua[4] )
+	# 						.replace( "__YO6__", finalGua[5] )
+	# 			)
 
 	if notionAccount == True:
 		uiLayout += uiLayoutBackExt  ## 有notion上傳的版本
@@ -815,7 +816,6 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	# command = command.replace("#",",")
 	# display_command = display_command.replace("#",",")
 # 📄
-
 # 干支/日/2025.5.11/10/申
 	reDataLayout =   (  uiLayout.replace("__sunDate__",  "國曆: " + sun_date )
 								.replace("__darkDate__", "農曆: " + dark_date + " • " + jeChi )
@@ -833,6 +833,9 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 								.replace("__ORGGUA__" , orgGuaName)
 								.replace("__CHGGUA__" , chgGuaName)
 						)
+	# print("dateMark - " , dateSureMark )
+	if dateSureMark == True:
+		reDataLayout = reDataLayout.replace( "#444445" , "#F15B5E")
 
 	if date_ganZiList: ## 自定月日
 		reDataLayout = reDataLayout.replace( "month_mode","- - -" ).replace( "day_mode" , "- - -" ).replace( "hour_mode" , "- - -" ).replace ( "jechi_mode" , "- - -")

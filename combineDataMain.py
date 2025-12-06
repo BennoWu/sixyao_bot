@@ -960,7 +960,16 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 	# for i, fruit in enumerate(fruits):
 
+
+	dateMark = False  ## 
+
 	for i,buf in enumerate(fullDataInput.split("//")):
+		if buf[-1] == "#": ## 日期如果後面有標註#，代表日期可能不正確
+			buf = buf[:-1]
+			dateMark = True
+
+
+
 		buf_org = buf
 		# 判斷是否為「三柱八字」，也就是剛好含有 3 組干支（1組=1天干+1地支，共6字）
 		# 範例:
@@ -1269,6 +1278,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 			threePil_mode = True
 
 
+		# print("dateMark - " , dateMark )
 
 		ui_cmd_dict = uiInputData(  dateData , 
 									date_ganZiList , 
@@ -1277,7 +1287,9 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 									command = command  ,
 									threePillar = threePil_mode , 
 									notionAccount = user_notion,
-									printMode = showPic  )
+									printMode = showPic,  
+									dateSureMark = dateMark  ## 日期如果後面有標註#，代表日期可能不正確
+									)
 		# print( ui_cmd_dict )
 		return ui_cmd_dict
 
@@ -1336,7 +1348,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "+2025/9/8/15/10 // 000$00 // 常秉賢近況吉凶0815" )
 	# sixYaoMain( "+2025/9/11/15/43 // 101010 // 常秉賢近況吉凶0911" )
 
-	sixYaoMain( "2025/01/19/22/20 - 101000,6//測試" ,showPic = True)
+	sixYaoMain( "2025/01/19/22/20# - 101000,6//測試" ,showPic = True)
 	# sixYaoMain( "2025/8/25/0/47 // 10XX1$ // 赫女占回北部工作吉凶?",showPic = True )	 ## 三合 四格
 	# sixYaoMain( "+2024/04/13/12/00<//10XX1$//赫女占回北部工作吉凶?")  ## 三合 四格
 
@@ -1355,7 +1367,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "" )
 	# sixYaoMain( "巳年卯月戊戌日//大过之鼎卦")  ## 多個三合
 
-	sixYaoMain( "理事長病危?//乙巳,丙戌,戊寅,癸丑//110101,4,6" )           ## 三合 四格
+	# sixYaoMain( "理事長病危?//乙巳,丙戌,戊寅,癸丑//110101,4,6" )           ## 三合 四格
 	# sixYaoMain( "黃連老師狗狗生病//2025/07/09/22/58//011100.3" ) ## 暗動  沖脫
 	# sixYaoMain( "+一女占前男友是否有機會復合//旅之小過卦//甲申月戊申日" ,showPic = True)
 	# sixYaoMain( "某男占陳女有法助本人事業否?//明夷之泰卦//庚子年甲申月丙申日" )	## 雙沖
