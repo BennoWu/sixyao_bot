@@ -815,9 +815,9 @@ def handle_postback(event):
 			itemBuf = data.split(" // ")
 			inList = []
 			if len( itemBuf ) == 2:
-				threeNum = [int(x) for x in itemBuf[0].split(",")]
+				inList = [int(x) for x in itemBuf[0].split(",")]
 				note = itemBuf[1]
-				inList = threeNum.split(",")		
+				# inList = threeNum	
 			else:
 				note = data
 				inList = [ 0,0,0 ]
