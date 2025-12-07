@@ -12,7 +12,8 @@ from flexLayout_tool import ganZiList_fun , yearListFlexLayout , getFlexMessage_
 
 from fourPillar_tool import checkYear,getNowTime
 from fourPillar_tool import ganZhi_Dict ## 六十甲子的字典
-from small_six_zan_work import sSixZmain ## 小六壬
+
+from flexLayout_tool import sSixZnUi ## 小六壬
 
 
 
