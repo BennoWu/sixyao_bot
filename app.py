@@ -808,6 +808,30 @@ def handle_postback(event):
 		if data.startswith("change-to-"):
 			return
 
+
+		# 小六壬 處理
+		elif data.startswith("s+"):
+			data = data[2:]
+			itemBuf = data.split(" // ")
+			inList = []
+			if len( itemBuf ) == 2:
+				threeNum = [int(x) for x in itemBuf[0].split(",")]
+				note = itemBuf[1]
+				inList = threeNum.split(",")		
+			else:
+				note = data
+				inList = [ 0,0,0 ]
+
+			sixZn_UI = sSixZnUi( inList , title = note )
+			# ⭐ v3 文字訊息回覆
+			line_bot_api.reply_message(
+				ReplyMessageRequest(
+					reply_token=event.reply_token,
+					messages=[TextMessage(text=sixZn_UI)]
+				)
+			)
+
+
 		# Notion 處理
 		elif data.startswith("n+"):
 			notion_url = sixYaoMain(data, userSetting=userData)

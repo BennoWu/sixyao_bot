@@ -9,6 +9,7 @@ from fourPillar_tool import checkYear
 from guaMatch import checkMainData as checkMainData
 
 from sixYao_data import  * # baGuaAllDict 取得
+from small_six_zan_work import sSixZmain ## 小六壬
 import json
 
 
@@ -2147,20 +2148,35 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 drawUiLayoutFront ='''
 {
   "type": "bubble",
+  "size": "mega",
   "body": {
-	"type": "box",
-	"layout": "vertical",
-	"contents": [
-	  {
-		"type": "box",
-		"layout": "horizontal",
-		"contents": [
-		  {
-			"type": "text",
-			"text": "__占__",
-			"weight": "regular",
-			"size": "xl"
-		  },
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "__占__",
+                "weight": "regular",
+                "size": "xl",
+                "wrap": true,
+                "action": {
+                  "type": "postback",
+                  "label": "action",
+                  "data": "__NOTE__",
+                  "displayText": "__NOTE__"
+                }
+              }
+            ],
+            "width": "200px"
+          },
           {
             "type": "text",
             "text": "reload",
@@ -2175,8 +2191,8 @@ drawUiLayoutFront ='''
             },
             "color": "#8CC63F"
           }
-		]
-	  },
+        ]
+      },
 	  {
 		"type": "separator",
 		"color": "#888888",
@@ -2221,9 +2237,10 @@ eachRawDrawFlex ='''
                 "backgroundColor": "#606b7c",
                 "offsetTop": "xs",
                 "action": {
-                  "type": "message",
+                  "type": "postback",
                   "label": "action",
-                  "text": "__DRAW1x__"
+                  "data": "__SIX1__",
+                  "displayText": "__SIX_DSP1__"
                 }
               },
               {
@@ -2293,6 +2310,8 @@ eachRawDrawFlex ='''
               }
             ],
             "width": "62px",
+            "height": "60px",
+
             "action": {
               "type": "message",
               "label": "action",
@@ -2329,9 +2348,10 @@ eachRawDrawFlex ='''
                 "backgroundColor": "#606b7c",
                 "offsetTop": "xs",
                 "action": {
-                  "type": "message",
+                  "type": "postback",
                   "label": "action",
-                  "text": "__DRAW2x__"
+                  "data": "__SIX2__",
+                  "displayText": "__SIX_DSP2__"
                 }
               },
               {
@@ -2401,6 +2421,7 @@ eachRawDrawFlex ='''
               }
             ],
             "width": "62px",
+            "height": "60px",
             "action": {
               "type": "message",
               "label": "action",
@@ -2435,9 +2456,10 @@ eachRawDrawFlex ='''
                 "backgroundColor": "#606b7c",
                 "offsetTop": "xs",
                 "action": {
-                  "type": "message",
+                  "type": "postback",
                   "label": "action",
-                  "text": "__DRAW3x__"
+                  "data": "__SIX3__",
+                  "displayText": "__SIX_DSP3__"
                 }
               },
               {
@@ -2507,6 +2529,7 @@ eachRawDrawFlex ='''
               }
             ],
             "width": "62px",
+            "height": "60px",
             "action": {
               "type": "message",
               "label": "action",
@@ -2542,9 +2565,10 @@ eachRawDrawFlex ='''
                 "backgroundColor": "#606b7c",
                 "offsetTop": "xs",
                 "action": {
-                  "type": "message",
+                  "type": "postback",
                   "label": "action",
-                  "text": "__DRAW4x__"
+                  "data": "__SIX4__",
+                  "displayText": "__SIX_DSP4__"
                 }
               },
               {
@@ -2614,6 +2638,7 @@ eachRawDrawFlex ='''
               }
             ],
             "width": "62px",
+            "height": "60px",
             "action": {
               "type": "message",
               "label": "action",
@@ -2747,10 +2772,10 @@ def getDrawRiceGua( note = "" , printMode = False ):
 
 
 
-		eachRawDrawFlex_Buf = eachRawDrawFlex.replace( "__UP1__" , randList1[0] ).replace( "__MID1__" , randList1[1] ).replace( "__DN1__" , randList1[2] ).replace( "__NUM1__", str(i*4+1)).replace( "__DRAW1__" , ",".join(randList1) + " // " + note ).replace( "#eeeeea" , color1).replace( "#eeeeeb" , color2).replace( "#eeeeec" , color3).replace( "#eeeeed" , color4)
-		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP2__" , randList2[0] ).replace( "__MID2__" , randList2[1] ).replace( "__DN2__" , randList2[2] ).replace( "__NUM2__", str(i*4+2)).replace( "__DRAW2__" , ",".join(randList2) + " // " + note )
-		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP3__" , randList3[0] ).replace( "__MID3__" , randList3[1] ).replace( "__DN3__" , randList3[2] ).replace( "__NUM3__", str(i*4+3)).replace( "__DRAW3__" , ",".join(randList3) + " // " + note )
-		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP4__" , randList4[0] ).replace( "__MID4__" , randList4[1] ).replace( "__DN4__" , randList4[2] ).replace( "__NUM4__", str(i*4+4)).replace( "__DRAW4__" , ",".join(randList4) + " // " + note )
+		eachRawDrawFlex_Buf = eachRawDrawFlex.replace( "__UP1__" , randList1[0] ).replace( "__MID1__" , randList1[1] ).replace( "__DN1__" , randList1[2] ).replace( "__NUM1__", str(i*4+1)).replace( "__DRAW1__" , ",".join(randList1) + " // " + note ).replace( "#eeeeea" , color1).replace( "__SIX1__" , "s+" + ",".join(randList1)+ " // " + note ).replace( "__SIX_DSP1__" , "s+" + ",".join(randList1)+ " // " + note ) 
+		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP2__" , randList2[0] ).replace( "__MID2__" , randList2[1] ).replace( "__DN2__" , randList2[2] ).replace( "__NUM2__", str(i*4+2)).replace( "__DRAW2__" , ",".join(randList2) + " // " + note ).replace( "#eeeeeb" , color2).replace( "__SIX2__" , "s+" + ",".join(randList2)+ " // " + note ).replace( "__SIX_DSP2__" , "s+" + ",".join(randList2)+ " // " + note ) 
+		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP3__" , randList3[0] ).replace( "__MID3__" , randList3[1] ).replace( "__DN3__" , randList3[2] ).replace( "__NUM3__", str(i*4+3)).replace( "__DRAW3__" , ",".join(randList3) + " // " + note ).replace( "#eeeeec" , color3).replace( "__SIX3__" , "s+" + ",".join(randList3)+ " // " + note ).replace( "__SIX_DSP3__" , "s+" + ",".join(randList3)+ " // " + note ) 
+		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP4__" , randList4[0] ).replace( "__MID4__" , randList4[1] ).replace( "__DN4__" , randList4[2] ).replace( "__NUM4__", str(i*4+4)).replace( "__DRAW4__" , ",".join(randList4) + " // " + note ).replace( "#eeeeed" , color4).replace( "__SIX4__" , "s+" + ",".join(randList4)+ " // " + note ).replace( "__SIX_DSP4__" , "s+" + ",".join(randList4)+ " // " + note ) 
 		
 		if i != 3:
 			draw_FinalLayout += eachRawDrawFlex_Buf
@@ -4317,10 +4342,235 @@ def howToUse( printMode = False ):
 	return how_dict
 
 
+
+## 小六壬
+# small_six_zan_test
+# (['速喜', '留連', '赤口'], '官事凶 | 口舌是非,主事不利,辦事宜緩', '赤口主口舌 官非切要防 失物速速討 行人有驚慌 六畜多作怪 病者出西方 更須防詛咒 誠恐染瘟肓')
+
+sSixZanUiLayout = """
+{
+  "type": "bubble",
+  "size": "deca",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "image",
+            "url": "__URL__",
+            "size": "full",
+            "aspectRatio": "10:5"
+          }
+        ],
+        "height": "95px"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "__占__",
+                "weight": "bold"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "separator",
+        "margin": "sm",
+        "color": "#888888"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "__NUMBER__",
+                "size": "md",
+                "weight": "bold",
+                "color": "#92A4BC"
+              }
+            ],
+            "height": "20px",
+            "margin": "xs"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__STEP1__",
+                    "size": "lg",
+                    "weight": "bold",
+                    "margin": "sm",
+                    "flex": 0,
+                    "color": "#666666"
+                  }
+                ],
+                "width": "40px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "-",
+                    "size": "lg",
+                    "weight": "bold",
+                    "margin": "sm",
+                    "flex": 0,
+                    "color": "#888888"
+                  }
+                ],
+                "width": "9px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__STEP2__",
+                    "size": "lg",
+                    "weight": "bold",
+                    "margin": "sm",
+                    "flex": 0,
+                    "color": "#666666"
+                  }
+                ],
+                "width": "40px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "-",
+                    "size": "lg",
+                    "weight": "bold",
+                    "margin": "sm",
+                    "flex": 0,
+                    "color": "#888888"
+                  }
+                ],
+                "width": "9px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__STEP3__",
+                    "size": "lg",
+                    "weight": "bold",
+                    "margin": "sm",
+                    "flex": 0,
+                    "color": "#666666",
+                    "action": {
+                      "type": "message",
+                      "label": "action",
+                      "text": "Hi~"
+                    }
+                  }
+                ],
+                "width": "40px"
+              }
+            ],
+            "offsetBottom": "sm",
+            "margin": "sm"
+          }
+        ],
+        "offsetBottom": "sm",
+        "margin": "xs"
+      }
+    ],
+    "height": "195px"
+  },
+  "styles": {
+    "footer": {
+      "separator": true
+    }
+  }
+}
+"""
+
+url_dict = {
+"大安":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765078509/sLiuZen-icon-38_jf5y6c.png", ## 大安
+"流連":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765078509/sLiuZen-icon-39_fftan3.png", ## 流連
+"速喜":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765078509/sLiuZen-icon-40_vzxmsp.png", ## 速喜
+"小吉":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765078509/sLiuZen-icon-42_fykun2.png", ## 小吉
+"赤口":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765078509/sLiuZen-icon-41_ckqtuw.png", ## 赤口
+"空亡":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765078509/sLiuZen-icon-43_neguq5.png" ## 空亡
+}
+
+def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
+
+	luckBuf = sSixZmain( impNumList[0], impNumList[1], impNumList[2]  )[0]
+	# (['速喜', '小吉', '大安'], '身不動 | 失物行人,靜止不動,平安', '大安事事昌 求財在坤方 失物去不遠 宅舍保安康 行人身未動 病者主無妨 將軍回田野 仔細與推詳')
+
+	url = url_dict[luckBuf[-1]]
+
+
+	numText = ' | '.join(str(x) for x in impNumList) ## [3,2,1]  -> 3-2-1  ,, [3,2]  -> 3-2
+
+	titleA = luckBuf[0] if len(luckBuf) > 0 else None
+	titleB = luckBuf[1] if len(luckBuf) > 1 else None
+	titleC = luckBuf[2] if len(luckBuf) > 2 else None
+
+	numA = impNumList[0] if len(impNumList) > 0 else None
+	numB = impNumList[1] if len(impNumList) > 1 else None
+	numC = impNumList[2] if len(impNumList) > 2 else None
+
+	sZnLayout = sSixZanUiLayout
+
+	sZnLayout = ( sZnLayout .replace( "__NUMBER__", numText )
+							.replace( "__STEP1__", titleA )
+							.replace( "__STEP2__", titleB )
+							.replace( "__STEP3__", titleC )
+							.replace( "__占__", title )
+							.replace( "__URL__", url )						
+
+				)
+		
+	# print(sZnLayout)
+	if printMode == True:
+		print( sZnLayout )
+
+	sZnLayoutJson = json.loads( sZnLayout )
+	return sZnLayoutJson
+
+
+
+
+
+
 if __name__ == '__main__':
 # 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 )
 # 	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 )
-	ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
+	# ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
 
 # # "干支/時/10/2025-08-31-15-48"
 # 	# "d" -- day
@@ -4331,7 +4581,9 @@ if __name__ == '__main__':
 # 	# 干支/日/2025.5.11/10/申
 # # ['乙巳-乙酉-己卯', '2025/09/07', '白露']
 
-	getDrawRiceGua("占明天天氣" , printMode = True )
+	# getDrawRiceGua("占明天天氣" , printMode = True )
+
+	sSixZnUi( [99,28,22 ] , "XX展的文件",  printMode = True)
 	# yearListFlexLayout( "2025",True ) 
 
 	# getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )
@@ -4341,11 +4593,160 @@ if __name__ == '__main__':
 # getDrawRiceGua( note = "" , printMode = False )
 
 
+# {
+#   "type": "bubble",
+#   "size": "hecto",
+#   "body": {
+#     "type": "box",
+#     "layout": "vertical",
+#     "contents": [
+#       {
+#         "type": "box",
+#         "layout": "vertical",
+#         "contents": [
+#           {
+#             "type": "image",
+#             "url": "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765014022/sLiuZen-icon-38_krdu4l.png",
+#             "size": "full",
+#             "aspectRatio": "10:5.6"
+#           }
+#         ],
+#         "height": "120px"
+#       },
+#       {
+#         "type": "separator",
+#         "margin": "sm"
+#       },
+#       {
+#         "type": "box",
+#         "layout": "horizontal",
+#         "contents": [
+#           {
+#             "type": "text",
+#             "text": "3,15,9",
+#             "size": "xl",
+#             "flex": 1
+#           },
+#           {
+#             "type": "box",
+#             "layout": "horizontal",
+#             "contents": [
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [
+#                   {
+#                     "type": "text",
+#                     "text": "速喜",
+#                     "size": "lg",
+#                     "weight": "bold",
+#                     "margin": "sm",
+#                     "flex": 0,
+#                     "color": "#666666"
+#                   }
+#                 ],
+#                 "width": "40px"
+#               },
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [
+#                   {
+#                     "type": "text",
+#                     "text": "-",
+#                     "size": "lg",
+#                     "weight": "bold",
+#                     "margin": "sm",
+#                     "flex": 0,
+#                     "color": "#888888"
+#                   }
+#                 ],
+#                 "width": "8px"
+#               },
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [
+#                   {
+#                     "type": "text",
+#                     "text": "小吉",
+#                     "size": "lg",
+#                     "weight": "bold",
+#                     "margin": "sm",
+#                     "flex": 0,
+#                     "color": "#666666"
+#                   }
+#                 ],
+#                 "width": "40px"
+#               },
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [
+#                   {
+#                     "type": "text",
+#                     "text": "-",
+#                     "size": "lg",
+#                     "weight": "bold",
+#                     "margin": "sm",
+#                     "flex": 0,
+#                     "color": "#888888"
+#                   }
+#                 ],
+#                 "width": "8px"
+#               },
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [
+#                   {
+#                     "type": "text",
+#                     "text": "大安",
+#                     "size": "lg",
+#                     "weight": "bold",
+#                     "margin": "sm",
+#                     "flex": 0,
+#                     "color": "#666666"
+#                   }
+#                 ],
+#                 "width": "40px"
+#               }
+#             ],
+#             "margin": "none",
+#             "flex": 2
+#           }
+#         ]
+#       },
+#       {
+#         "type": "box",
+#         "layout": "vertical",
+#         "contents": [
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "text",
+#                 "text": "身不動|失物行人,靜止不動,平安",
+#                 "size": "sm",
+#                 "weight": "regular",
+#                 "margin": "sm",
+#                 "flex": 0,
+#                 "color": "#666666",
+#                 "wrap": true
+#               }
+#             ]
+#           }
+#         ],
+#         "margin": "none"
+#       }
+#     ]
+#   },
+#   "styles": {
+#     "footer": {
+#       "separator": true
+#     }
+#   }
+# }
 
-# https://res.cloudinary.com/ds9jcwwcw/image/upload/v1764789817/sLiuZen-icon-32_irqzv9.png
-# https://res.cloudinary.com/ds9jcwwcw/image/upload/v1764789817/sLiuZen-icon-33_con14v.png
-# https://res.cloudinary.com/ds9jcwwcw/image/upload/v1764789817/sLiuZen-icon-34_orxqvb.png
-# https://res.cloudinary.com/ds9jcwwcw/image/upload/v1764789817/sLiuZen-icon-37_mgzov9.png
-# https://res.cloudinary.com/ds9jcwwcw/image/upload/v1764789818/sLiuZen-icon-35_d4b434.png
-# https://res.cloudinary.com/ds9jcwwcw/image/upload/v1764789817/sLiuZen-icon-36_co4t8q.png
-
+# https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765014022/sLiuZen-icon-38_krdu4l.png
