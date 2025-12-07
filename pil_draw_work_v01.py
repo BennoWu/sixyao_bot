@@ -560,7 +560,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 	if ( allDataDict['user_define'] == True )  or ( allDataDict['hourGanZi'] == "X" ):
 		makeText ("00:00" , twoSideSpace + 583 , 293 , wordingSize = 128 , wordingFont = myriad_reg , color = titleGray ) 
 	else:
-		makeText ( allDataDict['time']+"🜸" , twoSideSpace + 583 , 293 , wordingSize = 128 , wordingFont = myriad_reg , color = timeColor ) 
+		makeText ( allDataDict['time'] , twoSideSpace + 583 , 293 , wordingSize = 128 , wordingFont = myriad_reg , color = timeColor ) 
 
 	## 卦名
 	makeText ( allDataDict['mainGuaName'] , screenWidth *0.5  - len(allDataDict['mainGuaName'])*0.5 * 74 -10 , 438 , wordingSize = 74 , wordingFont = pf_TC_regular , color = mainColor )  

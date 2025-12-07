@@ -827,7 +827,7 @@ def handle_postback(event):
 				inList = [ 0,0,0 ]
 
 			sixZn_UI = sSixZnUi( inList , title = note )
-
+			my_id = "U21eaaf32db85b983a842d9a9da81d8f1"
 			if user_id == my_id:
 				# ⭐ v3 的 Flex Message
 				line_bot_api.reply_message(

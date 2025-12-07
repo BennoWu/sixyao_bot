@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from fourPillar_tool import PPPPP # 四柱得日期
 from fourPillar_tool import getFourPillar # 四柱得日期
 from fourPillar_tool import getGanziYear # 取得年干支list
@@ -4588,9 +4588,10 @@ if __name__ == '__main__':
 # 	# 干支/日/2025.5.11/10/申
 # # ['乙巳-乙酉-己卯', '2025/09/07', '白露']
 
-	# getDrawRiceGua("占明天天氣" , printMode = True )
+	getDrawRiceGua("占明天天氣" , printMode = True )
 
-	sSixZnUi( [0,0,0] , "XX展的文件",  printMode = True)
+	# sSixZnUi( [0,0,0] , "XX展的文件",  printMode = True)
+	
 	# yearListFlexLayout( "2025",True ) 
 
 	# getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )
