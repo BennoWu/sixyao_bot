@@ -4583,7 +4583,7 @@ if __name__ == '__main__':
 
 	# getDrawRiceGua("占明天天氣" , printMode = True )
 
-	sSixZnUi( [99,28,22 ] , "XX展的文件",  printMode = True)
+	sSixZnUi( [42, 148, 86] , "XX展的文件",  printMode = True)
 	# yearListFlexLayout( "2025",True ) 
 
 	# getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )

@@ -812,17 +812,10 @@ def handle_postback(event):
 
 		# 小六壬 處理
 		elif data.startswith("s+"):
-			print( "data - " , data )
-
-
 
 			data = data[2:]
 
-			print( "data - " , data )
-
 			itemBuf = data.split(" // ")
-
-			print( "itemBuf - " , itemBuf )
 
 			inList = []
 			if len( itemBuf ) == 2:
@@ -835,11 +828,17 @@ def handle_postback(event):
 				inList = [ 0,0,0 ]
 
 			sixZn_UI = sSixZnUi( inList , title = note )
-			# ⭐ v3 文字訊息回覆
+
+			# ⭐ v3 的 Flex Message
 			line_bot_api.reply_message(
 				ReplyMessageRequest(
 					reply_token=event.reply_token,
-					messages=[TextMessage(text=sixZn_UI)]
+					messages=[
+						FlexMessage(
+							alt_text='< 小六壬UI >',
+							contents=FlexContainer.from_dict( sixZn_UI )
+						)
+					]
 				)
 			)
 
