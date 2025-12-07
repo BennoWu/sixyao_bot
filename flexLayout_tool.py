@@ -2734,7 +2734,7 @@ def getDrawRiceGua( note = "" , printMode = False ):
 	import random
 	draw_FinalLayout = ""
 	draw_FinalLayout = drawUiLayoutFront.replace( "__占__" , note ).replace( "__NOTE__", "s+" + note )
-	draw_FinalLayout = draw_FinalLayout.replace( "__NOTE_DSP__", "\udbc0\udc9c" ).replace( "__SIX_DSP1__", "\udbc0\udc9c" ).replace( "__SIX_DSP2__", "\udbc0\udc9c" ).replace( "__SIX_DSP3__", "\udbc0\udc9c" ).replace( "__SIX_DSP4__", "\udbc0\udc9c" )
+	draw_FinalLayout = draw_FinalLayout.replace( "__NOTE_DSP__", "\udbc0\udc9c" )
 
 
 
@@ -2771,10 +2771,10 @@ def getDrawRiceGua( note = "" , printMode = False ):
 
 
 
-		eachRawDrawFlex_Buf = eachRawDrawFlex.replace( "__UP1__" , randList1[0] ).replace( "__MID1__" , randList1[1] ).replace( "__DN1__" , randList1[2] ).replace( "__NUM1__", str(i*4+1)).replace( "__DRAW1__" , ",".join(randList1) + " // " + note ).replace( "#eeeeea" , color1).replace( "__SIX1__" , "s+" + ",".join(randList1)+ " // " + note ).replace( "__SIX_DSP1__" , "s+" + ",".join(randList1)+ " // " + note )
-		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP2__" , randList2[0] ).replace( "__MID2__" , randList2[1] ).replace( "__DN2__" , randList2[2] ).replace( "__NUM2__", str(i*4+2)).replace( "__DRAW2__" , ",".join(randList2) + " // " + note ).replace( "#eeeeeb" , color2).replace( "__SIX2__" , "s+" + ",".join(randList2)+ " // " + note ).replace( "__SIX_DSP2__" , "s+" + ",".join(randList2)+ " // " + note ) 
-		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP3__" , randList3[0] ).replace( "__MID3__" , randList3[1] ).replace( "__DN3__" , randList3[2] ).replace( "__NUM3__", str(i*4+3)).replace( "__DRAW3__" , ",".join(randList3) + " // " + note ).replace( "#eeeeec" , color3).replace( "__SIX3__" , "s+" + ",".join(randList3)+ " // " + note ).replace( "__SIX_DSP3__" , "s+" + ",".join(randList3)+ " // " + note ) 
-		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP4__" , randList4[0] ).replace( "__MID4__" , randList4[1] ).replace( "__DN4__" , randList4[2] ).replace( "__NUM4__", str(i*4+4)).replace( "__DRAW4__" , ",".join(randList4) + " // " + note ).replace( "#eeeeed" , color4).replace( "__SIX4__" , "s+" + ",".join(randList4)+ " // " + note ).replace( "__SIX_DSP4__" , "s+" + ",".join(randList4)+ " // " + note ) 
+		eachRawDrawFlex_Buf = eachRawDrawFlex.replace( "__UP1__" , randList1[0] ).replace( "__MID1__" , randList1[1] ).replace( "__DN1__" , randList1[2] ).replace( "__NUM1__", str(i*4+1)).replace( "__DRAW1__" , ",".join(randList1) + " // " + note ).replace( "#eeeeea" , color1).replace( "__SIX1__" , "s+" + ",".join(randList1)+ " // " + note ).replace( "__SIX_DSP1__" , "\udbc0\udc9c" )
+		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP2__" , randList2[0] ).replace( "__MID2__" , randList2[1] ).replace( "__DN2__" , randList2[2] ).replace( "__NUM2__", str(i*4+2)).replace( "__DRAW2__" , ",".join(randList2) + " // " + note ).replace( "#eeeeeb" , color2).replace( "__SIX2__" , "s+" + ",".join(randList2)+ " // " + note ).replace( "__SIX_DSP2__" , "\udbc0\udc9c" ) 
+		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP3__" , randList3[0] ).replace( "__MID3__" , randList3[1] ).replace( "__DN3__" , randList3[2] ).replace( "__NUM3__", str(i*4+3)).replace( "__DRAW3__" , ",".join(randList3) + " // " + note ).replace( "#eeeeec" , color3).replace( "__SIX3__" , "s+" + ",".join(randList3)+ " // " + note ).replace( "__SIX_DSP3__" , "\udbc0\udc9c" ) 
+		eachRawDrawFlex_Buf = eachRawDrawFlex_Buf.replace( "__UP4__" , randList4[0] ).replace( "__MID4__" , randList4[1] ).replace( "__DN4__" , randList4[2] ).replace( "__NUM4__", str(i*4+4)).replace( "__DRAW4__" , ",".join(randList4) + " // " + note ).replace( "#eeeeed" , color4).replace( "__SIX4__" , "s+" + ",".join(randList4)+ " // " + note ).replace( "__SIX_DSP4__" , "\udbc0\udc9c" ) 
 		
 		if i != 3:
 			draw_FinalLayout += eachRawDrawFlex_Buf
@@ -4591,7 +4591,7 @@ if __name__ == '__main__':
 	getDrawRiceGua("占明天天氣" , printMode = True )
 
 	# sSixZnUi( [0,0,0] , "XX展的文件",  printMode = True)
-	
+
 	# yearListFlexLayout( "2025",True ) 
 
 	# getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )
