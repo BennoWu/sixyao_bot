@@ -441,8 +441,10 @@ def getDateTime_fun():
 	hourBuf   = Zhi.index( Zhi[sTG.dz] )+1  # 第幾個時辰
 
 
+	fullDate = "%d/%02d/%02d %02d:%02d"%( nowYear,nowMonth,nowDay,nowHour,nowMins  ) 
+
 	# print( "%s,%s,%s "%( monthBuf , dayBuf , hourBuf))
-	return ( lightDate, darkDate,timeNow, main_gnaZhi ,monthBuf,dayBuf,hourBuf )
+	return ( lightDate, darkDate,timeNow, main_gnaZhi ,fullDate ,monthBuf,dayBuf,hourBuf )
 
 
 
@@ -450,15 +452,16 @@ def getDateTime_fun():
 # 報三個數字
 def sSixZmain( oneNumBuf =0 , twoNumBuf =0 , threeNumBuf =0  ):
 	print( ">>>>%s,%s,%s "%( oneNumBuf , twoNumBuf , threeNumBuf))
-
+	fullDateBuf = ""
 	## 如果沒有自行輸入時
 	if (oneNumBuf ==0) and (twoNumBuf == 0 ) and (threeNumBuf == 0):
 		getTimeBuf = getDateTime_fun()
 		print( getTimeBuf )
+		fullDateBuf = getTimeBuf[-4]
 		oneNumBuf = getTimeBuf[-3]
 		twoNumBuf =getTimeBuf[-2]
 		threeNumBuf = getTimeBuf[-1]
-		print( ">>>>%s,%s,%s "%( oneNumBuf , twoNumBuf , threeNumBuf))
+		print( ">>>>%s,%s,%s "%( oneNumBuf , twoNumBuf , threeNumBuf ))
 
 
 
@@ -502,7 +505,7 @@ def sSixZmain( oneNumBuf =0 , twoNumBuf =0 , threeNumBuf =0  ):
 	# print( "大標: " ,gua_dict[hourItem]["subTitle"])
 	# print ( "卦詞: " , mainData )
 
-	return ( finalNumberList , gua_dict[hourItem]["subTitle"] , mainData )
+	return ( finalNumberList, gua_dict[hourItem]["subTitle"] , mainData  ,fullDateBuf )
 	# print ( "================================================================" )
 	# print (  hourItem )
 	# print( "大標: " ,gua_dict[hourItem]["subTitle"])
@@ -518,5 +521,5 @@ if __name__ == '__main__':
 	# sLouZan_fun()
 	# getGodData( 8,25 )
 	# print( getDateTime_fun() )
-	print(sSixZmain( 3,15,9  ))
+	print(sSixZmain(   ))
 

@@ -4528,13 +4528,21 @@ url_dict = {
 
 def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
 
-	luckBuf = sSixZmain( impNumList[0], impNumList[1], impNumList[2]  )[0]
-	# (['速喜', '小吉', '大安'], '身不動 | 失物行人,靜止不動,平安', '大安事事昌 求財在坤方 失物去不遠 宅舍保安康 行人身未動 病者主無妨 將軍回田野 仔細與推詳')
+	luckBufAll = sSixZmain( impNumList[0], impNumList[1], impNumList[2]  )
 
+
+	luckBuf = luckBufAll[0]
+
+	print( luckBufAll )
+	# (['赤口', '速喜', '小吉'], '人來喜 | 喜事到來,辦事吉利,成功在望', '小吉最吉昌 路上好商量 陰人來報喜 失物在坤方 行人即便至 交關甚是強 凡事街合和 病者叩穹蒼', '2025/12/07/16/04')
+	fullDate = luckBufAll[-1]
 	url = url_dict[luckBuf[-1]]
 
-
-	numText = ' | '.join(str(x) for x in impNumList) ## [3,2,1]  -> 3-2-1  ,, [3,2]  -> 3-2
+	numText = ""
+	if fullDate == "":
+		numText = ' | '.join(str(x) for x in impNumList) ## [3,2,1]  -> 3-2-1  ,, [3,2]  -> 3-2
+	else:
+		numText = fullDate
 
 	titleA = luckBuf[0] if len(luckBuf) > 0 else None
 	titleB = luckBuf[1] if len(luckBuf) > 1 else None
@@ -4583,7 +4591,7 @@ if __name__ == '__main__':
 
 	# getDrawRiceGua("占明天天氣" , printMode = True )
 
-	sSixZnUi( [42, 148, 86] , "XX展的文件",  printMode = True)
+	sSixZnUi( [0,0,0] , "XX展的文件",  printMode = True)
 	# yearListFlexLayout( "2025",True ) 
 
 	# getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )
