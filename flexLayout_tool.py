@@ -2171,7 +2171,7 @@ drawUiLayoutFront ='''
                   "type": "postback",
                   "label": "action",
                   "data": "__NOTE__",
-                  "displayText": "__NOTE__"
+                  "displayText": "__NOTE_DSP__"
                 }
               }
             ],
@@ -2734,8 +2734,7 @@ def getDrawRiceGua( note = "" , printMode = False ):
 	import random
 	draw_FinalLayout = ""
 	draw_FinalLayout = drawUiLayoutFront.replace( "__占__" , note ).replace( "__NOTE__", "s+" + note )
-
-
+	draw_FinalLayout = drawUiLayoutFront.replace( "__NOTE_DSP__", "\udbc0\udc9c" ).replace( "__SIX_DSP1__", "\udbc0\udc9c" ).replace( "__SIX_DSP2__", "\udbc0\udc9c" ).replace( "__SIX_DSP3__", "\udbc0\udc9c" ).replace( "__SIX_DSP4__", "\udbc0\udc9c" )
 
 
 

@@ -809,7 +809,6 @@ def handle_postback(event):
 		if data.startswith("change-to-"):
 			return
 
-
 		# 小六壬 處理
 		elif data.startswith("s+"):
 
@@ -829,18 +828,19 @@ def handle_postback(event):
 
 			sixZn_UI = sSixZnUi( inList , title = note )
 
-			# ⭐ v3 的 Flex Message
-			line_bot_api.reply_message(
-				ReplyMessageRequest(
-					reply_token=event.reply_token,
-					messages=[
-						FlexMessage(
-							alt_text='< 小六壬UI >',
-							contents=FlexContainer.from_dict( sixZn_UI )
-						)
-					]
+			if user_id == my_id:
+				# ⭐ v3 的 Flex Message
+				line_bot_api.reply_message(
+					ReplyMessageRequest(
+						reply_token=event.reply_token,
+						messages=[
+							FlexMessage(
+								alt_text='< 小六壬UI >',
+								contents=FlexContainer.from_dict( sixZn_UI )
+							)
+						]
+					)
 				)
-			)
 
 
 		# Notion 處理
