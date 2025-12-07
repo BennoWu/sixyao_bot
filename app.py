@@ -537,13 +537,13 @@ def handle_message(event):
 
 
 	# 修改Title
-	elif inputMsg[0] in [">", "#", ":", "@", "#"]:
+	elif inputMsg[0] in [">", "#", ":", "@", "#" , "："]:
 		changeNote = inputMsg[1:]
 		changeNote = changeNote.replace(' ', '')
 		# changeNote = changeNote.replace('\n', '^')
-		print( "@@@@@@@ change note === " , changeNote )
+		# print( "@@@@@@@ change note === " , changeNote )
 		uiCommand = get_json_item_data(user_id, "temp")
-		print( ">>>>> ", uiCommand )
+		# print( ">>>>> ", uiCommand )
 		if uiCommand:
 			if uiCommand[0] == "+":
 				uiCommand = uiCommand[1:]
@@ -812,12 +812,23 @@ def handle_postback(event):
 
 		# 小六壬 處理
 		elif data.startswith("s+"):
+			print( "data - " , data )
+
+
+
 			data = data[2:]
+
+			print( "data - " , data )
+
 			itemBuf = data.split(" // ")
+
+			print( "itemBuf - " , itemBuf )
+
 			inList = []
 			if len( itemBuf ) == 2:
 				inList = [int(x) for x in itemBuf[0].split(",")]
 				note = itemBuf[1]
+				print ( inList , note )
 				# inList = threeNum	
 			else:
 				note = data
