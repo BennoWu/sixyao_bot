@@ -214,10 +214,36 @@ if __name__ == '__main__':
 	# print("上傳時間：", res["created_at"])
 
 
-	# # upload_image( r"D:\Dropbox\Python\linebot\六爻\work\834185e004190e75a5bfdb32019e51fb.jpg", folder="__image_hosting")
+	# # # upload_image( r"D:\Dropbox\Python\linebot\六爻\work\834185e004190e75a5bfdb32019e51fb.jpg", folder="__image_hosting")
 
-	# # # 刪除超過 15 天的圖
-	deleted = delete_older_than( days = 15 )
-	print("已刪除：", deleted)
+	# # # # 刪除超過 15 天的圖
+	# deleted = delete_older_than( days = 15 )
+	# print("已刪除：", deleted)
 
+	filePathList = [r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-38.png",
+					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-39.png",
+					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-40.png",
+					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-41.png",
+					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-42.png",
+					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-43.png",
+					]
+
+
+# url_dict = {
+# "大安":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168800/sLiuZen-icon-38_pbgioz.png", ## 大安
+# "留連":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168801/sLiuZen-icon-39_wxpscd.png", ## 留連
+# "速喜":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168801/sLiuZen-icon-40_fpataz.png", ## 速喜
+# "小吉":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168802/sLiuZen-icon-42_mgba6j.png", ## 小吉
+# "赤口":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168802/sLiuZen-icon-41_tqkd6z.png", ## 赤口
+# "空亡":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168803/sLiuZen-icon-43_omo0cx.png" ## 空亡
+# }
+	delete_older_than(folder="__icon", days=0)
+	
+	nameList = [ "大安","留連","速喜","赤口","小吉","空亡" ]
+	print( "url_dict = {")
+	for i, each in enumerate(filePathList):
+		res = upload_image( each , folder="__icon")
+		# print( i , res["url"])
+		print (f'"{nameList[i]}" : "{res["url"]}",')
+	print( "}")
 # delete_image("line_temp/m45zouwd2vvb6fejpb9g")

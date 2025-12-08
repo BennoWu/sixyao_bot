@@ -4551,19 +4551,19 @@ sSixZanUiLayout = """
 """
 
 url_dict = {
-"大安":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168800/sLiuZen-icon-38_pbgioz.png", ## 大安
-"留連":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168801/sLiuZen-icon-39_wxpscd.png", ## 留連
-"速喜":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168801/sLiuZen-icon-40_fpataz.png", ## 速喜
-"小吉":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168802/sLiuZen-icon-42_mgba6j.png", ## 小吉
-"赤口":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168802/sLiuZen-icon-41_tqkd6z.png", ## 赤口
-"空亡":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168803/sLiuZen-icon-43_omo0cx.png" ## 空亡
+"大安" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765216454/__icon/9f1845a5ec6b478c9cc9b81bdcb9653e.png",
+"留連" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765216455/__icon/e76ceed944c24a3ca2278a8eaa7c6454.png",
+"速喜" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765216455/__icon/690b743b0c1b4d738ac086d568c1b26a.png",
+"赤口" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765216456/__icon/4f897c1d223b4d5a84df2d6cd7f54baf.png",
+"小吉" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765216457/__icon/05f41ac5befb4086b3b67f4666a7b499.png",
+"空亡" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765216457/__icon/54037963d532475da28a01e464297a48.png",
 }
 
 def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
 
 	luckBufAll = sSixZmain( impNumList[0], impNumList[1], impNumList[2]  )
 
-	subTitle = luckBufAll[1].split("|")[1].replace( " " , "" )
+	subTitle = luckBufAll[1].split("|")[1].replace( " " , "" ).replace(","," , ")
 	luckBuf = luckBufAll[0]
 
 	print( luckBufAll )
@@ -4625,7 +4625,7 @@ if __name__ == '__main__':
 
 	# getDrawRiceGua("占明天天氣" , printMode = True )
 
-	sSixZnUi( [99,69,42] , "XX展的文件",  printMode = True)
+	sSixZnUi( [208,69,42] , "XX展的文件",  printMode = True)
 
 	# yearListFlexLayout( "2025",True ) 
 
