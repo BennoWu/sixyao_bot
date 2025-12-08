@@ -1397,7 +1397,7 @@ def jeChi_combime(data):
 
 
 ## 產生四柱列表的UI(月，日 ，時，節氣)
-def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 ):
+def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 , printMode = False):
 	# dayMode	= dayMode.lower().replace( "jc","節氣").replace("jechi","節氣") 
 # "2023/5/17/12/00"
 # "2023/5/17"  --> "2023/5/17/00/00"
@@ -1447,6 +1447,21 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 		"大寒"
 	]
 
+	step_day = [
+		"立春",
+		"立夏",
+		"立秋",
+		"立冬",
+		"春分",
+		"夏至",
+		"秋分",
+		"冬至"
+		]
+
+
+
+
+
 	# dayModeLayout
 	# finalLayout = startLayout_buf
 	finalLayout += date_separator
@@ -1491,10 +1506,16 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 			
 			if dayMode == "jc":
 				# print(row[3])
+
 				if row[3] in zhong_qi:
 					buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "777777") ## 中氣顏色
 				else:
-					buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "333333")					
+					buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "333333")	
+
+			# if dayMode == "d":
+			# 	if row[3] in step_day:
+			# 		buf_dayModeLayout = buf_dayModeLayout.replace("ff5252", "79A1CF") ## 節令顏色
+
 
 			currentTimeBuf = row[1].replace( "/" , ",")  ## "干支/日/2023-05-06/15"
 			hour_command =  f"干支/時/{8}/{currentTimeBuf}" ##"干支/日/%s/%s"% ( "2023-05-06" , "15" )
@@ -1516,7 +1537,9 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 			if i != len( dateDataList ) -1:
 				finalLayout += date_separator
 	finalLayout +=endLayout
-	# print ( finalLayout )
+
+	if printMode == True:
+		print ( finalLayout )
 
 	# 文字轉換成字典
 	finalLayout_dict = json.loads(finalLayout)
@@ -4362,10 +4385,23 @@ sSixZanUiLayout = """
             "type": "image",
             "url": "__URL__",
             "size": "full",
-            "aspectRatio": "10:5"
+            "aspectRatio": "10:5.5"
           }
         ],
-        "height": "95px"
+        "height": "104px"
+      },
+      {
+        "type": "text",
+        "text": "__SUB__",
+        "size": "sm",
+        "weight": "bold",
+        "color": "#999999",
+        "margin": "sm",
+        "offsetBottom": "xs"
+      },
+      {
+        "type": "separator",
+        "color": "#aaaaaa"
       },
       {
         "type": "box",
@@ -4378,16 +4414,14 @@ sSixZanUiLayout = """
               {
                 "type": "text",
                 "text": "__占__",
-                "weight": "bold"
+                "weight": "regular",
+                "size": "lg",
+                "wrap": true
               }
-            ]
+            ],
+            "margin": "sm"
           }
         ]
-      },
-      {
-        "type": "separator",
-        "margin": "sm",
-        "color": "#888888"
       },
       {
         "type": "box",
@@ -4401,12 +4435,12 @@ sSixZanUiLayout = """
                 "type": "text",
                 "text": "__NUMBER__",
                 "size": "md",
-                "weight": "bold",
-                "color": "#92A4BC"
+                "weight": "regular",
+                "color": "#6D839B"
               }
             ],
             "height": "20px",
-            "margin": "xs"
+            "margin": "none"
           },
           {
             "type": "box",
@@ -4487,7 +4521,7 @@ sSixZanUiLayout = """
                     "weight": "bold",
                     "margin": "sm",
                     "flex": 0,
-                    "color": "#666666",
+                    "color": "#444444",
                     "action": {
                       "type": "message",
                       "label": "action",
@@ -4498,15 +4532,15 @@ sSixZanUiLayout = """
                 "width": "40px"
               }
             ],
-            "offsetBottom": "sm",
-            "margin": "sm"
+            "offsetBottom": "md",
+            "margin": "xs"
           }
         ],
-        "offsetBottom": "sm",
-        "margin": "xs"
+        "offsetBottom": "sm"
       }
     ],
-    "height": "195px"
+    "height": "220px",
+    "backgroundColor": "#eeeeee"
   },
   "styles": {
     "footer": {
@@ -4517,19 +4551,19 @@ sSixZanUiLayout = """
 """
 
 url_dict = {
-"大安":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765078509/sLiuZen-icon-38_jf5y6c.png", ## 大安
-"流連":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765078509/sLiuZen-icon-39_fftan3.png", ## 流連
-"速喜":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765078509/sLiuZen-icon-40_vzxmsp.png", ## 速喜
-"小吉":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765078509/sLiuZen-icon-42_fykun2.png", ## 小吉
-"赤口":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765078509/sLiuZen-icon-41_ckqtuw.png", ## 赤口
-"空亡":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765078509/sLiuZen-icon-43_neguq5.png" ## 空亡
+"大安":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168800/sLiuZen-icon-38_pbgioz.png", ## 大安
+"留連":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168801/sLiuZen-icon-39_wxpscd.png", ## 留連
+"速喜":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168801/sLiuZen-icon-40_fpataz.png", ## 速喜
+"小吉":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168802/sLiuZen-icon-42_mgba6j.png", ## 小吉
+"赤口":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168802/sLiuZen-icon-41_tqkd6z.png", ## 赤口
+"空亡":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168803/sLiuZen-icon-43_omo0cx.png" ## 空亡
 }
 
 def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
 
 	luckBufAll = sSixZmain( impNumList[0], impNumList[1], impNumList[2]  )
 
-
+	subTitle = luckBufAll[1].split("|")[1].replace( " " , "" )
 	luckBuf = luckBufAll[0]
 
 	print( luckBufAll )
@@ -4558,6 +4592,7 @@ def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
 							.replace( "__STEP2__", titleB )
 							.replace( "__STEP3__", titleC )
 							.replace( "__占__", title )
+							.replace( "__SUB__", subTitle )							
 							.replace( "__URL__", url )						
 
 				)
@@ -4575,8 +4610,8 @@ def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
 
 
 if __name__ == '__main__':
-# 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 )
-# 	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 )
+	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 , printMode = True )
+	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 20 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
 
 # # "干支/時/10/2025-08-31-15-48"
@@ -4588,9 +4623,9 @@ if __name__ == '__main__':
 # 	# 干支/日/2025.5.11/10/申
 # # ['乙巳-乙酉-己卯', '2025/09/07', '白露']
 
-	getDrawRiceGua("占明天天氣" , printMode = True )
+	# getDrawRiceGua("占明天天氣" , printMode = True )
 
-	# sSixZnUi( [0,0,0] , "XX展的文件",  printMode = True)
+	sSixZnUi( [99,69,42] , "XX展的文件",  printMode = True)
 
 	# yearListFlexLayout( "2025",True ) 
 
