@@ -4395,7 +4395,7 @@ sSixZanUiLayout = """
         "text": "__SUB__",
         "size": "sm",
         "weight": "bold",
-        "color": "#999999",
+        "color": "#888888",
         "margin": "sm",
         "offsetBottom": "xs"
       },
