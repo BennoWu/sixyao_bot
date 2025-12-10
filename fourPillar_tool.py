@@ -742,7 +742,7 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 	if dayMode == "d": ## 日 或 節氣
 		print( ">>",inDate )
 		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")		# 把起點提前一天
-		out = ( dt + datetime.timedelta( hours= -12 )).strftime("%Y/%m/%d/%H/%M")  
+		out = ( dt + datetime.timedelta( hours= -24 )).strftime("%Y/%m/%d/%H/%M")  
 		# 修正本來的 days = ? 這種寫法，這種得到的時間都會是2025/12/08/23:00，和四柱的子時為隔天的設定衝突
 		inDate = out	
 		# print( "Day:",inDate )

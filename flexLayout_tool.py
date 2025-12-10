@@ -4612,7 +4612,7 @@ def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
 if __name__ == '__main__':
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 , printMode = True )
 	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 20 , printMode = True )
-	ganZiList_fun( currentTime = "2025-12-9-4-50" , dayMode = "d" , index = "" , runtime = 8 , printMode = True )
+	ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 8 , printMode = True )
 
 	# ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
 
