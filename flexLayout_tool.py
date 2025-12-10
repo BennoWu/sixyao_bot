@@ -1410,8 +1410,8 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 
 	dayMode	= dayMode.replace( "jechi","jc" ).replace( "節氣","jc" ).replace( "月","m" ).replace( "日","d" ).replace( "時","h" )
 	dateDataList = PPPPP ( currentTime = currentTime , dayMode = dayMode , index = index , runtime = runtime )
-	# for i in dateDataList:
-	# 	print(i)  
+	for i in dateDataList:
+		print(i)  
 
 	if dayMode.lower() == "m":
 		startLayout_buf = startLayout.replace("日","月")
@@ -2262,8 +2262,8 @@ eachRawDrawFlex ='''
                 "action": {
                   "type": "postback",
                   "label": "action",
-                  "data": "__SIX1__",
-                  "displayText": "__SIX_DSP1__"
+                  "data": "__SIX1__"
+                  
                 }
               },
               {
@@ -2373,8 +2373,8 @@ eachRawDrawFlex ='''
                 "action": {
                   "type": "postback",
                   "label": "action",
-                  "data": "__SIX2__",
-                  "displayText": "__SIX_DSP2__"
+                  "data": "__SIX2__"
+                  
                 }
               },
               {
@@ -2481,8 +2481,8 @@ eachRawDrawFlex ='''
                 "action": {
                   "type": "postback",
                   "label": "action",
-                  "data": "__SIX3__",
-                  "displayText": "__SIX_DSP3__"
+                  "data": "__SIX3__"
+                  
                 }
               },
               {
@@ -2590,8 +2590,8 @@ eachRawDrawFlex ='''
                 "action": {
                   "type": "postback",
                   "label": "action",
-                  "data": "__SIX4__",
-                  "displayText": "__SIX_DSP4__"
+                  "data": "__SIX4__"
+                  
                 }
               },
               {
@@ -2757,7 +2757,7 @@ def getDrawRiceGua( note = "" , printMode = False ):
 	import random
 	draw_FinalLayout = ""
 	draw_FinalLayout = drawUiLayoutFront.replace( "__占__" , note ).replace( "__NOTE__", "s+" + note )
-	draw_FinalLayout = draw_FinalLayout.replace( "__NOTE_DSP__", "\udbc0\udc9c" )
+	# draw_FinalLayout = draw_FinalLayout.replace( "__NOTE_DSP__", "\udbc0\udc9c" )
 
 
 
@@ -4612,6 +4612,8 @@ def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
 if __name__ == '__main__':
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 , printMode = True )
 	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 20 , printMode = True )
+	ganZiList_fun( currentTime = "2025-12-9-4-50" , dayMode = "d" , index = "" , runtime = 8 , printMode = True )
+
 	# ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
 
 # # "干支/時/10/2025-08-31-15-48"
@@ -4625,7 +4627,7 @@ if __name__ == '__main__':
 
 	# getDrawRiceGua("占明天天氣" , printMode = True )
 
-	sSixZnUi( [208,69,42] , "XX展的文件",  printMode = True)
+	# sSixZnUi( [208,69,42] , "XX展的文件",  printMode = True)
 
 	# yearListFlexLayout( "2025",True ) 
 
