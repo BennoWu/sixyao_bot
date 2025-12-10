@@ -550,7 +550,7 @@ def checkMsgFun( msg , utc = 8 ):
 		else:
 			return ( "Error" , "%d年%d月%d日%02d:%02d ??" % (  int(  msg.split("/")[0]) , int(  msg.split("/")[1]) ,int(   msg.split("/")[2]) , int(  msg.split("/")[3]) , int(  msg.split("/")[4]) ) )
 
-	print( "checkMsgFun:" , year_Buf,month_Buf,day_Buf,hour_Buf,mins_Buf  ) 
+	print( year_Buf,month_Buf,day_Buf,hour_Buf,mins_Buf  ) 
 	# print( )
 	return  "%d/%02d/%02d/%02d/%02d"%( year_Buf,month_Buf,day_Buf,hour_Buf,mins_Buf  ) 
 
@@ -712,40 +712,57 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 		currentTime = format_time(currentTime)  # 把結果存回去
 	dayMode = dayMode.lower()
 	timeList = []
-	# print( "currentTime: ",currentTime )
+	print( currentTime ) #
 	nowTime = checkMsgFun( currentTime ) ## 不輸入則取現時，輸入方式同起盤
 	# ('時盤', '2023/05/13/02/26')
-	# print( nowTime )
 
-	inDate = nowTime ##'2023/05/13/02/26'
-	# print( inDate )
+	inDate = nowTime ##'2023/05/13/02/26'   2025/12/9/4/50
+
 	inDateHour = int(inDate.split("/")[-2])
-	inDateMin  = int(inDate.split("/")[-1]	)
-# timedelta([days[, seconds[, microseconds[, milliseconds[, minutes[,
-# hours[, weeks]]]]]]])
+	# inDateMin  = int(inDate.split("/")[-1]	)
 
-	dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
-	out = ( dt + datetime.timedelta( minutes = int(inDateMin)*-1 )).strftime("%Y/%m/%d/%H/%M")  # 2023/05/01/03/37 -> 2023/05/01/03/00
+	# dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
+	# out = ( dt + datetime.timedelta( minutes = int(inDateMin)*-1 )).strftime("%Y/%m/%d/%H/%M")  # 2023/05/01/03/37 -> 2023/05/01/03/00
 
-	inDate = out
+	# inDate = out
+	# print( inDate )
+
 
 	if inDateHour%2 == 0:
 		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
-		out = ( dt + datetime.timedelta( hours= -3 )).strftime("%Y/%m/%d/%H/%M") # 本為減一，但會從下一時辰開始算，對照不易，所以改為減三(早一時辰)
-		inDate = out
-		# print("*")
+		out = ( dt + datetime.timedelta( hours= -5 )).strftime("%Y/%m/%d/%H/%M") # 本為減一，但會從下一時辰開始算，對照不易，所以改為減三(早一時辰)
+		# inDate = out 
+
+
+
+		## 到23點的時候，日干支已經是子時，但sxtwl的程式的判斷日的標準為過12點才算隔天，
+		## 所以產生了時間為隔天，干支卻讀到前一天，所以當"時"在23點時，往前拉一個小時，讓他讀到的日是前一天
+		parts = out.split("/")
+		hour = parts[-2]
+
+		if hour == "23":
+		    parts[-2] = "22"
+		inDate = "/".join(parts)
+		# print(out , inDate)
 	else:
 		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
-		out = ( dt + datetime.timedelta( hours= -2 )).strftime("%Y/%m/%d/%H/%M")
-		inDate = out
+		out = ( dt + datetime.timedelta( hours= -4 )).strftime("%Y/%m/%d/%H/%M")
+		# inDate = out
+		parts = out.split("/")
+		hour = parts[-2]
+
+		if hour == "23":
+		    parts[-2] = "22"
+		inDate = "/".join(parts)
+		# print(out , inDate)
+
+
 
 	if dayMode == "d": ## 日 或 節氣
-		print( ">>",inDate )
 		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")		# 把起點提前一天
-		out = ( dt + datetime.timedelta( hours= -24 )).strftime("%Y/%m/%d/%H/%M")  
-		# 修正本來的 days = ? 這種寫法，這種得到的時間都會是2025/12/08/23:00，和四柱的子時為隔天的設定衝突
+		out = ( dt + datetime.timedelta( days=-1 )).strftime("%Y/%m/%d/%H/%M")
 		inDate = out	
-		# print( "Day:",inDate )
+
 	if dayMode == "jc": ## 日 或 節氣
 		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")		# 把起點提前十四天
 		out = ( dt + datetime.timedelta( days=-14 )).strftime("%Y/%m/%d/%H/%M")
@@ -772,7 +789,7 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 		    out = (dt + datetime.timedelta(hours=2)).strftime("%Y/%m/%d/%H/%M")
 
 		elif dayMode == "d":  # 日模式（節氣和月模式已經在下面各自處理了）
-		    out = (dt + datetime.timedelta(  hours= 24 )).strftime("%Y/%m/%d/%H/%M")
+		    out = (dt + datetime.timedelta(days=1)).strftime("%Y/%m/%d/%H/%M")
 
 		# 月模式 (m) 和節氣模式 (jc) 在後面的 if 區塊處理
 
@@ -821,7 +838,7 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 			
 			if len(timeList) == 0:  # 第一次搜尋：一天一天找第一個節氣
 				for foo in range(1, 20):
-					out = (dt + datetime.timedelta(days = foo)).strftime("%Y/%m/%d/%H/%M")
+					out = (dt + datetime.timedelta(days=foo)).strftime("%Y/%m/%d/%H/%M")
 					fp_check = getFourPillar(out, True)
 					add += 1
 					if fp_check[3][1] == '!':  # 找到節氣
@@ -829,12 +846,12 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 			
 			else:  # 第二次之後：先跳 13 天，再微調
 				# 先跳 13 天
-				temp_date = (dt + datetime.timedelta( days = 13 )).strftime("%Y/%m/%d/%H/%M")
+				temp_date = (dt + datetime.timedelta(days=13)).strftime("%Y/%m/%d/%H/%M")
 				dt_temp = datetime.datetime.strptime(temp_date, "%Y/%m/%d/%H/%M")
 				
 				# 再從第 14 天開始微調找節氣
 				for foo in range(1, 5):  # 檢查 14, 15, 16, 17 天
-					out = (dt_temp + datetime.timedelta( days=foo )).strftime("%Y/%m/%d/%H/%M")
+					out = (dt_temp + datetime.timedelta(days=foo)).strftime("%Y/%m/%d/%H/%M")
 					fp_check = getFourPillar(out, True)
 					add += 1
 					if fp_check[3][1] == '!':  # 找到節氣
@@ -847,7 +864,6 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 		inDate = out
 		# print( inDate)
 		fp_buf = getFourPillar( inDate ,  True  )
-		# print( fp_buf)
 	 #                         # ('時盤', '2022/12/22/17/13')
 		# print( fp_buf )	 
 		# ('2026/3/26/23:00', '二月初八', ['丙午', '辛卯', '庚子', '丙子'], ['春分', '>', '清明'], '(四)', '23:00')
@@ -947,7 +963,7 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 
 if __name__ == '__main__':
 
-	getList = PPPPP ( currentTime = "2025-12-9-4-50" ,dayMode = "d", runtime = 15)
+	getList = PPPPP ( currentTime = "2025-12-9-4-50" ,dayMode = "d", runtime = 20)
 	# getList =  PPPPP ( currentTime = "2025-09-15" , dayMode = "d" , runtime = 20 ) 
 	# # getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
 	for i in getList:
