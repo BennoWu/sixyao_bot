@@ -154,59 +154,59 @@ TEN = "甲乙丙丁戊己庚辛壬癸"
 ZHI = "子丑寅卯辰巳午未申酉戌亥"
 
 def parse_ganzhi_input(inputMsg):
-    """
-    輸入範例：
-    干支/日/2025/08/31/15/48/戌
-    干支/日/10
-    干支/日/2025/08/31/15/48
-    干支/日/10/戌
-    干支/日/2025/08/31/15/48/戌
-    """
+	"""
+	輸入範例：
+	干支/日/2025/08/31/15/48/戌
+	干支/日/10
+	干支/日/2025/08/31/15/48
+	干支/日/10/戌
+	干支/日/2025/08/31/15/48/戌
+	"""
 
-    parts = [p.strip() for p in inputMsg.split("/") if p.strip()]
+	parts = [p.strip() for p in inputMsg.split("/") if p.strip()]
 
-    if len(parts) < 2:
-        raise ValueError("格式錯誤，至少要有 干支/日")
+	if len(parts) < 2:
+		raise ValueError("格式錯誤，至少要有 干支/日")
 
-    # 固定前兩個
-    cmdType = parts[0]
-    dayMode = parts[1]
+	# 固定前兩個
+	cmdType = parts[0]
+	dayMode = parts[1]
 
-    runtime = None
-    indexBuf = ""
-    dateParts = []
+	runtime = None
+	indexBuf = ""
+	dateParts = []
 
-    # 從第三個開始解析
-    for item in parts[2:]:
-        # 純數字 → runtime 或日期段
-        if item.isdigit():
-            num = int(item)
-            if len(dateParts) == 0 and num >= 1000:
-                # 第一個大於1000的數字當作年份 → 日期開始
-                dateParts.append(num)
-            elif len(dateParts) > 0:
-                # 日期的後續部分
-                dateParts.append(num)
-            else:
-                # 單獨數字 → runtime
-                runtime = num
-        elif any(c in TEN+ZHI for c in item):
-            # 含天干地支 → index
-            indexBuf = item
-        else:
-            # 其他情況 → 忽略或補強
-            pass
+	# 從第三個開始解析
+	for item in parts[2:]:
+		# 純數字 → runtime 或日期段
+		if item.isdigit():
+			num = int(item)
+			if len(dateParts) == 0 and num >= 1000:
+				# 第一個大於1000的數字當作年份 → 日期開始
+				dateParts.append(num)
+			elif len(dateParts) > 0:
+				# 日期的後續部分
+				dateParts.append(num)
+			else:
+				# 單獨數字 → runtime
+				runtime = num
+		elif any(c in TEN+ZHI for c in item):
+			# 含天干地支 → index
+			indexBuf = item
+		else:
+			# 其他情況 → 忽略或補強
+			pass
 
-    # runtime 預設值
-    if runtime is None:
-        runtime = 9
+	# runtime 預設值
+	if runtime is None:
+		runtime = 9
 
-    # 日期組合成字串
-    dateBuf = ""
-    if dateParts:
-        dateBuf = "/".join(str(d).zfill(2) if i>0 else str(d) for i,d in enumerate(dateParts))
+	# 日期組合成字串
+	dateBuf = ""
+	if dateParts:
+		dateBuf = "/".join(str(d).zfill(2) if i>0 else str(d) for i,d in enumerate(dateParts))
 
-    return cmdType, dayMode, runtime, dateBuf, indexBuf
+	return cmdType, dayMode, runtime, dateBuf, indexBuf
 
 
 
@@ -492,7 +492,7 @@ def handle_message(event):
 		# 	else:
 		# 		indexBuf, dateBuf = ganZiiList[4], ganZiiList[3]
 
-		 _, dayModeBuf, runtimeBuf, dateBuf, indexBuf = parse_ganzhi_input(inputMsg)
+		_, dayModeBuf, runtimeBuf, dateBuf, indexBuf = parse_ganzhi_input(inputMsg)
 
 
 		ganZi_flexMsgJson_dict = ganZiList_fun(

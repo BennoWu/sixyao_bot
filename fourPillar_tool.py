@@ -719,13 +719,13 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 	inDate = nowTime ##'2023/05/13/02/26'   2025/12/9/4/50
 
 	inDateHour = int(inDate.split("/")[-2])
-	# inDateMin  = int(inDate.split("/")[-1]	)
+	inDateMin  = int(inDate.split("/")[-1]	)
 
-	# dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
-	# out = ( dt + datetime.timedelta( minutes = int(inDateMin)*-1 )).strftime("%Y/%m/%d/%H/%M")  # 2023/05/01/03/37 -> 2023/05/01/03/00
+	dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
+	out = ( dt + datetime.timedelta( minutes = int(inDateMin)*-1 )).strftime("%Y/%m/%d/%H/%M")  # 2023/05/01/03/37 -> 2023/05/01/03/00
 
-	# inDate = out
-	# print( inDate )
+	inDate = out
+	print( inDate )
 
 
 	if inDateHour%2 == 0:
@@ -963,7 +963,7 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 
 if __name__ == '__main__':
 
-	getList = PPPPP ( currentTime = "2025-12-9-4-50" ,dayMode = "d", runtime = 20)
+	getList = PPPPP ( currentTime = "2025-12-9-4-50" ,dayMode = "h", runtime = 20)
 	# getList =  PPPPP ( currentTime = "2025-09-15" , dayMode = "d" , runtime = 20 ) 
 	# # getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
 	for i in getList:
