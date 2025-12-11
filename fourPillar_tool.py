@@ -748,7 +748,7 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 	else:
 		print( "時為單位")
 		dt = datetime.datetime.strptime( inDate , "%Y/%m/%d/%H/%M")
-		out = ( dt + datetime.timedelta( hours= -4 )).strftime("%Y/%m/%d/%H/%M")
+		out = ( dt + datetime.timedelta( hours= -2 )).strftime("%Y/%m/%d/%H/%M")
 		# inDate = out
 		parts = out.split("/")
 		hour = parts[-2]
@@ -965,8 +965,8 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 
 if __name__ == '__main__':
 
-	# getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 20)
-	getList =  PPPPP ( currentTime = "2025-12-9-4-50" , dayMode = "d" , runtime = 20 ) 
+	getList = PPPPP ( currentTime = "2025-12-9-4-50" ,dayMode = "h", runtime = 20)
+	# getList =  PPPPP ( currentTime = "2025-12-9-4-50" , dayMode = "d" , runtime = 20 ) 
 	# # getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
 	for i in getList:
 		print(i)	
