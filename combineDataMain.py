@@ -314,48 +314,46 @@ def _clean_subblock(s: str) -> str:
 # 		result = result.replace(strong_sep, sep_for_app)
 	
 # 	return result
-def unifiedData( orgData, strong_sep='//', sep_for_app=None ):
-	
-	## XXXX/XXXXX/XXXX 變成 XXXX//XXXXX//XXXX
+
+def unifiedData(orgData, strong_sep='//', sep_for_app=None):
 	if not isinstance(orgData, str):
 		return orgData
-	
-	# Step 1: 判斷是否包含「日期/卦象/數字符號」
-	# 如果有這些特徵，換行 → //；否則換行 → ,
+
+	# Step 0: 保護原本的 " - "（用特殊標記暫存）
+	PROTECT_TOKEN = "PROTECTDASH"
+	s = orgData.replace(" - ", PROTECT_TOKEN)
+
+	# Step 1: 將其他 -（沒有空格）換成 /
+	s = re.sub(r'(\d)-(\d)', r'\1/\2', s)
+
+	# Step 2: 還原原本的 " - "
+	s = s.replace(PROTECT_TOKEN, " - ")
+
+	# Step 3: 判斷是否包含「特殊符號」決定換行方式
 	has_special_pattern = bool(
-		re.search(r'\d+[/\-]\d+', orgData) or  # 日期格式 2025/10/26
-		re.search(r'[0-9X$@]{2,}', orgData) or  # 卦象符號 10$01X
-		re.search(r'\d+,\d+,\d+', orgData)      # 米卦格式 27,71,42
+		re.search(r'\d+[/]\d+', s) or
+		re.search(r'[0-9X$@]{2,}', s) or
+		re.search(r'\d+,\d+,\d+', s)
 	)
-	
-	# Step 2: 分段落（大區塊）
+
 	STRONG_TOKEN = "STRONGSEPUNIQUE"
-	
-	# 保護原本的 //
-	s = orgData.replace(strong_sep, STRONG_TOKEN)
-	s = re.sub(r'\s-\s', STRONG_TOKEN, s)
-	
-	# 🔥 關鍵：根據內容類型決定換行的處理方式
+	s = s.replace(strong_sep, STRONG_TOKEN)
+
 	if has_special_pattern:
-		# 有特殊符號 → 換行變成 //
 		s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
 	else:
-		# 純中文 → 換行變成 ,
 		s = re.sub(r'[\r\n]+', ',', s)
-	
-	# Step 3: 對每個段落清理
+
 	segments = s.split(STRONG_TOKEN)
 	cleaned_segments = [_clean_subblock(seg) for seg in segments if seg.strip()]
-	
-	# Step 4: 合併回單行
+
 	result = strong_sep.join(cleaned_segments)
-	
-	# Step 5: 可選替換為 app 分隔符號
+
 	if sep_for_app:
 		result = result.replace(strong_sep, sep_for_app)
-	
-	# print(result)
+
 	return result
+
 # print(unifiedData("店家維修，能否順利修好電腦保住資料 - 0-1-00-11-0-1"))
 
 
