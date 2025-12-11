@@ -1572,7 +1572,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 		dayMode = "節氣"
 	else:
 		pass				
-	more_command = "干支/" + dayMode + "/" + row[1].replace("/" , "-")
+	more_command = "干支/" + dayMode + "/" + row[1].replace("/" , "/")
 
 	finalLayout += endLayout.replace( "__MORE__" , more_command )
 
