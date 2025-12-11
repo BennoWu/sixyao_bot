@@ -1575,6 +1575,8 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 	more_command = "干支/" + dayMode + "/" + row[1].replace("/" , "/")
 
 	finalLayout += endLayout.replace( "__MORE__" , more_command )
+	if index:
+		finalLayout = finalLayout.replace( "__INDEX__" , index )
 
 	if printMode == True:
 		print ( finalLayout )
@@ -4649,9 +4651,9 @@ def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
 
 if __name__ == '__main__':
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 , printMode = True )
-	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 20 , printMode = True )
+	ganZiList_fun( currentTime = "" , dayMode = "d" , index = "丙申" , runtime = 20 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/12/11/18/56" , dayMode = "h" , index = "" , runtime = 8 , printMode = True )
-	ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
+	# ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
 
 
 
