@@ -317,13 +317,15 @@ def threeHoTest(
 			# 先用「日」補
 			if day_zhi in temp_missing:
 				day_idx = typeMode.index(day_zhi)
-				if day_idx != 1:  # 不是中間的地支才補
+				# if day_idx != 1:  # 不是中間的地支才補
+				if True:
 					tempBuf[1] = f"{prefix}{day_idx}"
 					temp_missing.remove(day_zhi)
 			# 再用「月」補
 			if month_zhi in temp_missing:
 				month_idx = typeMode.index(month_zhi)
-				if month_idx != 1:  # 不是中間的地支才補
+				# if month_idx != 1:  # 不是中間的地支才補
+				if True:
 					tempBuf[0] = f"{prefix}{month_idx}"
 					temp_missing.remove(month_zhi)
 
@@ -332,11 +334,13 @@ def threeHoTest(
 			need_idx = typeMode.index(need)
 			
 			# 先看「日」
-			if day_zhi == need and need_idx != 1:  # 不是中間才補 日月如果為帝旺位則跳過
+			# if day_zhi == need and need_idx != 1:  # 不是中間才補 日月如果為帝旺位則跳過
+			if day_zhi == need:
 				tempBuf[1] = f"{prefix}{need_idx}"
 				temp_missing.clear()
 			# 再看「月」
-			elif month_zhi == need and need_idx != 1:  # 不是中間才補
+			# elif month_zhi == need and need_idx != 1:  # 不是中間才補
+			elif month_zhi == need:
 				tempBuf[0] = f"{prefix}{need_idx}"
 				temp_missing.clear()
 		# ============================================================
