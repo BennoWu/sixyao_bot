@@ -758,7 +758,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 		makeText ( allDataDict['home_naGia'][row_id][-1]     , screenWidth - 370 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 
 		if noteSwitch == True:
 			## 分數小字
-			makeText ( allDataDict['home_naGia_rank'][row_id]  , screenWidth - 305 , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
+			makeText ( allDataDict['home_naGia_rank'][row_id]  , screenWidth - 305 , adj_hight + fixTextHight - 8  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
 			# makeText ( "–"  , screenWidth - 305 , adj_hight + fixTextHight -1  , wordingSize = 20 , wordingFont = pf_TC_bold , color = subGray ) 	
 			# makeText ( "▽"  , screenWidth - 307 , adj_hight + fixTextHight + 2  , wordingSize = 20 , wordingFont = pf_TC_bold , color = subGray ) 		
 #△▽ ▲▼
@@ -807,7 +807,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 			if noteSwitch == True:
 				## 分數小字
-				makeText ( allDataDict['hide_naGia_rank'][row_id]  , twoSideSpace + 156 , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
+				makeText ( allDataDict['hide_naGia_rank'][row_id]  , twoSideSpace + 156 , adj_hight + fixTextHight - 8  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
 
 
 
@@ -820,7 +820,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 
 
-		changGuaX_adj = 12
+		changGuaX_adj = 8
 
 		## 變卦
 		if allDataDict['changeIdIndex'][row_id] == "O":
@@ -832,7 +832,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 				# draw_SquareMark( x =  screenWidth -238 , y = adj_hight + fixTextHight +11    , squareSize = 64  , outlineColor = subGray  )
 
 				## 分數小字
-				makeText ( allDataDict["change_naGia_rank"][row_id] , screenWidth -119 + changGuaX_adj , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
+				makeText ( allDataDict["change_naGia_rank"][row_id] , screenWidth -119 + changGuaX_adj , adj_hight + fixTextHight - 8  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
 
 				## 化進小點點
 				if allDataDict['home_forwardBack'][row_id]  == "FW":

@@ -332,7 +332,7 @@ def threeHoTest(
 			need_idx = typeMode.index(need)
 			
 			# 先看「日」
-			if day_zhi == need and need_idx != 1:  # 不是中間才補
+			if day_zhi == need and need_idx != 1:  # 不是中間才補 日月如果為帝旺位則跳過
 				tempBuf[1] = f"{prefix}{need_idx}"
 				temp_missing.clear()
 			# 再看「月」
