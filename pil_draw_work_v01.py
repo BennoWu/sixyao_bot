@@ -850,7 +850,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 			## 變卦六親
 			makeText ( sixFamily_dict[ allDataDict['change_family'][row_id] ]  , screenWidth -176 + changGuaX_adj , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 
 
-			if allDataDict['hide_naGia'][row_id][-1]  in allDataDict['home_kongWang']:
+			if allDataDict['change_naGia'][row_id][-1]  in allDataDict['change_kongWang']:
 				## 空亡的圈
 				makePoint ( x = screenWidth -263 -6 + changGuaX_adj , y = adj_hight + fixTextHight + 53  , radious = 22 ,pointColor = None , lineColor = subGray , LineWidth = 3 , switch = True )
 			
