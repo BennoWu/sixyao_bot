@@ -1,4 +1,3 @@
-
 # print = lambda *args, **kwargs: None
 
 def print_threeho_table(zhis_list):
@@ -26,7 +25,7 @@ def print_threeho_table(zhis_list):
 				line.append(f"{z}-O{prefix}{i}")                
 			# else:
 			#     line.append("-")
-		print(" ．".join(line))
+		print(" 。".join(line))
 
 def combineListFun(newDataList, orgDataList):
 	# print()
@@ -36,7 +35,7 @@ def combineListFun(newDataList, orgDataList):
 
 	length = min(len(newDataList), len(orgDataList))
 
-	# 先找出 orgDataList 中 O 開頭元素的代號（例如 Oa2 → a2）
+	# 先找出 orgDataList 中 O 開頭元素的代號(例如 Oa2 → a2)
 	o_codes = set()
 	for item in orgDataList:
 		if isinstance(item, str) and item.startswith("O") and len(item) > 1:
@@ -54,7 +53,7 @@ def combineListFun(newDataList, orgDataList):
 				continue
 		cleaned_new.append(item)
 
-	# 合併邏輯（原本的）
+	# 合併邏輯(原本的)
 	combined = []
 	for i in range(length):
 		if orgDataList[i] != '-':
@@ -75,7 +74,7 @@ def combineListFun(newDataList, orgDataList):
 # 	# if orgDataList is None:
 # 	#     orgDataList = ['-', 'Oc3', '-', 'Ob1', '-', '-']
 # 	# print(">>>",newDataList)
-# 	# 確保兩個列表長度相同，取最短長度
+# 	# 確保兩個列表長度相同,取最短長度
 # 	length = min(len(newDataList), len(orgDataList))
 	
 # 	combined = []
@@ -95,11 +94,11 @@ def combineListFun(newDataList, orgDataList):
 
 def get_missing_zhis( bufs , mode ):
 	"""
-	找出三合組中，哪些地支還沒被標記到，比如亥卯未缺卯，回傳卯，亥卯未缺亥卯，回傳亥卯
+	找出三合組中,哪些地支還沒被標記到,比如亥卯未缺卯,回傳卯,亥卯未缺亥卯,回傳亥卯
 	
-	:param bufs: list of list，例如 [homeBuf, changeBuf, month_day_Buf]
-	:param mode: 三合組，例如 ["亥", "卯", "未"]
-	:return: list，剩下沒被標記的地支
+	:param bufs: list of list,例如 [homeBuf, changeBuf, month_day_Buf]
+	:param mode: 三合組,例如 ["亥", "卯", "未"]
+	:return: list,剩下沒被標記的地支
 	"""
 	modeBuf = mode.copy()
 	# 把所有 buf 平攤處理
@@ -164,7 +163,7 @@ def threeHoTest(
 	month_zhi = get_zhi(monthGanZi)
 	day_zhi   = get_zhi(dayGanZi)
 
-	# 收集本爻 / 變爻 / 伏神 地支
+	# 收集本卦 / 變卦 / 伏神 地支
 	home_zhis   = [get_zhi(gz) for gz in home_naGia ]
 	if change_naGia != None:
 		change_zhis = [get_zhi(gz) for gz in change_naGia ] ## ['己卯', '己丑', '己亥', '戊申', '戊戌', '戊子'] to ['卯', '丑', '亥', '申', '戌', '子']
@@ -173,7 +172,7 @@ def threeHoTest(
 	hide_zhis   = [get_zhi(h) if h != 'X' else 'X' for h in hide_naGia]
 
 
-	# 三合對照表，優先順序 木a → 火b → 金c → 水d
+	# 三合對照表,優先順序 木a → 火b → 金c → 水d
 	threeHo_dict = {
 		"木": ["亥", "卯", "未"],  
 		"火": ["寅", "午", "戌"],  
@@ -212,31 +211,48 @@ def threeHoTest(
 
 
 	for type in threeHo_dict:
-		# === 先處理本爻 ===
+		# === 先處理本卦 ===
 		# typeMode = threeHo_dict["木"]   # 這裡先只跑木局
 		typeMode = threeHo_dict[ type ]
 		typeCode = element_code[ type ]
 		# 初始化
 		homeBuf   = ['-'] * 6
-		homeAllBuf   = ['-'] * 6 ## 所有的爻，包括靜爻       
+		homeAllBuf   = ['-'] * 6 ## 所有的爻,包括靜爻       
 		changeBuf = ['-'] * 6
 
 		prefix = "O" + typeCode   # 之後可以改 Ob, Oc, Od
 		prefix_P = "P" + typeCode   # 之後可以改 Ob, Oc, Od
 
+		# ============================================================
+		# 【修改1】處理 D 位置：只有在 O 位置沒有相同地支時才標記
+		# ============================================================
+		# 先收集所有 O 位置的地支
+		o_position_zhis = set()
+		for i, ind in enumerate(changeIdIndex):
+			if ind == "O":
+				o_position_zhis.add(home_zhis[i])
+		
 		# 處理 homeBuf
 		for i, z in enumerate(home_zhis):
-			## 動爻，暗動
-			if (changeIdIndex[i] == "O") or (changeIdIndex[i] == "D"):   # 有標記才處理
+			## 動爻
+			if changeIdIndex[i] == "O":
 				code = mark_threeho(z, typeMode, prefix)
-				if code != "-":           # 命中才覆蓋
+				if code != "-":
 					homeBuf[i] = code
+			
+			## 暗動：只有當 O 位置沒有相同地支時才標記
+			elif changeIdIndex[i] == "D":
+				if z not in o_position_zhis:  # O位置沒有這個地支才標記
+					code = mark_threeho(z, typeMode, prefix)
+					if code != "-":
+						homeBuf[i] = code
+			
 			## 靜爻
 			else:
-				code = mark_threeho(z, typeMode, prefix_P )  ## 針對靜爻用 P 模式
-				# print( ">>>>>>>", code )
-				if code != "-":           # 命中才覆蓋
-					homeAllBuf[i] = code                
+				code = mark_threeho(z, typeMode, prefix_P)  ## 針對靜爻用 P 模式
+				if code != "-":
+					homeAllBuf[i] = code
+		# ============================================================
 
 		# 處理 changeBuf
 		for i, z in enumerate(change_zhis):
@@ -250,14 +266,14 @@ def threeHoTest(
 		for i in range(6):
 			if changeBuf[i] == "-":
 				continue
-			# 如果變爻同樣出現在本爻標記 → 不用重複標
+			# 如果變卦同樣出現在本卦標記 → 不用重複標
 			if changeBuf[i] in homeBuf:
 				changeBuf[i] = "-"
 				continue
-			# 如果變爻同組出現多次，要依據本爻有沒有相同支判斷
+			# 如果變卦同組出現多次,要依據本卦有沒有相同支判斷
 			if changeBuf.count(changeBuf[i]) > 1:
 				# print(changeBuf.count(changeBuf[i]) , changeBuf[i])
-				if home_zhis[i] not in typeMode:     # 本爻有對應的話就可以留
+				if home_zhis[i] not in typeMode:     # 本卦有對應的話就可以留
 					# print( i , home_zhis[i] )
 					# print( changeBuf[i] ,' -- ', changeBuf[i]  )
 					changeBuf[i] = "-"
@@ -288,33 +304,44 @@ def threeHoTest(
 		# 補月日
 		month_day_Buf = ["X", "X"]
 
-		# --- 準備一份暫存，先嘗試補
+		# --- 準備一份暫存,先嘗試補
 		temp_missing = typeModeBuf.copy()
 		tempBuf = ['-', '-']         # [月, 日] 暫存
-		# 注意：這裡「先試日、後試月」→ 日優先
+		
+		# ============================================================
+		# 【修改2】月日補缺：跳過三合中間的地支（索引1）
+		# ============================================================
+		# 注意:這裡「先試日」後試月→ 日優先
 		print( temp_missing )
 		if len(temp_missing) == 2:
 			# 先用「日」補
 			if day_zhi in temp_missing:
-				tempBuf[1] = f"{prefix}{typeMode.index(day_zhi)}"
-				temp_missing.remove(day_zhi)
+				day_idx = typeMode.index(day_zhi)
+				if day_idx != 1:  # 不是中間的地支才補
+					tempBuf[1] = f"{prefix}{day_idx}"
+					temp_missing.remove(day_zhi)
 			# 再用「月」補
 			if month_zhi in temp_missing:
-				tempBuf[0] = f"{prefix}{typeMode.index(month_zhi)}"
-				temp_missing.remove(month_zhi)
+				month_idx = typeMode.index(month_zhi)
+				if month_idx != 1:  # 不是中間的地支才補
+					tempBuf[0] = f"{prefix}{month_idx}"
+					temp_missing.remove(month_zhi)
 
 		elif len(temp_missing) == 1:
 			need = temp_missing[0]
+			need_idx = typeMode.index(need)
+			
 			# 先看「日」
-			if day_zhi == need:
-				tempBuf[1] = f"{prefix}{typeMode.index(day_zhi)}"
+			if day_zhi == need and need_idx != 1:  # 不是中間才補
+				tempBuf[1] = f"{prefix}{need_idx}"
 				temp_missing.clear()
 			# 再看「月」
-			elif month_zhi == need:
-				tempBuf[0] = f"{prefix}{typeMode.index(month_zhi)}"
+			elif month_zhi == need and need_idx != 1:  # 不是中間才補
+				tempBuf[0] = f"{prefix}{need_idx}"
 				temp_missing.clear()
+		# ============================================================
 
-		# 收尾：若月日同支而兩邊都被暫時填了 → 只留「日」
+		# 收尾:若月日同支而兩邊都被暫時填了 → 只留「日」
 		if month_zhi == day_zhi and tempBuf[0] != '-' and tempBuf[1] != '-':
 			tempBuf[0] = '-'
 
@@ -375,7 +402,7 @@ def threeHoTest(
 
 
 
-		# === 最後指定本爻 ===
+		# === 最後指定本卦 ===
 		# homeThreeHoId = homeBuf
 		# changeThreeHoId = changeBuf
 		# month_day_ThreeHoId = month_day_Buf
@@ -474,4 +501,6 @@ if __name__ == '__main__':
 	# a =  combineListFun(  ['-', 'Oc1', '-', '-', '-', '-'] ,   ['-', '-', '-', '-', '-', 'Oc2'] ) 
 	# print(a)
 
-# sixYaoMain( "巳年卯月戊戌日//大过之鼎卦")	
+# sixYaoMain( "巳年卯月戊戌日//大過之鼎卦")
+
+

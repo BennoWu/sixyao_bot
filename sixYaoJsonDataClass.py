@@ -191,7 +191,7 @@ class jsonDataClass:
 		self.runtime = 1
 		self.uiStyle = "UA"
 		self.fontStyle = "FB"
-		self.tipsMode = "ON"
+		self.tipsMode = "OFF"
 		self.subDataMode = "Full"
 		self.utc = 8
 		self.notionToken_pageId = False

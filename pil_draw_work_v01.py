@@ -803,7 +803,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 		## 伏神
 		if allDataDict['hide_naGia'][row_id]!="X":
 		# 	## 伏神納甲		
-			makeText ( allDataDict['hide_naGia'][row_id][-1] , twoSideSpace + 35 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 
+			makeText ( allDataDict['hide_naGia'][row_id][-1] , twoSideSpace + 35 -2 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 
 
 			if noteSwitch == True:
 				## 分數小字
@@ -816,11 +816,11 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 		if allDataDict['hide_naGia'][row_id][-1]  in allDataDict['home_kongWang']:
 			## 空亡的圈
-			makePoint ( x = twoSideSpace +14, y = adj_hight + fixTextHight + 53  , radious = 22 ,pointColor = None , lineColor = subGray , LineWidth = 3 , switch = True )
+			makePoint ( x = twoSideSpace +14 -2, y = adj_hight + fixTextHight + 53  , radious = 22 ,pointColor = None , lineColor = subGray , LineWidth = 3 , switch = True )
 
 
 
-
+		changGuaX_adj = 12
 
 		## 變卦
 		if allDataDict['changeIdIndex'][row_id] == "O":
@@ -828,31 +828,31 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 				## 三合局小方框
 				if allDataDict['changeThreeHoId'][row_id][0]  in ( "O", "P", "H" ):		
 					changeThreeHoColor = getTypeColorC( allDataDict['changeThreeHoId'][row_id] )
-					draw_SquareMark( x =  screenWidth -240 -5 , y = adj_hight + fixTextHight +10    , squareSize = 68  , outlineColor = changeThreeHoColor  )
+					draw_SquareMark( x =  screenWidth -238 -6 + changGuaX_adj , y = adj_hight + fixTextHight +10    , squareSize = 68  , outlineColor = changeThreeHoColor  )
 				# draw_SquareMark( x =  screenWidth -238 , y = adj_hight + fixTextHight +11    , squareSize = 64  , outlineColor = subGray  )
 
 				## 分數小字
-				makeText ( allDataDict["change_naGia_rank"][row_id] , screenWidth -117 -5 , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
+				makeText ( allDataDict["change_naGia_rank"][row_id] , screenWidth -119 + changGuaX_adj , adj_hight + fixTextHight - 5  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
 
 				## 化進小點點
 				if allDataDict['home_forwardBack'][row_id]  == "FW":
-					makeText ( "•"  , screenWidth -211 -6 , adj_hight + fixTextHight -22+4 , wordingSize = 28 , wordingFont = yaoFont , color = midGray ) 
+					makeText ( "•"  , screenWidth -210 -6 + changGuaX_adj , adj_hight + fixTextHight -22+4 , wordingSize = 28 , wordingFont = yaoFont , color = midGray ) 
 
 				## 化退小點點
 				elif allDataDict['home_forwardBack'][row_id] =="BK":
-					makeText ( "•"  , screenWidth -211 -6 , adj_hight + fixTextHight +64+4 , wordingSize = 28 , wordingFont = yaoFont , color = midGray ) 
+					makeText ( "•"  , screenWidth -210 -6 + changGuaX_adj , adj_hight + fixTextHight +64+4 , wordingSize = 28 , wordingFont = yaoFont , color = midGray ) 
 
 			## 變卦納甲
-			makeText ( allDataDict['change_naGia'][row_id][-1]  , screenWidth -236 -5 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 
+			makeText ( allDataDict['change_naGia'][row_id][-1]  , screenWidth -234 -6 + changGuaX_adj , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 
 
 
 
 			## 變卦六親
-			makeText ( sixFamily_dict[ allDataDict['change_family'][row_id] ]  , screenWidth -174 -5 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 
+			makeText ( sixFamily_dict[ allDataDict['change_family'][row_id] ]  , screenWidth -176 + changGuaX_adj , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 
 
 			if allDataDict['hide_naGia'][row_id][-1]  in allDataDict['home_kongWang']:
 				## 空亡的圈
-				makePoint ( x = screenWidth -265 -5 , y = adj_hight + fixTextHight + 53  , radious = 22 ,pointColor = None , lineColor = subGray , LineWidth = 3 , switch = True )
+				makePoint ( x = screenWidth -263 -6 + changGuaX_adj , y = adj_hight + fixTextHight + 53  , radious = 22 ,pointColor = None , lineColor = subGray , LineWidth = 3 , switch = True )
 			
 
 		centerAdj = -8
