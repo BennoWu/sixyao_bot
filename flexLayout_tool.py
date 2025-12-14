@@ -1571,16 +1571,26 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 				finalLayout += date_separator
 
 	if dayMode == "h":
-		dayMode = "時"
+		showDayMode = "時"
 	elif dayMode == "d":
-		dayMode = "日"
+		showDayMode = "日"
 	elif dayMode == "m":
-		dayMode = "月"	
+		showDayMode = "月"	
 	elif dayMode == "jc":
-		dayMode = "節氣"
+		showDayMode = "節氣"
 	else:
-		pass				
-	more_command = "干支/" + dayMode + "/" + row[1].replace("/" , "/")
+		pass
+
+
+	print(row[1].replace("/" , "/")) 
+	moreCmdDate = PPPPP ( currentTime = row[1] , dayMode = dayMode  , runtime = 2 )[-1][1]
+
+	if ( dayMode.lower() == "m" ) or ( dayMode.lower() == "h" ):
+		print("## ", row[1] )
+		more_command = "干支/" + showDayMode + "/" + row[1]
+	else:
+		print( "## ",moreCmdDate )
+		more_command = "干支/" + showDayMode + "/" + moreCmdDate		
 
 	finalLayout += endLayout.replace( "__MORE__" , more_command )
 	if index:
@@ -4658,8 +4668,11 @@ def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
 
 
 if __name__ == '__main__':
-	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 , printMode = True )
-	ganZiList_fun( currentTime = "" , dayMode = "d" , index = "丙申" , runtime = 20 , printMode = True )
+	ganZiList_fun( currentTime = "" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
+	ganZiList_fun( currentTime = "2025/12/15/19:00" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
+	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )
+	# ganZiList_fun( currentTime = "2026/05/05" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )		
+	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 20 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/12/11/18/56" , dayMode = "h" , index = "" , runtime = 8 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
 

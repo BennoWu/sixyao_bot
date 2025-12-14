@@ -704,6 +704,7 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 		.replace(" ","/")
 		.replace(".","/")
 		.replace("-","/")        # ✅ 加上這一行
+		.replace(":","/") 		
 		# .replace("時盤","時")
 		# .replace("刻盤","刻"))
 		)
@@ -967,8 +968,9 @@ if __name__ == '__main__':
 
 	# getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 20)
 	# getList = PPPPP ( currentTime = "2025/12/10/21/00" ,dayMode = "h", runtime = 20)	
-	# getList =  PPPPP ( currentTime = "2025-12-9-4-50" , dayMode = "d" , runtime = 20 ) 
-	getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
+	getList =  PPPPP ( currentTime = "2025-12-9-4-50" , dayMode = "d" , runtime = 3 ) 
+	# getList =  PPPPP ( currentTime = "2025/12/15/17:00" , dayMode = "h" , runtime = 7 ) 
+	# getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
 	for i in getList:
 		print(i)	
 
