@@ -1583,14 +1583,16 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 
 
 	print(row[1].replace("/" , "/")) 
-	moreCmdDate = PPPPP ( currentTime = row[1] , dayMode = dayMode  , runtime = 2 )[-1][1]
+	moreCmdDate = PPPPP ( currentTime = row[1] , dayMode = dayMode  , runtime = 2 )[-1][1].replace("/","-").replace(":","-")
 
-	if ( dayMode.lower() == "m" ) or ( dayMode.lower() == "h" ):
-		print("## ", row[1] )
-		more_command = "干支/" + showDayMode + "/" + row[1]
-	else:
+	if ( dayMode.lower() == "d" ) or ( dayMode.lower() == "h" ) :
 		print( "## ",moreCmdDate )
-		more_command = "干支/" + showDayMode + "/" + moreCmdDate		
+		more_command = "干支/" + showDayMode + "/" + moreCmdDate			
+
+	else:
+		print("## ", row[1] )
+		more_command = "干支/" + showDayMode + "/" + row[1].replace("/","-").replace(":","-")
+
 
 	finalLayout += endLayout.replace( "__MORE__" , more_command )
 	if index:
