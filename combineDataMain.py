@@ -1294,6 +1294,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 
 if __name__ == '__main__':
+	print(unifiedData("干支/日/2025-12-24"))
 	# sixYaoMain( "2021/04/18/19/00//1​1​0​X​1​1//男占女未來是否有機會共事")
 	# sixYaoMain( "俘之履//男占女未來是否有機會共事//辛丑，壬辰，丙申，戊戌")
 	# sixYaoMain( "2025,4,27,12,28//卯月丁巳日//010$1X//問題問題問題" )
@@ -1466,7 +1467,7 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "甲戌/戊戌/戊寅//X10101//自占今日在台中舊酒廠業績?" )	
 	# sixYaoMain( "" )
-	sixYaoMain( "阿西最近的財運//1X0$00",showPic = True)
+	# sixYaoMain( "阿西最近的財運//1X0$00",showPic = True)
 # 巳年寅月申日(戌亥空) 待修正
 
 	# sixYaoMain( "一年輕人 出車禍目前昏迷不醒，代占是否有機會救的回來//乙巳 癸未 癸巳 丙辰//夬 3 4 5 6 ")

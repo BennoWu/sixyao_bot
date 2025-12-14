@@ -467,6 +467,7 @@ def handle_message(event):
 		runTimeBuf = ""
 		indexBuf = ""
 		dateBuf = ""
+		inputMsg = unifiedData(inputMsg)
 		# ganZiiList = inputMsg.split("/")
 
 		# if len(ganZiiList) == 2: ## 干支/日
