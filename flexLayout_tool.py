@@ -1385,7 +1385,7 @@ endLayout = """{
 								"contents": [
 								  {
 									"type": "text",
-									"text": "More..",
+									"text": "More...",
 									"size": "lg",
 									"align": "end",
 									"weight": "bold",
