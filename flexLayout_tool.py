@@ -36,7 +36,13 @@ uiLayoutFront ="""
 			"text": "六爻排盤:",
 			"weight": "bold",
 			"color": "#6A8B91",
-			"size": "md"
+			"size": "md",
+            "action": {
+              "type": "postback",
+              "label": "action",
+              "data": "hello",
+              "displayText": "__SHOW__"
+            }
 		  }
 		],
 		"margin": "none"
@@ -833,6 +839,8 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 								.replace("__dis裝卦__", display_command )								
 								.replace("__ORGGUA__" , orgGuaName)
 								.replace("__CHGGUA__" , chgGuaName)
+								.replace("__SHOW__", command[1:] )
+
 						)
 	# print("dateMark - " , dateSureMark )
 	if dateSureMark == True:
