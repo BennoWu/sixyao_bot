@@ -467,7 +467,7 @@ def handle_message(event):
 		runTimeBuf = ""
 		indexBuf = ""
 		dateBuf = ""
-		inputMsg = unifiedData(inputMsg)
+		# inputMsg = unifiedData(inputMsg)
 		# ganZiiList = inputMsg.split("/")
 
 		# if len(ganZiiList) == 2: ## 干支/日
@@ -493,7 +493,7 @@ def handle_message(event):
 		# 	else:
 		# 		indexBuf, dateBuf = ganZiiList[4], ganZiiList[3]
 
-		_, dayModeBuf, runtimeBuf, dateBuf, indexBuf = parse_ganzhi_input(inputMsg)
+		_, dayModeBuf, runtimeBuf, dateBuf, indexBuf = parse_ganzhi_input(unifiedData(inputMsg))
 
 
 		ganZi_flexMsgJson_dict = ganZiList_fun(

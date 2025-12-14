@@ -735,16 +735,16 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 		# inDate = out 
 		print( "時為雙數")
 
-
-
+		print("org: ", inDate)
+		print("fix: ",out )
 		## 到23點的時候，日干支已經是子時，但sxtwl的程式的判斷日的標準為過12點才算隔天，
 		## 所以產生了時間為隔天，干支卻讀到前一天，所以當"時"在23點時，往前拉一個小時，讓他讀到的日是前一天
 		parts = out.split("/")
 		hour = parts[-2]
-
-		if hour == "23":
-		    parts[-2] = "22"
-		inDate = "/".join(parts)
+		inDate = out
+		# if hour == "23":
+		#     parts[-2] = "22"
+		# inDate = "/".join(parts)
 		# print(out , inDate)
 	else:
 		print( "時為單數")
@@ -754,11 +754,11 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 		parts = out.split("/")
 		hour = parts[-2]
 
-		if hour == "23":
-		    parts[-2] = "22"
-		inDate = "/".join(parts)
+		# if hour == "23":
+		#     parts[-2] = "22"
+		# inDate = "/".join(parts)
 		# print(out , inDate)
-
+		inDate = out
 
 
 	if dayMode == "d": ## 日 或 節氣
@@ -968,15 +968,16 @@ if __name__ == '__main__':
 
 	# getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 20)
 	# getList = PPPPP ( currentTime = "2025/12/10/21/00" ,dayMode = "h", runtime = 20)	
-	getList =  PPPPP ( currentTime = "2025-12-9-4-50" , dayMode = "d" , runtime = 3 ) 
+	# getList =  PPPPP ( currentTime = "2025-12-9-4-50" , dayMode = "d" , runtime = 3 )
+	getList =  PPPPP ( currentTime = "2025/12/15/1/5" , dayMode = "h" , runtime = 3 )	 
 	# getList =  PPPPP ( currentTime = "2025/12/15/17:00" , dayMode = "h" , runtime = 7 ) 
 	# getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
 	for i in getList:
 		print(i)	
-
-
-
-
+	print(getFourPillar( "2025/12/15/2/46" ,  True  ))
+	print(getFourPillar( "2025/12/15/1/46" ,  True  ))
+	# print(getFourPillar( "2025/12/10/22/00" ,  True  ))
+	# print(getFourPillar( "2025/12/10/23/00" ,  True  ))
 	# print( getGanziYear(2012) )
 
 
