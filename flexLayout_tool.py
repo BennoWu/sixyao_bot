@@ -1585,7 +1585,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 	print(row[1].replace("/" , "/")) 
 	moreCmdDate = PPPPP ( currentTime = row[1] , dayMode = dayMode  , runtime = 2 )[-1][1].replace("/","-").replace(":","-")
 
-	if ( dayMode.lower() == "d" ) or ( dayMode.lower() == "h" ) :
+	if ( dayMode.lower() == "d" ) :
 		print( "## ",moreCmdDate )
 		more_command = "干支/" + showDayMode + "/" + moreCmdDate			
 
