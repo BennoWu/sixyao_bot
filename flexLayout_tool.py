@@ -4475,7 +4475,7 @@ sSixZanUiLayout = """
 				"type": "text",
 				"text": "__占__",
 				"weight": "regular",
-				"size": "lg",
+				"size": "md",
 				"wrap": true
 			  }
 			],
@@ -4593,13 +4593,13 @@ sSixZanUiLayout = """
 			  }
 			],
 			"offsetBottom": "md",
-			"margin": "xs"
+			"margin": "sm"
 		  }
 		],
 		"offsetBottom": "sm"
 	  }
 	],
-	"height": "220px",
+	"height": "230px",
 	"backgroundColor": "#eeeeee"
   },
   "styles": {
@@ -4670,7 +4670,7 @@ def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
 
 
 if __name__ == '__main__':
-	ganZiList_fun( currentTime = "" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
+	# ganZiList_fun( currentTime = "" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "2026-04-20" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "2026/05/05" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )		
@@ -4698,7 +4698,7 @@ if __name__ == '__main__':
 
 	# getDrawRiceGua("占明天天氣" , printMode = True )
 
-	# sSixZnUi( [208,69,42] , "XX展的文件",  printMode = True)
+	sSixZnUi( [102,45,100] , "占andy案子的收尾吉凶",  printMode = True)
 
 	# yearListFlexLayout( "2025",True ) 
 
