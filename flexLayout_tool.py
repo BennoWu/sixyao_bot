@@ -4517,7 +4517,7 @@ sSixZanUiLayout = """
 					"weight": "bold",
 					"margin": "sm",
 					"flex": 0,
-					"color": "#666666"
+					"color": "#000000"
 				  }
 				],
 				"width": "40px"
@@ -4549,7 +4549,7 @@ sSixZanUiLayout = """
 					"weight": "bold",
 					"margin": "sm",
 					"flex": 0,
-					"color": "#666666"
+					"color": "#000000"
 				  }
 				],
 				"width": "40px"
@@ -4581,7 +4581,7 @@ sSixZanUiLayout = """
 					"weight": "bold",
 					"margin": "sm",
 					"flex": 0,
-					"color": "#444444",
+					"color": "#000000",
 					"action": {
 					  "type": "message",
 					  "label": "action",
@@ -4599,7 +4599,7 @@ sSixZanUiLayout = """
 		"offsetBottom": "sm"
 	  }
 	],
-	"height": "225px",
+	"height": "216px",
 	"backgroundColor": "#eeeeee"
   },
   "styles": {
