@@ -4476,7 +4476,7 @@ sSixZanUiLayout = """
 				"text": "__占__",
 				"weight": "regular",
 				"size": "md",
-				"wrap": true
+				"wrap": false
 			  }
 			],
 			"margin": "sm"
@@ -4599,7 +4599,7 @@ sSixZanUiLayout = """
 		"offsetBottom": "sm"
 	  }
 	],
-	"height": "230px",
+	"height": "225px",
 	"backgroundColor": "#eeeeee"
   },
   "styles": {
