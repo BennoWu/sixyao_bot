@@ -4434,189 +4434,232 @@ sSixZanUiLayout = """
   "type": "bubble",
   "size": "deca",
   "body": {
-	"type": "box",
-	"layout": "vertical",
-	"contents": [
-	  {
-		"type": "box",
-		"layout": "vertical",
-		"contents": [
-		  {
-			"type": "image",
-			"url": "__URL__",
-			"size": "full",
-			"aspectRatio": "10:5.5"
-		  }
-		],
-		"height": "104px"
-	  },
-	  {
-		"type": "text",
-		"text": "__SUB__",
-		"size": "sm",
-		"weight": "bold",
-		"color": "#888888",
-		"margin": "sm",
-		"offsetBottom": "xs"
-	  },
-	  {
-		"type": "separator",
-		"color": "#aaaaaa"
-	  },
-	  {
-		"type": "box",
-		"layout": "vertical",
-		"contents": [
-		  {
-			"type": "box",
-			"layout": "horizontal",
-			"contents": [
-			  {
-				"type": "text",
-				"text": "__占__",
-				"weight": "regular",
-				"size": "md",
-				"wrap": false
-			  }
-			],
-			"margin": "sm"
-		  }
-		]
-	  },
-	  {
-		"type": "box",
-		"layout": "vertical",
-		"contents": [
-		  {
-			"type": "box",
-			"layout": "vertical",
-			"contents": [
-			  {
-				"type": "text",
-				"text": "__NUMBER__",
-				"size": "md",
-				"weight": "regular",
-				"color": "#6D839B"
-			  }
-			],
-			"height": "20px",
-			"margin": "none"
-		  },
-		  {
-			"type": "box",
-			"layout": "horizontal",
-			"contents": [
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "__STEP1__",
-					"size": "lg",
-					"weight": "bold",
-					"margin": "sm",
-					"flex": 0,
-					"color": "#000000"
-				  }
-				],
-				"width": "40px"
-			  },
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "-",
-					"size": "lg",
-					"weight": "bold",
-					"margin": "sm",
-					"flex": 0,
-					"color": "#888888"
-				  }
-				],
-				"width": "9px"
-			  },
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "__STEP2__",
-					"size": "lg",
-					"weight": "bold",
-					"margin": "sm",
-					"flex": 0,
-					"color": "#000000"
-				  }
-				],
-				"width": "40px"
-			  },
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "-",
-					"size": "lg",
-					"weight": "bold",
-					"margin": "sm",
-					"flex": 0,
-					"color": "#888888"
-				  }
-				],
-				"width": "9px"
-			  },
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "__STEP3__",
-					"size": "lg",
-					"weight": "bold",
-					"margin": "sm",
-					"flex": 0,
-					"color": "#000000",
-					"action": {
-					  "type": "message",
-					  "label": "action",
-					  "text": "Hi~"
-					}
-				  }
-				],
-				"width": "40px"
-			  }
-			],
-			"offsetBottom": "md",
-			"margin": "sm"
-		  }
-		],
-		"offsetBottom": "sm"
-	  }
-	],
-	"height": "216px",
-	"backgroundColor": "#eeeeee"
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "image",
+            "url": "__URL__",
+            "size": "full",
+            "aspectRatio": "10:5.5"
+          }
+        ],
+        "height": "104px"
+      },
+      {
+        "type": "separator",
+        "color": "#aaaaaa",
+        "margin": "xs"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "__NUMBER__",
+            "size": "md",
+            "weight": "bold",
+            "color": "#888888"
+          }
+        ],
+        "height": "20px",
+        "margin": "xs",
+        "offsetBottom": "1px"
+      },
+      {
+        "type": "text",
+        "text": "__SUB__",
+        "size": "sm",
+        "weight": "bold",
+        "color": "#333333",
+        "offsetBottom": "xs"
+      },
+      {
+        "type": "separator",
+        "color": "#aaaaaa"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "__占__",
+                "weight": "regular",
+                "size": "md",
+                "wrap": false
+              }
+            ],
+            "margin": "sm"
+          }
+        ],
+        "margin": "xs"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "❰",
+                    "size": "xl",
+                    "margin": "xs",
+                    "flex": 0,
+                    "color": "#9E121D",
+                    "weight": "bold",
+                    "offsetStart": "sm",
+                    "offsetBottom": "1px"
+                  }
+                ],
+                "width": "21px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__STEP1__",
+                    "size": "lg",
+                    "weight": "bold",
+                    "margin": "sm",
+                    "flex": 0,
+                    "color": "#000000"
+                  }
+                ],
+                "width": "40px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "-",
+                    "size": "lg",
+                    "weight": "bold",
+                    "margin": "sm",
+                    "flex": 0,
+                    "color": "#888888"
+                  }
+                ],
+                "width": "9px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__STEP2__",
+                    "size": "lg",
+                    "weight": "bold",
+                    "margin": "sm",
+                    "flex": 0,
+                    "color": "#000000"
+                  }
+                ],
+                "width": "40px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "-",
+                    "size": "lg",
+                    "weight": "bold",
+                    "margin": "sm",
+                    "flex": 0,
+                    "color": "#888888"
+                  }
+                ],
+                "width": "9px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "__STEP3__",
+                    "size": "lg",
+                    "weight": "bold",
+                    "margin": "sm",
+                    "flex": 0,
+                    "color": "#000000",
+                    "action": {
+                      "type": "message",
+                      "label": "action",
+                      "text": "Hi~"
+                    }
+                  }
+                ],
+                "width": "40px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "❱",
+                    "size": "xl",
+                    "margin": "xs",
+                    "flex": 0,
+                    "color": "#9E121D",
+                    "weight": "bold",
+                    "offsetStart": "sm",
+                    "offsetBottom": "1px"
+                  }
+                ],
+                "width": "18px"
+              }
+            ],
+            "offsetBottom": "md",
+            "margin": "md",
+            "spacing": "xs"
+          }
+        ],
+        "offsetBottom": "sm"
+      }
+    ],
+    "height": "220px",
+    "backgroundColor": "#eeeeee"
   },
   "styles": {
-	"footer": {
-	  "separator": true
-	}
+    "footer": {
+      "separator": true
+    }
   }
 }
 """
 
 url_dict = {
-"大安" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765216454/__icon/9f1845a5ec6b478c9cc9b81bdcb9653e.png",
-"留連" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765216455/__icon/e76ceed944c24a3ca2278a8eaa7c6454.png",
-"速喜" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765216455/__icon/690b743b0c1b4d738ac086d568c1b26a.png",
-"赤口" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765216456/__icon/4f897c1d223b4d5a84df2d6cd7f54baf.png",
-"小吉" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765216457/__icon/05f41ac5befb4086b3b67f4666a7b499.png",
-"空亡" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765216457/__icon/54037963d532475da28a01e464297a48.png",
+"大安" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765857010/__icon/9bef7bd468f24d00bdba7c6314fc8543.png",
+"留連" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765857011/__icon/9c9990f375324ce6847d106e76b119c2.png",
+"速喜" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765857012/__icon/c90f45b389294e3cad220ba46bd4a897.png",
+"赤口" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765857013/__icon/67186dfd9c484f5983d9b9dc92f317da.png",
+"小吉" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765857013/__icon/1bdd2028903c44f8b85993e89ee2e925.png",
+"空亡" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765857014/__icon/878bb100765443688074c27b3d097714.png",
 }
 
 def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):

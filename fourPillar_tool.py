@@ -709,7 +709,9 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 		# .replace("刻盤","刻"))
 		)
 	if currentTime:
-		format_time = lambda s: "/".join((s.strip("/").split("/") + ["00", "00"])[:5])
+		## 2025/12/21 -> 2025/12/21/07/00 如果沒有給時間，自動補上07:00
+		## 本來是補上 00:00, 但陽曆和干支的換日界線不同導致干支比日早了一天，故修正
+		format_time = lambda s: "/".join((s.strip("/").split("/") + ["07", "00"])[:5]) 
 		currentTime = format_time(currentTime)  # 把結果存回去
 	dayMode = dayMode.lower()
 	timeList = []
@@ -969,19 +971,23 @@ if __name__ == '__main__':
 	# getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 20)
 	# getList = PPPPP ( currentTime = "2025/12/10/21/00" ,dayMode = "h", runtime = 20)	
 	# getList =  PPPPP ( currentTime = "2025-12-9-4-50" , dayMode = "d" , runtime = 3 )
-	getList =  PPPPP ( currentTime = "2025/12/15/1/5" , dayMode = "h" , runtime = 3 )	 
+	getList =  PPPPP ( currentTime = "2025/12/21/23/00" , dayMode = "d" , runtime = 8 )
+	# getList = PPPPP ( currentTime = "2025/12/20" ,dayMode = "h", runtime = 20)			 
 	# getList =  PPPPP ( currentTime = "2025/12/15/17:00" , dayMode = "h" , runtime = 7 ) 
 	# getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
 	for i in getList:
 		print(i)	
-	print(getFourPillar( "2025/12/15/2/46" ,  True  ))
-	print(getFourPillar( "2025/12/15/1/46" ,  True  ))
+	# print(getFourPillar( "2025/12/15/2/46" ,  True  ))
+	# print(getFourPillar( "2025/12/15/1/46" ,  True  ))
 	# print(getFourPillar( "2025/12/10/22/00" ,  True  ))
 	# print(getFourPillar( "2025/12/10/23/00" ,  True  ))
+	print(getFourPillar( "2025/12/21/23/00" ,  True  ))
+
 	# print( getGanziYear(2012) )
 
 
-
+# 10 癸丑
+# 11 甲寅
 
 
 
