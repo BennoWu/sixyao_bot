@@ -4499,7 +4499,7 @@ sSixZanUiLayout = """
                 "wrap": false
               }
             ],
-            "margin": "sx"
+            "margin": "xs"
           }
         ],
         "margin": "xs"
