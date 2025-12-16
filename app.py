@@ -880,7 +880,7 @@ def handle_postback(event):
 
 		# 小六壬 處理
 		elif data.startswith("s+"):
-
+			print( "S: ",data )
 			data = data[2:]
 
 			itemBuf = data.split(" // ")
