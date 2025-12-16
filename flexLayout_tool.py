@@ -4499,7 +4499,7 @@ sSixZanUiLayout = """
                 "wrap": false
               }
             ],
-            "margin": "sm"
+            "margin": "sx"
           }
         ],
         "margin": "xs"
@@ -4635,14 +4635,14 @@ sSixZanUiLayout = """
               }
             ],
             "offsetBottom": "md",
-            "margin": "md",
+            "margin": "lg",
             "spacing": "xs"
           }
         ],
         "offsetBottom": "sm"
       }
     ],
-    "height": "220px",
+    "height": "225px",
     "backgroundColor": "#eeeeee"
   },
   "styles": {
