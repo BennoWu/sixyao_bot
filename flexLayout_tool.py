@@ -1059,7 +1059,12 @@ hourModeLayout = """
 											"wrap": true,
 											"flex": 0,
 											"color": "#888888",
-											"gravity": "bottom"
+											"gravity": "bottom",
+												"action": {
+												  "type": "message",
+												  "label": "action",
+												  "text": "_日_"
+												}
 										},
 										{
 											"type": "text",
@@ -1562,7 +1567,17 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 		## 時
 		if dayMode.lower() == "h":		
 			# 時
+			currentTimeBuf = row[1].replace( "/" , ",")  ## "干支/日/2023-05-06/15"
+
+			currentTimeBuf = "/".join( currentTimeBuf.split("/")[:3])
+
+			day_command =  f"干支/日/{8}/{currentTimeBuf}" ##"干支/日/%s/%s"% ( "2023-05-06" , "15" )
+
+
+
 			buf_hourModeLayout = hourModeLayout.replace("年柱", row[0].split("-")[0] ).replace("月柱", row[0].split("-")[1] ).replace("日柱", row[0].split("-")[2] ).replace("時柱", row[0].split("-")[3] ).replace("__TIME__", row[1]+row[2] ).replace("__JECHI__", row[3] if row[3] != '' else '　')
+			buf_hourModeLayout = buf_hourModeLayout.replace( "_日_", day_command )				
+
 			if  row[0].split("-")[3] in hourMuuList:
 				buf_hourModeLayout = buf_hourModeLayout.replace( "#2E4E7C" , "#998675")
 			

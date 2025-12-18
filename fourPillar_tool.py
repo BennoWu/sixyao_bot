@@ -678,11 +678,50 @@ def checkYear ( yearData = "" ):
 
 
 
+# def format_time(s):
+#     # 1. 去掉前後的 /
+#     s = s.strip("/")
+
+#     # 2. 用 / 切開
+#     parts = s.split("/")
+
+#     # 3. 補上預設時間
+#     parts.append("07")
+#     parts.append("00")
+
+#     # 4. 只留前 5 個（年/月/日/時/分）
+#     parts = parts[:5]
+
+#     # 5. 接回字串
+#     return "/".join(parts)
 
 
 
+def format_time(s, _dayMode ):
+	parts = s.strip("/").split("/")
+
+	if len(parts) < 3:
+		raise ValueError("時間格式至少要有 年/月/日")
+
+	y = parts[0]
+	m = parts[1].zfill(2)
+	d = parts[2].zfill(2)
+
+	# -------- _dayMode  != h：強制 07/00 --------
+	if _dayMode  != "h":
+		return f"{y}/{m}/{d}/07/00"
+
+	# -------- _dayMode  == h --------
+	# 有 時（不管有沒有分），分鐘一律 00
+	if len(parts) >= 4:
+		hour = parts[3].zfill(2)
+		return f"{y}/{m}/{d}/{hour}/00"
+
+	# 只有 日期
+	return f"{y}/{m}/{d}/07/00"
 
 
+# currentTime = format_time(currentTime)
 
 
 
@@ -708,12 +747,17 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 		# .replace("時盤","時")
 		# .replace("刻盤","刻"))
 		)
-	if currentTime:
-		## 2025/12/21 -> 2025/12/21/07/00 如果沒有給時間，自動補上07:00
-		## 本來是補上 00:00, 但陽曆和干支的換日界線不同導致干支比日早了一天，故修正
-		format_time = lambda s: "/".join((s.strip("/").split("/") + ["07", "00"])[:5]) 
-		currentTime = format_time(currentTime)  # 把結果存回去
 	dayMode = dayMode.lower()
+
+	if currentTime:
+		currentTime = format_time( currentTime , dayMode )
+		# ## 2025/12/21 -> 2025/12/21/07/00 如果沒有給時間，自動補上07:00
+		# ## 本來是補上 00:00, 但陽曆和干支的換日界線不同導致干支比日早了一天，故修正
+		# format_time = lambda s: "/".join((s.strip("/").split("/") + ["07", "00"])[:5]) 
+		# currentTime = format_time(currentTime)  # 把結果存回去
+
+
+		
 	timeList = []
 	print( currentTime ) #
 	nowTime = checkMsgFun( currentTime ) ## 不輸入則取現時，輸入方式同起盤
@@ -791,10 +835,10 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 		dt = datetime.datetime.strptime(inDate, "%Y/%m/%d/%H/%M")
 
 		if dayMode == "h":   # 時辰模式
-		    out = (dt + datetime.timedelta(hours=2)).strftime("%Y/%m/%d/%H/%M")
+			out = (dt + datetime.timedelta(hours=2)).strftime("%Y/%m/%d/%H/%M")
 
 		elif dayMode == "d":  # 日模式（節氣和月模式已經在下面各自處理了）
-		    out = (dt + datetime.timedelta(days=1)).strftime("%Y/%m/%d/%H/%M")
+			out = (dt + datetime.timedelta(days=1)).strftime("%Y/%m/%d/%H/%M")
 
 		# 月模式 (m) 和節氣模式 (jc) 在後面的 if 區塊處理
 
@@ -971,7 +1015,7 @@ if __name__ == '__main__':
 	# getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 20)
 	# getList = PPPPP ( currentTime = "2025/12/10/21/00" ,dayMode = "h", runtime = 20)	
 	# getList =  PPPPP ( currentTime = "2025-12-9-4-50" , dayMode = "d" , runtime = 3 )
-	getList =  PPPPP ( currentTime = "2025/12/21/23/00" , dayMode = "d" , runtime = 8 )
+	getList =  PPPPP ( currentTime = "2025/12/21/3/00" , dayMode = "m" , runtime = 8 )
 	# getList = PPPPP ( currentTime = "2025/12/20" ,dayMode = "h", runtime = 20)			 
 	# getList =  PPPPP ( currentTime = "2025/12/15/17:00" , dayMode = "h" , runtime = 7 ) 
 	# getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
