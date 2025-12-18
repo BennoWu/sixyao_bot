@@ -1567,10 +1567,10 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 		## 時
 		if dayMode.lower() == "h":		
 			# 時
-			currentTimeBuf = row[1].replace( "/" , ",")  ## "干支/日/2023-05-06/15"
+			currentTimeBuf = row[1].replace( "," , "-")  ## "干支/日/2023-05-06/15"
 
-			currentTimeBuf = "/".join( currentTimeBuf.split("/")[:3])
-
+			currentTimeBuf = "-".join( currentTimeBuf.split("/")[:3])
+			# print("@@",currentTimeBuf)
 			day_command =  f"干支/日/{8}/{currentTimeBuf}" ##"干支/日/%s/%s"% ( "2023-05-06" , "15" )
 
 
@@ -4728,7 +4728,7 @@ def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
 
 
 if __name__ == '__main__':
-	# ganZiList_fun( currentTime = "" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
+	ganZiList_fun( currentTime = "2025/12/21/3/00" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "2026-04-20" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "2026/05/05" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )		
