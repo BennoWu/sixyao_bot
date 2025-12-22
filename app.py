@@ -211,6 +211,56 @@ def parse_ganzhi_input(inputMsg):
 
 
 
+import re
+
+TIME_MODES = ["日", "時", "月", "節氣"]
+
+def normalize_time_command(inputMsg):
+	msg = inputMsg.strip()
+	result = {
+		"normalized": None,
+		"mode": None,
+		"runtime": None,
+		"matched": False,
+	}
+
+	# 移除空白（不動其他符號，讓後面 parse 吃）
+	msg = re.sub(r"\s+", "", msg)
+
+	for mode in TIME_MODES:
+		# 規則：
+		# 1. 可有「干支」
+		# 2. mode 後可接數字
+		# 3. mode 後面若有 /xxx 就保留
+		pattern = rf"^(?:干支)?{mode}(?:(\d+))?(.*)$"
+		m = re.match(pattern, msg)
+
+		if not m:
+			continue
+
+		runtime = m.group(1)
+		tail = m.group(2) or ""
+
+		# runtime 預設（只有單一「日 / 時 / 月 / 節氣」）
+		if runtime is None:
+			runtime = "10"
+
+		normalized = f"干支/{mode}/{runtime}{tail}"
+
+		result.update({
+			"normalized": normalized,
+			"mode": mode,
+			"runtime": int(runtime),
+			"matched": True
+		})
+		return result
+
+	return result
+
+
+
+
+
 ## 取出字典檔中的命令
 def getZhuangGuaData(ui_dict):
 	def dfs(obj):
@@ -461,39 +511,30 @@ def handle_message(event):
 
 
 	# 干支列表
-	elif inputMsg[:3] == "干支/":
+	# elif inputMsg[:2] == "干支":
+	# 	Zhi = "子丑寅卯辰巳午未申酉戌亥"
+	# 	dateMode = ""
+	# 	runTimeBuf = ""
+	# 	indexBuf = ""
+	# 	dateBuf = ""
+	# 	_, dayModeBuf, runtimeBuf, dateBuf, indexBuf = parse_ganzhi_input(unifiedData(inputMsg))
+# 干支列表
+	elif inputMsg.startswith("干支") or normalize_time_command(inputMsg)["matched"]:
+
 		Zhi = "子丑寅卯辰巳午未申酉戌亥"
 		dateMode = ""
 		runTimeBuf = ""
 		indexBuf = ""
 		dateBuf = ""
-		# inputMsg = unifiedData(inputMsg)
-		# ganZiiList = inputMsg.split("/")
 
-		# if len(ganZiiList) == 2: ## 干支/日
-		# 	dateMode = ganZiiList[1]
-		# 	runTimeBuf = 9
+		info = normalize_time_command(inputMsg)
 
-		# elif len(ganZiiList) == 3: ## 干支/日/10
-		# 	dateMode = ganZiiList[1]
-		# 	runTimeBuf = ganZiiList[2]
+		if info["matched"]:
+			normalizedMsg = info["normalized"]
+		else:
+			normalizedMsg = unifiedData(inputMsg)
 
-		# elif len(ganZiiList) == 4:  ## 干支/日/10/2025-08-31-15-48
-		# 	dateMode = ganZiiList[1]
-		# 	runTimeBuf = ganZiiList[2]
-		# 	if ganZiiList[3] in Zhi:
-		# 		indexBuf = ganZiiList[3]
-		# 	else:
-		# 		dateBuf = ganZiiList[3]
-		# elif len(ganZiiList) == 5:
-		# 	dateMode = ganZiiList[1]
-		# 	runTimeBuf = ganZiiList[2]
-		# 	if ganZiiList[3] in Zhi:
-		# 		indexBuf, dateBuf = ganZiiList[3], ganZiiList[4]
-		# 	else:
-		# 		indexBuf, dateBuf = ganZiiList[4], ganZiiList[3]
-
-		_, dayModeBuf, runtimeBuf, dateBuf, indexBuf = parse_ganzhi_input(unifiedData(inputMsg))
+		_, dayModeBuf, runtimeBuf, dateBuf, indexBuf = parse_ganzhi_input(normalizedMsg)
 
 
 		ganZi_flexMsgJson_dict = ganZiList_fun(
@@ -880,7 +921,7 @@ def handle_postback(event):
 
 		# 小六壬 處理
 		elif data.startswith("s+"):
-			
+
 			data = data[2:]
 
 			itemBuf = data.split(" // ")

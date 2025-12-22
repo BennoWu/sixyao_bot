@@ -320,7 +320,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 	def draw_SquareFull ( hightSize = screenHight , widthSize = screenWidth , offset = 0 , fillColor = lightGray , outlineColor = None ,  LineWidth = 0 ):
 		draw.rectangle([ offset , offset , widthSize -offset , hightSize - offset ], fill = fillColor, width = LineWidth , outline = outlineColor )
 
-
+	## 藍色斜角大框
 	def draw_SquareWithCornerCut(
 		hightSize=screenHight,
 		widthSize=screenWidth,
