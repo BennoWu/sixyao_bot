@@ -37,12 +37,12 @@ uiLayoutFront ="""
 			"weight": "bold",
 			"color": "#6A8B91",
 			"size": "md",
-            "action": {
-              "type": "postback",
-              "label": "action",
-              "data": "hello",
-              "displayText": "__SHOW__"
-            }
+			"action": {
+			  "type": "postback",
+			  "label": "action",
+			  "data": "pass",
+			  "displayText": "__SHOW__"
+			}
 		  }
 		],
 		"margin": "none"
@@ -822,6 +822,29 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	# note = note.replace("#",",")
 	# command = command.replace("#",",")
 	# display_command = display_command.replace("#",",")
+
+
+	showCommand = command[1:]
+	# "+2025/05/08/09/40//1X01$0//在某公司的發展"
+
+	if "<" in command:
+		s = command[1:]
+		# 有 < → 時是假補的，只顯示日期
+		showCommand = re.sub(
+			r"(\d{4})/(\d{2})/(\d{2})/\d{2}/\d{2}<",
+			r"\1-\2-\3",
+			s
+		)
+	else:
+		s = command[1:]
+		# 沒 < → 時是真的，只是換顯示格式
+		showCommand = re.sub(
+			r"(\d{4})/(\d{2})/(\d{2})/(\d{2})/(\d{2})",
+			r"\1-\2-\3-\4-\5",
+			s
+		)
+
+
 # 📄
 # 干支/日/2025.5.11/10/申
 	reDataLayout =   (  uiLayout.replace("__sunDate__",  "國曆: " + sun_date )
@@ -839,7 +862,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 								.replace("__dis裝卦__", display_command )								
 								.replace("__ORGGUA__" , orgGuaName)
 								.replace("__CHGGUA__" , chgGuaName)
-								.replace("__SHOW__", command[1:] )
+								.replace("__SHOW__", showCommand )
 
 						)
 	# print("dateMark - " , dateSureMark )
@@ -4449,221 +4472,221 @@ sSixZanUiLayout = """
   "type": "bubble",
   "size": "deca",
   "body": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "image",
-            "url": "__URL__",
-            "size": "full",
-            "aspectRatio": "10:5.5"
-          }
-        ],
-        "height": "104px"
-      },
-      {
-        "type": "separator",
-        "color": "#aaaaaa",
-        "margin": "xs"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "text",
-            "text": "__NUMBER__",
-            "size": "md",
-            "weight": "bold",
-            "color": "#888888"
-          }
-        ],
-        "height": "20px",
-        "margin": "xs",
-        "offsetBottom": "1px"
-      },
-      {
-        "type": "text",
-        "text": "__SUB__",
-        "size": "sm",
-        "weight": "bold",
-        "color": "#333333",
-        "offsetBottom": "xs"
-      },
-      {
-        "type": "separator",
-        "color": "#aaaaaa"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "text",
-                "text": "__占__",
-                "weight": "regular",
-                "size": "md",
-                "wrap": false
-              }
-            ],
-            "margin": "xs"
-          }
-        ],
-        "margin": "xs"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "❰",
-                    "size": "xl",
-                    "margin": "xs",
-                    "flex": 0,
-                    "color": "#9E121D",
-                    "weight": "bold",
-                    "offsetStart": "sm",
-                    "offsetBottom": "1px"
-                  }
-                ],
-                "width": "21px"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "__STEP1__",
-                    "size": "lg",
-                    "weight": "bold",
-                    "margin": "sm",
-                    "flex": 0,
-                    "color": "#000000"
-                  }
-                ],
-                "width": "40px"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "-",
-                    "size": "lg",
-                    "weight": "bold",
-                    "margin": "sm",
-                    "flex": 0,
-                    "color": "#888888"
-                  }
-                ],
-                "width": "9px"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "__STEP2__",
-                    "size": "lg",
-                    "weight": "bold",
-                    "margin": "sm",
-                    "flex": 0,
-                    "color": "#000000"
-                  }
-                ],
-                "width": "40px"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "-",
-                    "size": "lg",
-                    "weight": "bold",
-                    "margin": "sm",
-                    "flex": 0,
-                    "color": "#888888"
-                  }
-                ],
-                "width": "9px"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "__STEP3__",
-                    "size": "lg",
-                    "weight": "bold",
-                    "margin": "sm",
-                    "flex": 0,
-                    "color": "#000000",
-                    "action": {
-                      "type": "message",
-                      "label": "action",
-                      "text": "Hi~"
-                    }
-                  }
-                ],
-                "width": "40px"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "❱",
-                    "size": "xl",
-                    "margin": "xs",
-                    "flex": 0,
-                    "color": "#9E121D",
-                    "weight": "bold",
-                    "offsetStart": "sm",
-                    "offsetBottom": "1px"
-                  }
-                ],
-                "width": "18px"
-              }
-            ],
-            "offsetBottom": "md",
-            "margin": "lg",
-            "spacing": "xs"
-          }
-        ],
-        "offsetBottom": "sm"
-      }
-    ],
-    "height": "225px",
-    "backgroundColor": "#eeeeee"
+	"type": "box",
+	"layout": "vertical",
+	"contents": [
+	  {
+		"type": "box",
+		"layout": "vertical",
+		"contents": [
+		  {
+			"type": "image",
+			"url": "__URL__",
+			"size": "full",
+			"aspectRatio": "10:5.5"
+		  }
+		],
+		"height": "104px"
+	  },
+	  {
+		"type": "separator",
+		"color": "#aaaaaa",
+		"margin": "xs"
+	  },
+	  {
+		"type": "box",
+		"layout": "vertical",
+		"contents": [
+		  {
+			"type": "text",
+			"text": "__NUMBER__",
+			"size": "md",
+			"weight": "bold",
+			"color": "#888888"
+		  }
+		],
+		"height": "20px",
+		"margin": "xs",
+		"offsetBottom": "1px"
+	  },
+	  {
+		"type": "text",
+		"text": "__SUB__",
+		"size": "sm",
+		"weight": "bold",
+		"color": "#333333",
+		"offsetBottom": "xs"
+	  },
+	  {
+		"type": "separator",
+		"color": "#aaaaaa"
+	  },
+	  {
+		"type": "box",
+		"layout": "vertical",
+		"contents": [
+		  {
+			"type": "box",
+			"layout": "horizontal",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "__占__",
+				"weight": "regular",
+				"size": "md",
+				"wrap": false
+			  }
+			],
+			"margin": "xs"
+		  }
+		],
+		"margin": "xs"
+	  },
+	  {
+		"type": "box",
+		"layout": "vertical",
+		"contents": [
+		  {
+			"type": "box",
+			"layout": "horizontal",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "❰",
+					"size": "xl",
+					"margin": "xs",
+					"flex": 0,
+					"color": "#9E121D",
+					"weight": "bold",
+					"offsetStart": "sm",
+					"offsetBottom": "1px"
+				  }
+				],
+				"width": "21px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__STEP1__",
+					"size": "lg",
+					"weight": "bold",
+					"margin": "sm",
+					"flex": 0,
+					"color": "#000000"
+				  }
+				],
+				"width": "40px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "-",
+					"size": "lg",
+					"weight": "bold",
+					"margin": "sm",
+					"flex": 0,
+					"color": "#888888"
+				  }
+				],
+				"width": "9px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__STEP2__",
+					"size": "lg",
+					"weight": "bold",
+					"margin": "sm",
+					"flex": 0,
+					"color": "#000000"
+				  }
+				],
+				"width": "40px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "-",
+					"size": "lg",
+					"weight": "bold",
+					"margin": "sm",
+					"flex": 0,
+					"color": "#888888"
+				  }
+				],
+				"width": "9px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__STEP3__",
+					"size": "lg",
+					"weight": "bold",
+					"margin": "sm",
+					"flex": 0,
+					"color": "#000000",
+					"action": {
+					  "type": "message",
+					  "label": "action",
+					  "text": "Hi~"
+					}
+				  }
+				],
+				"width": "40px"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "❱",
+					"size": "xl",
+					"margin": "xs",
+					"flex": 0,
+					"color": "#9E121D",
+					"weight": "bold",
+					"offsetStart": "sm",
+					"offsetBottom": "1px"
+				  }
+				],
+				"width": "18px"
+			  }
+			],
+			"offsetBottom": "md",
+			"margin": "lg",
+			"spacing": "xs"
+		  }
+		],
+		"offsetBottom": "sm"
+	  }
+	],
+	"height": "225px",
+	"backgroundColor": "#eeeeee"
   },
   "styles": {
-    "footer": {
-      "separator": true
-    }
+	"footer": {
+	  "separator": true
+	}
   }
 }
 """
@@ -4756,7 +4779,7 @@ if __name__ == '__main__':
 
 	# getDrawRiceGua("占明天天氣" , printMode = True )
 
-	sSixZnUi( [102,45,100] , "占andy案子的收尾吉凶",  printMode = True)
+	# sSixZnUi( [102,45,100] , "占andy案子的收尾吉凶",  printMode = True)
 
 	# yearListFlexLayout( "2025",True ) 
 

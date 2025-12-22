@@ -1294,11 +1294,11 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 
 if __name__ == '__main__':
-	print(unifiedData("干支/日/2025-12-24"))
+	# print(unifiedData("干支/日/2025-12-24"))
 	# sixYaoMain( "2021/04/18/19/00//1​1​0​X​1​1//男占女未來是否有機會共事")
 	# sixYaoMain( "俘之履//男占女未來是否有機會共事//辛丑，壬辰，丙申，戊戌")
 	# sixYaoMain( "2025,4,27,12,28//卯月丁巳日//010$1X//問題問題問題" )
-	# sixYaoMain( "復之艮//吃飽了沒")
+	sixYaoMain( "復之艮//吃飽了沒")
 	# sixYaoMain( "27 71 42//吃飽了沒")
 	# sixYaoMain( "地风升之地水师//卯月乙未日//一人占賣貨")	
 	# sixYaoMain( "100101//占今年幾時換工作今時換工作較好" )
@@ -1358,7 +1358,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "+申月戊午日//一人占自久病問過得今年否?//遁之姤卦" )
 	# sixYaoMain( "2024,11,17,21,04//姜舒蕾(許奇峰老婆)何時懷孕?//地天泰之震為雷" ) ## 三合
 	# sixYaoMain( "+2025/05/08/09/40//1X01$0//在某公司的發展" )
-	# sixYaoMain("2025/05/08/09/40 // 在某公司的發展 //  隨之歸妹")
+	sixYaoMain("2025/05/08 // 在某公司的發展 //  隨之歸妹",showPic = True)
 	# sixYaoMain( "巳年甲申月乙丑日//占姜小姐胎產吉凶(政閩)//巽為風" )
 	# sixYaoMain( "2025-08-24 13:17//占姜小姐胎產吉凶(陳春霖)//澤水困" )
 	# sixYaoMain( "2025-08-24 00:46//占姜小姐胎產吉凶(盈樺)//山地之晉" )

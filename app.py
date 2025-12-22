@@ -647,7 +647,7 @@ def handle_message(event):
 
 
 	# 修改Title
-	elif inputMsg[0] in [">", "#", ":", "@", "#" , "："]:
+	elif inputMsg[0] in [ ">", "#" , ":" , "@", "#" , "：" , "！" , "!"]:
 		changeNote = inputMsg[1:]
 		changeNote = changeNote.replace(' ', '')
 		# changeNote = changeNote.replace('\n', '^')
@@ -917,6 +917,8 @@ def handle_postback(event):
 		# time.sleep(2)
 		# richmenu 切換
 		if data.startswith("change-to-"):
+			return
+		elif data == "pass":
 			return
 
 		# 小六壬 處理
