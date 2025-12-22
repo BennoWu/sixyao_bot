@@ -321,6 +321,58 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 		draw.rectangle([ offset , offset , widthSize -offset , hightSize - offset ], fill = fillColor, width = LineWidth , outline = outlineColor )
 
 
+	def draw_SquareWithCornerCut(
+		hightSize=screenHight,
+		widthSize=screenWidth,
+		offset=0,
+		cut=30,                 # 斜角長度
+		fillColor=lightGray,
+		outlineColor=(0,0,0),
+		LineWidth=2
+	):
+		left   = offset
+		top    = offset
+		right  = widthSize - offset
+		bottom = hightSize - offset
+
+		# 1️⃣ 原本的方框（線寬可調）
+		draw.rectangle(
+			[left, top, right, bottom],
+			fill=fillColor,
+			outline=outlineColor,
+			width=LineWidth
+		)
+
+		# 2️⃣ 四個角的斜線（和邊框同粗）
+		# 左上
+		draw.line(
+			[(left, top + cut), (left + cut, top)],
+			fill=outlineColor,
+			width=LineWidth
+		)
+
+		# 右上
+		draw.line(
+			[(right - cut, top), (right, top + cut)],
+			fill=outlineColor,
+			width=LineWidth
+		)
+
+		# 右下
+		draw.line(
+			[(right, bottom - cut), (right - cut, bottom)],
+			fill=outlineColor,
+			width=LineWidth
+		)
+
+		# 左下
+		draw.line(
+			[(left + cut, bottom), (left, bottom - cut)],
+			fill=outlineColor,
+			width=LineWidth
+		)
+
+
 		# 分割橫線
 	def draw_H_line ( hight = 427  , sideSpace = twoSideSpace , color = lineColor , LineWidth = 2 ):
 		draw.line((  sideSpace , hight , screenWidth - sideSpace , hight ), fill= color, width = LineWidth )
@@ -386,7 +438,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 	roundSquare (  hight = screenHight-268 , hightSize = 90 , sideSpace = twoSideSpace+3 , fillColor = None , outlineColor = "#777777" , LineWidth = 4 )
 
 	## 最大邊框"#ACA899"
-	draw_SquareFull ( hightSize = screenHight , widthSize = screenWidth , offset = 0 , fillColor = None , outlineColor = "#284560" ,  LineWidth = 19 )
+	draw_SquareWithCornerCut ( hightSize = screenHight , widthSize = screenWidth , offset = 0 , fillColor = None , outlineColor = "#284560" ,  LineWidth = 19 )
 	# draw_SquareFull ( hightSize = screenHight , widthSize = screenWidth , offset = 23 , fillColor = None , outlineColor = "#1E3752" ,  LineWidth = 3 )	
 	# roundSquare (  hight = 8 , hightSize = screenHight-18, sideSpace = 8 ,roundSize = 30 ,   fillColor = None , outlineColor = "#959799" , LineWidth = 8 )
 
@@ -626,10 +678,10 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 		## 變爻
 		if allDataDict['change_mode'] == "六沖":
-			makeBallText( text = "沖" , x = screenWidth*0.5 + 25 +343 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = siIn_color , bt_font = pf_TC_bold , LineWidth = 4  )
+			makeBallText( text = "沖" , x = screenWidth*0.5 + 25 +343 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = titleGray , bt_font = pf_TC_bold , LineWidth = 4  )
 			changeGuaSpace += 10
 		if allDataDict['change_mode'] == "六合":
-			makeBallText( text = "合" , x = screenWidth*0.5 + 25 +343 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = siIn_color , bt_font = pf_TC_bold , LineWidth = 4  )
+			makeBallText( text = "合" , x = screenWidth*0.5 + 25 +343 , y  = screenHight-255 , wordingSize = 45 ,  wordingColor = titleGray , bt_font = pf_TC_bold , LineWidth = 4  )
 			changeGuaSpace += 10
 		if len(allDataDict['change_title'] ) == 4:
 			changeGuaSpace += 20	
