@@ -576,11 +576,17 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 	draw_free_line ( 855 , 489-2  , size = 80 , color = subGray , LineWidth = 2 )
 
+
+
+
 	## ball text 圓圈字
 	## text_x_adj 微調文字x方向
-	def makeBallText( text = "" , x = 270 , y  = 1189 , wordingSize = 36 ,  wordingColor = subGray , bt_font = pf_TC_medium , LineWidth = 2  ): 
-		makePoint ( x = x-wordingSize*0.12 , y = y+wordingSize*0.1 , radious = wordingSize*1.25 , pointColor = None  ,LineWidth = LineWidth , lineColor = wordingColor )
-		makeText (  text , x , y , wordingSize = wordingSize  , wordingFont = bt_font  ,color = wordingColor )
+	def makeBallText( text = "" , x = 270 , y  = 1189 , wordingSize = 36 ,  wordingColor = subGray , bt_font = pf_TC_bold , LineWidth = 2  ): 
+		makePoint ( x = x-wordingSize*0.12 , y = y+wordingSize*0.1 , radious = wordingSize*1.25 , pointColor = wordingColor  ,LineWidth = LineWidth , lineColor = wordingColor )
+		makeText (  text , x , y , wordingSize = wordingSize  , wordingFont = bt_font  ,color = "#ffffff" )
+
+
+
 
 
 
@@ -728,8 +734,10 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 	startLineHight =  mainSquareHight + 870   # 起始基礎高度(最低)
 	hightBuf = -14
 
+	# yaoFont = pf_TC_medium
 	yaoFont = pf_TC_bold
 
+# pf_TC_bold
 	yaoWordingSize = 62
 
 
@@ -857,7 +865,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 		centerAdj = -8
 		
-		lineWidth = 6
+		lineWidth = 8
 		fixHight = insideSpace*0.5
 
 		if allDataDict['inputGuaList'][ row_id ] == "0":
