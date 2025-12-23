@@ -1029,7 +1029,7 @@ hourModeLayout = """
 											"type": "text",
 											"text": "年柱",
 											"weight": "regular",
-											"size": "lg",
+											"size": "md",
 											"margin": "none",
 											"wrap": true,
 											"flex": 0,
@@ -1039,7 +1039,7 @@ hourModeLayout = """
 										{
 											"type": "text",
 											"text": "|",
-											"size": "lg",
+											"size": "md",
 											"margin": "xs",
 											"color": "#cccccc",
 											"flex": 0,
@@ -1051,7 +1051,7 @@ hourModeLayout = """
 											"type": "text",
 											"text": "月柱",
 											"weight": "regular",
-											"size": "lg",
+											"size": "md",
 											"margin": "xs",
 											"wrap": true,
 											"flex": 0,
@@ -1066,7 +1066,7 @@ hourModeLayout = """
 										{
 											"type": "text",
 											"text": "|",
-											"size": "lg",
+											"size": "md",
 											"margin": "xs",
 											"color": "#cccccc",
 											"flex": 0,
@@ -1077,7 +1077,7 @@ hourModeLayout = """
 											"type": "text",
 											"text": "日柱",
 											"weight": "regular",
-											"size": "lg",
+											"size": "md",
 											"margin": "xs",
 											"wrap": true,
 											"flex": 0,
@@ -1092,7 +1092,7 @@ hourModeLayout = """
 										{
 											"type": "text",
 											"text": "|",
-											"size": "lg",
+											"size": "md",
 											"margin": "xs",
 											"color": "#cccccc",
 											"flex": 0,
@@ -1103,7 +1103,7 @@ hourModeLayout = """
 											"type": "text",
 											"text": "時柱",
 											"weight": "bold",
-											"size": "lg",
+											"size": "md",
 											"margin": "xs",
 											"wrap": true,
 											"flex": 0,
@@ -1172,7 +1172,7 @@ dayModeLayout = """{
 												"type": "text",
 												"text": "年柱",
 												"weight": "regular",
-												"size": "lg",
+												"size": "md",
 												"margin": "none",
 												"wrap": true,
 												"flex": 0,
@@ -1182,7 +1182,7 @@ dayModeLayout = """{
 											{
 												"type": "text",
 												"text": "|",
-												"size": "lg",
+												"size": "md",
 												"margin": "xs",
 												"color": "#cccccc",
 												"flex": 0,
@@ -1193,7 +1193,7 @@ dayModeLayout = """{
 												"type": "text",
 												"text": "月柱",
 												"weight": "regular",
-												"size": "lg",
+												"size": "md",
 												"margin": "xs",
 												"wrap": true,
 												"flex": 0,
@@ -1203,7 +1203,7 @@ dayModeLayout = """{
 											{
 												"type": "text",
 												"text": "|",
-												"size": "lg",
+												"size": "md",
 												"margin": "xs",
 												"color": "#cccccc",
 												"flex": 0,
@@ -1214,7 +1214,7 @@ dayModeLayout = """{
 												"type": "text",
 												"text": "日柱",
 												"weight": "bold",
-												"size": "lg",
+												"size": "md",
 												"margin": "xs",
 												"wrap": true,
 												"flex": 0,
@@ -1287,7 +1287,7 @@ monthModeLayout = """{
 												"type": "text",
 												"text": "年柱",
 												"weight": "regular",
-												"size": "lg",
+												"size": "md",
 												"margin": "none",
 												"wrap": true,
 												"flex": 0,
@@ -1297,7 +1297,7 @@ monthModeLayout = """{
 											{
 												"type": "text",
 												"text": "|",
-												"size": "lg",
+												"size": "md",
 												"margin": "xs",
 												"color": "#cccccc",
 												"flex": 0,
@@ -1308,7 +1308,7 @@ monthModeLayout = """{
 												"type": "text",
 												"text": "月柱",
 												"weight": "bold",
-												"size": "lg",
+												"size": "md",
 												"margin": "xs",
 												"wrap": true,
 												"flex": 0,
@@ -1320,7 +1320,7 @@ monthModeLayout = """{
 											{
 												"type": "text",
 												"text": "|",
-												"size": "lg",
+												"size": "md",
 												"margin": "xs",
 												"color": "#cccccc",
 												"flex": 0,
@@ -1331,7 +1331,7 @@ monthModeLayout = """{
 												"type": "text",
 												"text": "日柱",
 												"weight": "regular",
-												"size": "lg",
+												"size": "md",
 												"margin": "xs",
 												"wrap": true,
 												"flex": 0,
@@ -1414,7 +1414,7 @@ endLayout = """{
 								  {
 									"type": "text",
 									"text": "More...",
-									"size": "lg",
+									"size": "md",
 									"align": "end",
 									"weight": "bold",
 									"action": {
@@ -4951,12 +4951,12 @@ def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
 
 
 if __name__ == '__main__':
-	howToUse()
+	# howToUse()
 	# ganZiList_fun( currentTime = "2025/12/21/3/00" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "2026-04-20" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "2026/05/05" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )		
-	# ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 20 , printMode = True )
+	ganZiList_fun( currentTime = "" , dayMode = "h" , index = "" , runtime = 10 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/12/11/18/56" , dayMode = "h" , index = "" , runtime = 8 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
 
