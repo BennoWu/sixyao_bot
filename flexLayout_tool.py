@@ -381,7 +381,8 @@ uiLayoutFront ="""
 					"size": "xl",
 					"weight": "bold",
 					"align": "center",
-					"color": "#657C96"
+					"color": "#657C96",
+                    "gravity": "center"
 				  }
 				],
 				"width": "30px"
@@ -402,7 +403,8 @@ uiLayoutFront ="""
 					"size": "xl",
 					"weight": "bold",
 					"align": "center",
-					"color": "#657C96"
+					"color": "#657C96",
+                    "gravity": "center"
 				  }
 				],
 				"width": "30px"
@@ -423,7 +425,8 @@ uiLayoutFront ="""
 					"size": "xl",
 					"weight": "bold",
 					"align": "center",
-					"color": "#657C96"
+					"color": "#657C96",
+                    "gravity": "center"
 				  }
 				],
 				"width": "30px"
@@ -444,7 +447,8 @@ uiLayoutFront ="""
 					"size": "xl",
 					"weight": "bold",
 					"align": "center",
-					"color": "#657C96"
+					"color": "#657C96",
+                    "gravity": "center"
 				  }
 				],
 				"width": "30px"
@@ -465,7 +469,8 @@ uiLayoutFront ="""
 					"size": "xl",
 					"weight": "bold",
 					"align": "center",
-					"color": "#657C96"
+					"color": "#657C96",
+                    "gravity": "center"
 				  }
 				],
 				"width": "30px"
@@ -486,7 +491,8 @@ uiLayoutFront ="""
 					"size": "xl",
 					"weight": "bold",
 					"align": "center",
-					"color": "#657C96"
+					"color": "#657C96",
+                    "gravity": "center"
 				  }
 				],
 				"width": "30px"
