@@ -1249,7 +1249,7 @@ dayModeLayout = """{
 
 															],
 															"flex": 3,
-															"maxWidth": "28px",
+															"maxWidth": "40px",
 															"offsetStart": "0px",
 															"margin": "sm"
 														  },
@@ -1264,7 +1264,7 @@ dayModeLayout = """{
 															"margin": "none",
 															"align": "end",
 															"gravity": "bottom",
-															"flex": 10,
+															"flex": 3,
 															"wrap": true
 														  }
 														],
@@ -1272,7 +1272,7 @@ dayModeLayout = """{
 
 
 										"offsetEnd": "1px",
-										"margin": "sm"
+										"margin": "md"
 									},"""
 
 
@@ -1365,7 +1365,7 @@ monthModeLayout = """{
 
 															],
 															"flex": 3,
-															"maxWidth": "28px",
+															"maxWidth": "40px",
 															"offsetStart": "0px",
 															"margin": "sm"
 														  },
@@ -1378,7 +1378,7 @@ monthModeLayout = """{
 															"margin": "none",
 															"align": "end",
 															"gravity": "bottom",
-															"flex": 10,
+															"flex": 2,
 															"wrap": true
 														  }
 														],
@@ -1394,7 +1394,7 @@ monthModeLayout = """{
 
 
 										"offsetEnd": "1px",
-										"margin": "sm"
+										"margin": "md"
 									},"""
 
 
@@ -1402,11 +1402,16 @@ monthModeLayout = """{
 
 
 
-endLayout = """{
+endLayout = """					{
 									"type": "separator",
-									"margin": "none",
-									"color": "#ffffff"
+									"margin": "sm"
 								},
+								{
+									"type": "separator",
+									"margin": "sm"
+								},
+
+
 							  {
 								"type": "box",
 								"layout": "horizontal",
@@ -1414,7 +1419,7 @@ endLayout = """{
 								  {
 									"type": "text",
 									"text": "More...",
-									"size": "md",
+									"size": "lg",
 									"align": "end",
 									"weight": "bold",
 									"action": {
@@ -1424,7 +1429,7 @@ endLayout = """{
 									}
 								  }
 								],
-								"margin": "md"
+								"margin": "sm"
 							  }
 							]
 						},
@@ -1605,8 +1610,10 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 				buf_hourModeLayout = buf_hourModeLayout.replace( "#2E4E7C" , "#998675")
 			
 			finalLayout += buf_hourModeLayout	
-			if i != len( dateDataList ) -1:
-				finalLayout += date_separator
+			finalLayout += date_separator
+
+			# if i != len( dateDataList ) -1:
+			# 	finalLayout += date_separator
 
 	if dayMode == "h":
 		showDayMode = "時"
@@ -4956,7 +4963,7 @@ if __name__ == '__main__':
 	# ganZiList_fun( currentTime = "2026-04-20" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "2026/05/05" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )		
-	ganZiList_fun( currentTime = "" , dayMode = "h" , index = "" , runtime = 10 , printMode = True )
+	ganZiList_fun( currentTime = "" , dayMode = "h" , index = "" , runtime = 18 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/12/11/18/56" , dayMode = "h" , index = "" , runtime = 8 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
 
