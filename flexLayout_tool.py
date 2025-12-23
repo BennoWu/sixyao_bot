@@ -4379,7 +4379,7 @@ how_to_use = """
                         "contents": [
                           {
                             "type": "text",
-                            "text": "以\"占\"起頭，並且沒有其他內容者",
+                            "text": "以\\"占\\"起頭，並且沒有其他內容者",
                             "size": "sm",
                             "weight": "bold",
                             "align": "start",
@@ -4635,10 +4635,6 @@ how_to_use = """
                   }
                 ],
                 "margin": "none"
-              },
-              {
-                "type": "separator",
-                "margin": "xs"
               }
             ],
             "margin": "lg"
@@ -4955,7 +4951,8 @@ def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):
 
 
 if __name__ == '__main__':
-	ganZiList_fun( currentTime = "2025/12/21/3/00" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
+	howToUse()
+	# ganZiList_fun( currentTime = "2025/12/21/3/00" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "2026-04-20" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "2026/05/05" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )		
