@@ -945,8 +945,8 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 			def draw_litDarkLine ( hight = adj_hight + fixHight , left = 70 , right = 70 , center = centerAdj ):
 				lineLength = 45
 				halfLength = lineLength*0.5
-				draw.line((  screenWidth*0.5 -halfLength + center, hight-halfLength  , screenWidth*0.5 +halfLength + center, hight+halfLength ), fill= sixYoSymbol, width= lineWidth+1 )
-				draw.line((  screenWidth*0.5 -halfLength + center, hight+halfLength  , screenWidth*0.5 +halfLength + center, hight-halfLength ), fill= sixYoSymbol, width= lineWidth+1 )		
+				draw.line((  screenWidth*0.5 -halfLength + center, hight-halfLength  , screenWidth*0.5 +halfLength + center, hight+halfLength ), fill= sixYoSymbol, width= lineWidth )
+				draw.line((  screenWidth*0.5 -halfLength + center, hight+halfLength  , screenWidth*0.5 +halfLength + center, hight-halfLength ), fill= sixYoSymbol, width= lineWidth )		
 			draw_litDarkLine()
 
 		if allDataDict['inputGuaList'][ row_id ] == "@":
