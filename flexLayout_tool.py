@@ -4379,7 +4379,7 @@ how_to_use = """
                         "contents": [
                           {
                             "type": "text",
-                            "text": "以\\"占\\"起頭，並且沒有其他內容者",
+                            "text": "以\\"占\\"字為起頭，並且沒有其他內容",
                             "size": "sm",
                             "weight": "bold",
                             "align": "start",
