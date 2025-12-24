@@ -160,31 +160,31 @@ def parse_lunar_text(text):
 
 
 def lunar_to_solar(text):
-    """
-    農曆轉陽曆
-    """
-    result = parse_lunar_text(text)
-    # print( result ) #(2025, 10, 24, 21) 正確會取得這種格式
-    if not result:
-        return None
-    
-    lunar_y, lunar_m, lunar_d, hour = result
-    
-    try:
-        # 生成農曆對應的陽曆日 (False = 不是閏月)
-        solar_day = sxtwl.Day_fromLunar(lunar_y, lunar_m, lunar_d, False)
-        
-        # 🔥 用方法取得年月日
-        year = solar_day.getSolarYear()
-        month = solar_day.getSolarMonth()
-        day = solar_day.getSolarDay()
-        
-        rtmDate = f"{year}/{month}/{day}/{hour}/00"
-        return rtmDate
-        
-    except Exception as e:
-        print(f"農曆轉陽曆失敗: {e}")
-        return None
+	"""
+	農曆轉陽曆
+	"""
+	result = parse_lunar_text(text)
+	# print( result ) #(2025, 10, 24, 21) 正確會取得這種格式
+	if not result:
+		return None
+	
+	lunar_y, lunar_m, lunar_d, hour = result
+	
+	try:
+		# 生成農曆對應的陽曆日 (False = 不是閏月)
+		solar_day = sxtwl.Day_fromLunar(lunar_y, lunar_m, lunar_d, False)
+		
+		# 🔥 用方法取得年月日
+		year = solar_day.getSolarYear()
+		month = solar_day.getSolarMonth()
+		day = solar_day.getSolarDay()
+		
+		rtmDate = f"{year}/{month}/{day}/{hour}/00"
+		return rtmDate
+		
+	except Exception as e:
+		print(f"農曆轉陽曆失敗: {e}")
+		return None
 
 
 import re
@@ -202,77 +202,191 @@ monthBuf = {
 def getDarkDateOcr(ocr_txt, date_tuple):
 	"""
 	OCR 文本 + tuple 比對，農曆月日 & 日柱地支是否一致
-	date_tuple = ('2025/11/08/10:30', '九月十九', ['乙巳','丁亥','辛巳','癸巳'], ['立冬','>','小雪'], '(六)', '10:30')
+	date_tuple = ('2025/12/24/11:27', '十一月初五', ['乙巳','戊子','丁卯','丙午'], ['冬至','>','小寒'], '(三)', '11:27')
 	"""
-
 	# ========================
 	# 0️⃣ OCR 文本清理
 	# ========================
-	text = ocr_txt.replace("ㄗ", "1").replace("○","0")
-	text = re.sub(r"\s+", "", text)  # 移除空格換行
-
+	text = ocr_txt.replace("ㄧ", "1").replace("○", "0").replace("◯", "0").replace("〇", "0")
+	text = re.sub(r"\s+", "", text)
+	
+	print(f"清理後文本: {text}")
+	
 	# ========================
 	# 1️⃣ 從 OCR 文本抓農曆月日
 	# ========================
-	m_md = re.search(r"([正一二三四五六七八九十]+)月([初一二三四五六七八九十廿三]+)", text)
+	m_md = re.search(
+		r"([正一二三四五六七八九十冬臘腊]+)月([初十廿卅一二三四五六七八九]+)", 
+		text
+	)
 	month_ocr = m_md.group(1) if m_md else None
 	day_ocr = m_md.group(2) if m_md else None
-
+	
+	print(f"OCR 月份: {month_ocr}, 日期: {day_ocr}")
+	
 	# ========================
 	# 2️⃣ 從 OCR 文本抓地支
 	# ========================
 	m_zhi = re.search(r"(子|丑|寅|卯|辰|巳|午|未|申|酉|戌|亥)", text)
 	zhi_ocr = m_zhi.group(1) if m_zhi else None
-
+	
+	print(f"OCR 地支: {zhi_ocr}")
+	
 	# ========================
 	# 3️⃣ 從 tuple 拿資料
 	# ========================
-	lunar_md = date_tuple[1]          # tuple 的農曆月日 e.g., '九月十九'
-	day_zhi = date_tuple[2][3]       # tuple 的日柱 e.g., '癸巳'
-
+	lunar_md = date_tuple[1]          # '十一月初五'
+	day_zhi = date_tuple[2][3]        # '丙午'
+	
 	# 抓 tuple 日柱地支
 	m_day_zhi = re.search(r"(子|丑|寅|卯|辰|巳|午|未|申|酉|戌|亥)$", day_zhi)
 	day_zhi_only = m_day_zhi.group(1) if m_day_zhi else None
-
+	
+	print(f"Tuple 農曆: {lunar_md}, 日柱地支: {day_zhi_only}")
+	
 	# ========================
 	# 4️⃣ 農曆月日比對
 	# ========================
 	# tuple 月日拆開
 	m_match = re.match(r"(.+)月(.+)", lunar_md)
 	tuple_month, tuple_day = m_match.groups() if m_match else (None, None)
+	
+	# 🔥 月份轉數字（處理冬月、臘月）
+	def month_to_num(m_text):
+		if not m_text:
+			return None
+		
+		# 統一加上「月」字
+		if "月" not in m_text and "冬" not in m_text and "臘" not in m_text and "腊" not in m_text:
+			m_text = m_text + "月"
+		
+		# 特殊月份處理
+		if "冬" in m_text:
+			return 11
+		if "臘" in m_text or "腊" in m_text:
+			return 12
+		
+		# 一般月份
+		for k, v in monthBuf.items():
+			if isinstance(k, int) and v == m_text:
+				return k
+		
+		return None
 
-	# OCR 農曆月日轉數字
-	month_num = None
-	for k,v in monthBuf.items():
-		if v == month_ocr:
-			month_num = k
-			break
+
+
+
+
+
+
+
+
+
+	
+	month_num = month_to_num(month_ocr)
+	tuple_month_num = month_to_num(tuple_month)
+	print(f"月份數字 - OCR: {month_num}, Tuple: {tuple_month_num}")
+	print( tuple_month )
+	
+	# 日期轉數字
 	day_num = None
-	for k,v in datBuf.items():
+	for k, v in datBuf.items():
 		if v == day_ocr:
 			day_num = k
 			break
-
-	# tuple 月日轉數字
-	tuple_month_num = None
-	for k,v in monthBuf.items():
-		if v == tuple_month:
-			tuple_month_num = k
-			break
+	
 	tuple_day_num = None
-	for k,v in datBuf.items():
+	for k, v in datBuf.items():
 		if v == tuple_day:
 			tuple_day_num = k
 			break
-
+	
+	print(f"日期數字 - OCR: {day_num}, Tuple: {tuple_day_num}")
+	
 	# ========================
 	# 5️⃣ 判斷是否一致
 	# ========================
+	print(">>>農曆:::",tuple_month_num,tuple_day_num )
 	lunar_match = (month_num == tuple_month_num) and (day_num == tuple_day_num)
 	zhi_match = (zhi_ocr == day_zhi_only)
-
+	
+	print(f"農曆匹配: {lunar_match}, 地支匹配: {zhi_match}")
+	
 	return lunar_match and zhi_match
-# fourPillarToDateMain( inputDate = '乙巳/卯/戊戌'  )
+# def getDarkDateOcr(ocr_txt, date_tuple):
+# 	"""
+# 	OCR 文本 + tuple 比對，農曆月日 & 日柱地支是否一致
+# 	date_tuple = ('2025/11/08/10:30', '九月十九', ['乙巳','丁亥','辛巳','癸巳'], ['立冬','>','小雪'], '(六)', '10:30')
+# 	"""
+
+# 	# ========================
+# 	# 0️⃣ OCR 文本清理
+# 	# ========================
+# 	text = ocr_txt.replace("ㄗ", "1").replace("○","0")
+# 	text = re.sub(r"\s+", "", text)  # 移除空格換行
+
+# 	# ========================
+# 	# 1️⃣ 從 OCR 文本抓農曆月日
+# 	# ========================
+# 	m_md = re.search(r"([正一二三四五六七八九十]+)月([初一二三四五六七八九十廿三]+)", text)
+# 	month_ocr = m_md.group(1) if m_md else None
+# 	day_ocr = m_md.group(2) if m_md else None
+
+# 	# ========================
+# 	# 2️⃣ 從 OCR 文本抓地支
+# 	# ========================
+# 	m_zhi = re.search(r"(子|丑|寅|卯|辰|巳|午|未|申|酉|戌|亥)", text)
+# 	zhi_ocr = m_zhi.group(1) if m_zhi else None
+
+# 	# ========================
+# 	# 3️⃣ 從 tuple 拿資料
+# 	# ========================
+# 	lunar_md = date_tuple[1]          # tuple 的農曆月日 e.g., '九月十九'
+# 	day_zhi = date_tuple[2][3]       # tuple 的日柱 e.g., '癸巳'
+
+# 	# 抓 tuple 日柱地支
+# 	m_day_zhi = re.search(r"(子|丑|寅|卯|辰|巳|午|未|申|酉|戌|亥)$", day_zhi)
+# 	day_zhi_only = m_day_zhi.group(1) if m_day_zhi else None
+
+# 	# ========================
+# 	# 4️⃣ 農曆月日比對
+# 	# ========================
+# 	# tuple 月日拆開
+# 	m_match = re.match(r"(.+)月(.+)", lunar_md)
+# 	tuple_month, tuple_day = m_match.groups() if m_match else (None, None)
+
+# 	# OCR 農曆月日轉數字
+# 	month_num = None
+# 	for k,v in monthBuf.items():
+# 		if v == month_ocr:
+# 			month_num = k
+# 			break
+# 	day_num = None
+# 	for k,v in datBuf.items():
+# 		if v == day_ocr:
+# 			day_num = k
+# 			break
+
+# 	# tuple 月日轉數字
+# 	tuple_month_num = None
+# 	for k,v in monthBuf.items():
+# 		if v == tuple_month:
+# 			tuple_month_num = k
+# 			break
+# 	tuple_day_num = None
+# 	for k,v in datBuf.items():
+# 		if v == tuple_day:
+# 			tuple_day_num = k
+# 			break
+
+# 	# ========================
+# 	# 5️⃣ 判斷是否一致
+# 	# ========================
+# 	lunar_match = (month_num == tuple_month_num) and (day_num == tuple_day_num)
+# 	zhi_match = (zhi_ocr == day_zhi_only)
+
+# 	return lunar_match and zhi_match
+# # fourPillarToDateMain( inputDate = '乙巳/卯/戊戌'  )
 
 
 
@@ -671,7 +785,7 @@ def getPicData(image_input):
 # ===== 範例 =====
 if __name__ == '__main__':
 	# local 路徑
-	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\xx.jpg")
+	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\xxxxxx.jpg")
 
 	# # PIL.Image
 	# img_obj = Image.open("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__117137475.jpg")

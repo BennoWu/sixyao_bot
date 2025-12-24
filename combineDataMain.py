@@ -564,23 +564,50 @@ def fixGuaWording( guaName ):
 
 
 ## 簡體轉繁體
-def chineseChange( text = '中国的文化源远流长。123我是貓abc文化源,远流长' ):
-	from opencc import OpenCC
-	# 模式	說明
-	# 's2t'	簡體 → 繁體（一般用）
-	# 't2s'	繁體 → 簡體
-	# 's2tw'	簡體 → 台灣正體
-	# 'tw2s'	台灣正體 → 簡體
-	# 's2hk'	簡體 → 香港繁體
-	# 'hk2s'	香港繁體 → 簡體
-	# 'tw2sp'	台灣繁體 → 簡體（常用詞彙轉換）
+def chineseChange(text='中国的文化源远流长。123我是貓abc文化源,远流长'):
+    from opencc import OpenCC
+    
+    # 建立轉換器：簡體 -> 繁體
+    cc = OpenCC('s2t')
+    
+    # 跳過的字，如果轉換後會影響卦名或特例
+    skip_chars = ['丑', '咸']  # 可以以後再增加
+    
+    result = []
+    for char in text:
+        # 如果字在 skip list，保留原字
+        if char in skip_chars:
+            result.append(char)
+        else:
+            # 轉換單字
+            converted_char = cc.convert(char)
+            result.append(converted_char)
+    
+    # 重組成字串
+    converted_text = ''.join(result)
+    # print(converted_text)
+    return converted_text
 
-	# 建立轉換器：從簡體轉繁體（s2t）或繁體轉簡體（t2s）
-	cc = OpenCC('s2t')  # 簡轉繁
+# 範例測試
+# chineseChange('丑咸中国文化源远流长')
+
+# def chineseChange( text = '中国的文化源远流长。123我是貓abc文化源,远流长' ):
+# 	from opencc import OpenCC
+# 	# 模式	說明
+# 	# 's2t'	簡體 → 繁體（一般用）
+# 	# 't2s'	繁體 → 簡體
+# 	# 's2tw'	簡體 → 台灣正體
+# 	# 'tw2s'	台灣正體 → 簡體
+# 	# 's2hk'	簡體 → 香港繁體
+# 	# 'hk2s'	香港繁體 → 簡體
+# 	# 'tw2sp'	台灣繁體 → 簡體（常用詞彙轉換）
+
+# 	# 建立轉換器：從簡體轉繁體（s2t）或繁體轉簡體（t2s）
+# 	cc = OpenCC('s2t')  # 簡轉繁
 	
-	converted = cc.convert(text)
-	print(converted)  # 中國的文化源遠流長。
-	return converted
+# 	converted = cc.convert(text)
+# 	print(converted)  # 中國的文化源遠流長。
+# 	return converted
 
 # chineseChange()
 
@@ -965,6 +992,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 		if buf[-1] == "#": ## 日期如果後面有標註#，代表日期可能不正確
 			buf = buf[:-1]
 			dateMark = True
+			# print("dateMark--" , "ON!!!")
 
 
 
@@ -1072,6 +1100,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 					dateData = buf
 
 				checkItem[1] = "日"
+
 			else:
 				print( "日期輸入有誤")
 				dateData = "------"
@@ -1298,7 +1327,9 @@ if __name__ == '__main__':
 	# sixYaoMain( "2021/04/18/19/00//1​1​0​X​1​1//男占女未來是否有機會共事")
 	# sixYaoMain( "俘之履//男占女未來是否有機會共事//辛丑，壬辰，丙申，戊戌")
 	# sixYaoMain( "2025,4,27,12,28//卯月丁巳日//010$1X//問題問題問題" )
-	sixYaoMain( "復之艮//吃飽了沒")
+	# sixYaoMain( "癸丑年戌月丁亥日//占往某地做生意財利//大畜之賁",showPic = True)
+	sixYaoMain( "2025/12/24/11/27//咸之夬卦//Untitled",showPic = True)
+	# sixYaoMain( "復之艮//吃飽了沒")	
 	# sixYaoMain( "27 71 42//吃飽了沒")
 	# sixYaoMain( "地风升之地水师//卯月乙未日//一人占賣貨")	
 	# sixYaoMain( "100101//占今年幾時換工作今時換工作較好" )
@@ -1358,7 +1389,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "+申月戊午日//一人占自久病問過得今年否?//遁之姤卦" )
 	# sixYaoMain( "2024,11,17,21,04//姜舒蕾(許奇峰老婆)何時懷孕?//地天泰之震為雷" ) ## 三合
 	# sixYaoMain( "+2025/05/08/09/40//1X01$0//在某公司的發展" )
-	sixYaoMain("2025/05/08 // 在某公司的發展 //  隨之歸妹",showPic = True)
+	# sixYaoMain("2025/05/08 // 在某公司的發展 //  隨之歸妹",showPic = True)
 	# sixYaoMain( "巳年甲申月乙丑日//占姜小姐胎產吉凶(政閩)//巽為風" )
 	# sixYaoMain( "2025-08-24 13:17//占姜小姐胎產吉凶(陳春霖)//澤水困" )
 	# sixYaoMain( "2025-08-24 00:46//占姜小姐胎產吉凶(盈樺)//山地之晉" )
