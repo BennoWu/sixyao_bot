@@ -2176,7 +2176,7 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 					"flex": 2,
 					"cornerRadius": "15px",
 					"borderWidth": "2px",
-					"borderColor": "#cccccc"
+					"borderColor": "#ffffff"
 				  },
 				  {
 					"type": "box",
@@ -2267,7 +2267,7 @@ def getFlexMessage_GZ ( dataList , printMode = False ):
 									.replace( "____postOne" , str( currentYear + 1 ) )
 									.replace( "____pre" , str( currentYear - 12 ) ) 
 									.replace( "____post" , str( currentYear + 12 ))
-									.replace( "____yearlist" , "--"+ str( currentYear ))
+									.replace( "____yearlist" , "--"+ str( yearB ))
 						)
 	if printMode == True:
 		print( final_flexLayout )
@@ -4969,7 +4969,7 @@ if __name__ == '__main__':
 	# ganZiList_fun( currentTime = "2026-04-20" , dayMode = "h" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )
 	# ganZiList_fun( currentTime = "2026/05/05" , dayMode = "jc" , index = "" , runtime = 10 , printMode = False )		
-	ganZiList_fun( currentTime = "" , dayMode = "h" , index = "" , runtime = 18 , printMode = True )
+	# ganZiList_fun( currentTime = "" , dayMode = "h" , index = "" , runtime = 18 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/12/11/18/56" , dayMode = "h" , index = "" , runtime = 8 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
 
@@ -4997,7 +4997,7 @@ if __name__ == '__main__':
 
 	# yearListFlexLayout( "2025",True ) 
 
-	# getFlexMessage_GZ ( checkYear ( yearData = "2025" ) )
+	getFlexMessage_GZ ( checkYear ( yearData = "丙午" ) , printMode = True)
 
 	# howToUse( printMode = True )
 

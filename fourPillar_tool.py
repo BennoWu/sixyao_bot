@@ -207,7 +207,7 @@ def getFourPillar( fullDate = "" , detail = False ):
 
 ## 由干支取得西元年（不允許落在未來）
 def getYear( pillarYear ):
-	print(pillarYear)
+	# print(pillarYear)
 
 	nowYear = datetime.datetime.now().year
 
@@ -220,7 +220,7 @@ def getYear( pillarYear ):
 
 			return yearBuf
 
-
+# print(getYear("丙午"))
 # ## 由干支取得西元年
 # def getYear ( pillarYear ):  
 # 	yearBuf = None
