@@ -386,8 +386,8 @@ def handle_message(event):
 		"notionToken_pageId": jsonData.notionToken_pageId
 	}
 
-	if user_id == my_id:
-		pushMsg( inputMsg , user_id = None )
+	if user_id != my_id:
+		pushMsg( displayName + ":" + inputMsg , user_id = None )
 
 
 
