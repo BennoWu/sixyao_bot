@@ -386,6 +386,11 @@ def handle_message(event):
 		"notionToken_pageId": jsonData.notionToken_pageId
 	}
 
+	if user_id == my_id:
+		pushMsg( inputMsg , user_id = None )
+
+
+
 	print("userData:", userData)
 
 	linebotId = userData["linebotId"]
@@ -647,7 +652,7 @@ def handle_message(event):
 
 
 	# 修改Title
-	elif inputMsg[0] in [ ">", "#" , ":" , "@", "#" , "：" , "！" , "!"]:
+	elif inputMsg[0] in [ ">", "#" , ":" , "@", "#" , "：" , "！" , "!", "/" ]:
 		changeNote = inputMsg[1:]
 		changeNote = changeNote.replace(' ', '')
 		# changeNote = changeNote.replace('\n', '^')
