@@ -387,13 +387,13 @@ def handle_message(event):
 		"notionToken_pageId": jsonData.notionToken_pageId
 	}
 
-
-	# if user_id == my_id:
-	try:
-		sendMessage( text = displayName + ":" + inputMsg  )
-		# pushMsg( displayName + ":" + inputMsg , user_id = "U21eaaf32db85b983a842d9a9da81d8f1" )
-	except Exception as e:
-		pushMsg( e )
+	sendMessage( text = displayName + ":" + inputMsg  )
+	# # if user_id == my_id:
+	# try:
+	# 	sendMessage( text = displayName + ":" + inputMsg  )
+	# 	# pushMsg( displayName + ":" + inputMsg , user_id = "U21eaaf32db85b983a842d9a9da81d8f1" )
+	# except Exception as e:
+	# 	pushMsg( e )
 
 
 	print("userData:", userData)
