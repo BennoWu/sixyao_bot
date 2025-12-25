@@ -946,23 +946,22 @@ def handle_postback(event):
 				inList = [ 0,0,0 ]
 
 			sixZn_UI = sSixZnUi( inList , title = note )
-
-			## 如果不是我，就不秀這個功能
+			## 過濾使用者
 			# my_id = "U21eaaf32db85b983a842d9a9da81d8f1"
 			# if user_id == my_id:
-				# ⭐ v3 的 Flex Message
-				line_bot_api.reply_message(
-					ReplyMessageRequest(
-						reply_token=event.reply_token,
-						messages=[
-							FlexMessage(
-								alt_text='< 小六壬UI >',
-								contents=FlexContainer.from_dict( sixZn_UI )
-							)
-						]
-					)
-				)
 
+			# ⭐ v3 的 Flex Message
+			line_bot_api.reply_message(
+				ReplyMessageRequest(
+					reply_token=event.reply_token,
+					messages=[
+						FlexMessage(
+							alt_text='< 小六壬UI >',
+							contents=FlexContainer.from_dict( sixZn_UI )
+						)
+					]
+				)
+			)
 
 		# Notion 處理
 		elif data.startswith("n+"):
