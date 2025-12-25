@@ -1328,7 +1328,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "俘之履//男占女未來是否有機會共事//辛丑，壬辰，丙申，戊戌")
 	# sixYaoMain( "2025,4,27,12,28//卯月丁巳日//010$1X//問題問題問題" )
 	# sixYaoMain( "癸丑年戌月丁亥日//占往某地做生意財利//大畜之賁",showPic = True)
-	sixYaoMain( "2025/12/24/11/27//咸之夬卦//Untitled",showPic = True)
+	# sixYaoMain( "2025/12/24/11/27//咸之夬卦//Untitled",showPic = True)
 	# sixYaoMain( "復之艮//吃飽了沒")	
 	# sixYaoMain( "27 71 42//吃飽了沒")
 	# sixYaoMain( "地风升之地水师//卯月乙未日//一人占賣貨")	
@@ -1349,7 +1349,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "去學習是否順利 // 火地晉卦5 // 丙月，丙子日")
 	# sixYaoMain( "去學習是否順利//100X10//己亥 辛未 壬申")
 # 110$0$
-	# sixYaoMain( "占盧女甲辰年流年//甲辰年辰月癸亥日//10X01$" ) # 三合缺一，靜爻有
+	# sixYaoMain( "+占盧女甲辰年流年//甲辰年辰月癸亥日//10X01$" ,showPic = True ) # 三合缺一，靜爻有
 	# sixYaoMain( "占一男終身財福//乙巳年辰月辰日-寅卯//00$01X" )
 	# sixYaoMain( "占家宅人口平安否//卯月癸亥日//111X1X" )
 	# sixYaoMain( "+占開店//寅月辛酉日//X0100$" ,showPic = True)
@@ -1359,7 +1359,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "+巳月丁亥日//一人占僕何日回?//夬之屢卦",showPic = True)
 	# sixYaoMain( "申月戊辰日//占具題?//中孚之損卦")
 	# sixYaoMain( "卯年丑月酉日-午未//柯男占甲辰年流年//1X1110")
-	# sixYaoMain( "傑利如果漲房租租客是否會續租//898887")  # 二合
+	# sixYaoMain( "+傑利如果漲房租租客是否會續租//898887",showPic = True)  # 二合
 	# sixYaoMain( "申月戊辰日//妻占夫近病?//同人之離卦" )	
 	# sixYaoMain( "傑利婚姻終身卦//010$X1//2025/08/20/15/25" )	
 	# sixYaoMain( "丑月戊辰日//占防恭劾?//井之中孚卦" )	# 三合 四格
@@ -1412,7 +1412,8 @@ if __name__ == '__main__':
 	# sixYaoMain( "2025,10,30//澤之節" ) 
 	# sixYaoMain( "Q媽的鑽石項鍊在那裏?//1X@001" ) 
 	# sixYaoMain( "++乙巳年卯月己丑日//自占4/6馬祖新村擺攤收入吉凶?//1X0$$0") ## 三合
-	# sixYaoMain( "乙巳卯月戌-辰巳//X10101//自占今日在台中舊酒廠業績?" ) ## 三缺一
+
+	# sixYaoMain( "+乙巳卯月戌-辰巳//X10101//自占今日在台中舊酒廠業績?",showPic = True ) ## 三缺一   <<<<< 有錯
 
 
 # 群組討論
@@ -1427,7 +1428,6 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "set nt 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,26a739d0e36080d29148e0f263b77986" )
 	# sixYaoMain( "set nt 123adf" )
-	# sixYaoMain( "+乙巳年辰月辰日-寅卯//00$01X//占一男終身財福",showPic = True ) ## 三合 日
 	# sixYaoMain( "傑利的房貸吉凶//01$X10//2025,8,14,15,10" )
 
 	# sixYaoMain( "+2025/08/31/15:48//傑利的房貸吉凶0831//110000",showPic = True) ## 九月七日 酉月卯日
@@ -1527,13 +1527,13 @@ if __name__ == '__main__':
 	# sixYaoMain( "+網上範例:打印機壞掉是否修的好//2020/3/25/13/36//困之解")
 
 	# sixYaoMain( "0,1,00,11,0,1//2024 12 5 10 31//占今年幾時換工作較好" )
-	# sixYaoMain( "+0,1,00,11,0,1//亥月,丙子日//占今年幾時換工作較好" ) ## 三合缺一待用
+	# sixYaoMain( "+0,1,00,11,0,1//亥月,丙子日//占今年幾時換工作較好" ,showPic = True ) ## 三合缺一待用
+	# sixYaoMain( "+乙巳年辰月辰日-寅卯//00$01X//占一男終身財福",showPic = True ) ## 三合 日
 	# sixYaoMain( "27,55,22//乙月,丙子日//占今年幾時換工作較好" )
 	# sixYaoMain( "+0,1,00,11,0,1//辛亥月乙卯日//占今年幾時換工作較好" )
 	# print( unifiedData("""2025/10/22/18/15 - $00001
 # 高雄場課程""", strong_sep='//', sep_for_app= "||") )
-# 	sixYaoMain( """2025/10/22/18/15 - $00001
-# 高雄場課程""" ) ## 三合局
+	# sixYaoMain( "+2025/10/22/18/15 - $00001 //高雄場課程" ,showPic = True ) ## 
 
 	# sixYaoMain( "占今年幾時換工作較好//0,1,00,11,0,1" )
 	# sixYaoMain( "2025/10/21/14/45 // X$1000 // 瑞豐最近的財運吉凶1021",showPic = True  )
@@ -1563,7 +1563,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "大壯之大過//病//癸卯，丙辰，乙未" )
 	# sixYaoMain( "X001$$//瑞豐近況" )
 	# sixYaoMain( "訟之升//瑞豐近況" )
-	# sixYaoMain( "+2025/8/29/16/50 // 1X000$ // 瑞豐近況0829",showPic = True )
+	sixYaoMain( "+2025/8/29/16/50 // 1X000$ // 瑞豐近況0829",showPic = True )
 
 
 

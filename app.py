@@ -392,8 +392,8 @@ def handle_message(event):
 		try:
 			sendMessage( text = displayName + ":" + inputMsg  )
 			# pushMsg( displayName + ":" + inputMsg , user_id = "U21eaaf32db85b983a842d9a9da81d8f1" )
-		except:
-			pass
+		except Exception as e:
+			pushMsg( e )
 
 
 	print("userData:", userData)
