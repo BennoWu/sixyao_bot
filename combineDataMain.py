@@ -374,7 +374,7 @@ def checkInData( testData ):
 
 	print( "----->>>-----",testData )
 	# textDate  =  testData.replace("月","").replace("日","").replace("/","" )
-	tgdz = ["0","1","x","X","$","@","6","7","8","9"]
+	tgdz = ["0","1","*","x","X","$","@","6","7","8","9"]
 	if len(testData) != 6:
 		return False
 
@@ -1327,7 +1327,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "2021/04/18/19/00//1​1​0​X​1​1//男占女未來是否有機會共事")
 	# sixYaoMain( "俘之履//男占女未來是否有機會共事//辛丑，壬辰，丙申，戊戌")
 	# sixYaoMain( "2025,4,27,12,28//卯月丁巳日//010$1X//問題問題問題" )
-	# sixYaoMain( "癸丑年戌月丁亥日//占往某地做生意財利//大畜之賁",showPic = True)
+	sixYaoMain( "+癸丑年戌月丁亥日//占往某地做生意財利//大畜之賁",showPic = True)
 	# sixYaoMain( "2025/12/24/11/27//咸之夬卦//Untitled",showPic = True)
 	# sixYaoMain( "復之艮//吃飽了沒")	
 	# sixYaoMain( "27 71 42//吃飽了沒")
@@ -1402,7 +1402,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "理事長病危?//乙巳,丙戌,戊寅,癸丑//110101,4,6" )           ## 三合 四格
 	# sixYaoMain( "黃連老師狗狗生病//2025/07/09/22/58//011100.3" ) ## 暗動  沖脫
 	# sixYaoMain( "+一女占前男友是否有機會復合//旅之小過卦//甲申月戊申日" ,showPic = True)
-	# sixYaoMain( "某男占陳女有法助本人事業否?//明夷之泰卦//庚子年甲申月丙申日" )	## 雙沖
+	# sixYaoMain( "+某男占陳女有法助本人事業否?//明夷之泰卦//庚子年甲申月丙申日", showPic = True )	## 雙沖
 	# sixYaoMain( "占今年房價貴賤//旅之小過卦//癸卯年辛酉月庚午日丁亥時" )	
 	# sixYaoMain( "蔡男占租一地方做教室吉凶//兌為澤//癸卯 丁巳 己卯 庚午" ) ## 日沖月沖
 	# sixYaoMain( "010011,1,4,5//乙巳-戊寅-壬申//龔子修占今年能否上南京師大?")
@@ -1411,7 +1411,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "0X@0X1" ) 
 	# sixYaoMain( "2025,10,30//澤之節" ) 
 	# sixYaoMain( "Q媽的鑽石項鍊在那裏?//1X@001" ) 
-	# sixYaoMain( "++乙巳年卯月己丑日//自占4/6馬祖新村擺攤收入吉凶?//1X0$$0") ## 三合
+	# sixYaoMain( "+乙巳年卯月己丑日//自占4/6馬祖新村擺攤收入吉凶?//1X0$$0",showPic = True ) ## 三合
 
 	# sixYaoMain( "+乙巳卯月戌-辰巳//X10101//自占今日在台中舊酒廠業績?",showPic = True ) ## 三缺一   <<<<< 有錯
 
@@ -1563,7 +1563,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "大壯之大過//病//癸卯，丙辰，乙未" )
 	# sixYaoMain( "X001$$//瑞豐近況" )
 	# sixYaoMain( "訟之升//瑞豐近況" )
-	sixYaoMain( "+2025/8/29/16/50 // 1X000$ // 瑞豐近況0829",showPic = True )
+	# sixYaoMain( "+2025/8/29/16/50 // 1X000$ // 瑞豐近況0829",showPic = True )
 
 
 

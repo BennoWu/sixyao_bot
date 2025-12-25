@@ -386,8 +386,8 @@ def handle_message(event):
 		"tipsMode": jsonData.tipsMode,
 		"notionToken_pageId": jsonData.notionToken_pageId
 	}
-
-	sendMessage( text = displayName + ":" + inputMsg  )
+	if user_id != my_id:
+		sendMessage( text = displayName + ":" + inputMsg  )
 	# # if user_id == my_id:
 	# try:
 	# 	sendMessage( text = displayName + ":" + inputMsg  )

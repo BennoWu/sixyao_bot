@@ -1634,7 +1634,12 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 
 
 	print(row[1].replace("/" , "/")) 
-	moreCmdDate = PPPPP ( currentTime = row[1] , dayMode = dayMode  , runtime = 2 )[-1][1].replace("/","-").replace(":","-")
+	moreCmdDate = PPPPP ( currentTime = row[1] , dayMode = dayMode  , runtime = 1 )[-1][1].replace("/","-").replace(":","-")
+	# [['丙午-癸巳-己丑', '2026/05/15', '(五)', ''], ['丙午-癸巳-庚寅', '2026/05/16', '(六)', '']]
+	# row[1] - '2025/09/23'
+	
+	# print( PPPPP ( currentTime = row[1] , dayMode = dayMode  , runtime = 1 ))
+	# print( ">>>>",moreCmdDate  )
 
 	if ( dayMode.lower() == "d" ) :
 		print( "## ",moreCmdDate )
@@ -4972,7 +4977,7 @@ if __name__ == '__main__':
 	# ganZiList_fun( currentTime = "" , dayMode = "h" , index = "" , runtime = 18 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/12/11/18/56" , dayMode = "h" , index = "" , runtime = 8 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
-
+	ganZiList_fun( currentTime = "2026/05/05" , dayMode = "d" , index = "" , runtime = 10 , printMode = True )	
 
 
 # 干支/日/10/2025-08-31-15-48
@@ -4997,7 +5002,7 @@ if __name__ == '__main__':
 
 	# yearListFlexLayout( "2025",True ) 
 
-	getFlexMessage_GZ ( checkYear ( yearData = "丙午" ) , printMode = True)
+	# getFlexMessage_GZ ( checkYear ( yearData = "丙午" ) , printMode = True)
 
 	# howToUse( printMode = True )
 
