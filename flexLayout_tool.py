@@ -1789,9 +1789,9 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 		## 時
 		if dayMode.lower() == "h":		
 			# 時
-			currentTimeBuf = row[1].replace( "," , "-")  ## "干支/日/2023-05-06/15"
+			currentTimeBuf = row[1].replace( "," , ",")  ## "干支/日/2023-05-06/15"
 
-			currentTimeBuf = "-".join( currentTimeBuf.split("/")[:3])
+			currentTimeBuf = ",".join( currentTimeBuf.split("/")[:3])
 			# print("@@",currentTimeBuf)
 			day_command =  f"干支/日/{8}/{currentTimeBuf}" ##"干支/日/%s/%s"% ( "2023-05-06" , "15" )
 
@@ -1835,7 +1835,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 
 	else:
 		print("## ", row[1] )
-		more_command = "干支/" + showDayMode + "/" + row[1].replace("/","-").replace(":","-")
+		more_command = "干支/" + showDayMode + "/" + row[1].replace("/",",").replace(":",",")
 
 
 	finalLayout += endLayout.replace( "__MORE__" , more_command )
@@ -5165,7 +5165,7 @@ if __name__ == '__main__':
 	# ganZiList_fun( currentTime = "" , dayMode = "h" , index = "" , runtime = 18 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/12/11/18/56" , dayMode = "h" , index = "" , runtime = 8 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
-	ganZiList_fun( currentTime = "2026/05/05" , dayMode = "d" , index = "" , runtime = 10 , printMode = True )	
+	ganZiList_fun( currentTime = "2026/05/05" , dayMode = "d" , index = "" , runtime = 3 , printMode = True )	
 
 
 # 干支/日/10/2025-08-31-15-48
