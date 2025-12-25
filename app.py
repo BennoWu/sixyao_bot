@@ -16,7 +16,7 @@ from fourPillar_tool import ganZhi_Dict ## 六十甲子的字典
 from flexLayout_tool import sSixZnUi ## 小六壬
 
 
-import lineSend
+from lineSend import *
 
 from sixYaoJsonDataClass import *
 
