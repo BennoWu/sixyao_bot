@@ -896,11 +896,11 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 				## 化進小點點
 				if allDataDict['home_forwardBack'][row_id]  == "FW":
-					makeText ( "•"  , screenWidth -210 -6 + changGuaX_adj , adj_hight + fixTextHight -22+4 , wordingSize = 28 , wordingFont = yaoFont , color = midGray ) 
+					makeText ( "•"  , screenWidth -210 -6 + changGuaX_adj , adj_hight + fixTextHight -22+3 , wordingSize = 28 , wordingFont = yaoFont , color = subGray ) 
 
 				## 化退小點點
 				elif allDataDict['home_forwardBack'][row_id] =="BK":
-					makeText ( "•"  , screenWidth -210 -6 + changGuaX_adj , adj_hight + fixTextHight +64+4 , wordingSize = 28 , wordingFont = yaoFont , color = midGray ) 
+					makeText ( "•"  , screenWidth -210 -6 + changGuaX_adj , adj_hight + fixTextHight +64+3 , wordingSize = 28 , wordingFont = yaoFont , color = subGray ) 
 
 			## 變卦納甲
 			makeText ( allDataDict['change_naGia'][row_id][-1]  , screenWidth -234 -6 + changGuaX_adj , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 

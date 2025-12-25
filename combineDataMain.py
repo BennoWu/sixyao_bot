@@ -1096,8 +1096,10 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 				print( ">>進入日期模式", buf )
 				if len( buf.split("/") ) == 3:
 					dateData = buf + "/12/00<"
+					dateData = dateData.replace("/", ",")
 				else:
 					dateData = buf
+					dateData = dateData.replace("/", ",")
 
 				checkItem[1] = "日"
 
@@ -1149,8 +1151,8 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 				print("BUFF (parsed):", buf)
 
 			checkItem[1] = "日"
-			dateData = fourPillarToDateMain(  buf.replace( "/", "/") )
-			print( dateData )
+			dateData = fourPillarToDateMain(  buf.replace( "/", ",") )
+			print( "DD - ",dateData )
 
 
 
@@ -1378,7 +1380,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "+2025/9/8/15/10 // 000$00 // 常秉賢近況吉凶0815" )
 	# sixYaoMain( "+2025/9/11/15/43 // 101010 // 常秉賢近況吉凶0911" )
 
-	sixYaoMain( "2025/01/19/22/20 - 101000//測試" ,showPic = True)
+	# sixYaoMain( "2025/01/19/22/20 - 101000//測試" ,showPic = True)
 	# sixYaoMain( "2025/8/25/0/47 // 10XX1$ // 赫女占回北部工作吉凶?",showPic = True )	 ## 三合 四格
 	# sixYaoMain( "+2024/04/13/12/00<//10XX1$//赫女占回北部工作吉凶?")  ## 三合 四格
 
@@ -1518,7 +1520,7 @@ if __name__ == '__main__':
 # 天何言哉，叩之即應，富貴窮通，命運使然。遇事難斷，卜而決疑，惟神惟靈，實明我心。卦神在上，弟子誠心祈求靈卦， 弟子某某某要問某某事，請賜萬象六爻，斷驗如神，以決憂疑。謝卦神賜卦
 # """
 	# sixYaoMain( "+可否得到銀行offer//2025/06/05/21/22//11X0$X")
-	# sixYaoMain( "瑞豐近況2//@@11@0//2025 ,07 14 18 35") ## 化退
+	sixYaoMain( "+瑞豐近況2//@@11@0//2025 ,07 14 18 35",showPic = True) ## 化退
 	# sixYaoMain( "+蔡男占銀行貸款可否通過//癸卯,丁巳,乙亥,己酉//豐之離卦")
 
 	# sixYaoMain("+甲辰年丙寅月辛丑日甲午//占下廣告對命理事業收入效益?//小畜之巽卦")	

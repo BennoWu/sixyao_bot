@@ -69,7 +69,7 @@ def replaceYear( year ):
 def getFourPillar( fullDate = "" , detail = False ):
 	# fullDate = "2020/12/30/03/00"
 
-	fullDate = fullDate.replace( "-", "/")
+	fullDate = fullDate.replace( "-", "/").replace( ",", "/")
 
 	if fullDate == "":  ## 如果沒有輸入日期則取得現時
 		fullDate = getNowTime()
@@ -454,7 +454,7 @@ def getNowTime( utc_hour = 8 ):
 	hour__real = localtimeReal.hour
 	mins__real = localtimeReal.minute
 	# print(  "%s/%s/%s/%s/%s"% (year__real,month__real,day__real,hour__real,mins__real) )
-	return  "%s/%s/%s/%s/%s"% (year__real,month__real,day__real,hour__real,mins__real)
+	return  "%s,%s,%s,%s,%s"% (year__real,month__real,day__real,hour__real,mins__real)
 
  # "2023/2/8/12/58"
 # 2024-10-20 14:27:04.115877+08:00
