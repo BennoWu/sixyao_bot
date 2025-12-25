@@ -255,7 +255,7 @@ uiLayoutFront ="""
 				"type": "text",
 				"text": "__darkDate__",
 				"size": "sm",
-				"color": "#444443",
+				"color": "#444445",
 				"wrap": true,
 				"weight": "regular",
 				"margin": "xs"
@@ -338,13 +338,6 @@ uiLayoutFront ="""
 	  },
 
 
-
-
-
-
-
-
-
 	  {
 		"type": "box",
 		"layout": "vertical",
@@ -357,6 +350,12 @@ uiLayoutFront ="""
 				  "text": "__裝卦buf__"
 				}
 	  },
+
+
+
+
+
+
 	  {
 		"type": "box",
 		"layout": "vertical",
@@ -373,7 +372,7 @@ uiLayoutFront ="""
 			  },
 			  {
 				"type": "box",
-				"layout": "vertical",
+				"layout": "horizontal",
 				"contents": [
 				  {
 					"type": "text",
@@ -382,20 +381,20 @@ uiLayoutFront ="""
 					"weight": "bold",
 					"align": "center",
 					"color": "#657C96",
-                    "gravity": "center"
+					"gravity": "center"
 				  }
 				],
 				"width": "30px"
 			  },
 			  {
 				"type": "box",
-				"layout": "vertical",
+				"layout": "horizontal",
 				"contents": [],
 				"width": "5px"
 			  },
 			  {
 				"type": "box",
-				"layout": "vertical",
+				"layout": "horizontal",
 				"contents": [
 				  {
 					"type": "text",
@@ -404,20 +403,20 @@ uiLayoutFront ="""
 					"weight": "bold",
 					"align": "center",
 					"color": "#657C96",
-                    "gravity": "center"
+					"gravity": "center"
 				  }
 				],
 				"width": "30px"
 			  },
 			  {
 				"type": "box",
-				"layout": "vertical",
+				"layout": "horizontal",
 				"contents": [],
 				"width": "5px"
 			  },
 			  {
 				"type": "box",
-				"layout": "vertical",
+				"layout": "horizontal",
 				"contents": [
 				  {
 					"type": "text",
@@ -426,20 +425,20 @@ uiLayoutFront ="""
 					"weight": "bold",
 					"align": "center",
 					"color": "#657C96",
-                    "gravity": "center"
+					"gravity": "center"
 				  }
 				],
 				"width": "30px"
 			  },
 			  {
 				"type": "box",
-				"layout": "vertical",
+				"layout": "horizontal",
 				"contents": [],
 				"width": "5px"
 			  },
 			  {
 				"type": "box",
-				"layout": "vertical",
+				"layout": "horizontal",
 				"contents": [
 				  {
 					"type": "text",
@@ -448,20 +447,20 @@ uiLayoutFront ="""
 					"weight": "bold",
 					"align": "center",
 					"color": "#657C96",
-                    "gravity": "center"
+					"gravity": "center"
 				  }
 				],
 				"width": "30px"
 			  },
 			  {
 				"type": "box",
-				"layout": "vertical",
+				"layout": "horizontal",
 				"contents": [],
 				"width": "5px"
 			  },
 			  {
 				"type": "box",
-				"layout": "vertical",
+				"layout": "horizontal",
 				"contents": [
 				  {
 					"type": "text",
@@ -470,20 +469,20 @@ uiLayoutFront ="""
 					"weight": "bold",
 					"align": "center",
 					"color": "#657C96",
-                    "gravity": "center"
+					"gravity": "center"
 				  }
 				],
 				"width": "30px"
 			  },
 			  {
 				"type": "box",
-				"layout": "vertical",
+				"layout": "horizontal",
 				"contents": [],
 				"width": "5px"
 			  },
 			  {
 				"type": "box",
-				"layout": "vertical",
+				"layout": "horizontal",
 				"contents": [
 				  {
 					"type": "text",
@@ -492,23 +491,185 @@ uiLayoutFront ="""
 					"weight": "bold",
 					"align": "center",
 					"color": "#657C96",
-                    "gravity": "center"
+					"gravity": "center"
 				  }
 				],
 				"width": "30px"
 			  }
 			],
-			"backgroundColor": "#eeeeee",
 			"cornerRadius": "10px"
 		  }
 		],
-		"margin": "sm"
+		"margin": "xs"
 	  },
 	  {
 		"type": "separator",
-		"margin": "md",
+		"margin": "xs",
 		"color": "#aaaaaa"
+	  },
+
+
+
+
+
+
+
+
+
+
+
+{
+		"type": "box",
+		"layout": "vertical",
+		"contents": [
+		  {
+			"type": "box",
+			"layout": "horizontal",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [],
+				"width": "5px"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__ORGTPE__",
+					"size": "sm",
+					"align": "center",
+					"weight": "bold",
+					"color": "#999999",
+					"gravity": "center"
+				  }
+				],
+				"width": "23px"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "|",
+					"size": "sm",
+					"align": "center",
+					"weight": "bold",
+					"color": "#cccccc",
+					"gravity": "center",
+					"offsetBottom": "1px"
+				  }
+				],
+				"width": "5px"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__ORGGUA__",
+					"size": "sm",
+					"align": "center",
+					"weight": "bold",
+					"gravity": "center"
+				  }
+				],
+				"width": "72px",
+				"action": {
+				  "type": "message",
+				  "label": "action",
+				  "text": "__ORGGUA__"
+				}
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "➜",
+					"size": "sm",
+					"align": "center",
+					"weight": "bold",
+					"color": "#999999",
+					"gravity": "center"
+				  }
+				],
+				"width": "20px"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__CHGTPE__",
+					"size": "sm",
+					"align": "center",
+					"weight": "bold",
+					"color": "#999999",
+					"gravity": "center"
+				  }
+				],
+				"width": "23px"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "|",
+					"size": "sm",
+					"align": "center",
+					"weight": "bold",
+					"color": "#cccccc",
+					"gravity": "center",
+					"offsetBottom": "1px"
+				  }
+				],
+				"width": "5px"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "__CHGGUA__",
+					"size": "sm",
+					"align": "center",
+					"gravity": "center",
+					"weight": "bold"
+				  }
+				],
+				"width": "72px",
+				"action": {
+				  "type": "message",
+				  "label": "action",
+				  "text": "__CHGGUA__"
+				}
+			  }
+			],
+			"cornerRadius": "15px",
+			"borderColor": "#999999",
+			"borderWidth": "2px",
+			"height": "30px"
+		  }
+		],
+		"margin": "lg"
+	  },
+	  {
+		"type": "box",
+		"layout": "vertical",
+		"contents": [],
+		"margin": "xs"
 	  },"""
+
 
 
 
@@ -646,7 +807,24 @@ uiLayoutBackExt = """
 
 
 
+typeDict =[
+		{ "head" : "乾" , "type":"金" , "item":["乾為天",  "天風姤",    "天山遯",  "天地否",  "風地觀",  "山地剝",  "火地晉",  "火天大有"]},
+		{ "head" : "坎" , "type":"水" , "item":["坎為水",  "水澤節",    "水雷屯",  "水火既濟","澤火革",  "雷火豐",  "地火明夷", "地水師"]},
+		{ "head" : "艮" , "type":"土" , "item":["艮為山",  "山火賁",    "山天大畜","山澤損",  "火澤睽",  "天澤履",  "風澤中孚", "風山漸"]},
+		{ "head" : "震" , "type":"木" , "item":["震為雷",  "雷地豫",    "雷水解",  "雷風恆",  "地風升",  "水風井",  "澤風大過", "澤雷隨"]},
+		{ "head" : "巽" , "type":"木" , "item":["巽為風",  "風天小畜",  "風火家人","風雷益",   "天雷無妄","火雷噬嗑","山雷頤",   "山風蠱"]},
+		{ "head" : "離" , "type":"火" , "item":["離為火",  "火山旅",    "火風鼎",  "火水未濟","山水蒙",  "風水渙",   "天水訟",   "天火同人"]},
+		{ "head" : "坤" , "type":"土" , "item":["坤為地",  "地雷復",    "地澤臨",  "地天泰",  "雷天大壯","澤天夬",   "水天需",   "水地比"]},
+		{ "head" : "兌" , "type":"金" , "item":["兌為澤",  "澤水困",    "澤地萃",  "澤山咸",  "水山蹇",  "地山謙",   "雷山小過", "雷澤歸妹"]}
+		]
 
+
+
+def get_head_by_gua(gua_name, type = typeDict ):
+	for group in type:
+		if gua_name in group["item"]:
+			return group["head"]
+	return None
 
 
 
@@ -736,6 +914,11 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	orgGuaName = getName(orgGua)
 	chgGuaName = getName(changeGua)
 
+	orgGuaType = get_head_by_gua(orgGuaName)
+	chgGurType = get_head_by_gua(chgGuaName)
+
+
+
 
 	print( orgGua,changeGua)
 	print( orgGuaName,chgGuaName)	
@@ -743,6 +926,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	# if set(orgGua).issubset({'0', '1'}):
 	if ( "$" not in finalGua ) and  ( "X" not in finalGua ):
 		chgGuaName = "－ － －"
+		chgGurType = "✕"
 
 
 	## 加入隱形空格
@@ -866,9 +1050,13 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 								.replace("12:00", currentTime )
 								.replace("__裝卦__", command )
 								.replace("__dis裝卦__", display_command )								
-								.replace("__ORGGUA__" , orgGuaName)
-								.replace("__CHGGUA__" , chgGuaName)
+								.replace("__ORGGUA__" , orgGuaName)  ## 本卦
+								.replace("__CHGGUA__" , chgGuaName)	 ## 變卦
 								.replace("__SHOW__", showCommand )
+
+
+								.replace("__ORGTPE__" , orgGuaType )
+								.replace("__CHGTPE__" , chgGurType )
 
 						)
 	# print("dateMark - " , dateSureMark )
@@ -1637,7 +1825,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 	moreCmdDate = PPPPP ( currentTime = row[1] , dayMode = dayMode  , runtime = 1 )[-1][1].replace("/","-").replace(":","-")
 	# [['丙午-癸巳-己丑', '2026/05/15', '(五)', ''], ['丙午-癸巳-庚寅', '2026/05/16', '(六)', '']]
 	# row[1] - '2025/09/23'
-	
+
 	# print( PPPPP ( currentTime = row[1] , dayMode = dayMode  , runtime = 1 ))
 	# print( ">>>>",moreCmdDate  )
 
@@ -2938,1733 +3126,1733 @@ how_to_use = """
   "type": "bubble",
   "size": "giga",
   "body": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "text",
-        "text": "裝卦初號機 V1.0",
-        "weight": "regular",
-        "color": "#295F87",
-        "size": "md"
-      },
-      {
-        "type": "text",
-        "text": "使用說明",
-        "weight": "bold",
-        "size": "xl",
-        "margin": "none",
-        "offsetStart": "-1px"
-      },
-      {
-        "type": "text",
-        "text": "礙於LINE的使用介面沒有表單模式，只能用文字指令替代",
-        "size": "sm",
-        "wrap": true,
-        "margin": "sm"
-      },
-      {
-        "type": "separator",
-        "margin": "sm"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "1,搖卦",
-                        "size": "md",
-                        "weight": "bold",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "50px"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "2,輸入指令",
-                        "size": "md",
-                        "weight": "bold",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "80px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "輸入符號請參考以下原則",
-                        "size": "sm",
-                        "gravity": "bottom",
-                        "color": "#333333"
-                      }
-                    ],
-                    "margin": "sm"
-                  }
-                ],
-                "margin": "md"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                      {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [
-                          {
-                            "type": "box",
-                            "layout": "horizontal",
-                            "contents": [
-                              {
-                                "type": "box",
-                                "layout": "vertical",
-                                "contents": [],
-                                "width": "7px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "老陽",
-                                    "size": "md",
-                                    "weight": "regular",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "80px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "〇",
-                                    "size": "md",
-                                    "weight": "bold",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "83px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "$",
-                                    "size": "md",
-                                    "weight": "bold",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "85px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "9",
-                                    "size": "md",
-                                    "weight": "bold",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "70px"
-                              }
-                            ],
-                            "margin": "md",
-                            "backgroundColor": "#eeeeee",
-                            "width": "320px"
-                          },
-                          {
-                            "type": "box",
-                            "layout": "horizontal",
-                            "contents": [
-                              {
-                                "type": "box",
-                                "layout": "vertical",
-                                "contents": [],
-                                "width": "7px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "少陰",
-                                    "size": "md",
-                                    "weight": "regular",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "80px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "⚋",
-                                    "size": "md",
-                                    "weight": "bold",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "83px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "0",
-                                    "size": "md",
-                                    "weight": "bold",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "85px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "8",
-                                    "size": "md",
-                                    "weight": "bold",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "70px"
-                              }
-                            ],
-                            "margin": "md",
-                            "backgroundColor": "#eeeeee",
-                            "width": "320px"
-                          },
-                          {
-                            "type": "box",
-                            "layout": "horizontal",
-                            "contents": [
-                              {
-                                "type": "box",
-                                "layout": "vertical",
-                                "contents": [],
-                                "width": "7px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "少陽",
-                                    "size": "md",
-                                    "weight": "regular",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "78px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": " ⚊",
-                                    "size": "md",
-                                    "weight": "bold",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "85px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "1",
-                                    "size": "md",
-                                    "weight": "bold",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "85px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "7",
-                                    "size": "md",
-                                    "weight": "bold",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "70px"
-                              }
-                            ],
-                            "margin": "md",
-                            "backgroundColor": "#eeeeee",
-                            "width": "320px"
-                          },
-                          {
-                            "type": "box",
-                            "layout": "horizontal",
-                            "contents": [
-                              {
-                                "type": "box",
-                                "layout": "vertical",
-                                "contents": [],
-                                "width": "7px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "老陰",
-                                    "size": "md",
-                                    "weight": "regular",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "80px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "✕",
-                                    "size": "md",
-                                    "weight": "bold",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "84px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "X",
-                                    "size": "md",
-                                    "weight": "bold",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "85px"
-                              },
-                              {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [
-                                  {
-                                    "type": "text",
-                                    "text": "6",
-                                    "size": "md",
-                                    "weight": "bold",
-                                    "align": "start"
-                                  }
-                                ],
-                                "width": "70px"
-                              }
-                            ],
-                            "margin": "md",
-                            "backgroundColor": "#eeeeee",
-                            "width": "320px"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "margin": "xs"
-          },
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "其他使用範例:",
-                        "size": "md",
-                        "weight": "bold",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "110px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "問題 // 卦",
-                        "size": "sm",
-                        "gravity": "bottom",
-                        "color": "#333333"
-                      }
-                    ],
-                    "margin": "sm"
-                  }
-                ],
-                "margin": "lg"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "基本模式:",
-                    "size": "sm",
-                    "gravity": "bottom",
-                    "color": "#295F87",
-                    "weight": "bold"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "separator"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "陳男占財運吉凶",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "15px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "X0X1$0",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "separator",
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "陳男占財運吉凶",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "16px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "686798",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "separator",
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "陳男占財運吉凶",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "15px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "000110,1,3,5",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "64卦卦名模式:",
-                    "size": "sm",
-                    "gravity": "bottom",
-                    "color": "#295F87",
-                    "weight": "bold"
-                  }
-                ],
-                "margin": "lg"
-              },
-              {
-                "type": "separator",
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "陳男占財運吉凶",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "15px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "萃之豐卦",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "separator",
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "陳男占財運吉凶",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "15px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "澤地之雷火",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "separator",
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "陳男占財運吉凶",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "15px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "雷天大壯",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "米卦模式:",
-                    "size": "sm",
-                    "gravity": "bottom",
-                    "color": "#295F87",
-                    "weight": "bold"
-                  }
-                ],
-                "margin": "lg"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "陳男占財運吉凶",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "15px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "27,85,123",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "115px"
-                  }
-                ],
-                "margin": "none"
-              }
-            ],
-            "margin": "md"
-          },
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "自訂時間:",
-                        "size": "md",
-                        "weight": "bold",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "80px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "問題 // 卦 // 時間",
-                        "size": "sm",
-                        "gravity": "bottom",
-                        "color": "#333333"
-                      }
-                    ],
-                    "margin": "sm"
-                  }
-                ],
-                "margin": "lg"
-              },
-              {
-                "type": "separator",
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "占明日天氣",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "82px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "14px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "X0X1$0",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "60px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "14px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "2025-11-5-9-30",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "200px"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "separator"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "占明日天氣",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "82px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "14px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "X0X1$0",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "60px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "14px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "2025-11-5",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "200px"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "separator",
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "四柱模式:",
-                    "size": "sm",
-                    "gravity": "bottom",
-                    "color": "#295F87",
-                    "weight": "bold"
-                  }
-                ],
-                "margin": "lg"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "占今年財運",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "82px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "14px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "X0X1$0",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "57px",
-                    "margin": "xs"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "14px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "乙巳,丙戌,戊寅,癸丑",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "160px"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "separator",
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "占今年財運",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "82px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "14px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "X0X1$0",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "57px",
-                    "margin": "xs"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "14px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "乙巳,丙戌,戊寅",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "160px"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "separator",
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "占天氣",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "48px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "14px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "X0X1$0",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "57px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "14px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "乙巳年戌月戊寅日",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "130px"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "separator",
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "占天氣",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "48px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "14px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "X0X1$0",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "57px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "//",
-                        "size": "md",
-                        "gravity": "bottom",
-                        "color": "#888888",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm",
-                    "width": "14px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "戌月戊寅日",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "130px"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                          {
-                            "type": "text",
-                            "text": "抽籤模式:",
-                            "size": "sm",
-                            "weight": "bold",
-                            "align": "start",
-                            "color": "#295F87"
-                          }
-                        ],
-                        "width": "70px"
-                      },
-                      {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                          {
-                            "type": "text",
-                            "text": "以\\"占\\"字為起頭，並且沒有其他內容",
-                            "size": "sm",
-                            "weight": "bold",
-                            "align": "start",
-                            "color": "#999999"
-                          }
-                        ]
-                      }
-                    ],
-                    "margin": "lg"
-                  }
-                ],
-                "margin": "xs"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "占明日天氣",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "82px"
-                  }
-                ],
-                "margin": "xs"
-              }
-            ]
-          },
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                          {
-                            "type": "text",
-                            "text": "其他...",
-                            "size": "md",
-                            "weight": "bold",
-                            "align": "start"
-                          }
-                        ],
-                        "width": "80px"
-                      }
-                    ],
-                    "margin": "none"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "干支速查:",
-                        "size": "sm",
-                        "gravity": "bottom",
-                        "color": "#295F87",
-                        "weight": "bold"
-                      }
-                    ],
-                    "margin": "sm"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                          {
-                            "type": "text",
-                            "text": "干支",
-                            "size": "md",
-                            "weight": "regular",
-                            "align": "start"
-                          }
-                        ],
-                        "width": "35px"
-                      },
-                      {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                          {
-                            "type": "text",
-                            "text": "/",
-                            "size": "md",
-                            "gravity": "bottom",
-                            "color": "#888888",
-                            "weight": "bold"
-                          }
-                        ],
-                        "margin": "sm",
-                        "width": "10px"
-                      },
-                      {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                          {
-                            "type": "text",
-                            "text": "日",
-                            "size": "md",
-                            "weight": "regular",
-                            "align": "start"
-                          }
-                        ],
-                        "width": "20px"
-                      },
-                      {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                          {
-                            "type": "text",
-                            "text": "/",
-                            "size": "md",
-                            "gravity": "bottom",
-                            "color": "#888888",
-                            "weight": "bold"
-                          }
-                        ],
-                        "margin": "sm",
-                        "width": "14px"
-                      },
-                      {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                          {
-                            "type": "text",
-                            "text": "2025-10-28",
-                            "size": "md",
-                            "weight": "regular",
-                            "align": "start"
-                          }
-                        ],
-                        "width": "130px"
-                      }
-                    ],
-                    "margin": "xs"
-                  },
-                  {
-                    "type": "separator",
-                    "margin": "xs"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                          {
-                            "type": "text",
-                            "text": "歲次速查:",
-                            "size": "sm",
-                            "weight": "bold",
-                            "align": "start",
-                            "color": "#295F87"
-                          }
-                        ],
-                        "width": "70px"
-                      },
-                      {
-                        "type": "box",
-                        "layout": "horizontal",
-                        "contents": [
-                          {
-                            "type": "text",
-                            "text": "西元 or 民國",
-                            "size": "sm",
-                            "weight": "bold",
-                            "align": "start",
-                            "color": "#999999"
-                          }
-                        ],
-                        "width": "100px"
-                      }
-                    ],
-                    "margin": "lg"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "2025 or 116",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "width": "200px"
-                  },
-                  {
-                    "type": "separator",
-                    "margin": "xs"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "建議或勘誤..",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start"
-                      }
-                    ],
-                    "margin": "md"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "benno.wu@gmail.com",
-                        "size": "md",
-                        "weight": "regular",
-                        "align": "start",
-                        "action": {
-                          "type": "postback",
-                          "label": "action",
-                          "data": "sendMe",
-                          "displayText": "benno.wu@gmail.com"
-                        }
-                      }
-                    ]
-                  }
-                ],
-                "margin": "none"
-              }
-            ],
-            "margin": "lg"
-          }
-        ]
-      }
-    ]
+	"type": "box",
+	"layout": "vertical",
+	"contents": [
+	  {
+		"type": "text",
+		"text": "裝卦初號機 V1.0",
+		"weight": "regular",
+		"color": "#295F87",
+		"size": "md"
+	  },
+	  {
+		"type": "text",
+		"text": "使用說明",
+		"weight": "bold",
+		"size": "xl",
+		"margin": "none",
+		"offsetStart": "-1px"
+	  },
+	  {
+		"type": "text",
+		"text": "礙於LINE的使用介面沒有表單模式，只能用文字指令替代",
+		"size": "sm",
+		"wrap": true,
+		"margin": "sm"
+	  },
+	  {
+		"type": "separator",
+		"margin": "sm"
+	  },
+	  {
+		"type": "box",
+		"layout": "vertical",
+		"contents": [
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "1,搖卦",
+						"size": "md",
+						"weight": "bold",
+						"align": "start"
+					  }
+					],
+					"width": "50px"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "2,輸入指令",
+						"size": "md",
+						"weight": "bold",
+						"align": "start"
+					  }
+					],
+					"width": "80px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "輸入符號請參考以下原則",
+						"size": "sm",
+						"gravity": "bottom",
+						"color": "#333333"
+					  }
+					],
+					"margin": "sm"
+				  }
+				],
+				"margin": "md"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "vertical",
+					"contents": [
+					  {
+						"type": "box",
+						"layout": "vertical",
+						"contents": [
+						  {
+							"type": "box",
+							"layout": "horizontal",
+							"contents": [
+							  {
+								"type": "box",
+								"layout": "vertical",
+								"contents": [],
+								"width": "7px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "老陽",
+									"size": "md",
+									"weight": "regular",
+									"align": "start"
+								  }
+								],
+								"width": "80px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "〇",
+									"size": "md",
+									"weight": "bold",
+									"align": "start"
+								  }
+								],
+								"width": "83px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "$",
+									"size": "md",
+									"weight": "bold",
+									"align": "start"
+								  }
+								],
+								"width": "85px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "9",
+									"size": "md",
+									"weight": "bold",
+									"align": "start"
+								  }
+								],
+								"width": "70px"
+							  }
+							],
+							"margin": "md",
+							"backgroundColor": "#eeeeee",
+							"width": "320px"
+						  },
+						  {
+							"type": "box",
+							"layout": "horizontal",
+							"contents": [
+							  {
+								"type": "box",
+								"layout": "vertical",
+								"contents": [],
+								"width": "7px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "少陰",
+									"size": "md",
+									"weight": "regular",
+									"align": "start"
+								  }
+								],
+								"width": "80px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "⚋",
+									"size": "md",
+									"weight": "bold",
+									"align": "start"
+								  }
+								],
+								"width": "83px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "0",
+									"size": "md",
+									"weight": "bold",
+									"align": "start"
+								  }
+								],
+								"width": "85px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "8",
+									"size": "md",
+									"weight": "bold",
+									"align": "start"
+								  }
+								],
+								"width": "70px"
+							  }
+							],
+							"margin": "md",
+							"backgroundColor": "#eeeeee",
+							"width": "320px"
+						  },
+						  {
+							"type": "box",
+							"layout": "horizontal",
+							"contents": [
+							  {
+								"type": "box",
+								"layout": "vertical",
+								"contents": [],
+								"width": "7px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "少陽",
+									"size": "md",
+									"weight": "regular",
+									"align": "start"
+								  }
+								],
+								"width": "78px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": " ⚊",
+									"size": "md",
+									"weight": "bold",
+									"align": "start"
+								  }
+								],
+								"width": "85px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "1",
+									"size": "md",
+									"weight": "bold",
+									"align": "start"
+								  }
+								],
+								"width": "85px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "7",
+									"size": "md",
+									"weight": "bold",
+									"align": "start"
+								  }
+								],
+								"width": "70px"
+							  }
+							],
+							"margin": "md",
+							"backgroundColor": "#eeeeee",
+							"width": "320px"
+						  },
+						  {
+							"type": "box",
+							"layout": "horizontal",
+							"contents": [
+							  {
+								"type": "box",
+								"layout": "vertical",
+								"contents": [],
+								"width": "7px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "老陰",
+									"size": "md",
+									"weight": "regular",
+									"align": "start"
+								  }
+								],
+								"width": "80px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "✕",
+									"size": "md",
+									"weight": "bold",
+									"align": "start"
+								  }
+								],
+								"width": "84px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "X",
+									"size": "md",
+									"weight": "bold",
+									"align": "start"
+								  }
+								],
+								"width": "85px"
+							  },
+							  {
+								"type": "box",
+								"layout": "horizontal",
+								"contents": [
+								  {
+									"type": "text",
+									"text": "6",
+									"size": "md",
+									"weight": "bold",
+									"align": "start"
+								  }
+								],
+								"width": "70px"
+							  }
+							],
+							"margin": "md",
+							"backgroundColor": "#eeeeee",
+							"width": "320px"
+						  }
+						]
+					  }
+					]
+				  }
+				]
+			  }
+			],
+			"margin": "xs"
+		  },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "其他使用範例:",
+						"size": "md",
+						"weight": "bold",
+						"align": "start"
+					  }
+					],
+					"width": "110px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "問題 // 卦",
+						"size": "sm",
+						"gravity": "bottom",
+						"color": "#333333"
+					  }
+					],
+					"margin": "sm"
+				  }
+				],
+				"margin": "lg"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "基本模式:",
+					"size": "sm",
+					"gravity": "bottom",
+					"color": "#295F87",
+					"weight": "bold"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "separator"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "陳男占財運吉凶",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "15px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "X0X1$0",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "separator",
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "陳男占財運吉凶",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "16px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "686798",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "separator",
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "陳男占財運吉凶",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "15px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "000110,1,3,5",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "64卦卦名模式:",
+					"size": "sm",
+					"gravity": "bottom",
+					"color": "#295F87",
+					"weight": "bold"
+				  }
+				],
+				"margin": "lg"
+			  },
+			  {
+				"type": "separator",
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "陳男占財運吉凶",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "15px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "萃之豐卦",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "separator",
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "陳男占財運吉凶",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "15px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "澤地之雷火",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "separator",
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "陳男占財運吉凶",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "15px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "雷天大壯",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "米卦模式:",
+					"size": "sm",
+					"gravity": "bottom",
+					"color": "#295F87",
+					"weight": "bold"
+				  }
+				],
+				"margin": "lg"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "陳男占財運吉凶",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "15px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "27,85,123",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "115px"
+				  }
+				],
+				"margin": "none"
+			  }
+			],
+			"margin": "md"
+		  },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "自訂時間:",
+						"size": "md",
+						"weight": "bold",
+						"align": "start"
+					  }
+					],
+					"width": "80px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "問題 // 卦 // 時間",
+						"size": "sm",
+						"gravity": "bottom",
+						"color": "#333333"
+					  }
+					],
+					"margin": "sm"
+				  }
+				],
+				"margin": "lg"
+			  },
+			  {
+				"type": "separator",
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "占明日天氣",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "82px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "14px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "X0X1$0",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "60px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "14px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "2025-11-5-9-30",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "200px"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "separator"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "占明日天氣",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "82px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "14px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "X0X1$0",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "60px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "14px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "2025-11-5",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "200px"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "separator",
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "四柱模式:",
+					"size": "sm",
+					"gravity": "bottom",
+					"color": "#295F87",
+					"weight": "bold"
+				  }
+				],
+				"margin": "lg"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "占今年財運",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "82px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "14px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "X0X1$0",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "57px",
+					"margin": "xs"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "14px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "乙巳,丙戌,戊寅,癸丑",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "160px"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "separator",
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "占今年財運",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "82px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "14px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "X0X1$0",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "57px",
+					"margin": "xs"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "14px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "乙巳,丙戌,戊寅",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "160px"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "separator",
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "占天氣",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "48px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "14px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "X0X1$0",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "57px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "14px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "乙巳年戌月戊寅日",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "130px"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "separator",
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "horizontal",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "占天氣",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "48px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "14px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "X0X1$0",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "57px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "//",
+						"size": "md",
+						"gravity": "bottom",
+						"color": "#888888",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm",
+					"width": "14px"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "戌月戊寅日",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "130px"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "box",
+						"layout": "horizontal",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "抽籤模式:",
+							"size": "sm",
+							"weight": "bold",
+							"align": "start",
+							"color": "#295F87"
+						  }
+						],
+						"width": "70px"
+					  },
+					  {
+						"type": "box",
+						"layout": "horizontal",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "以\\"占\\"字為起頭，並且沒有其他內容",
+							"size": "sm",
+							"weight": "bold",
+							"align": "start",
+							"color": "#999999"
+						  }
+						]
+					  }
+					],
+					"margin": "lg"
+				  }
+				],
+				"margin": "xs"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "占明日天氣",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "82px"
+				  }
+				],
+				"margin": "xs"
+			  }
+			]
+		  },
+		  {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "box",
+						"layout": "horizontal",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "其他...",
+							"size": "md",
+							"weight": "bold",
+							"align": "start"
+						  }
+						],
+						"width": "80px"
+					  }
+					],
+					"margin": "none"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "干支速查:",
+						"size": "sm",
+						"gravity": "bottom",
+						"color": "#295F87",
+						"weight": "bold"
+					  }
+					],
+					"margin": "sm"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "box",
+						"layout": "horizontal",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "干支",
+							"size": "md",
+							"weight": "regular",
+							"align": "start"
+						  }
+						],
+						"width": "35px"
+					  },
+					  {
+						"type": "box",
+						"layout": "horizontal",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "/",
+							"size": "md",
+							"gravity": "bottom",
+							"color": "#888888",
+							"weight": "bold"
+						  }
+						],
+						"margin": "sm",
+						"width": "10px"
+					  },
+					  {
+						"type": "box",
+						"layout": "horizontal",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "日",
+							"size": "md",
+							"weight": "regular",
+							"align": "start"
+						  }
+						],
+						"width": "20px"
+					  },
+					  {
+						"type": "box",
+						"layout": "horizontal",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "/",
+							"size": "md",
+							"gravity": "bottom",
+							"color": "#888888",
+							"weight": "bold"
+						  }
+						],
+						"margin": "sm",
+						"width": "14px"
+					  },
+					  {
+						"type": "box",
+						"layout": "horizontal",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "2025-10-28",
+							"size": "md",
+							"weight": "regular",
+							"align": "start"
+						  }
+						],
+						"width": "130px"
+					  }
+					],
+					"margin": "xs"
+				  },
+				  {
+					"type": "separator",
+					"margin": "xs"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "box",
+						"layout": "horizontal",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "歲次速查:",
+							"size": "sm",
+							"weight": "bold",
+							"align": "start",
+							"color": "#295F87"
+						  }
+						],
+						"width": "70px"
+					  },
+					  {
+						"type": "box",
+						"layout": "horizontal",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "西元 or 民國",
+							"size": "sm",
+							"weight": "bold",
+							"align": "start",
+							"color": "#999999"
+						  }
+						],
+						"width": "100px"
+					  }
+					],
+					"margin": "lg"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "2025 or 116",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"width": "200px"
+				  },
+				  {
+					"type": "separator",
+					"margin": "xs"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "建議或勘誤..",
+						"size": "md",
+						"weight": "regular",
+						"align": "start"
+					  }
+					],
+					"margin": "md"
+				  },
+				  {
+					"type": "box",
+					"layout": "horizontal",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "benno.wu@gmail.com",
+						"size": "md",
+						"weight": "regular",
+						"align": "start",
+						"action": {
+						  "type": "postback",
+						  "label": "action",
+						  "data": "sendMe",
+						  "displayText": "benno.wu@gmail.com"
+						}
+					  }
+					]
+				  }
+				],
+				"margin": "none"
+			  }
+			],
+			"margin": "lg"
+		  }
+		]
+	  }
+	]
   },
   "styles": {
-    "footer": {
-      "separator": true
-    }
+	"footer": {
+	  "separator": true
+	}
   }
 }"""
 
