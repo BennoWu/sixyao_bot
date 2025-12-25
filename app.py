@@ -387,8 +387,10 @@ def handle_message(event):
 	}
 
 	if user_id != my_id:
-		pushMsg( displayName + ":" + inputMsg , user_id = None )
-
+		try:
+			pushMsg( displayName + ":" + inputMsg , user_id = "U21eaaf32db85b983a842d9a9da81d8f1" )
+		except:
+			pass
 
 
 	print("userData:", userData)
@@ -944,8 +946,10 @@ def handle_postback(event):
 				inList = [ 0,0,0 ]
 
 			sixZn_UI = sSixZnUi( inList , title = note )
-			my_id = "U21eaaf32db85b983a842d9a9da81d8f1"
-			if user_id == my_id:
+
+			## 如果不是我，就不秀這個功能
+			# my_id = "U21eaaf32db85b983a842d9a9da81d8f1"
+			# if user_id == my_id:
 				# ⭐ v3 的 Flex Message
 				line_bot_api.reply_message(
 					ReplyMessageRequest(
