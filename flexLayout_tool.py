@@ -582,7 +582,7 @@ uiLayoutFront ="""
 				"action": {
 				  "type": "message",
 				  "label": "action",
-				  "text": "__ORGGUA__"
+				  "text": "__ORGGUA_COM__"
 				}
 			  },
 			  {
@@ -651,7 +651,7 @@ uiLayoutFront ="""
 				"action": {
 				  "type": "message",
 				  "label": "action",
-				  "text": "__CHGGUA__"
+				  "text": "__CHGGUA_COM__"
 				}
 			  }
 			],
@@ -1054,9 +1054,12 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 								.replace("__CHGGUA__" , chgGuaName)	 ## 變卦
 								.replace("__SHOW__", showCommand )
 
+								.replace("__ORGGUA_COM__" , "#"+ orgGuaName)  ## 本卦
+								.replace("__CHGGUA_COM__" , "#"+ chgGuaName)	 ## 變卦
 
-								.replace("__ORGTPE__" , "#"+ orgGuaType )
-								.replace("__CHGTPE__" , "#"+ chgGurType )
+
+								.replace("__ORGTPE__" , orgGuaType )
+								.replace("__CHGTPE__" , chgGurType )
 
 						)
 	# print("dateMark - " , dateSureMark )
