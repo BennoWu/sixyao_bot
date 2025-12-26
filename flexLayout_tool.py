@@ -1050,8 +1050,8 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 								.replace("12:00", currentTime )
 								.replace("__裝卦__", command )
 								.replace("__dis裝卦__", display_command )								
-								.replace("__ORGGUA__" , orgGuaName)  ## 本卦
-								.replace("__CHGGUA__" , chgGuaName)	 ## 變卦
+								.replace("__ORGGUA__" , ">"+orgGuaName)  ## 本卦
+								.replace("__CHGGUA__" , ">"+chgGuaName)	 ## 變卦
 								.replace("__SHOW__", showCommand )
 
 

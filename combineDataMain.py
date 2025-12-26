@@ -374,7 +374,7 @@ def checkInData( testData ):
 
 	print( "----->>>-----",testData )
 	# textDate  =  testData.replace("月","").replace("日","").replace("/","" )
-	tgdz = ["0","1","*","x","X","$","@","6","7","8","9"]
+	tgdz = ["0","1","*","x","X","$","@","6","7","8","9","*","＊","!","！"]
 	if len(testData) != 6:
 		return False
 
@@ -1045,9 +1045,9 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 		## 卦 $0011X0
 		elif checkInData( buf_org ) == True:
-			print(">>進入直上模式")
+			print(">>進入直上模式-",buf_org )
 			if len( buf_org ) == 6:
-				finalGua = buf_org.replace("/","").replace("@","$").replace("6","X").replace("7","1").replace("8","0").replace("9","$").replace("x","X")
+				finalGua = buf_org.replace("/","").replace("@","$").replace("6","X").replace("*","X").replace("＊","X").replace("!","X").replace("！","X").replace("7","1").replace("8","0").replace("9","$").replace("x","X")
 				checkItem[0] = "卦"
 			else:
 				print( "卦有問題")
@@ -1410,7 +1410,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "010011,1,4,5//乙巳-戊寅-壬申//龔子修占今年能否上南京師大?")
 
 	# sixYaoMain( "2寅年巳月寅日-申酉//華一希占高考考運//天火 1 3 5" )
-	# sixYaoMain( "0X@0X1" ) 
+	sixYaoMain( "01$！0*" ) 
 	# sixYaoMain( "2025,10,30//澤之節" ) 
 	# sixYaoMain( "Q媽的鑽石項鍊在那裏?//1X@001" ) 
 	# sixYaoMain( "+乙巳年卯月己丑日//自占4/6馬祖新村擺攤收入吉凶?//1X0$$0",showPic = True ) ## 三合
@@ -1520,7 +1520,7 @@ if __name__ == '__main__':
 # 天何言哉，叩之即應，富貴窮通，命運使然。遇事難斷，卜而決疑，惟神惟靈，實明我心。卦神在上，弟子誠心祈求靈卦， 弟子某某某要問某某事，請賜萬象六爻，斷驗如神，以決憂疑。謝卦神賜卦
 # """
 	# sixYaoMain( "+可否得到銀行offer//2025/06/05/21/22//11X0$X")
-	sixYaoMain( "+瑞豐近況2//@@11@0//2025 ,07 14 18 35",showPic = True) ## 化退
+	# sixYaoMain( "+瑞豐近況2//@@11@0//2025,07,14,18,35",showPic = True) ## 化退
 	# sixYaoMain( "+蔡男占銀行貸款可否通過//癸卯,丁巳,乙亥,己酉//豐之離卦")
 
 	# sixYaoMain("+甲辰年丙寅月辛丑日甲午//占下廣告對命理事業收入效益?//小畜之巽卦")	
