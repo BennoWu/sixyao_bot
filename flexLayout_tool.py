@@ -3149,7 +3149,7 @@ how_to_use = """
       },
       {
         "type": "text",
-        "text": "礙於LINE的使用介面沒有表單模式，只能用文字指令替代",
+        "text": "礙於LINE的使用介面沒有表單模式，只能用文字指令",
         "size": "sm",
         "wrap": true,
         "margin": "sm"
@@ -3220,7 +3220,7 @@ how_to_use = """
                     "margin": "sm"
                   }
                 ],
-                "margin": "md"
+                "margin": "lg"
               },
               {
                 "type": "box",
@@ -3298,7 +3298,7 @@ how_to_use = """
                                     "width": "30px"
                                   }
                                 ],
-                                "width": "85px"
+                                "width": "90px"
                               },
                               {
                                 "type": "box",
@@ -3369,7 +3369,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "85px"
+                                "width": "90px"
                               },
                               {
                                 "type": "box",
@@ -3440,7 +3440,7 @@ how_to_use = """
                                     "align": "start"
                                   }
                                 ],
-                                "width": "85px"
+                                "width": "90px"
                               },
                               {
                                 "type": "box",
@@ -3532,7 +3532,7 @@ how_to_use = """
                                     "width": "40px"
                                   }
                                 ],
-                                "width": "85px"
+                                "width": "90px"
                               },
                               {
                                 "type": "box",
@@ -4043,13 +4043,14 @@ how_to_use = """
                     "contents": [
                       {
                         "type": "text",
-                        "text": "自訂時間:",
-                        "size": "md",
+                        "text": "自訂時間模式:",
+                        "size": "sm",
                         "weight": "bold",
-                        "align": "start"
+                        "align": "start",
+                        "color": "#295F87"
                       }
                     ],
-                    "width": "80px"
+                    "width": "100px"
                   },
                   {
                     "type": "box",
@@ -4883,7 +4884,8 @@ how_to_use = """
             ],
             "margin": "lg"
           }
-        ]
+        ],
+        "margin": "sm"
       }
     ]
   },

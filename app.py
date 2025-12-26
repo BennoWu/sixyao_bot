@@ -469,6 +469,17 @@ def handle_message(event):
 		return
 
 
+
+
+	elif inputMsg.startswith("#"):
+		returnMsg = "⚠ 六十四卦資料待補"
+
+
+
+
+
+
+
 	# 歲次干支 - 輸入年份 - 輸入干支取得
 	## 兩位數(民國) ，四位數(西元) 可通過
 	# elif (  bool(re.fullmatch(r'\d{2}|\d{4}',  str(returnMsg).strip())) ) or ( inputMsg in ganZhi_Dict.values() ):
@@ -667,7 +678,7 @@ def handle_message(event):
 
 
 	# 修改Title
-	elif inputMsg[0] in [ ">", "#" , ":" , "@", "#" , "：" , "！" , "!", "/","*" ]:
+	elif inputMsg[0] in [ ">" , ":" , "@", "#" , "：" , "！" , "!", "/","*" ]:
 		changeNote = inputMsg[1:]
 		changeNote = changeNote.replace(' ', '')
 		# changeNote = changeNote.replace('\n', '^')
