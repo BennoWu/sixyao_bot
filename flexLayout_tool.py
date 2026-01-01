@@ -1650,14 +1650,15 @@ endLayout = """					{
 						              {
 						                "type": "text",
 						                "text": "▲ Prev",
-						                "size": "lg",
+						                "size": "md",
 						                "align": "start",
 						                "weight": "bold",
 						                "action": {
 						                  "type": "message",
 						                  "label": "action",
 						                  "text": "__PRE__"
-						                }
+						                },
+						                "color": "#898E9B"
 						              }
 						            ],
 						            "width": "80px"
@@ -1669,19 +1670,20 @@ endLayout = """					{
 						              {
 						                "type": "text",
 						                "text": "More▼",
-						                "size": "lg",
+						                "size": "md",
 						                "align": "end",
 						                "weight": "bold",
 						                "action": {
 						                  "type": "message",
 						                  "label": "action",
 						                  "text": "__MORE__"
-						                }
+						                },
+						                "color": "#898E9B"
 						              }
 						            ]
 						          }
 						        ],
-						        "margin": "sm"
+						        "margin": "md"
 						      }
 
 

@@ -644,8 +644,8 @@ def ichingGuaUI(guaName, printMode=False):
 													.replace( "__CHGGUA_SUB__" , changeGuaSub )
 													.replace( "__CHGTXT__" , changeGuaTxt )
 
-													.replace("__HOMEMORE__" , "#"+ homeGua)  ## 本卦
-													.replace("__CHGMORE__" , "#"+ changeGua)	 ## 變卦													
+													.replace("__HOMEMORE__" , "["+ homeGua + "]")  ## 本卦
+													.replace("__CHGMORE__" , "["+ changeGua + "]")	 ## 變卦													
 							)
 
 

@@ -478,8 +478,8 @@ def handle_message(event):
 		return
 
 
-	# elif inputMsg == "ng":
-	# 	returnMsg = "⚠ 資料待補"
+	elif ("["  in inputMsg )  and ("]"  in inputMsg ):
+		returnMsg = "⚠ 六十四卦資料待補"
 
 
 
@@ -702,8 +702,8 @@ def handle_message(event):
 
 
 	# 修改Title
-	elif inputMsg[0] in [ ">" , ":" , "@", "#" , "：" , "！" , "!", "/","*" ]:
-		if inputMsg.startswith((">>" , "::" , "@@", "##" , "：：" , "！！" , "!!", "//","**"  )):
+	elif inputMsg[0] in [ ">" , ":" , "@",  "：" , "！" , "!", "/","*" ]:
+		if inputMsg.startswith((">>" , "::" , "@@", "：：" , "！！" , "!!", "//","**"  )):
 			changeNote = inputMsg[2:]
 		else:
 			changeNote = inputMsg[1:]
