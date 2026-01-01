@@ -703,7 +703,7 @@ def handle_message(event):
 
 	# 修改Title
 	elif inputMsg[0] in [ ">" , ":" , "@", "#" , "：" , "！" , "!", "/","*" ]:
-		if inputMsg.startswith((">>" , "::" , "@@", "##" , "：：" , "！！" , "!!", "//","**"  ))
+		if inputMsg.startswith((">>" , "::" , "@@", "##" , "：：" , "！！" , "!!", "//","**"  )):
 			changeNote = inputMsg[2:]
 		else:
 			changeNote = inputMsg[1:]
