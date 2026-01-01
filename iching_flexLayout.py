@@ -372,7 +372,7 @@ def get_short_name(name):
 
 ### 防止寫錯字用的
 def fixGuaWording( guaName ):
-	fixList = {	"西日":"酉日","西月":"酉日","始":"姤","恒":"恆","遁":"遯","暌":"睽","癸":"睽","責":"賁","憤":"賁","濛":"蒙","盟":"蒙","萌":"蒙","換":"渙","喚":"渙" ,"移":"頤","ㄅ":"剝" ,"須":"需","遇":"豫","進":"晉","減":"蹇","垢":"姤","后":"姤","夠":"姤","脆":"萃","卒":"萃","丰":"豐","換":"渙","喚":"渙","俘":"中孚","浮":"中孚","中俘":"中孚","中浮":"中孚","同":"同人","有":"大有","噴":"賁","奔":"賁","波":"剝","妄":"無妄","進":"晉","夷":"明夷","佳人":"家人","頂":"鼎","丰":"豐","既":"既濟","未":"未濟" ,"屢":"履"  }
+	fixList = {	"西日":"酉日","西月":"酉日","始":"姤","恒":"恆","遁":"遯","暌":"睽","癸":"睽","責":"賁","憤":"賁","濛":"蒙","盟":"蒙","萌":"蒙","換":"渙","喚":"渙" ,"移":"頤","ㄅ":"剝" ,"須":"需","遇":"豫","進":"晉","減":"蹇","垢":"姤","后":"姤","夠":"姤","脆":"萃","卒":"萃","丰":"豐","換":"渙","喚":"渙","俘":"中孚","中浮":"中孚","中俘":"中孚","中浮":"中孚","同仁":"同人","大友":"大有","噴":"賁","奔":"賁","波":"剝","忘":"妄","進":"晉","佳人":"家人","頂":"鼎","丰":"豐","既":"既濟","未":"未濟" ,"屢":"履"  }
 
 
 	nameBuf = ""
@@ -527,7 +527,7 @@ def ichingGuaUI(guaName, printMode=False):
 		homeGua, changeGua = guaName.split("/")
 		mainTitle = get_short_name(homeGua) + "之" + get_short_name(changeGua) + "卦"
 		mainSubTitle = get_gua_match_text(get_short_name(homeGua), get_short_name(changeGua))
-
+		print( homeGua, changeGua )
 		change_result = get_gua_text(changeGua)
 		changeGuaSub = change_result["judgment"]
 		changeGuaTxt = change_result["desc"]
@@ -666,7 +666,7 @@ def ichingGuaUI(guaName, printMode=False):
 
 
 if __name__ == '__main__':
-	ichingGuaUI( "#萃之遁" , printMode = True )
+	ichingGuaUI( "#雷澤歸妹/地火明夷" , printMode = True )
 
 # ichingGuaUI( "#巽為風/風天小畜" , printMode = True )
 # {
