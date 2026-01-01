@@ -1331,7 +1331,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "2025,4,27,12,28//卯月丁巳日//010$1X//問題問題問題" )
 	# sixYaoMain( "+癸丑年戌月丁亥日//占往某地做生意財利//大畜之賁",showPic = True)
 	# sixYaoMain( "2025/12/24/11/27//咸之夬卦//Untitled",showPic = True)
-	# sixYaoMain( "復之艮//吃飽了沒")	
+	# sixYaoMain( "天之遁//吃飽了沒")	
 	# sixYaoMain( "27 71 42//吃飽了沒")
 	# sixYaoMain( "地风升之地水师//卯月乙未日//一人占賣貨")	
 	# sixYaoMain( "100101//占今年幾時換工作今時換工作較好" )
@@ -1410,7 +1410,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "010011,1,4,5//乙巳-戊寅-壬申//龔子修占今年能否上南京師大?")
 
 	# sixYaoMain( "2寅年巳月寅日-申酉//華一希占高考考運//天火 1 3 5" )
-	sixYaoMain( "01$！0*" ) 
+	# sixYaoMain( "01$！0*" ) 
 	# sixYaoMain( "2025,10,30//澤之節" ) 
 	# sixYaoMain( "Q媽的鑽石項鍊在那裏?//1X@001" ) 
 	# sixYaoMain( "+乙巳年卯月己丑日//自占4/6馬祖新村擺攤收入吉凶?//1X0$$0",showPic = True ) ## 三合
@@ -1435,7 +1435,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "+2025/08/31/15:48//傑利的房貸吉凶0831//110000",showPic = True) ## 九月七日 酉月卯日
 	# sixYaoMain( "+2025/9/2/12/37 // 101X0X // 傑利的房貸吉凶0902" ) ## 九月七日 酉月卯日
 	# sixYaoMain( "2025/9/2/14/11 // X1$110 // 傑利漲房租有沒有望" )
-	# sixYaoMain( "+2025/9/17/2/4 // 1$0$00 // 傑利與同學見面錢財吉凶",showPic = True)
+	sixYaoMain( "2025/9/17/2/4 // 1$0$00 // 傑利與同學見面錢財吉凶",showPic = True)
 	# sixYaoMain( "+乙巳年乙酉月丁亥日//男占小孩突發疾病吉凶//011100" ,showPic = True )
 	# sixYaoMain("+2025/10/02/20/41//01$10X//測試測試測試",showPic = True )
 	# sixYaoMain("+2025/12/11/21/40 - 0X$10X//占男身體狀況吉凶",showPic = True)

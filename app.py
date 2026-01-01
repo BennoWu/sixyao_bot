@@ -18,6 +18,8 @@ from flexLayout_tool import sSixZnUi ## 小六壬
 
 from lineSend import *
 
+from iching_flexLayout import * ## 易經卦UI
+
 from sixYaoJsonDataClass import *
 
 import os , threading , re
@@ -360,6 +362,12 @@ def callback():
 	return 'OK'
 
 
+
+
+# 設定管理員的 User ID（可以從 LINE Bot 後台或 event 中取得）
+ADMIN_USER_ID = "YOUR_ADMIN_USER_ID"
+
+
 # ⭐ v3 的 handler 寫法
 @handler.add(MessageEvent, message=TextMessageContent )
 def handle_message(event):
@@ -375,6 +383,7 @@ def handle_message(event):
 	# ⭐ v3 取得訊息內容
 	inputMsg = event.message.text
 	inputMsg = inputMsg.replace('\u200b', '')
+	inputMsg = inputMsg.strip()
 	
 	print(">:", inputMsg)
 	print( unifiedData(inputMsg) )
@@ -469,11 +478,26 @@ def handle_message(event):
 		return
 
 
+	# elif inputMsg == "ng":
+	# 	returnMsg = "⚠ 資料待補"
+
 
 
 	elif inputMsg.startswith("#"):
-		returnMsg = "⚠ 六十四卦資料待補"
 
+		iching_dict = ichingGuaUI( inputMsg )
+		line_bot_api.reply_message(
+			ReplyMessageRequest(
+				reply_token=event.reply_token,
+				messages=[
+					FlexMessage(
+						alt_text='< 易經卦說明 >',
+						contents=FlexContainer.from_dict(iching_dict)
+					)
+				]
+			)
+		)
+		return
 
 
 
@@ -679,7 +703,10 @@ def handle_message(event):
 
 	# 修改Title
 	elif inputMsg[0] in [ ">" , ":" , "@", "#" , "：" , "！" , "!", "/","*" ]:
-		changeNote = inputMsg[1:]
+		if inputMsg.startswith((">>" , "::" , "@@", "##" , "：：" , "！！" , "!!", "//","**"  ))
+			changeNote = inputMsg[2:]
+		else:
+			changeNote = inputMsg[1:]
 		changeNote = changeNote.replace(' ', '')
 		# changeNote = changeNote.replace('\n', '^')
 		# print( "@@@@@@@ change note === " , changeNote )
@@ -745,6 +772,29 @@ def handle_message(event):
 				)
 			)
 
+		elif inputMsg in ["restart", "re"]:
+			# ⭐ v3 文字訊息回覆
+			line_bot_api.reply_message(
+				ReplyMessageRequest(
+					reply_token=event.reply_token,
+					messages=[TextMessage(text= "🔄 正在重啟 Bot..." )]
+				)
+			)
+
+	        os.execv(sys.executable, ['python'] + sys.argv)
+
+
+
+
+
+
+
+    
+
+
+
+
+
 		# 	# 建立兩個執行緒
 		# 	t1 = threading.Thread( target=delayed_upLog )
 		# 	t2 = threading.Thread( target=delayed_upJson )
@@ -760,6 +810,12 @@ def handle_message(event):
 			return
 		else:
 			returnMsg = f"No command - {inputMsg}"
+
+
+
+
+
+
 
 
 

@@ -201,6 +201,35 @@ def delete_older_than(folder="line_temp", days=0):
 	return deleted
 
 
+
+
+
+
+# import cloudinary
+# import cloudinary.uploader
+# import cloudinary.api
+
+# # 1️⃣ 設定 Cloudinary
+# cloudinary.config(
+#     cloud_name = "你的cloud_name",
+#     api_key = "你的api_key",
+#     api_secret = "你的api_secret"
+# )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
 	
 # https://console.cloudinary.com/app/c-23207f9a45824cd129542519c8eb28/assets/media_library/folders/cbba2d5838093ff9d98caf59474a6c2f1a?view_mode=mosaic
@@ -220,30 +249,65 @@ if __name__ == '__main__':
 	# deleted = delete_older_than( days = 15 )
 	# print("已刪除：", deleted)
 
-	filePathList = [r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-38.png",
-					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-39.png",
-					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-40.png",
-					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-41.png",
-					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-42.png",
-					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-43.png",
-					]
 
 
-# url_dict = {
-# "大安":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168800/sLiuZen-icon-38_pbgioz.png", ## 大安
-# "留連":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168801/sLiuZen-icon-39_wxpscd.png", ## 留連
-# "速喜":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168801/sLiuZen-icon-40_fpataz.png", ## 速喜
-# "小吉":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168802/sLiuZen-icon-42_mgba6j.png", ## 小吉
-# "赤口":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168802/sLiuZen-icon-41_tqkd6z.png", ## 赤口
-# "空亡":"https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765168803/sLiuZen-icon-43_omo0cx.png" ## 空亡
-# }
-	delete_older_than(folder="__icon", days=0)
+
+
+
+# 	filePathList = [r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-38.png",
+# 					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-39.png",
+# 					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-40.png",
+# 					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-41.png",
+# 					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-42.png",
+# 					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-43.png",
+# 					]
+
+# 	delete_older_than(folder="__icon", days=0)
 	
-	nameList = [ "大安","留連","速喜","赤口","小吉","空亡" ]
-	print( "url_dict = {")
-	for i, each in enumerate(filePathList):
-		res = upload_image( each , folder="__icon")
-		# print( i , res["url"])
-		print (f'"{nameList[i]}" : "{res["url"]}",')
-	print( "}")
-# delete_image("line_temp/m45zouwd2vvb6fejpb9g")
+# 	nameList = [ "大安","留連","速喜","赤口","小吉","空亡" ]
+# 	print( "url_dict = {")
+# 	for i, each in enumerate(filePathList):
+# 		res = upload_image( each , folder="__icon")
+# 		# print( i , res["url"])
+# 		print (f'"{nameList[i]}" : "{res["url"]}",')
+# 	print( "}")
+# # delete_image("line_temp/m45zouwd2vvb6fejpb9g")
+
+
+
+
+
+	# 2️⃣ 上傳 JSON
+	res = cloudinary.uploader.upload(
+	    r"D:\Dropbox\Python\linebot\六爻\work\baGuaData\gua64.json",  # Windows
+	    # r"D:\Dropbox\Python\linebot\六爻\work\baGuaData\guaMatchDict.json",  # Windows	    
+	    resource_type="raw",
+	    folder="__icon",
+	    public_id="gua64"
+	)
+
+
+	# 3️⃣ 取得可公開 URL
+	print("✅ 上傳完成，檔案 URL：")
+	print(res['secure_url'])
+
+	res = cloudinary.uploader.upload(
+	    # r"D:\Dropbox\Python\linebot\六爻\work\baGuaData\gua64.json",  # Windows
+	    r"D:\Dropbox\Python\linebot\六爻\work\baGuaData\guaMatchDict.json",  # Windows	    
+	    resource_type="raw",
+	    folder="__icon",
+	    public_id="guaMatchDict"
+	)
+
+
+	# 3️⃣ 取得可公開 URL
+	print("✅ 上傳完成，檔案 URL：")
+	print(res['secure_url'])
+
+
+
+
+
+
+# https://res.cloudinary.com/ds9jcwwcw/raw/upload/v1766859111/__icon/guaMatchDict.json
+# https://res.cloudinary.com/ds9jcwwcw/raw/upload/v1766859141/__icon/gua64.json

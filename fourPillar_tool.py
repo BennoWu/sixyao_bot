@@ -2,9 +2,13 @@
 
 import  sxtwl
 # https://blog.csdn.net/Lc_001/article/details/129195335
-import datetime
 
 from yearData import *
+from dateutil.relativedelta import relativedelta
+
+import datetime
+from datetime import timedelta
+from dateutil.relativedelta import relativedelta
 
 
 Gan = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]
@@ -839,15 +843,34 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
  #                         # ('時盤', '2022/12/22/17/13')
 	# for each in range( runtime ):
 	add = 0
+
+	is_first = True
+	preDate = ""
+	postDate = ""
+
+
+
+
 	while True:
 		dt = datetime.datetime.strptime(inDate, "%Y/%m/%d/%H/%M")
 
 		if dayMode == "h":   # 時辰模式
 			out = (dt + datetime.timedelta(hours=2)).strftime("%Y/%m/%d/%H/%M")
+			if is_first:
+				preDate = (dt + datetime.timedelta( hours = -runtime*2+2 )).strftime("%Y/%m/%d/%H/%M")	
+				is_first = False			
+			# print( preDate )
+			postDate = ",".join(out.split("/"))
 
 		elif dayMode == "d":  # 日模式（節氣和月模式已經在下面各自處理了）
 			out = (dt + datetime.timedelta(days=1)).strftime("%Y/%m/%d/%H/%M")
 
+			if is_first:
+				preDate = (dt + datetime.timedelta(days=(1 - runtime))).strftime("%Y,%m,%d")
+				is_first = False
+			postDate = ",".join(out.split("/")[:3])
+			# aa = (dt + datetime.timedelta(days=0-runtime+1 )).strftime("%Y/%m/%d/%H/%M")	## 取得pre的日期，往回數runtime數		
+			# print( aa )
 		# 月模式 (m) 和節氣模式 (jc) 在後面的 if 區塊處理
 
 		# if dayMode == "jc":  ## 節氣模式，每個進程約15天，但因天數不固定，則用日來跑，跑到有節氣當日出現才加一( days=1 )  '2025/04/09/15:00'
@@ -886,10 +909,25 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 				# 再從第 28 天開始微調找換月日
 				for foo in range(1, 6):  # 檢查 28, 29, 30, 31, 32 天
 					out = (dt_temp + datetime.timedelta(days=foo)).strftime("%Y/%m/%d/%H/%M")
+					if is_first:
+
+
+
+
+						# (datetime.now() + relativedelta(months=-1)).strftime("%Y/%m/%d/%H/%M")
+
+
+						preDate = (dt_temp + relativedelta(months=(runtime+1)*-1)).strftime("%Y,%m,%d")
+
+
+
+						# preDate = (dt_temp + datetime.timedelta(days= -33*(runtime )  )).strftime("%Y/%m/%d/%H/%M")	
+						# print( "preDate-",preDate )
+						is_first = False	
 					add += 1
 					if nowMonth != getFourPillar(out, True)[2][1]:
 						break
-
+			postDate = ",".join(out.split("/")[:3])
 
 		if dayMode == "jc":  ## 節氣模式，每個進程約15天
 			
@@ -909,10 +947,23 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 				# 再從第 14 天開始微調找節氣
 				for foo in range(1, 5):  # 檢查 14, 15, 16, 17 天
 					out = (dt_temp + datetime.timedelta(days=foo)).strftime("%Y/%m/%d/%H/%M")
+					if is_first:
+
+						## 一個月有兩個節氣，所以runtime如果為雙數，就直接除以二，如果為單數，則除以二之後，再減15天
+						preDate = (dt_temp - relativedelta(months=runtime//2) - datetime.timedelta(days=(runtime%2)*15)).strftime("%Y,%m,%d")
+
+
+
+						# preDate = (dt_temp + datetime.timedelta(days=0-15 )).strftime("%Y/%m/%d/%H/%M")	
+						# print( "preDate-",preDate )
+						is_first = False	
+
 					fp_check = getFourPillar(out, True)
 					add += 1
 					if fp_check[3][1] == '!':  # 找到節氣
 						break
+
+			postDate = ",".join(out.split("/")[:3])
 
 
 				
@@ -953,7 +1004,7 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 		# print( eachList) 
 		# ['乙巳-辛巳-庚寅', '2025/05/21', '小滿'] 年月日柱，陽曆，陰曆, 節氣
 
-		if len(timeList) > runtime:
+		if len(timeList) >= runtime:
 			break
 
 		if index != "":
@@ -971,10 +1022,11 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 			timeList.append( eachList )
 
 			# if (index == "節氣") or (index.lower() == "jc") or (index.lower() == "jechi"):
-
+	print ( "preDate -" ,preDate )
+	print ( "postDate -" ,postDate )	
 	# ['乙巳-甲申-戊申', '2025/08/07', '立秋']
 	print( "迴圈次數:",add )
-	return timeList
+	return timeList, [ preDate , postDate ]
 
 
 # def PPPPP_optimized(currentTime="", dayMode="", index="", runtime=24):
@@ -1019,16 +1071,20 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 #     return timeList
 
 if __name__ == '__main__':
-	fourPillarToDateMain()
-	# # getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 20)
-	# # getList = PPPPP ( currentTime = "2025/12/10/21/00" ,dayMode = "h", runtime = 20)	
+	# fourPillarToDateMain()
+	# getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 3)
+	getList = PPPPP ( currentTime = "2025/12/10/21/00" ,dayMode = "d", runtime = 5)	[0]
+	for i in getList:
+		print(i)
+
+	getList = PPPPP ( currentTime = "2025/12/20" ,dayMode = "d", runtime = 8)[0]			 
+	# getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 4)	
 	# # getList =  PPPPP ( currentTime = "2025-12-9-4-50" , dayMode = "d" , runtime = 3 )
 	# getList =  PPPPP ( currentTime = "2025/12/21/3/00" , dayMode = "m" , runtime = 8 )
-	# # getList = PPPPP ( currentTime = "2025/12/20" ,dayMode = "h", runtime = 20)			 
 	# # getList =  PPPPP ( currentTime = "2025/12/15/17:00" , dayMode = "h" , runtime = 7 ) 
 	# # getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
-	# for i in getList:
-	# 	print(i)	
+	for i in getList:
+		print(i)	
 	# # print(getFourPillar( "2025/12/15/2/46" ,  True  ))
 	# # print(getFourPillar( "2025/12/15/1/46" ,  True  ))
 	# # print(getFourPillar( "2025/12/10/22/00" ,  True  ))
