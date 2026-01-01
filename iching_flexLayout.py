@@ -396,7 +396,7 @@ import requests
 _JSON_CACHE = {}
 
 
-def load_json_with_cache(url, force_reload=True):
+def load_json_with_cache(url, force_reload= False):
 	if not force_reload and url in _JSON_CACHE:
 		return _JSON_CACHE[url]
 
@@ -428,7 +428,7 @@ def get_gua_text(gua_name):
 	gua_name = fixGuaWording(gua_name)
 	# print ( gua_name )
 	GUA64_URL = r"https://res.cloudinary.com/ds9jcwwcw/raw/upload/v1767273900/__icon/gua64.json"
-	gua_dict = load_json_with_cache(GUA64_URL ,force_reload=True)
+	gua_dict = load_json_with_cache(GUA64_URL ,force_reload= False)
 
 	gua = gua_dict.get(gua_name)
 	if not gua:

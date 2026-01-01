@@ -331,6 +331,7 @@ def upload_csv_task():
 		print( delete_older_than(folder="line_temp", days= 15 ) )
 		
 		print(f"上傳任務執行成功")
+		pushMsg(f"上傳任務執行成功", user_id = None )
 		return 'OK', 200
 		
 	except Exception as e:
