@@ -450,7 +450,7 @@ def get_gua_match_text(gua, yao):
 	gua = fixGuaWording( gua )
 	yao = fixGuaWording( yao )
 	# print(gua, yao)
-	GUA_MATCH_URL = r"https://res.cloudinary.com/ds9jcwwcw/raw/upload/v1767273354/__icon/guaMatchDict.json"
+	GUA_MATCH_URL = r"https://res.cloudinary.com/ds9jcwwcw/raw/upload/v1767351820/__icon/guaMatchDict.json"
 	guaMatchDict = load_json_with_cache(GUA_MATCH_URL)
 	return guaMatchDict.get(gua, {}).get(yao, "找不到卦辭")
 
