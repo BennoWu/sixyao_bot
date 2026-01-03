@@ -1842,7 +1842,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "兩村相爭//火天.1,3,4,6//卯月丁巳日") ## 三合
 	# sixYaoMain( "兩村相爭")
 	# sixYaoMain( "丙戌月辰酉日//大过之鼎卦")	
-	sixYaoMain( "卯月丁丁日//0011$1",showPic = False )
+	sixYaoMain( "2025,15,20//0011$1",showPic = False )
 	# sixYaoMain( "+巳年卯月戊戌日//大过之鼎卦")	## 三合太多
 	# sixYaoMain( "吃不吃辣//100010.2")	
 	# sixYaoMain( "+嬰兒健康吉凶//山風 .,2.3//己卯月甲午日",showPic = True )  ## 三合 跳格
