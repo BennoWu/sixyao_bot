@@ -521,7 +521,7 @@ def validate_input(text):
 			# 檢查是否為完整干支（必須有天干+地支）
 			if len(day_part) == 1:
 				# 只有地支，沒有天干
-				errors.append(f"日柱必須提供完整干支（天干+地支），不能只有地支「{day_part}」")
+				errors.append(f'日柱必須提供完整干支(天干+地支),不可只有地支"{day_part}"')
 			elif len(day_part) == 2 and day_part[0] not in Gan:
 				# 兩個字但第一個不是天干
 				errors.append(f"日柱格式錯誤：「{day_part}」")
@@ -688,7 +688,7 @@ def parse_ganzhi_from_text(text):
 	# 0. 先驗證輸入
 	is_valid, validation_errors = validate_input(text)
 	if not is_valid:
-		error_msg = "⛔輸入格式錯誤:\n" + "\n".join([f"  - {e}" for e in validation_errors])
+		error_msg = "\n".join([f"{e}" for e in validation_errors])
 		print()
 		# print(text + " <輸入")
 		# print(error_msg)
@@ -1649,9 +1649,9 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 			# print( "DD - ",dateData )
 			# if dateData == None:
 			else:
-				# print( f"⛔日期格式錯誤: \n[{ buf_org}] - {buf}")
+				# print( f"⛔日期格式錯誤:\n{buf}")
 
-				return f"⛔日期格式錯誤: \n[{ buf_org}] - {buf}"
+				return f"⛔日期格式錯誤:\n{buf}"
 
 
 
@@ -1842,7 +1842,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "兩村相爭//火天.1,3,4,6//卯月丁巳日") ## 三合
 	# sixYaoMain( "兩村相爭")
 	# sixYaoMain( "丙戌月辰酉日//大过之鼎卦")	
-	sixYaoMain( " +戌月丁酉日 // 0111$X // Untitled",showPic = True )
+	sixYaoMain( "111*00//卯年丑月酉日",showPic = False )
 	# sixYaoMain( "+巳年卯月戊戌日//大过之鼎卦")	## 三合太多
 	# sixYaoMain( "吃不吃辣//100010.2")	
 	# sixYaoMain( "+嬰兒健康吉凶//山風 .,2.3//己卯月甲午日",showPic = True )  ## 三合 跳格
