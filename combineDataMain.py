@@ -615,11 +615,11 @@ def check_completeness(year_raw, month_raw, day_raw, hour_raw, text):
 	else:
 		# 沒有關鍵字，按位置判斷（原有邏輯）
 		if not year_raw:
-			errors.append("缺少年柱")
+			errors.append(" 缺少年柱")
 		if not month_raw:
-			errors.append("缺少月柱")
+			errors.append(" 缺少月柱")
 		if not day_raw:
-			errors.append("缺少日柱")
+			errors.append(" 缺少日柱")
 		
 		# 只有在年月日都齊全的情況下，才提示時柱
 		if not errors and not hour_raw:
