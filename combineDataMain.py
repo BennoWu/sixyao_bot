@@ -1599,8 +1599,8 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 			## 檢查格式
 			if is_valid_ganzhi_month_day(buf_org) == False:
-				# print( f"⛔日期格式錯誤: [{ buf_org}] - 檢查干支")
-				return f"\n[{ buf_org}] - 檢查干支"
+				print( f"⛔日期格式錯誤:  檢查干支")
+				return  f"⛔日期格式錯誤:  檢查干支"
 
 
 			if len(buf_org.split( "/" )) == 2:
