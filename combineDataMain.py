@@ -817,7 +817,7 @@ def parse_ganzhi_from_text(text):
 		# 格式化顯示缺少的柱
 		missing_list = format_missing_pillars(year_raw, month_raw, day_raw, hour_raw, text)
 		if missing_list:
-			error_msg = f"缺少{''.join(missing_list)}"
+			error_msg = f"  缺少{''.join(missing_list)}"
 			print(error_msg)
 			return error_msg  # 回傳錯誤訊息字串
 		return None
