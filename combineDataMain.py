@@ -1585,8 +1585,8 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 				print( "日期輸入有誤")
 				dateData = "------"
 
-				print( f"⛔不正確的日期格式: \n[{ buf}]")
-				return
+				print( f"⛔日期格式錯誤: \n[{ buf}]")
+				return f"⛔日期格式錯誤: \n[{ buf}]"
 
 
 		## 自訂干支
@@ -1599,7 +1599,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 			## 檢查格式
 			if is_valid_ganzhi_month_day(buf_org) == False:
-				print( f"⛔不正確的日期格式: \n[{ buf_org}] - 檢查干支 ")
+				print( f"⛔日期格式錯誤: \n[{ buf_org}] - 檢查干支")
 				return
 
 
@@ -1649,9 +1649,9 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 			# print( "DD - ",dateData )
 			# if dateData == None:
 			else:
-				print( f"⛔不正確的日期格式: \n[{ buf_org}] - {buf} ")
+				# print( f"⛔日期格式錯誤: \n[{ buf_org}] - {buf}")
 
-				return
+				return f"⛔日期格式錯誤: \n[{ buf_org}] - {buf}"
 
 
 
@@ -1700,8 +1700,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 	if checkItem != ['卦', '日', '占']:
 		print ("error")
-		return "ERROR"
-
+		return "⛔裝卦符號錯誤"
 
 
 
