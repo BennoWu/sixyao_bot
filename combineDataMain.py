@@ -1599,8 +1599,8 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 			## 檢查格式
 			if is_valid_ganzhi_month_day(buf_org) == False:
-				print( f"⛔日期格式錯誤: [{ buf_org}] - 檢查干支")
-				return
+				# print( f"⛔日期格式錯誤: [{ buf_org}] - 檢查干支")
+				return f"\n[{ buf_org}] - 檢查干支"
 
 
 			if len(buf_org.split( "/" )) == 2:
@@ -1842,7 +1842,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "兩村相爭//火天.1,3,4,6//卯月丁巳日") ## 三合
 	# sixYaoMain( "兩村相爭")
 	# sixYaoMain( "丙戌月辰酉日//大过之鼎卦")	
-	sixYaoMain( "111*00//卯年丑月酉日",showPic = False )
+	sixYaoMain( "卯月丁丁日//0011$1",showPic = False )
 	# sixYaoMain( "+巳年卯月戊戌日//大过之鼎卦")	## 三合太多
 	# sixYaoMain( "吃不吃辣//100010.2")	
 	# sixYaoMain( "+嬰兒健康吉凶//山風 .,2.3//己卯月甲午日",showPic = True )  ## 三合 跳格
