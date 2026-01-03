@@ -266,13 +266,13 @@ def checkKongWang( checkItemList , dayGanZi ): ## 空亡  日干支
 	dayKongWang = getKongWang( dayGanZi ) ## 日空亡
 	# print( "dayKongWang:",dayKongWang)
 
-	# print(">>>>>>>>>>>>>>  ", dayGanZi , dayKongWang)
+	print(">>>>>>>>>>>>>>  ", dayGanZi , dayKongWang)
 	# print ( "checkItemList , dayGanZi", checkItemList , dayGanZi )
 	# print(checkItemList)
 	gia_id = 0
 	# print(checkItemList , dayGanZi)
 	for gia in checkItemList:
-		# print( "gia: ",gia )
+		print( "gia: ",gia )
 
 		if gia in dayKongWang:
 			# print( ">日空亡",dayKongWang )

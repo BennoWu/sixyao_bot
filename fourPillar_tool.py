@@ -379,9 +379,12 @@ def compare_ganzhiList(list1, list2, item=3 ):
 	for i in range(len(list1)):
 		a_gan, a_zhi = normalize_ganzhi(list1[i], GanList, ZhiList)
 		b_gan, b_zhi = normalize_ganzhi(list2[i], GanList, ZhiList)
-
+		# ['丁未', '壬子', '丙寅', '戌'] - >>丁 未,壬 子,丙 寅,None 戌
+		# print("a:" , a_gan, a_zhi)		
+		# print("b:" , b_gan, b_zhi)
 		if i < split_index:
 			# 前段必須完整匹配
+			# 比對年干年支，月干月支
 			if a_gan != b_gan or a_zhi != b_zhi:
 				return False
 		else:
@@ -402,14 +405,18 @@ def compare_ganzhiList(list1, list2, item=3 ):
 
 import datetime
 
-def fourPillarToDateMain(inputDate='丁未/壬子/丙寅/戊戌'):
+# def fourPillarToDateMain(inputDate='丁未/壬子/丙寅/戌'):
+def fourPillarToDateMain(inputDate='丁未/子/丙寅'):
 	# 統一分隔符號
 	inputDate = inputDate.replace("  ", " ").replace(",", "/").replace(" ", "/").replace(".", "/").replace("-", "/")
 	inputDateList = inputDate.split("/")
 
+
+
 	# 由干支取得西元年（不允許落在未來）
 	currentYear = getYear(inputDateList[0])
 	print("year--", inputDateList[0], currentYear)
+	print("輸入四柱:" , inputDateList)
 
 	# 初始化起始 datetime
 	start_dt = datetime.datetime(currentYear, 1, 1, 1, 0)  # ⭐ 不要 -1
@@ -422,26 +429,39 @@ def fourPillarToDateMain(inputDate='丁未/壬子/丙寅/戊戌'):
 		dt = start_dt if run == 0 else start_dt.replace(year=start_dt.year - 60 * run)
 		out = dt.strftime("%Y/%m/%d/%H/%M")
 		print(f"\n=== Run {run+1}, start: {out} ===")
-
 		# 每輪步進 3 年（兩小時一檔）
 		for eachHour in range(4380 * 3):
 			fp = getFourPillar(out)
+			# print( fp )
+			# print (inputDateList)
 			# 三柱模式
 			if len(inputDateList) == 3:
-				if fp[0] == inputDateList[0] and fp[1][-1] == inputDateList[1][-1] and fp[2] == inputDateList[2]:
-					print( out , fp )
+				# if fp[0] == inputDateList[0] and fp[1][-1] == inputDateList[1][-1] and fp[2] == inputDateList[2]:
+				if (
+					fp[0] == inputDateList[0]                      ## '丁未' == '丁未' 
+					and fp[1][-1] == inputDateList[1][-1]          ## '壬子' == '子'
+					and fp[2] == inputDateList[2]                  ## '丙寅' == '丙寅'
+				):
+					# fp['丁未', '子', '丙寅']
+					# inputDateList['丁未', '壬子', '乙丑', '丁丑']
+
+					print( "進入三柱模式")
+					# print( out , fp )
 					return out + "<"
 				dt += datetime.timedelta(days=1)  # 三柱只往天步進
 			else:  # 四柱模式
+				# print(fp, inputDateList)
+				# ['丁未', '壬子', '丙寅', '戊戌'] ['丁未', '壬子', '丙寅', '戌']
 				if compare_ganzhiList(fp, inputDateList):
-					print( out , fp )					
+					print( "進入四柱模式")
+					# print( out , fp )					
 					return out
 				dt += datetime.timedelta(hours=2)  # 四柱步進兩小時
 
 			out = dt.strftime("%Y/%m/%d/%H/%M")  # 每步更新 out
 
 	print("not found")
-	return "Not found"
+	return None
 
 
 
@@ -1071,20 +1091,20 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 #     return timeList
 
 if __name__ == '__main__':
-	# fourPillarToDateMain()
-	# getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 3)
-	getList = PPPPP ( currentTime = "2025/12/10/21/00" ,dayMode = "d", runtime = 5)	[0]
-	for i in getList:
-		print(i)
+	fourPillarToDateMain()
+	# # getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 3)
+	# getList = PPPPP ( currentTime = "2025/12/10/21/00" ,dayMode = "d", runtime = 5)	[0]
+	# for i in getList:
+	# 	print(i)
 
-	getList = PPPPP ( currentTime = "2025/12/20" ,dayMode = "d", runtime = 8)[0]			 
-	# getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 4)	
-	# # getList =  PPPPP ( currentTime = "2025-12-9-4-50" , dayMode = "d" , runtime = 3 )
-	# getList =  PPPPP ( currentTime = "2025/12/21/3/00" , dayMode = "m" , runtime = 8 )
-	# # getList =  PPPPP ( currentTime = "2025/12/15/17:00" , dayMode = "h" , runtime = 7 ) 
-	# # getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
-	for i in getList:
-		print(i)	
+	# getList = PPPPP ( currentTime = "2025/12/20" ,dayMode = "d", runtime = 8)[0]			 
+	# # getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 4)	
+	# # # getList =  PPPPP ( currentTime = "2025-12-9-4-50" , dayMode = "d" , runtime = 3 )
+	# # getList =  PPPPP ( currentTime = "2025/12/21/3/00" , dayMode = "m" , runtime = 8 )
+	# # # getList =  PPPPP ( currentTime = "2025/12/15/17:00" , dayMode = "h" , runtime = 7 ) 
+	# # # getList = PPPPP ( dayMode = "節氣" , index = "" ,runtime = 10 )
+	# for i in getList:
+	# 	print(i)	
 	# # print(getFourPillar( "2025/12/15/2/46" ,  True  ))
 	# # print(getFourPillar( "2025/12/15/1/46" ,  True  ))
 	# # print(getFourPillar( "2025/12/10/22/00" ,  True  ))

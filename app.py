@@ -856,10 +856,11 @@ def handle_message(event):
 	# 卦象UI
 	# elif "//" in unifiedData(inputMsg):
 	else:
-		ui_cmd_dict = sixYaoMain( inputMsg, userData )
+		rtn_buf = sixYaoMain( inputMsg, userData )
 
-		if ui_cmd_dict != "ERROR":
+		if "錯誤" not in rtn_buf:
 			print("UI mode")
+			ui_cmd_dict = rtn_buf
 			# print(ui_cmd_dict)
 			# if "Untitled" in inputMsg:
 			dictTxt = json.dumps(ui_cmd_dict, ensure_ascii=False, default=str) ## 變成人可以讀的中文
@@ -893,7 +894,9 @@ def handle_message(event):
 			return
 
 		else:
-			returnMsg = f"❌ 未知指令: {inputMsg}"
+			# returnMsg = f"❌ 未知指令: {inputMsg}"
+			returnMsg = rtn_buf
+
 			# ⭐ v3 文字訊息回覆
 			line_bot_api.reply_message(
 				ReplyMessageRequest(
@@ -1001,6 +1004,8 @@ def handle_postback(event):
 
 		userData = get_user_json_data(user_id)
 		print("@@@ userData:", userData)
+
+
 
 		# time.sleep(2)
 		# richmenu 切換

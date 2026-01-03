@@ -15,6 +15,7 @@ import os
 
 
 
+
 from dotenv import load_dotenv
 load_dotenv()  # 載入 .env 檔案
 
@@ -386,8 +387,19 @@ def checkInData( testData ):
 	return True
 
 
+
+
+
+
+## 干支輸入模式 例如 乙巳年寅月申酉日
+## ========================================================================================================================================
+
+
 import re
 from datetime import datetime, timezone, timedelta
+
+from fourPillar_tool import fourPillarToDateMain # 四柱得日期
+
 
 Gan = "甲乙丙丁戊己庚辛壬癸"
 Zhi = "子丑寅卯辰巳午未申酉戌亥"
@@ -417,6 +429,13 @@ def checkYear(zhi, skip=0):
 	target_year = filtered[skip] if skip < len(filtered) else filtered[-1]
 	return ganZhi_Dict[(target_year - 1983) % 60 or 60]
 
+
+# 利用空亡來判斷是那一旬，然後找到那一旬的地支相對應的干支
+# 輸入：地支是「申」，空亡是「戌亥」
+# reverse_gan_zhi("申", "戌亥")
+# 輸出：「壬申」
+
+# 「戌亥空」對應甲子旬（1-10），在這一旬中地支是「申」的只有「壬申」（第9個）
 def reverse_gan_zhi(zhi_target, kong_wang_input):
 	kong_wang_dict = {
 		"戌亥": range(1, 11),
@@ -436,15 +455,247 @@ def reverse_gan_zhi(zhi_target, kong_wang_input):
 					return ganZhi_List[i - 1]
 	return None
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def detect_pillars_from_keywords(text):
+	"""根據原始輸入中的關鍵字（年月日時）判斷提供了哪些柱"""
+	has_year_keyword = '年' in text
+	has_month_keyword = '月' in text
+	has_day_keyword = '日' in text
+	has_hour_keyword = '時' in text or '时' in text
+	
+	return {
+		'year': has_year_keyword,
+		'month': has_month_keyword,
+		'day': has_day_keyword,
+		'hour': has_hour_keyword
+	}
+
+def validate_input(text):
+	"""驗證輸入是否有效，返回 (是否有效, 錯誤訊息列表)"""
+	errors = []
+	
+	# 1. 檢查是否有無效字符（排除合法的分隔符和數字）
+	# 移除合法的符號和空白
+	clean_for_check = re.sub(r'[年月日時时\s,，、\-\(\)（）<>：:空亡\d]', '', text)
+	
+	# 檢查剩下的字符是否都是天干或地支
+	invalid_chars = []
+	for char in clean_for_check:
+		if char not in Gan and char not in Zhi:
+			if char not in invalid_chars:
+				invalid_chars.append(char)
+	
+	if invalid_chars:
+		errors.append(f"發現無效字符: {'、'.join(invalid_chars)} (不是天干地支)")
+	
+	# 2. 檢查是否有空亡資訊
+	has_kongwang = bool(re.search(r'(?:空亡|空)?(?:\(|<{1,2}|:|--|——)\s*[戌申午辰寅子亥酉未巳卯丑]{2}', text))
+	
+	# 3. 檢查日柱是否為完整干支（如果有「日」關鍵字且沒有空亡資訊）
+	if '日' in text and not has_kongwang:
+		# 提取「日」前面的干支
+		day_match = re.search(r'([甲乙丙丁戊己庚辛壬癸]?[子丑寅卯辰巳午未申酉戌亥])日', text)
+		if day_match:
+			day_part = day_match.group(1)
+			# 檢查是否為完整干支（必須有天干+地支）
+			if len(day_part) == 1:
+				# 只有地支，沒有天干
+				errors.append(f"日柱必須提供完整干支（天干+地支），不能只有地支「{day_part}」")
+			elif len(day_part) == 2 and day_part[0] not in Gan:
+				# 兩個字但第一個不是天干
+				errors.append(f"日柱格式錯誤：「{day_part}」")
+	
+	return len(errors) == 0, errors
+
+def format_missing_pillars(year_raw, month_raw, day_raw, hour_raw, text):
+	"""格式化顯示缺少的柱"""
+	pillar_keywords = detect_pillars_from_keywords(text)
+	
+	# 建立顯示字串
+	parts = []
+	missing_parts = []
+	
+	if pillar_keywords['year'] or year_raw:
+		parts.append(f"{year_raw}年" if year_raw else "[  ]年")
+	
+	if pillar_keywords['month']:
+		if month_raw:
+			parts.append(f"{month_raw}月")
+		else:
+			parts.append("[  ]")
+			missing_parts.append("月柱")
+	elif not month_raw and (pillar_keywords['year'] and pillar_keywords['day']):
+		# 有年和日但沒有月關鍵字
+		parts.append("[  ]")
+		missing_parts.append("月柱")
+	
+	if pillar_keywords['day']:
+		if day_raw:
+			parts.append(f"{day_raw}日")
+		else:
+			parts.append("[  ]")
+			missing_parts.append("日柱")
+	elif not day_raw and (pillar_keywords['year'] and pillar_keywords['month']):
+		# 有年和月但沒有日關鍵字
+		parts.append("[  ]")
+		missing_parts.append("日柱")
+	
+	if pillar_keywords['hour'] or hour_raw:
+		parts.append(f"{hour_raw}時" if hour_raw else "[  ]時")
+	
+	# return "".join(parts), missing_parts
+	return  missing_parts
+
+
+def check_completeness(year_raw, month_raw, day_raw, hour_raw, text):
+	"""檢查四柱的完整性，返回 (是否有效, 錯誤訊息列表)"""
+	errors = []
+	warnings = []
+	
+	# 檢測原始輸入中明確提到了哪些柱
+	pillar_keywords = detect_pillars_from_keywords(text)
+	
+	# 如果有關鍵字，根據關鍵字判斷應該有什麼
+	if any(pillar_keywords.values()):
+		# 檢查年柱
+		if pillar_keywords['year']:
+			if not year_raw:
+				errors.append("輸入中有「年」但缺少年柱資料")
+		
+		# 檢查月柱
+		if pillar_keywords['month']:
+			if not month_raw:
+				errors.append("輸入中有「月」但缺少月柱資料")
+		elif pillar_keywords['year'] and pillar_keywords['day']:
+			# 有年和日，但沒有月關鍵字 -> 缺少月柱
+			errors.append("缺少月柱")
+		
+		# 檢查日柱
+		if pillar_keywords['day']:
+			if not day_raw:
+				errors.append("輸入中有「日」但缺少日柱資料")
+		elif pillar_keywords['year'] and pillar_keywords['month']:
+			# 有年和月，但沒有日關鍵字 -> 缺少日柱
+			if not pillar_keywords['hour']:
+				# 如果也沒有時，那就是單純缺日柱
+				errors.append("缺少日柱")
+			else:
+				# 如果有時，那是年月時但沒有日 -> 特別提示
+				errors.append("缺少日柱（有年月時但沒有日）")
+		
+		# 只有在年月日都齊全的情況下，才提示時柱
+		if not errors:  # 沒有其他錯誤時才檢查時柱
+			if pillar_keywords['hour']:
+				if not hour_raw:
+					errors.append("輸入中有「時」但缺少時柱資料")
+			else:
+				if not hour_raw:
+					warnings.append("提示：未提供時柱（可選）")
+	else:
+		# 沒有關鍵字，按位置判斷（原有邏輯）
+		if not year_raw:
+			errors.append("缺少年柱")
+		if not month_raw:
+			errors.append("缺少月柱")
+		if not day_raw:
+			errors.append("缺少日柱")
+		
+		# 只有在年月日都齊全的情況下，才提示時柱
+		if not errors and not hour_raw:
+			warnings.append("提示：未提供時柱（可選）")
+	
+	return len(errors) == 0, errors, warnings
+	"""檢查四柱的完整性，返回 (是否有效, 錯誤訊息列表)"""
+	errors = []
+	warnings = []
+	
+	# 檢測原始輸入中明確提到了哪些柱
+	pillar_keywords = detect_pillars_from_keywords(text)
+	
+	# 如果有關鍵字，根據關鍵字判斷應該有什麼
+	if any(pillar_keywords.values()):
+		# 檢查年柱
+		if pillar_keywords['year']:
+			if not year_raw:
+				errors.append("輸入中有「年」但缺少年柱資料")
+		
+		# 檢查月柱
+		if pillar_keywords['month']:
+			if not month_raw:
+				errors.append("輸入中有「月」但缺少月柱資料")
+		elif pillar_keywords['year'] and pillar_keywords['day']:
+			# 有年和日，但沒有月關鍵字 -> 缺少月柱
+			errors.append("缺少月柱")
+		
+		# 檢查日柱
+		if pillar_keywords['day']:
+			if not day_raw:
+				errors.append("輸入中有「日」但缺少日柱資料")
+		elif pillar_keywords['year'] and pillar_keywords['month']:
+			# 有年和月，但沒有日關鍵字 -> 缺少日柱
+			if not pillar_keywords['hour']:
+				# 如果也沒有時，那就是單純缺日柱
+				errors.append("缺少日柱")
+			else:
+				# 如果有時，那是年月時但沒有日 -> 特別提示
+				errors.append("缺少日柱（有年月時但沒有日）")
+		
+		# 只有在年月日都齊全的情況下，才提示時柱
+		if not errors:  # 沒有其他錯誤時才檢查時柱
+			if pillar_keywords['hour']:
+				if not hour_raw:
+					errors.append("輸入中有「時」但缺少時柱資料")
+			else:
+				if not hour_raw:
+					warnings.append("提示：未提供時柱（可選）")
+	else:
+		# 沒有關鍵字，按位置判斷（原有邏輯）
+		if not year_raw:
+			errors.append("缺少年柱")
+		if not month_raw:
+			errors.append("缺少月柱")
+		if not day_raw:
+			errors.append("缺少日柱")
+		
+		# 只有在年月日都齊全的情況下，才提示時柱
+		if not errors and not hour_raw:
+			warnings.append("提示：未提供時柱（可選）")
+	
+	return len(errors) == 0, errors, warnings
+
 def parse_ganzhi_from_text(text):
+	# 0. 先驗證輸入
+	is_valid, validation_errors = validate_input(text)
+	if not is_valid:
+		error_msg = "⛔輸入格式錯誤:\n" + "\n".join([f"  - {e}" for e in validation_errors])
+		print()
+		# print(text + " <輸入")
+		# print(error_msg)
+		return error_msg  # 回傳錯誤訊息
+	
 	# 1. 提取空亡信息
-	# kong_match = re.search(r'(?:空亡|空)?(?:\(|-|--|：|:)\s*([戌申午辰寅子亥酉未巳卯丑]{2})\)?', text)
-	# kong_match = re.search( r'(?:空亡|空)?(?:\(|<{1,2}|:)\s*([戌申午辰寅子亥酉未巳卯丑]{2})(?:空)?\)?', text )    
-	kong_match = re.search( r'(?:空亡|空)?(?:\(|<{1,2}|:|/)\s*([戌申午辰寅子亥酉未巳卯丑]{2})(?:空)?\)?', text )        
-	# "卯年丑月酉日<午未"
-	# "卯年丑月酉日:午未"
-	# "卯年丑月酉日<<午未"
-	# "卯年丑月酉日(午未"
+	kong_match = re.search( r'(?:空亡|空)?(?:\(|<{1,2}|:)\s*([戌申午辰寅子亥酉未巳卯丑]{2})(?:空)?\)?', text )    
 	kong_raw = kong_match.group(1) if kong_match else None
 	
 	# 2. 檢查年份跳躍（如2巳年）
@@ -454,8 +705,10 @@ def parse_ganzhi_from_text(text):
 	# 3. 移除空亡部分，避免干擾
 	clean_text = re.sub(r'(?:空亡|空)?(?:\(|-|--|：|:)\s*[戌申午辰寅子亥酉未巳卯丑]{2}\)?', '', text)
 	
-	# 4. 按順序提取所有干支組合和地支
-	# 找到所有干支和地支的位置
+	# 4. 檢測有哪些關鍵字
+	pillar_keywords = detect_pillars_from_keywords(text)
+	
+	# 5. 按順序提取所有干支組合和地支
 	ganzhi_positions = []
 	
 	# 完整干支 (天干+地支)
@@ -480,39 +733,96 @@ def parse_ganzhi_from_text(text):
 	# 提取按順序排列的干支/地支
 	ordered_elements = [item[1] for item in ganzhi_positions]
 	
-	# 5. 按年月日順序分配
+	# 6. 按年月日時順序分配（根據關鍵字判斷）
 	year_raw = None
 	month_raw = None
 	day_raw = None
+	hour_raw = None
 	
-	# 年柱 (第一個)
-	if len(ordered_elements) >= 1:
-		first = ordered_elements[0]
-		if is_ganzhi(first):
-			year_raw = first
-		elif first in Zhi:
-			year_raw = checkYear(first, year_skip)
-	
-	# 月柱 (第二個)
-	if len(ordered_elements) >= 2:
-		second = ordered_elements[1]
-		month_raw = second
-	
-	# 日柱 (第三個)
-	if len(ordered_elements) >= 3:
-		third = ordered_elements[2]
-		if is_ganzhi(third):
-			day_raw = third
-		elif third in Zhi:
-			# 只有地支，嘗試用空亡補天干
-			if kong_raw:
-				day_raw = reverse_gan_zhi(third, kong_raw) or third
+	# 根據關鍵字判斷如何分配
+	if any(pillar_keywords.values()):
+		# 有關鍵字時，根據關鍵字分配
+		element_index = 0
+		
+		if pillar_keywords['year'] and element_index < len(ordered_elements):
+			first = ordered_elements[element_index]
+			if is_ganzhi(first):
+				year_raw = first
+			elif first in Zhi:
+				year_raw = checkYear(first, year_skip)
+			element_index += 1
+		
+		if pillar_keywords['month'] and element_index < len(ordered_elements):
+			month_raw = ordered_elements[element_index]
+			element_index += 1
+		
+		if pillar_keywords['day'] and element_index < len(ordered_elements):
+			third = ordered_elements[element_index]
+			if is_ganzhi(third):
+				day_raw = third
+			elif third in Zhi:
+				# 只有地支，嘗試用空亡補天干
+				if kong_raw:
+					day_raw = reverse_gan_zhi(third, kong_raw) or third
+				else:
+					day_raw = third
 			else:
 				day_raw = third
-		else:
-			day_raw = third
+			element_index += 1
+		
+		if pillar_keywords['hour'] and element_index < len(ordered_elements):
+			hour_raw = ordered_elements[element_index]
+			element_index += 1
+	else:
+		# 沒有關鍵字時，按位置分配（原邏輯）
+		# 年柱 (第一個)
+		if len(ordered_elements) >= 1:
+			first = ordered_elements[0]
+			if is_ganzhi(first):
+				year_raw = first
+			elif first in Zhi:
+				year_raw = checkYear(first, year_skip)
+		
+		# 月柱 (第二個)
+		if len(ordered_elements) >= 2:
+			second = ordered_elements[1]
+			month_raw = second
+		
+		# 日柱 (第三個)
+		if len(ordered_elements) >= 3:
+			third = ordered_elements[2]
+			if is_ganzhi(third):
+				day_raw = third
+			elif third in Zhi:
+				# 只有地支，嘗試用空亡補天干
+				if kong_raw:
+					day_raw = reverse_gan_zhi(third, kong_raw) or third
+				else:
+					day_raw = third
+			else:
+				day_raw = third
+		
+		# 時柱 (第四個)
+		if len(ordered_elements) >= 4:
+			fourth = ordered_elements[3]
+			hour_raw = fourth
 	
-	# 6. 組裝結果
+	# 7. 檢查完整性
+	is_complete, completeness_errors, warnings = check_completeness(year_raw, month_raw, day_raw, hour_raw, text)
+	
+	print()
+	print(text + " <輸入")
+	
+	if not is_complete:
+		# 格式化顯示缺少的柱
+		missing_list = format_missing_pillars(year_raw, month_raw, day_raw, hour_raw, text)
+		if missing_list:
+			error_msg = f"缺少{''.join(missing_list)}"
+			print(error_msg)
+			return error_msg  # 回傳錯誤訊息字串
+		return None
+	
+	# 8. 組裝結果
 	result_parts = []
 	if year_raw:
 		result_parts.append(year_raw)
@@ -520,10 +830,157 @@ def parse_ganzhi_from_text(text):
 		result_parts.append(month_raw)
 	if day_raw:
 		result_parts.append(day_raw)
+	if hour_raw:
+		result_parts.append(hour_raw)
 	
-	print()
-	print(text + " <輸入")
+	# 顯示警告（如果有）
+	if warnings:
+		for warning in warnings:
+			print(f"⚠️  {warning}")
+	
 	return "/".join(result_parts)
+
+
+# import re
+# from datetime import datetime, timezone, timedelta
+
+# Gan = "甲乙丙丁戊己庚辛壬癸"
+# Zhi = "子丑寅卯辰巳午未申酉戌亥"
+
+# def is_ganzhi(s):
+# 	return len(s) == 2 and s[0] in Gan and s[1] in Zhi
+
+# ganZhi_Dict = {
+# 	i + 1: gz for i, gz in enumerate([
+# 		"甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午", "辛未", "壬申", "癸酉",
+# 		"甲戌", "乙亥", "丙子", "丁丑", "戊寅", "己卯", "庚辰", "辛巳", "壬午", "癸未",
+# 		"甲申", "乙酉", "丙戌", "丁亥", "戊子", "己丑", "庚寅", "辛卯", "壬辰", "癸巳",
+# 		"甲午", "乙未", "丙申", "丁酉", "戊戌", "己亥", "庚子", "辛丑", "壬寅", "癸卯",
+# 		"甲辰", "乙巳", "丙午", "丁未", "戊申", "己酉", "庚戌", "辛亥", "壬子", "癸丑",
+# 		"甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥"
+# 	])
+# }
+
+# def checkYear(zhi, skip=0):
+# 	dt1 = datetime.utcnow().replace(tzinfo=timezone.utc)
+# 	localtimeReal = dt1.astimezone(timezone(timedelta(hours=8)))
+# 	year_real = localtimeReal.year
+
+# 	matched_years = [y for y in range(1984, 2100) if ganZhi_Dict[(y - 1983) % 60 or 60].endswith(zhi)]
+# 	matched_years.sort(key=lambda y: abs(y - year_real))
+# 	filtered = sorted([y for y in matched_years if y <= year_real], reverse=True)
+# 	target_year = filtered[skip] if skip < len(filtered) else filtered[-1]
+# 	return ganZhi_Dict[(target_year - 1983) % 60 or 60]
+
+# def reverse_gan_zhi(zhi_target, kong_wang_input):
+# 	kong_wang_dict = {
+# 		"戌亥": range(1, 11),
+# 		"申酉": range(11, 21),
+# 		"午未": range(21, 31),
+# 		"辰巳": range(31, 41),
+# 		"寅卯": range(41, 51),
+# 		"子丑": range(51, 61),
+# 	}
+# 	ganZhi_List = [v for _, v in sorted(ganZhi_Dict.items())]
+# 	kong_set = set(kong_wang_input)
+
+# 	for key, rng in kong_wang_dict.items():
+# 		if kong_set.issubset(set(key)):
+# 			for i in rng:
+# 				if ganZhi_List[i - 1][1] == zhi_target:
+# 					return ganZhi_List[i - 1]
+# 	return None
+
+# def parse_ganzhi_from_text(text):
+# 	# 1. 提取空亡信息
+# 	# kong_match = re.search(r'(?:空亡|空)?(?:\(|-|--|：|:)\s*([戌申午辰寅子亥酉未巳卯丑]{2})\)?', text)
+# 	# kong_match = re.search( r'(?:空亡|空)?(?:\(|<{1,2}|:)\s*([戌申午辰寅子亥酉未巳卯丑]{2})(?:空)?\)?', text )    
+# 	kong_match = re.search( r'(?:空亡|空)?(?:\(|<{1,2}|:|/)\s*([戌申午辰寅子亥酉未巳卯丑]{2})(?:空)?\)?', text )        
+# 	# "卯年丑月酉日<午未"
+# 	# "卯年丑月酉日:午未"
+# 	# "卯年丑月酉日<<午未"
+# 	# "卯年丑月酉日(午未"
+# 	kong_raw = kong_match.group(1) if kong_match else None
+	
+# 	# 2. 檢查年份跳躍（如2巳年）
+# 	skip_match = re.search(r'(\d)([子丑寅卯辰巳午未申酉戌亥])年', text)
+# 	year_skip = int(skip_match.group(1)) - 1 if skip_match else 0
+	
+# 	# 3. 移除空亡部分，避免干擾
+# 	clean_text = re.sub(r'(?:空亡|空)?(?:\(|-|--|：|:)\s*[戌申午辰寅子亥酉未巳卯丑]{2}\)?', '', text)
+	
+# 	# 4. 按順序提取所有干支組合和地支
+# 	# 找到所有干支和地支的位置
+# 	ganzhi_positions = []
+	
+# 	# 完整干支 (天干+地支)
+# 	for match in re.finditer(r'[甲乙丙丁戊己庚辛壬癸][子丑寅卯辰巳午未申酉戌亥]', clean_text):
+# 		ganzhi_positions.append((match.start(), match.group(), 'complete'))
+	
+# 	# 單獨地支 (確保不是完整干支的一部分)
+# 	for match in re.finditer(r'[子丑寅卯辰巳午未申酉戌亥]', clean_text):
+# 		# 檢查這個地支是否已經被包含在完整干支中
+# 		is_part_of_complete = False
+# 		for pos, _, type_ in ganzhi_positions:
+# 			if type_ == 'complete' and pos <= match.start() < pos + 2:
+# 				is_part_of_complete = True
+# 				break
+		
+# 		if not is_part_of_complete:
+# 			ganzhi_positions.append((match.start(), match.group(), 'single'))
+	
+# 	# 按位置排序
+# 	ganzhi_positions.sort(key=lambda x: x[0])
+	
+# 	# 提取按順序排列的干支/地支
+# 	ordered_elements = [item[1] for item in ganzhi_positions]
+	
+# 	# 5. 按年月日順序分配
+# 	year_raw = None
+# 	month_raw = None
+# 	day_raw = None
+	
+# 	# 年柱 (第一個)
+# 	if len(ordered_elements) >= 1:
+# 		first = ordered_elements[0]
+# 		if is_ganzhi(first):
+# 			year_raw = first
+# 		elif first in Zhi:
+# 			year_raw = checkYear(first, year_skip)
+	
+# 	# 月柱 (第二個)
+# 	if len(ordered_elements) >= 2:
+# 		second = ordered_elements[1]
+# 		month_raw = second
+	
+# 	# 日柱 (第三個)
+# 	if len(ordered_elements) >= 3:
+# 		third = ordered_elements[2]
+# 		if is_ganzhi(third):
+# 			day_raw = third
+# 		elif third in Zhi:
+# 			# 只有地支，嘗試用空亡補天干
+# 			if kong_raw:
+# 				day_raw = reverse_gan_zhi(third, kong_raw) or third
+# 			else:
+# 				day_raw = third
+# 		else:
+# 			day_raw = third
+	
+# 	# 6. 組裝結果
+# 	result_parts = []
+# 	if year_raw:
+# 		result_parts.append(year_raw)
+# 	if month_raw:
+# 		result_parts.append(month_raw)
+# 	if day_raw:
+# 		result_parts.append(day_raw)
+	
+# 	print()
+# 	print(text + " <輸入")
+# 	return "/".join(result_parts)
+
+
 
 
 # print(parse_ganzhi_from_text("乙巳年卯月戊戌日"))
@@ -614,7 +1071,7 @@ def chineseChange(text='中国的文化源远流长。123我是貓abc文化源,�
 
 
 ## 輸入64卦卦名取得符號模式，例如: 雷澤(無變爻時只有爻的名字)  雷澤歸妹,1,3  or 雷澤,1,3  or  歸妹,1,3  
-def checkAllGua( guaName , checkMode = False ):
+def checkAllGua( guaName , checkMode = False , printStepMode = False ):
 	guaNameList = guaName.split("/")
 	print( "Guaname - " , guaName , guaNameList )
 
@@ -717,12 +1174,14 @@ def checkAllGua( guaName , checkMode = False ):
 				binaryA = e['binary'] 
 
 				changeGuaBody = fixGuaWording( gua.split("之")[1] ) ## 變卦   解
-				print( changeGuaBody )
+				if printStepMode == True:
+					print( changeGuaBody )
 				if checkMode == True:
 					return True
 
 				for bee in baGuaAllDict:
-					print ( bee['title'] , bee['body'] )
+					if printStepMode == True:
+						print ( bee['title'] , bee['body'] )
 					## 地水   水   地水師    震為雷
 					if ( changeGuaBody == bee['title'] ) or ( changeGuaBody == bee['body'] ) or ( changeGuaBody == bee['title'] + bee['body'] ) or ( changeGuaBody == bee['title'] +"為"+ bee['body'] ) :
 					# if changeGuaBody == bee['body']: ## 找到變卦
@@ -847,6 +1306,23 @@ def looks_like_year(text):
 
 
 
+import re
+
+GAN = "甲乙丙丁戊己庚辛壬癸"
+ZHI = "子丑寅卯辰巳午未申酉戌亥"
+
+_PATTERN_GZ_MONTH_DAY = re.compile(
+    rf'^([{GAN}]?[{ZHI}])月([{GAN}]?[{ZHI}])日$'
+)
+
+def is_valid_ganzhi_month_day(text: str) -> bool:
+    """
+    判斷是否符合干支月日格式：
+    - X月XX日 或 XX月XX日
+    - 若一字：必為地支
+    - 若兩字：必為 天干 + 地支
+    """
+    return bool(_PATTERN_GZ_MONTH_DAY.match(text))
 
 
 
@@ -997,6 +1473,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 
 		buf_org = buf
+
 		# 判斷是否為「三柱八字」，也就是剛好含有 3 組干支（1組=1天干+1地支，共6字）
 		# 範例:
 		#   "甲辰年丙寅月辛丑日" → ✅ True （三柱）
@@ -1065,6 +1542,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 		## 取得自行輸入日期(四柱or三柱) ##"庚子,甲申,乙未,丁丑"
 		## 四柱 ，年月日三柱也行，時柱會訂在中午十二點
+
 		elif (  2 < len( buf.split("/") ) < 5 ) and ( testTgdz( buf ) ): 
 			print( parts )
 			print(buf)
@@ -1079,8 +1557,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 		## 取得自行輸入日期 ## 2024-12-5-10-31    2025-08-17 22:36
 		# elif (buf.endswith("<") or buf.isdigit() or "/" in buf)  and    (len(buf.rstrip("<").split("/")) == 5)  and    (buf.rstrip("<").replace("/", "").isdigit()) or (  len((re.sub(r"[- :]", "/", buf)).split("/")) == 5  and    buf.rstrip("<").replace("/", "").isdigit())  :
-		elif  looks_like_year(buf) == True:
-			if (
+		elif (
 				(
 					(buf.endswith("<") or buf.isdigit() or "/" in buf) and (len(buf.rstrip("<").split("/")) == 5) and (buf.rstrip("<").replace("/", "").isdigit())
 				)
@@ -1093,6 +1570,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 					len(  (buf + "/12/00").split("/")  ) == 5 ## 缺少時柱
 				)
 			):
+			if  looks_like_year(buf) == True:
 				print( ">>進入日期模式", buf )
 				if len( buf.split("/") ) == 3:
 					dateData = buf + "/12/00<"
@@ -1107,13 +1585,22 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 				print( "日期輸入有誤")
 				dateData = "------"
 
+				print( f"⛔不正確的日期格式: \n[{ buf}]")
+				return
+
 
 		## 自訂干支
+		## 判斷標準為把"月" "日"去掉之後，只剩天干地支，有年有什麼的就會跳出
 		elif testTgdz( buf_org ) == True:  ## 乙月-丙子日
 			print( ">> 自訂干支模式")
 			# print(buf.split( "/" ))
 			if buf_org[-1:] != "日":
 				buf_org += "日"
+
+			## 檢查格式
+			if is_valid_ganzhi_month_day(buf_org) == False:
+				print( f"⛔不正確的日期格式: \n[{ buf_org}] - 檢查干支 ")
+				return
 
 
 			if len(buf_org.split( "/" )) == 2:
@@ -1131,7 +1618,8 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 			checkItem[1] = "日"
 
 
-		# 巳年卯月戊戌日    乙巳,卯月,申-戌亥 
+
+		# 巳年卯月戊戌日     乙巳,卯月,申-戌亥 
 		elif all(c in '012345678甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥' for c in cleaned)  and ( len(buf.rstrip("<").split("/")) != 5 )  and is_valid_date(parts) == False:
 			buf_tmp = "/".join(
 				re.findall(r'[甲乙丙丁戊己庚辛壬癸][子丑寅卯辰巳午未申酉戌亥]', buf)
@@ -1142,7 +1630,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 				and len(re.sub(r'[^甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥]', '', buf_tmp)) >= 6:
 				
 				buf = buf_tmp
-				print(">>三柱完整干支:", buf)
+				print(">>三柱完整干支:", buf )
 
 			# 否則使用智能補全（parse_ganzhi_from_text）來還原
 			else:
@@ -1150,10 +1638,20 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 				buf = parse_ganzhi_from_text(buf)
 				print("BUFF (parsed):", buf)
 
-			checkItem[1] = "日"
-			dateData = fourPillarToDateMain(  buf.replace( "/", ",") )
-			print( "DD - ",dateData )
+			print( "BUF-",buf)
 
+
+			if "/" in buf:
+				checkItem[1] = "日"
+				dateData = fourPillarToDateMain(  buf.replace( "/", ",") )
+				print( "dateData - ",dateData )
+			# dateData = fourPillarToDateMain(  buf.replace( "/", ",") )
+			# print( "DD - ",dateData )
+			# if dateData == None:
+			else:
+				print( f"⛔不正確的日期格式: \n[{ buf_org}] - {buf} ")
+
+				return
 
 
 
@@ -1329,7 +1827,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "2021/04/18/19/00//1​1​0​X​1​1//男占女未來是否有機會共事")
 	# sixYaoMain( "俘之履//男占女未來是否有機會共事//辛丑，壬辰，丙申，戊戌")
 	# sixYaoMain( "2025,4,27,12,28//卯月丁巳日//010$1X//問題問題問題" )
-	# sixYaoMain( "+癸丑年戌月丁亥日//占往某地做生意財利//大畜之賁",showPic = True)
+	# sixYaoMain( "癸丑年戌月丁亥日//占往某地做生意財利//大畜之賁",showPic = False)
 	# sixYaoMain( "2025/12/24/11/27//咸之夬卦//Untitled",showPic = True)
 	# sixYaoMain( "天之遁//吃飽了沒")	
 	# sixYaoMain( "27 71 42//吃飽了沒")
@@ -1344,7 +1842,8 @@ if __name__ == '__main__':
 	# sixYaoMain( "+某某集團的發展//地風,3,1//丁月乙亥日") 
 	# sixYaoMain( "兩村相爭//火天.1,3,4,6//卯月丁巳日") ## 三合
 	# sixYaoMain( "兩村相爭")
-	# sixYaoMain( "乙巳年寅月申日-戌亥//大过之鼎卦")	
+	# sixYaoMain( "丙戌月辰酉日//大过之鼎卦")	
+	sixYaoMain( " +戌月丁酉日 // 0111$X // Untitled",showPic = True )
 	# sixYaoMain( "+巳年卯月戊戌日//大过之鼎卦")	## 三合太多
 	# sixYaoMain( "吃不吃辣//100010.2")	
 	# sixYaoMain( "+嬰兒健康吉凶//山風 .,2.3//己卯月甲午日",showPic = True )  ## 三合 跳格
@@ -1435,7 +1934,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "+2025/08/31/15:48//傑利的房貸吉凶0831//110000",showPic = True) ## 九月七日 酉月卯日
 	# sixYaoMain( "+2025/9/2/12/37 // 101X0X // 傑利的房貸吉凶0902" ) ## 九月七日 酉月卯日
 	# sixYaoMain( "2025/9/2/14/11 // X1$110 // 傑利漲房租有沒有望" )
-	sixYaoMain( "2025/9/17/2/4 // 1$0$00 // 傑利與同學見面錢財吉凶",showPic = True)
+	# sixYaoMain( "2025/9/17/2/4 // 1$0$00 // 傑利與同學見面錢財吉凶",showPic = True)
 	# sixYaoMain( "+乙巳年乙酉月丁亥日//男占小孩突發疾病吉凶//011100" ,showPic = True )
 	# sixYaoMain("+2025/10/02/20/41//01$10X//測試測試測試",showPic = True )
 	# sixYaoMain("+2025/12/11/21/40 - 0X$10X//占男身體狀況吉凶",showPic = True)
