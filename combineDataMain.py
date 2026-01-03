@@ -521,7 +521,7 @@ def validate_input(text):
 			# 檢查是否為完整干支（必須有天干+地支）
 			if len(day_part) == 1:
 				# 只有地支，沒有天干
-				errors.append(f'日柱必須提供完整干支(天干+地支),不可只有地支"{day_part}"')
+				errors.append(f'\n日柱必須提供完整干支(天干+地支),不可只有地支"{day_part}"')
 			elif len(day_part) == 2 and day_part[0] not in Gan:
 				# 兩個字但第一個不是天干
 				errors.append(f"日柱格式錯誤：「{day_part}」")
@@ -1599,7 +1599,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 			## 檢查格式
 			if is_valid_ganzhi_month_day(buf_org) == False:
-				print( f"⛔日期格式錯誤: \n[{ buf_org}] - 檢查干支")
+				print( f"⛔日期格式錯誤: [{ buf_org}] - 檢查干支")
 				return
 
 
@@ -1651,7 +1651,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 			else:
 				# print( f"⛔日期格式錯誤:\n{buf}")
 
-				return f"⛔日期格式錯誤:\n{buf}"
+				return f"⛔日期格式錯誤:{buf}"
 
 
 
