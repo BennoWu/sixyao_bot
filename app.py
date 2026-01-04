@@ -8,7 +8,7 @@ from logBackup import ( logDataFun as logBK_logDataFun )
 from supabase_io import get_user_data,supabase_health_check
 from cloudinary_helper import delete_older_than
 
-from flexLayout_tool import ganZiList_fun , yearListFlexLayout , getFlexMessage_GZ , getDrawRiceGua , howToUse
+from flexLayout_tool import ganZiList_fun , yearListFlexLayout , getFlexMessage_GZ , getDrawRiceGua , howToUse , howToUseDate
 
 from fourPillar_tool import checkYear,getNowTime
 from fourPillar_tool import ganZhi_Dict ## 六十甲子的字典

@@ -4651,7 +4651,7 @@ how_to_use = """
                       "text": "dateHelp"
                     },
                     "offsetBottom": "1px",
-                    "offsetEnd": "xl"
+                    "offsetEnd": "sm"
                   }
                 ],
                 "margin": "lg"
