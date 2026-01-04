@@ -1147,7 +1147,7 @@ if __name__ == '__main__':
 
 
 	
-	# fourPillarToDateMain()
+	fourPillarToDateMain()
 	# # getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 3)
 	# getList = PPPPP ( currentTime = "2025/12/10/21/00" ,dayMode = "d", runtime = 5)	[0]
 	# for i in getList:
