@@ -403,6 +403,7 @@ def compare_ganzhiList(list1, list2, item=3 ):
 ## 由四柱取得西元年月日時
 ## >inputDate 2022/01/01/01/00
 
+
 import datetime
 
 # def fourPillarToDateMain(inputDate='丁未/壬子/丙寅/戌'):
@@ -1090,8 +1091,63 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 	
 #     return timeList
 
+
+
+
+
+
+
+
+
+
+# # 取得節氣列表（陽春版）
+# # from datetime import timedelta
+
+# # from datetime import timedelta
+# import eacal
+
+# def get_solar_terms(year, utc_offset=8):
+# 	"""
+# 	取得指定年份的24節氣資訊
+	
+# 	Args:
+# 		year: 西元年份（1900-2100）
+# 		utc_offset: UTC時區偏移（此參數實際上不需要，因為 eacal 已回傳本地時間）
+	
+# 	Returns:
+# 		節氣列表，每個元素包含 name 和 datetime
+# 	"""
+# 	if not (1900 <= year <= 2100):
+# 		raise ValueError(f"年份 {year} 超出範圍（1900-2100）")
+	
+# 	try:
+# 		cal = eacal.EACal(zh_t=True)
+# 		terms = []
+		
+# 		# 格式: (term_name, idx, dt_local)
+# 		for name, idx, dt_local in cal.get_annual_solar_terms(year):
+# 			terms.append({
+# 				"name": name,
+# 				"datetime": dt_local.strftime("%Y/%m/%d %H:%M")
+# 			})
+		
+# 		return terms
+	
+# 	except Exception as e:
+# 		print(f"取得 {year} 年節氣時發生錯誤: {e}")
+# 		return []
+
 if __name__ == '__main__':
-	fourPillarToDateMain()
+	# yearData = get_solar_terms(2026)
+	# print(f"2025年共有 {len(yearData)} 個節氣\n")
+	
+	# # 顯示前5個節氣
+	# for term in yearData:
+	# 	print(f"{term['name']:2s}:{term['datetime']}")
+
+
+	
+	# fourPillarToDateMain()
 	# # getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 3)
 	# getList = PPPPP ( currentTime = "2025/12/10/21/00" ,dayMode = "d", runtime = 5)	[0]
 	# for i in getList:
@@ -1161,4 +1217,5 @@ if __name__ == '__main__':
 	# 2020/08/20/01/00
 		# ['乙巳', '庚辰', '庚戌', '甲申']
 		# 2025/04/11/15/00
+
 
