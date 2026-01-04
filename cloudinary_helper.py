@@ -274,35 +274,51 @@ if __name__ == '__main__':
 # # delete_image("line_temp/m45zouwd2vvb6fejpb9g")
 
 
+	filePathList = [r"D:\Dropbox\Python\linebot\六爻\sLiuZen\yo-61.png",  ## $
+					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\yo-62.png",  ## X
+					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\yo-63.png",  ## 1
+					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\yo-64.png",  ## 0
+					]
+
+	delete_older_than(folder="__icon", days=0)
+	
+	nameList = [ "OO","XX","O","X" ]
+	print( "url_dict = {")
+	for i, each in enumerate(filePathList):
+		res = upload_image( each , folder="__icon")
+		# print( i , res["url"])
+		print (f'"{nameList[i]}" : "{res["url"]}",')
+	print( "}")
+# delete_image("line_temp/m45zouwd2vvb6fejpb9g")
 
 
 
-	# 2️⃣ 上傳 JSON
-	res = cloudinary.uploader.upload(
-	    r"D:\Dropbox\Python\linebot\六爻\work\baGuaData\gua64.json",  # Windows
-	    # r"D:\Dropbox\Python\linebot\六爻\work\baGuaData\guaMatchDict.json",  # Windows	    
-	    resource_type="raw",
-	    folder="__icon",
-	    public_id="gua64"
-	)
+	# # 2️⃣ 上傳 JSON
+	# res = cloudinary.uploader.upload(
+	#     r"D:\Dropbox\Python\linebot\六爻\work\baGuaData\gua64.json",  # Windows
+	#     # r"D:\Dropbox\Python\linebot\六爻\work\baGuaData\guaMatchDict.json",  # Windows	    
+	#     resource_type="raw",
+	#     folder="__icon",
+	#     public_id="gua64"
+	# )
 
 
-	# 3️⃣ 取得可公開 URL
-	print("✅ 上傳完成，檔案 URL：")
-	print(res['secure_url'])
+	# # 3️⃣ 取得可公開 URL
+	# print("✅ 上傳完成，檔案 URL：")
+	# print(res['secure_url'])
 
-	res = cloudinary.uploader.upload(
-	    # r"D:\Dropbox\Python\linebot\六爻\work\baGuaData\gua64.json",  # Windows
-	    r"D:\Dropbox\Python\linebot\六爻\work\baGuaData\guaMatchDict.json",  # Windows	    
-	    resource_type="raw",
-	    folder="__icon",
-	    public_id="guaMatchDict"
-	)
+	# res = cloudinary.uploader.upload(
+	#     # r"D:\Dropbox\Python\linebot\六爻\work\baGuaData\gua64.json",  # Windows
+	#     r"D:\Dropbox\Python\linebot\六爻\work\baGuaData\guaMatchDict.json",  # Windows	    
+	#     resource_type="raw",
+	#     folder="__icon",
+	#     public_id="guaMatchDict"
+	# )
 
 
-	# 3️⃣ 取得可公開 URL
-	print("✅ 上傳完成，檔案 URL：")
-	print(res['secure_url'])
+	# # 3️⃣ 取得可公開 URL
+	# print("✅ 上傳完成，檔案 URL：")
+	# print(res['secure_url'])
 
 
 

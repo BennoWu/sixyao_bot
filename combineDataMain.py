@@ -1847,7 +1847,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "俘之履//男占女未來是否有機會共事//辛丑，壬辰，丙申，戊戌")
 	# sixYaoMain( "2025,4,27,12,28//卯月丁巳日//010$1X//問題問題問題" )
 	# sixYaoMain( "癸丑年戌月丁亥日//占往某地做生意財利//大畜之賁",showPic = False)
-	# sixYaoMain( "2025/12/24/11/27//咸之夬卦//Untitled",showPic = True)
+	sixYaoMain( "2025/12/24/11/27//1$011X//Untitled",showPic = True)
 	# sixYaoMain( "天之遁//吃飽了沒")	
 	# sixYaoMain( "27 71 42//吃飽了沒")
 	# sixYaoMain( "地风升之地水师//卯月乙未日//一人占賣貨")	
@@ -2000,7 +2000,7 @@ if __name__ == '__main__':
 	# sixYaoMain("+乙巳乙酉乙酉辛巳//女問是否會和某男在一起//困之坎")
 
 
-	sixYaoMain("乙巳年子月戌寅日//101*01//測一下")
+	# sixYaoMain("乙巳年子月戌寅日//101*01//測一下")
 
 	# ['乙巳-乙酉-壬午', '2025/09/10', ''] 兄弟寅木 子孫午火 出伏
 

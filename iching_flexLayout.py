@@ -466,35 +466,27 @@ def get_gua_match_text(gua, yao):
 
 
 
-# def ichingGuaUI( guaName , printMode = False ):
 
-# 	# guaName = "#雷澤歸妹/地雷復"
-# 	guaName = guaName[1:]
-# 	if "/" in guaName:
-# 		homeGua , changeGua = guaName.split("/")
-# 		mainTitle = get_short_name(homeGua) + "之" + get_short_name(changeGua) + "卦"
-# 		# title_result= get_gua_text( get_short_name(homeGua),  get_short_name(changeGua))
-# 		mainSubTitle = get_gua_match_text( get_short_name(homeGua),  get_short_name(changeGua) )
 
-# 		change_result = get_gua_text( changeGua )
-# 		changeGuaSub = change_result["judgment"]
-# 		changeGuaTxt = change_result["desc"]
-# 		changeMeaning = change_result[ "meaning" ]
-# 	else:
-# 		homeGua = guaName
-# 		changeGua = "-"
-# 		mainTitle = homeGua + "卦"
-# 		mainSubTitle = get_gua_match_text( get_short_name(homeGua),  get_short_name(homeGua) )
+# def warm_up_cache(urls):
+#     for url in urls:
+#         try:
+#             load_json_with_cache(url)
+#             print(f"🔥 cache warmed: {url}")
+#         except Exception as e:
+#             print(f"⚠️ cache warm failed: {url} → {e}")
 
-# 		change_result = "-"
-# 		changeGuaSub = "-"
-# 		changeGuaTxt = "-"
-# 		changeMeaning = "-"
 
-# 	home_result = get_gua_text( homeGua )
-# 	homeGuaSub = home_result["judgment"]
-# 	homeGuaTxt = home_result["desc"]
-# 	homeMeaning = home_result[ "meaning" ]
+
+# URLS_TO_WARM = [
+#      r"https://res.cloudinary.com/ds9jcwwcw/raw/upload/v1767273900/__icon/gua64.json",
+#      r"https://res.cloudinary.com/ds9jcwwcw/raw/upload/v1767351820/__icon/guaMatchDict.json"
+# ]
+# ## 放在app = Flask(__name__)下
+# warm_up_cache(URLS_TO_WARM)
+
+
+
 
 
 def find_full_gua_name(short_name):

@@ -354,158 +354,129 @@ uiLayoutFront ="""
 
 
 
-
-	  {
-		"type": "box",
-		"layout": "vertical",
-		"contents": [
-		  {
-			"type": "box",
-			"layout": "horizontal",
-			"contents": [
-			  {
-				"type": "box",
-				"layout": "vertical",
-				"contents": [],
-				"width": "15px"
-			  },
-			  {
-				"type": "box",
-				"layout": "horizontal",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "__YO1__",
-					"size": "xl",
-					"weight": "bold",
-					"align": "center",
-					"color": "#657C96",
-					"gravity": "center"
-				  }
-				],
-				"width": "30px"
-			  },
-			  {
-				"type": "box",
-				"layout": "horizontal",
-				"contents": [],
-				"width": "5px"
-			  },
-			  {
-				"type": "box",
-				"layout": "horizontal",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "__YO2__",
-					"size": "xl",
-					"weight": "bold",
-					"align": "center",
-					"color": "#657C96",
-					"gravity": "center"
-				  }
-				],
-				"width": "30px"
-			  },
-			  {
-				"type": "box",
-				"layout": "horizontal",
-				"contents": [],
-				"width": "5px"
-			  },
-			  {
-				"type": "box",
-				"layout": "horizontal",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "__YO3__",
-					"size": "xl",
-					"weight": "bold",
-					"align": "center",
-					"color": "#657C96",
-					"gravity": "center"
-				  }
-				],
-				"width": "30px"
-			  },
-			  {
-				"type": "box",
-				"layout": "horizontal",
-				"contents": [],
-				"width": "5px"
-			  },
-			  {
-				"type": "box",
-				"layout": "horizontal",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "__YO4__",
-					"size": "xl",
-					"weight": "bold",
-					"align": "center",
-					"color": "#657C96",
-					"gravity": "center"
-				  }
-				],
-				"width": "30px"
-			  },
-			  {
-				"type": "box",
-				"layout": "horizontal",
-				"contents": [],
-				"width": "5px"
-			  },
-			  {
-				"type": "box",
-				"layout": "horizontal",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "__YO5__",
-					"size": "xl",
-					"weight": "bold",
-					"align": "center",
-					"color": "#657C96",
-					"gravity": "center"
-				  }
-				],
-				"width": "30px"
-			  },
-			  {
-				"type": "box",
-				"layout": "horizontal",
-				"contents": [],
-				"width": "5px"
-			  },
-			  {
-				"type": "box",
-				"layout": "horizontal",
-				"contents": [
-				  {
-					"type": "text",
-					"text": "__YO6__",
-					"size": "xl",
-					"weight": "bold",
-					"align": "center",
-					"color": "#657C96",
-					"gravity": "center"
-				  }
-				],
-				"width": "30px"
-			  }
-			],
-			"cornerRadius": "10px"
-		  }
-		],
-		"margin": "xs"
-	  },
-	  {
-		"type": "separator",
-		"margin": "sm",
-		"color": "#aaaaaa"
-	  },
+      
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "width": "2px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": "__YO1__"
+                  }
+                ],
+                "width": "30px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [],
+                "width": "5px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": "__YO2__"
+                  }
+                ],
+                "width": "30px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [],
+                "width": "5px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": "__YO3__"
+                  }
+                ],
+                "width": "30px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [],
+                "width": "5px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": "__YO4__"
+                  }
+                ],
+                "width": "30px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [],
+                "width": "5px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": "__YO5__"
+                  }
+                ],
+                "width": "30px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [],
+                "width": "5px"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": "__YO6__"
+                  }
+                ],
+                "width": "30px"
+              }
+            ],
+            "cornerRadius": "10px",
+            "spacing": "2px"
+          }
+        ],
+        "margin": "md"
+      },
+      {
+        "type": "separator",
+        "margin": "md",
+        "color": "#aaaaaa"
+      },
 
 
 
@@ -517,7 +488,8 @@ uiLayoutFront ="""
 
 
 
-{
+
+		{
         "type": "box",
         "layout": "vertical",
         "contents": [
@@ -662,7 +634,7 @@ uiLayoutFront ="""
             }
           }
         ],
-        "margin": "lg"
+        "margin": "md"
       },
       {
         "type": "box",
@@ -977,10 +949,29 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	# else:
 	# 	# command = "+%s // %s // %s"% ( dateData , (zeroSpace.join(finalGua)) , note )	
 	# 	command = "+%s // %s // %s"% ( dateData , finalGua , note )		
-
-
+	url_dict = {
+	"OO" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767549391/__icon/831d69c574154211af41f1fb6852cfba.png",
+	"XX" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767549392/__icon/ec4713c741134b75a48f3bdc0f2f5bf0.png",
+	"O" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767549393/__icon/78c35ff1450e43cf80201c42beee85b7.png",
+	"X" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767549393/__icon/e105c15b1c204e2ab21ff0fecaecadb4.png",
+	}
+# url_dict["OO"]
 	# print(command)
-	finalGua = finalGua.replace("0","⚋").replace("1","⚊").replace("X","✕").replace("$","〇")
+	# finalGua = finalGua.replace("0","⚋").replace("1","⚊").replace("X","✕").replace("$","〇")
+
+	finalGuaList = []
+	for each in finalGua:
+		if each == "0":
+			finalGuaList.append( url_dict["X"] )
+
+		elif each == "1":
+			finalGuaList.append( url_dict["O"] )
+		elif each == "X":
+			finalGuaList.append( url_dict["XX"] )			
+		elif each == "$":
+			finalGuaList.append( url_dict["OO"] )
+		else:
+			pass
 
 
 # uiLayoutFront
@@ -1019,13 +1010,13 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	# 	# 	uiLayout += ","
 	# 	# 	uiLayout += ui_separator
 	# 	uiLayout += ","	
-
-	uiLayout =  (   uiLayout.replace( "__YO1__", finalGua[0] )
-							.replace( "__YO2__", finalGua[1] )
-							.replace( "__YO3__", finalGua[2] )
-							.replace( "__YO4__", finalGua[3] )
-							.replace( "__YO5__", finalGua[4] )
-							.replace( "__YO6__", finalGua[5] )
+	print( finalGuaList )
+	uiLayout =  (   uiLayout.replace( "__YO1__", finalGuaList[0] )
+							.replace( "__YO2__", finalGuaList[1] )
+							.replace( "__YO3__", finalGuaList[2] )
+							.replace( "__YO4__", finalGuaList[3] )
+							.replace( "__YO5__", finalGuaList[4] )
+							.replace( "__YO6__", finalGuaList[5] )
 				)
 
 	if notionAccount == True:
