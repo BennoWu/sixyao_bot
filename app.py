@@ -479,6 +479,25 @@ def handle_message(event):
 		return
 
 
+	elif inputMsg.lower() == "datehelp":
+		how_dict = howToUseDate()
+		line_bot_api.reply_message(
+			ReplyMessageRequest(
+				reply_token=event.reply_token,
+				messages=[
+					FlexMessage(
+						alt_text='< 使用說明 >',
+						contents=FlexContainer.from_dict(how_dict)
+					)
+				]
+			)
+		)
+		return
+
+
+
+
+
 	elif ("["  in inputMsg )  and ("]"  in inputMsg ):
 		returnMsg = "⚠ 六十四卦資料待補"
 
