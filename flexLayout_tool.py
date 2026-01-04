@@ -5312,6 +5312,39 @@ def howToUse( printMode = False ):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 裝卦日干支說明
 
 dataGuaHelpFlex = """
@@ -5333,7 +5366,7 @@ dataGuaHelpFlex = """
         "type": "text",
         "text": "干支日期輸入方式",
         "weight": "bold",
-        "size": "lg",
+        "size": "xl",
         "margin": "none",
         "offsetStart": "-1px"
       },
