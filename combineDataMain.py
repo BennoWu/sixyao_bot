@@ -439,7 +439,7 @@ def looks_like_manual_date_input(text):
 	# 如果 2/3 以上是合法字符，就判定為「想輸入日期」
 	ratio = valid_count / total_count
 	
-	return ratio >= 0.67  # 2/3 = 0.666...
+	return ratio >= 0.85  # 2/3 = 0.666...
 
 
 # # 測試案例
