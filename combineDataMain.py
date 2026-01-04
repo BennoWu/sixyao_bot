@@ -629,6 +629,18 @@ def reverse_gan_zhi(zhi_target, kong_wang_input):
 				if ganZhi_List[i - 1][1] == zhi_target:
 					return ganZhi_List[i - 1]
 	return None
+
+
+
+
+
+
+
+
+
+
+
+	
 def parse_ganzhi_from_text(text):
 	"""
 	解析干支文字，返回格式化的干支字串或錯誤訊息
@@ -639,33 +651,66 @@ def parse_ganzhi_from_text(text):
 	# 1. 檢查是否有空亡資訊（只認半形冒號格式）
 	has_kongwang = bool(re.search(r':[戌亥申酉午未辰巳寅卯子丑]{2}', text))
 	
-	# 2. 檢查日柱格式（如果有「日」且沒有空亡）
+	# 2. 🔥 檢查日柱格式（修正版）
 	if '日' in text and not has_kongwang:
-		day_match = re.search(r'([甲乙丙丁戊己庚辛壬癸]?[子丑寅卯辰巳午未申酉戌亥])日', text)
+		# 先抓「日」前面 1～2 個干支相關字
+		day_match = re.search(
+			r'([甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥]{1,2})日',
+			text
+		)
 		if day_match:
 			day_part = day_match.group(1)
-			if len(day_part) == 1:  # 只有地支
+
+			if len(day_part) == 1:
+				# 只有一個字，一定是地支
 				return f'日柱必須提供完整干支(天干+地支),不可只有地支"{day_part}"'
+
+			if len(day_part) == 2:
+				# 兩個字，但要檢查是不是合法干支
+				if not is_ganzhi(day_part):
+					return f'日柱"{day_part}"不是有效的干支組合'
+
 	
-	# 3. 提取空亡信息（只認半形冒號格式）
+	# 3. 🔥 檢查月柱格式
+	if '月' in text:
+		# 優先匹配：天干+地支（兩個字）
+		month_match = re.search(r'([甲乙丙丁戊己庚辛壬癸][子丑寅卯辰巳午未申酉戌亥]|[子丑寅卯辰巳午未申酉戌亥])月', text)
+		if month_match:
+			month_part = month_match.group(1)
+			if len(month_part) == 2:  # 有兩個字
+				# 檢查是否為有效的干支組合
+				if not is_ganzhi(month_part):
+					return f'月柱"{month_part}"不是有效的干支組合'
+	
+	# 4. 🔥 檢查年柱格式
+	if '年' in text:
+		# 優先匹配：天干+地支（兩個字）
+		year_match = re.search(r'([甲乙丙丁戊己庚辛壬癸][子丑寅卯辰巳午未申酉戌亥]|[子丑寅卯辰巳午未申酉戌亥])年', text)
+		if year_match:
+			year_part = year_match.group(1)
+			if len(year_part) == 2:  # 有兩個字
+				# 檢查是否為有效的干支組合
+				if not is_ganzhi(year_part):
+					return f'年柱"{year_part}"不是有效的干支組合'
+	
+	# 5. 提取空亡信息（只認半形冒號格式）
 	kong_match = re.search(r':([戌亥申酉午未辰巳寅卯子丑]{2})', text)
 	kong_raw = kong_match.group(1) if kong_match else None
 	
-	# 4. 檢查年份跳躍（如2巳年）
+	# 6. 檢查年份跳躍（如2巳年）
 	skip_match = re.search(r'(\d)([子丑寅卯辰巳午未申酉戌亥])年', text)
 	year_skip = int(skip_match.group(1)) - 1 if skip_match else 0
 	
-	# 5. 移除空亡部分（只移除冒號格式）
+	# 7. 移除空亡部分（只移除冒號格式）
 	clean_text = re.sub(r':[戌亥申酉午未辰巳寅卯子丑]{2}', '', text)
 	
-	# ... 後續程式碼保持不變 ...
-	# 6. 檢測關鍵字
+	# 8. 檢測關鍵字
 	has_year = '年' in text
 	has_month = '月' in text
 	has_day = '日' in text
 	has_hour = '時' in text or '时' in text
 	
-	# 7. 提取所有干支
+	# 9. 提取所有干支
 	ganzhi_positions = []
 	
 	# 完整干支
@@ -685,7 +730,7 @@ def parse_ganzhi_from_text(text):
 	ganzhi_positions.sort(key=lambda x: x[0])
 	ordered_elements = [item[1] for item in ganzhi_positions]
 	
-	# 8. 根據關鍵字分配干支
+	# 10. 根據關鍵字分配干支
 	year_raw = None
 	month_raw = None
 	day_raw = None
@@ -740,7 +785,7 @@ def parse_ganzhi_from_text(text):
 		if len(ordered_elements) >= 4:
 			hour_raw = ordered_elements[3]
 	
-	# 9. 檢查完整性（只檢查月柱和日柱）
+	# 11. 檢查完整性（只檢查月柱和日柱）
 	if not month_raw:
 		if has_year and has_day:
 			return "缺少月柱"
@@ -749,7 +794,7 @@ def parse_ganzhi_from_text(text):
 		if has_year and has_month:
 			return "缺少日柱"
 	
-	# 10. 組裝結果
+	# 12. 組裝結果
 	result_parts = []
 	if year_raw:
 		result_parts.append(year_raw)
@@ -762,6 +807,12 @@ def parse_ganzhi_from_text(text):
 	
 	return "/".join(result_parts)
 
+
+
+
+
+
+	
 
 # import re
 # from datetime import datetime, timezone, timedelta
@@ -1949,7 +2000,7 @@ if __name__ == '__main__':
 	# sixYaoMain("+乙巳乙酉乙酉辛巳//女問是否會和某男在一起//困之坎")
 
 
-	sixYaoMain("+乙巳-丁亥-庚辰//11**$0")
+	sixYaoMain("乙巳年子月戌寅日//101*01//測一下")
 
 	# ['乙巳-乙酉-壬午', '2025/09/10', ''] 兄弟寅木 子孫午火 出伏
 
