@@ -812,7 +812,7 @@ def parse_ganzhi_from_text(text):
 
 
 
-	
+
 
 # import re
 # from datetime import datetime, timezone, timedelta
@@ -1671,8 +1671,8 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 						return f"⛔日期格式錯誤:{refine_buf}"
 				else:
-					print (f"⛔輸入格式錯誤:\n{buf}")
-					return f"⛔輸入格式錯誤:\n{buf}"
+					print (f"⛔輸入格式錯誤: {buf}")
+					return f"⛔輸入格式錯誤: {buf}"
 
 
 
