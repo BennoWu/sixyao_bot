@@ -486,7 +486,7 @@ def handle_message(event):
 				reply_token=event.reply_token,
 				messages=[
 					FlexMessage(
-						alt_text='< 使用說明 >',
+						alt_text='< 日期干支說明 >',
 						contents=FlexContainer.from_dict(how_dict)
 					)
 				]
