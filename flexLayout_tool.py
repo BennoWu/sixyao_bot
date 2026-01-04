@@ -5357,17 +5357,10 @@ dataGuaHelpFlex = """
     "contents": [
       {
         "type": "text",
-        "text": "補充",
-        "weight": "regular",
-        "color": "#295F87",
-        "size": "md"
-      },
-      {
-        "type": "text",
-        "text": "干支日期輸入方式",
+        "text": "干支日期輸入",
         "weight": "bold",
         "size": "xl",
-        "margin": "none",
+        "margin": "md",
         "offsetStart": "-1px"
       },
       {
@@ -5375,7 +5368,7 @@ dataGuaHelpFlex = """
         "text": "注意:裝卦最低限度需要月支和日干支，才能比對出旺衰以及取得神煞資訊",
         "weight": "regular",
         "size": "sm",
-        "margin": "none",
+        "margin": "sm",
         "offsetStart": "-1px",
         "wrap": true
       },
@@ -5412,7 +5405,7 @@ dataGuaHelpFlex = """
                             "text": "四柱齊全",
                             "size": "md",
                             "gravity": "bottom",
-                            "color": "#222222",
+                            "color": "#295F87",
                             "weight": "bold"
                           }
                         ]
@@ -5482,7 +5475,7 @@ dataGuaHelpFlex = """
                           }
                         ],
                         "margin": "sm",
-                        "width": "14px"
+                        "width": "12px"
                       },
                       {
                         "type": "box",
@@ -5523,7 +5516,7 @@ dataGuaHelpFlex = """
                             "text": "三柱(年月日)",
                             "size": "md",
                             "gravity": "bottom",
-                            "color": "#222222",
+                            "color": "#295F87",
                             "weight": "bold"
                           }
                         ]
@@ -5593,7 +5586,7 @@ dataGuaHelpFlex = """
                           }
                         ],
                         "margin": "sm",
-                        "width": "14px"
+                        "width": "12px"
                       },
                       {
                         "type": "box",
@@ -5634,7 +5627,7 @@ dataGuaHelpFlex = """
                             "text": "月柱無天干",
                             "size": "md",
                             "gravity": "bottom",
-                            "color": "#222222",
+                            "color": "#295F87",
                             "weight": "bold"
                           }
                         ]
@@ -5745,7 +5738,7 @@ dataGuaHelpFlex = """
                             "text": "年柱缺天干",
                             "size": "md",
                             "gravity": "bottom",
-                            "color": "#222222",
+                            "color": "#295F87",
                             "weight": "bold",
                             "wrap": true
                           }
@@ -5831,7 +5824,7 @@ dataGuaHelpFlex = """
                           }
                         ],
                         "margin": "sm",
-                        "width": "14px"
+                        "width": "12px"
                       },
                       {
                         "type": "box",
@@ -5872,7 +5865,7 @@ dataGuaHelpFlex = """
                             "text": "只有月支和日干支",
                             "size": "md",
                             "gravity": "bottom",
-                            "color": "#222222",
+                            "color": "#295F87",
                             "weight": "bold"
                           }
                         ],
@@ -5958,7 +5951,7 @@ dataGuaHelpFlex = """
                           }
                         ],
                         "margin": "sm",
-                        "width": "14px"
+                        "width": "12px"
                       },
                       {
                         "type": "box",
@@ -6002,7 +5995,7 @@ dataGuaHelpFlex = """
                         "text": "標準四柱",
                         "size": "md",
                         "gravity": "bottom",
-                        "color": "#222222",
+                        "color": "#295F87",
                         "weight": "bold"
                       }
                     ],
@@ -6079,7 +6072,7 @@ dataGuaHelpFlex = """
                       }
                     ],
                     "margin": "sm",
-                    "width": "14px"
+                    "width": "12px"
                   },
                   {
                     "type": "box",
@@ -6120,7 +6113,7 @@ dataGuaHelpFlex = """
                         "text": "標準三柱",
                         "size": "md",
                         "gravity": "bottom",
-                        "color": "#222222",
+                        "color": "#295F87",
                         "weight": "bold"
                       }
                     ],
@@ -6197,7 +6190,7 @@ dataGuaHelpFlex = """
                       }
                     ],
                     "margin": "sm",
-                    "width": "14px"
+                    "width": "12px"
                   },
                   {
                     "type": "box",
@@ -6238,7 +6231,7 @@ dataGuaHelpFlex = """
                         "text": "日干不全",
                         "size": "md",
                         "gravity": "bottom",
-                        "color": "#222222",
+                        "color": "#295F87",
                         "weight": "bold"
                       }
                     ],
@@ -6250,7 +6243,7 @@ dataGuaHelpFlex = """
                     "contents": [
                       {
                         "type": "text",
-                        "text": "(缺日干時，必須加入空亡反向比對)",
+                        "text": "(缺日干時，加入空亡反向比對)",
                         "size": "md",
                         "gravity": "bottom",
                         "color": "#777777",
@@ -6324,7 +6317,7 @@ dataGuaHelpFlex = """
                       }
                     ],
                     "margin": "sm",
-                    "width": "14px"
+                    "width": "12px"
                   },
                   {
                     "type": "box",
