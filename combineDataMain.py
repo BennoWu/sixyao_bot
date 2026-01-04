@@ -1528,7 +1528,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 						return f"⛔日期格式錯誤:{refine_buf}"
 				else:
-					return f"⛔輸入格式錯誤:{buf}"
+					return f"⛔輸入格式錯誤:\n{buf}"
 
 
 

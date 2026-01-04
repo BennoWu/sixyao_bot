@@ -5746,9 +5746,11 @@ dataGuaHelpFlex = """
                             "size": "md",
                             "gravity": "bottom",
                             "color": "#222222",
-                            "weight": "bold"
+                            "weight": "bold",
+                            "wrap": true
                           }
-                        ]
+                        ],
+                        "width": "90px"
                       },
                       {
                         "type": "box",
@@ -5762,8 +5764,7 @@ dataGuaHelpFlex = """
                             "color": "#777777",
                             "weight": "regular"
                           }
-                        ],
-                        "flex": 3
+                        ]
                       }
                     ],
                     "margin": "md"
