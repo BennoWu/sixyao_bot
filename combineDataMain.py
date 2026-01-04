@@ -400,9 +400,10 @@ def checkInData( testData ):
 
 
 
+
 # 粗略判斷輸入是否「看起來像」手動輸入的干支日期
 ## ========================================================================================================================================
-def looks_like_manual_date_input(text):
+def looks_like_manual_date_input( text , value = 0.8 ):
 	"""
 	粗略判斷輸入是否「看起來像」手動輸入的干支日期
 	
@@ -438,8 +439,14 @@ def looks_like_manual_date_input(text):
 	
 	# 如果 2/3 以上是合法字符，就判定為「想輸入日期」
 	ratio = valid_count / total_count
-	
-	return ratio >= 0.85  # 2/3 = 0.666...
+	# print( ratio )
+	return ratio >= value  # 2/3 = 0.666...
+
+
+
+
+
+
 
 
 # # 測試案例
@@ -1483,7 +1490,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 		# 巳年卯月戊戌日     乙巳,卯月,申-戌亥 
 		# elif all(c in '012345678甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥' for c in cleaned)  and ( len(buf.rstrip("<").split("/")) != 5 )  and is_valid_date(parts) == False:
 
-		elif looks_like_manual_date_input(buf):
+		elif looks_like_manual_date_input( buf , value = 0.65 ):
 
 			buf_tmp = "/".join(
 				re.findall(r'[甲乙丙丁戊己庚辛壬癸][子丑寅卯辰巳午未申酉戌亥]', buf)
@@ -1498,28 +1505,30 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 			# 否則使用智能補全（parse_ganzhi_from_text）來還原
 			else:
-				print ( ">>>>>>org BUF:" , buf )
-				buf = parse_ganzhi_from_text(buf)
-				print("BUFF (parsed):", buf)
+				if looks_like_manual_date_input( buf , value = 1 ):
+					print ( ">>>>>>org BUF:" , buf )
+					refine_buf = parse_ganzhi_from_text(buf)
+					print("BUFF (parsed):", buf)
 
-			print( "BUF-",buf)
+					print( "BUF-",buf)
 
 
-			if "/" in buf:
-				checkItem[1] = "日"
-				dateData = fourPillarToDateMain(  buf.replace( "/", ",") )
-				print( "dateData - ",dateData )
+					if "/" in refine_buf:
+						checkItem[1] = "日"
+						dateData = fourPillarToDateMain(  refine_buf.replace( "/", ",") )
+						print( "dateData - ",dateData )
 
-				if dateData == None:
-					return f"⛔日期格式錯誤: 檢查干支是否正確"					
-			# dateData = fourPillarToDateMain(  buf.replace( "/", ",") )
-			# print( "DD - ",dateData )
-			# if dateData == None:
-			else:
-				# print( f"⛔日期格式錯誤:\n{buf}")
+						if dateData == None:
+							return f"⛔日期格式錯誤: 檢查干支是否正確"					
+					# dateData = fourPillarToDateMain(  buf.replace( "/", ",") )
+					# print( "DD - ",dateData )
+					# if dateData == None:
+					else:
+						# print( f"⛔日期格式錯誤:\n{buf}")
 
-				return f"⛔日期格式錯誤:{buf}"
-
+						return f"⛔日期格式錯誤:{refine_buf}"
+				else:
+					return f"⛔輸入格式錯誤:{buf}"
 
 
 
@@ -1844,9 +1853,10 @@ if __name__ == '__main__':
 	# sixYaoMain( "+2025/8/30/16/50 // 01X000 // 問陳老闆的工作幾時開工" )
 
 
-	sixYaoMain("+乙巳乙酉乙酉辛巳//女問是否會和某男在一起//困之坎")
+	# sixYaoMain("+乙巳乙酉乙酉辛巳//女問是否會和某男在一起//困之坎")
 
 
+	sixYaoMain("+乙巳乙我我酉辛巳//101010")
 
 	# ['乙巳-乙酉-壬午', '2025/09/10', ''] 兄弟寅木 子孫午火 出伏
 
