@@ -239,17 +239,19 @@ def riceGua( fullDataInput ):
 import re
 
 FULL2HALF = str.maketrans({
-	"，": ",",  # 全形逗號 → 半形逗號
-	"。": ".",  # 全形句號 → 半形句號
-	"？": "?",  # 全形問號 → 半形問號
-	"！": "!",  # 全形驚嘆號 → 半形驚嘆號
-	"；": ";",  # 全形分號 → 半形分號
-	"：": ":",  # 全形冒號 → 半形冒號
-	"、": ",",  # 頓號 → 半形逗號
-	"．": ".",  # 全形句點 → 半形句點
+	"，": ",",
+	"。": ".",
+	"？": "?",
+	"！": "!",
+	"；": ";",
+	"：": ":",
+	"、": ",",
+	"．": ".",
 })
 
-SEP_PATTERN = re.compile(r'[\s_\\;:；：．]+')
+# 修改 SEP_PATTERN：排除「:空亡地支」的情況
+# 使用 negative lookahead 避開空亡格式
+SEP_PATTERN = re.compile(r'[\s_\\;．]+|:(?![戌亥申酉午未辰巳寅卯子丑]{2})|；(?![戌亥申酉午未辰巳寅卯子丑]{2})|：(?![戌亥申酉午未辰巳寅卯子丑]{2})')
 
 def _clean_subblock(s: str) -> str:
 	"""清理單段落的小區塊文字"""
@@ -263,7 +265,6 @@ def _clean_subblock(s: str) -> str:
 	
 	# '-' 無空白 -> '/'
 	s = re.sub(r'(?<!\s)-(?!\s)', '/', s)
-
 	# '.' 無空白 -> '/'
 	s = re.sub(r'(?<!\s)\.(?!\s)', '/', s)	
 	
@@ -277,7 +278,7 @@ def _clean_subblock(s: str) -> str:
 	# 4. 逗號前面不是中文，後面是中文 → '/'
 	s = re.sub(r'(?<![\u4e00-\u9fff]),(?=[\u4e00-\u9fff])', '/', s)
 	
-	# 其他雜項 -> '/'
+	# 其他雜項 -> '/' (這裡會用到新的 SEP_PATTERN，會避開空亡)
 	s = SEP_PATTERN.sub('/', s)
 	
 	# 尾巴句號刪除（只刪除句號，保留 ? !）
@@ -290,7 +291,6 @@ def _clean_subblock(s: str) -> str:
 	s = s.strip('/ ')
 	
 	return s
-
 
 # def unifiedData(orgData, strong_sep='//', sep_for_app=None):
 # 	if not isinstance(orgData, str):
@@ -391,6 +391,91 @@ def checkInData( testData ):
 
 
 
+
+
+
+
+
+
+
+
+
+# 粗略判斷輸入是否「看起來像」手動輸入的干支日期
+## ========================================================================================================================================
+def looks_like_manual_date_input(text):
+	"""
+	粗略判斷輸入是否「看起來像」手動輸入的干支日期
+	
+	邏輯：把所有字拆開，檢查有多少字是「干支日期相關字符」
+	如果超過 2/3，就認為是想輸入日期（不管有沒有打對）
+	
+	Args:
+		text: 輸入字串
+	
+	Returns:
+		True: 看起來像手動輸入日期
+		False: 不像
+	"""
+	if not text or len(text.strip()) == 0:
+		return False
+	
+	# 定義合法字符集
+	Gan = "甲乙丙丁戊己庚辛壬癸"
+	Zhi = "子丑寅卯辰巳午未申酉戌亥"
+	Keywords = "年月日時时"
+	
+	valid_chars = set(Gan + Zhi + Keywords)
+	
+	# 移除常見分隔符號和空白，只看「內容字符」
+	content = re.sub(r'[\s,，、/\-:：()（）<>《》]+', '', text)
+	
+	if len(content) == 0:
+		return False
+	
+	# 計算有多少字符是合法的
+	valid_count = sum(1 for char in content if char in valid_chars)
+	total_count = len(content)
+	
+	# 如果 2/3 以上是合法字符，就判定為「想輸入日期」
+	ratio = valid_count / total_count
+	
+	return ratio >= 0.67  # 2/3 = 0.666...
+
+
+# # 測試案例
+# test_cases = [
+#     # 應該判定為「想輸入日期」
+#     ("乙巳年寅月申日", True),
+#     ("乙巳年寅月申日寅時", True),
+#     ("己巳年x月申日", True),          # 打錯一個字，但其他都對
+#     ("巳年卯月戌日", True),
+#     ("乙己年寅月申日", True),          # 天干打錯了
+#     ("乙巳年申月己酉日卯時", True),
+#     ("乙巳卯月戌日:辰巳", True),       # 有空亡
+	
+#     # 應該判定為「不是日期」
+#     ("今天天氣真好", False),
+#     ("請問現在幾點", False),
+#     ("123456", False),
+#     ("hello world", False),
+#     ("", False),
+#     ("巳", False),                     # 只有一個字
+#     ("今天是甲子年", False),           # 干支字少於 2/3
+# ]
+
+# print("=" * 60)
+# print("測試結果：")
+# print("=" * 60)
+
+# for text, expected in test_cases:
+#     result = looks_like_manual_date_input(text)
+#     status = "✅" if result == expected else "❌"
+#     print(f"{status} {text:30s} → {result} (預期: {expected})")
+
+	
+
+
+
 ## 干支輸入模式 例如 乙巳年寅月申酉日
 ## ========================================================================================================================================
 
@@ -435,6 +520,7 @@ def reverse_gan_zhi(zhi_target, kong_wang_input):
 	「戌亥空」對應甲子旬（1-10），在這一旬中地支是「申」的只有「壬申」（第9個）
 	輸出：「壬申」
 	"""
+	print( "#####" , zhi_target, kong_wang_input)
 	kong_wang_dict = {
 		"戌亥": range(1, 11),   # 甲子旬
 		"申酉": range(11, 21),  # 甲戌旬
@@ -452,7 +538,6 @@ def reverse_gan_zhi(zhi_target, kong_wang_input):
 				if ganZhi_List[i - 1][1] == zhi_target:
 					return ganZhi_List[i - 1]
 	return None
-
 def parse_ganzhi_from_text(text):
 	"""
 	解析干支文字，返回格式化的干支字串或錯誤訊息
@@ -460,8 +545,8 @@ def parse_ganzhi_from_text(text):
 	失敗：返回錯誤訊息字串
 	"""
 	
-	# 1. 檢查是否有空亡資訊
-	has_kongwang = bool(re.search(r'(?:空亡|空)?(?:\(|<{1,2}|:|--|——)\s*[戌申午辰寅子亥酉未巳卯丑]{2}', text))
+	# 1. 檢查是否有空亡資訊（只認半形冒號格式）
+	has_kongwang = bool(re.search(r':[戌亥申酉午未辰巳寅卯子丑]{2}', text))
 	
 	# 2. 檢查日柱格式（如果有「日」且沒有空亡）
 	if '日' in text and not has_kongwang:
@@ -471,17 +556,18 @@ def parse_ganzhi_from_text(text):
 			if len(day_part) == 1:  # 只有地支
 				return f'日柱必須提供完整干支(天干+地支),不可只有地支"{day_part}"'
 	
-	# 3. 提取空亡信息
-	kong_match = re.search(r'(?:空亡|空)?(?:\(|<{1,2}|:)\s*([戌申午辰寅子亥酉未巳卯丑]{2})(?:空)?\)?', text)
+	# 3. 提取空亡信息（只認半形冒號格式）
+	kong_match = re.search(r':([戌亥申酉午未辰巳寅卯子丑]{2})', text)
 	kong_raw = kong_match.group(1) if kong_match else None
 	
 	# 4. 檢查年份跳躍（如2巳年）
 	skip_match = re.search(r'(\d)([子丑寅卯辰巳午未申酉戌亥])年', text)
 	year_skip = int(skip_match.group(1)) - 1 if skip_match else 0
 	
-	# 5. 移除空亡部分
-	clean_text = re.sub(r'(?:空亡|空)?(?:\(|-|--|：|:)\s*[戌申午辰寅子亥酉未巳卯丑]{2}\)?', '', text)
+	# 5. 移除空亡部分（只移除冒號格式）
+	clean_text = re.sub(r':[戌亥申酉午未辰巳寅卯子丑]{2}', '', text)
 	
+	# ... 後續程式碼保持不變 ...
 	# 6. 檢測關鍵字
 	has_year = '年' in text
 	has_month = '月' in text
@@ -767,28 +853,28 @@ def fixGuaWording( guaName ):
 
 ## 簡體轉繁體
 def chineseChange(text='中国的文化源远流长。123我是貓abc文化源,远流长'):
-    from opencc import OpenCC
-    
-    # 建立轉換器：簡體 -> 繁體
-    cc = OpenCC('s2t')
-    
-    # 跳過的字，如果轉換後會影響卦名或特例
-    skip_chars = ['丑', '咸']  # 可以以後再增加
-    
-    result = []
-    for char in text:
-        # 如果字在 skip list，保留原字
-        if char in skip_chars:
-            result.append(char)
-        else:
-            # 轉換單字
-            converted_char = cc.convert(char)
-            result.append(converted_char)
-    
-    # 重組成字串
-    converted_text = ''.join(result)
-    # print(converted_text)
-    return converted_text
+	from opencc import OpenCC
+	
+	# 建立轉換器：簡體 -> 繁體
+	cc = OpenCC('s2t')
+	
+	# 跳過的字，如果轉換後會影響卦名或特例
+	skip_chars = ['丑', '咸']  # 可以以後再增加
+	
+	result = []
+	for char in text:
+		# 如果字在 skip list，保留原字
+		if char in skip_chars:
+			result.append(char)
+		else:
+			# 轉換單字
+			converted_char = cc.convert(char)
+			result.append(converted_char)
+	
+	# 重組成字串
+	converted_text = ''.join(result)
+	# print(converted_text)
+	return converted_text
 
 # 範例測試
 # chineseChange('丑咸中国文化源远流长')
@@ -1039,7 +1125,35 @@ def looks_like_year(text):
 
 
 
+## ("乙巳乙酉乙酉辛巳"))  # 乙巳/乙酉/乙酉/辛巳
+def format_ganzhi(input_str):
+    # 天干與地支列表
+    tian_gan = "甲乙丙丁戊己庚辛壬癸"
+    di_zhi = "子丑寅卯辰巳午未申酉戌亥"
+    
+    # 每組兩個字
+    if len(input_str) % 2 != 0:
+        return input_str  # 長度不是偶數，直接回傳
+    
+    # 切成兩個字一組
+    groups = [input_str[i:i+2] for i in range(0, len(input_str), 2)]
+    
+    # 判斷每組是否天干+地支
+    for g in groups:
+        if len(g) != 2 or g[0] not in tian_gan or g[1] not in di_zhi:
+            return input_str  # 不符合就回傳原字串
+    
+    # 只接受三組或四組
+    if len(groups) in (3, 4):
+        return "/".join(groups)
+    
+    return input_str  # 組數不符合，原樣回傳
 
+# # 測試
+# print(format_ganzhi("乙巳乙酉乙酉辛巳"))  # 乙巳/乙酉/乙酉/辛巳
+# print(format_ganzhi("乙巳乙酉乙酉"))      # 乙巳/乙酉/乙酉
+# print(format_ganzhi("乙巳乙酉"))          # 原封不動回傳
+# print(format_ganzhi("乙巳乙酉甲"))        # 原封不動回傳
 
 
 
@@ -1057,17 +1171,17 @@ GAN = "甲乙丙丁戊己庚辛壬癸"
 ZHI = "子丑寅卯辰巳午未申酉戌亥"
 
 _PATTERN_GZ_MONTH_DAY = re.compile(
-    rf'^([{GAN}]?[{ZHI}])月([{GAN}]?[{ZHI}])日$'
+	rf'^([{GAN}]?[{ZHI}])月([{GAN}]?[{ZHI}])日$'
 )
 
 def is_valid_ganzhi_month_day(text: str) -> bool:
-    """
-    判斷是否符合干支月日格式：
-    - X月XX日 或 XX月XX日
-    - 若一字：必為地支
-    - 若兩字：必為 天干 + 地支
-    """
-    return bool(_PATTERN_GZ_MONTH_DAY.match(text))
+	"""
+	判斷是否符合干支月日格式：
+	- X月XX日 或 XX月XX日
+	- 若一字：必為地支
+	- 若兩字：必為 天干 + 地支
+	"""
+	return bool(_PATTERN_GZ_MONTH_DAY.match(text))
 
 
 
@@ -1219,6 +1333,8 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 		buf_org = buf
 
+		buf  = format_ganzhi(buf) ## ("乙巳乙酉乙酉辛巳"))  # 乙巳/乙酉/乙酉/辛巳
+
 		# 判斷是否為「三柱八字」，也就是剛好含有 3 組干支（1組=1天干+1地支，共6字）
 		# 範例:
 		#   "甲辰年丙寅月辛丑日" → ✅ True （三柱）
@@ -1255,7 +1371,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 
 
-		cleaned = re.sub(r'[年月日時\s\.,:/：()\[\]（）\-—《》〈〉…、，]', '', buf)
+		# cleaned = re.sub(r'[年月日時\s\.,:/：()\[\]（）\-—《》〈〉…、，]', '', buf)
 
 		# 統一判斷條件
 		if ( cond_three_part_valid or cond_six_part_valid ) and is_valid_date(parts) == False:
@@ -1365,7 +1481,10 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 
 		# 巳年卯月戊戌日     乙巳,卯月,申-戌亥 
-		elif all(c in '012345678甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥' for c in cleaned)  and ( len(buf.rstrip("<").split("/")) != 5 )  and is_valid_date(parts) == False:
+		# elif all(c in '012345678甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥' for c in cleaned)  and ( len(buf.rstrip("<").split("/")) != 5 )  and is_valid_date(parts) == False:
+
+		elif looks_like_manual_date_input(buf):
+
 			buf_tmp = "/".join(
 				re.findall(r'[甲乙丙丁戊己庚辛壬癸][子丑寅卯辰巳午未申酉戌亥]', buf)
 			)
@@ -1390,6 +1509,9 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 				checkItem[1] = "日"
 				dateData = fourPillarToDateMain(  buf.replace( "/", ",") )
 				print( "dateData - ",dateData )
+
+				if dateData == None:
+					return f"⛔日期格式錯誤: 檢查干支是否正確"					
 			# dateData = fourPillarToDateMain(  buf.replace( "/", ",") )
 			# print( "DD - ",dateData )
 			# if dateData == None:
@@ -1587,7 +1709,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "兩村相爭//火天.1,3,4,6//卯月丁巳日") ## 三合
 	# sixYaoMain( "兩村相爭")
 	# sixYaoMain( "丙戌月辰酉日//大过之鼎卦")	
-	sixYaoMain( "乙巳年寅月申日(戌亥//1101010",showPic = False )
+	# sixYaoMain( "乙巳年寅月丁酉日//1100101",showPic = False )
 	# sixYaoMain( "+巳年卯月戊戌日//大过之鼎卦")	## 三合太多
 	# sixYaoMain( "吃不吃辣//100010.2")	
 	# sixYaoMain( "+嬰兒健康吉凶//山風 .,2.3//己卯月甲午日",showPic = True )  ## 三合 跳格
@@ -1627,7 +1749,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "2025/8/25/0/47 // 10XX1$ // 赫女占回北部工作吉凶?",showPic = True )	 ## 三合 四格
 	# sixYaoMain( "+2024/04/13/12/00<//10XX1$//赫女占回北部工作吉凶?")  ## 三合 四格
 
- 	# sixYaoMain( "+2025/11/19/12/18 - 1$1001//某教授是否回信byJTin",showPic = True)
+	# sixYaoMain( "+2025/11/19/12/18 - 1$1001//某教授是否回信byJTin",showPic = True)
 	# sixYaoMain( "+2025/12/11/21/40 - 0X$10X//占福哥身體狀況吉凶")
 
 
@@ -1722,7 +1844,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "+2025/8/30/16/50 // 01X000 // 問陳老闆的工作幾時開工" )
 
 
-	# sixYaoMain("+乙巳 乙酉 乙酉 辛巳//女問是否會和某男在一起//困之坎")
+	sixYaoMain("+乙巳乙酉乙酉辛巳//女問是否會和某男在一起//困之坎")
 
 
 
