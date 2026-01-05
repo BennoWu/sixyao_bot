@@ -236,126 +236,202 @@ def riceGua( fullDataInput ):
 # orgData = "去學習是否順 // 火地晉 5 // 丙月，丙子日"
 # print(allItem)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import re
 
+# 全形轉半形對照表
 FULL2HALF = str.maketrans({
-	"，": ",",
-	"。": ".",
-	"？": "?",
-	"！": "!",
-	"；": ";",
-	"：": ":",
-	"、": ",",
-	"．": ".",
+    "،": ",",
+    "。": ".",
+    "?": "?",
+    "!": "!",
+    ";": ";",
+    ":": ":",
+    "、": ",",
+    ".": ".",
 })
 
-# 修改 SEP_PATTERN：排除「:空亡地支」的情況
-# 使用 negative lookahead 避開空亡格式
-SEP_PATTERN = re.compile(r'[\s_\\;．]+|:(?![戌亥申酉午未辰巳寅卯子丑]{2})|；(?![戌亥申酉午未辰巳寅卯子丑]{2})|：(?![戌亥申酉午未辰巳寅卯子丑]{2})')
+# 修改 SEP_PATTERN:排除「:空亡地支」的情況
+SEP_PATTERN = re.compile(r'[\s_\\;．]+|:(?![戌亥申酉午未辰巳寅卯子丑]{2})|;(?![戌亥申酉午未辰巳寅卯子丑]{2})|:(?![戌亥申酉午未辰巳寅卯子丑]{2})')
 
-def _clean_subblock(s: str) -> str:
-	"""清理單段落的小區塊文字"""
-	s = s.translate(FULL2HALF).strip()
-	
-	# 🔥 新增：移除中文字之間的所有空白
-	s = re.sub(r'([\u4e00-\u9fff])\s+([\u4e00-\u9fff])', r'\1\2', s)
-	
-	# ⭐ 把「中文 + 空白 + 逗號 + 空白 + 中文」的空白都收掉
-	s = re.sub(r'([\u4e00-\u9fff])\s*,\s*([\u4e00-\u9fff])', r'\1,\2', s)
-	
-	# '-' 無空白 -> '/'
-	s = re.sub(r'(?<!\s)-(?!\s)', '/', s)
-	# '.' 無空白 -> '/'
-	s = re.sub(r'(?<!\s)\.(?!\s)', '/', s)	
-	
-	# 逗號處理（重點）
-	# 1. 數字/英文字母間的逗號 → '/'
-	s = re.sub(r'(?<=[0-9A-Za-z]),(?=[0-9A-Za-z])', '/', s)
-	# 2. 結尾逗號 → '/'
-	s = re.sub(r',\s*$', '/', s)
-	# 3. 中文後面接逗號，逗號後面不是中文 → '/'
-	s = re.sub(r'(?<=[\u4e00-\u9fff]),(?![\u4e00-\u9fff])', '/', s)
-	# 4. 逗號前面不是中文，後面是中文 → '/'
-	s = re.sub(r'(?<![\u4e00-\u9fff]),(?=[\u4e00-\u9fff])', '/', s)
-	
-	# 其他雜項 -> '/' (這裡會用到新的 SEP_PATTERN，會避開空亡)
-	s = SEP_PATTERN.sub('/', s)
-	
-	# 尾巴句號刪除（只刪除句號，保留 ? !）
-	s = re.sub(r'\.\s*$', '', s)
-	
-	# 合併多個 '/'
-	s = re.sub(r'/+', '/', s)
-	
-	# 去掉段落首尾多餘 '/'
-	s = s.strip('/ ')
-	
-	return s
+
+def is_question_text(text):
+    """
+    判斷是否為「占卦問題」(需要保持原樣的文字)
+    回傳 True = 是占卦問題,保持原樣
+    回傳 False = 不是問題,正常清理
+    """
+    text = text.strip()
+    if not text:
+        return False
+    
+    # 占卦問題的關鍵字
+    question_keywords = [
+        '占', '測', '吉凶', '病', '運', '職', 
+        '朋友', '同事', '愛', '心情', '財', '成績', '健康',
+        '工作', '感情', '婚姻', '事業', '學業', '考試',
+        '問', '如何', '會不會', '能不能', '可以', '應該',
+        '怎麼', '什麼', '為什麼', '嗎',"男", "女", "終身","福","宅"
+    ]
+    
+    # 只要有問題關鍵字就是占卦問題
+    for keyword in question_keywords:
+        if keyword in text:
+            return True
+    
+    return False
+
+
+def _clean_subblock(s):
+    """清理單段落的小區塊文字"""
+    s = s.translate(FULL2HALF).strip()
+    
+    # 移除中文字之間的所有空白
+    s = re.sub(r'([\u4e00-\u9fff])\s+([\u4e00-\u9fff])', r'\1\2', s)
+    
+    # 把「中文 + 空白 + 逗號 + 空白 + 中文」的空白都收掉
+    s = re.sub(r'([\u4e00-\u9fff])\s*,\s*([\u4e00-\u9fff])', r'\1,\2', s)
+    
+    # '-' 無空白 -> '/'
+    s = re.sub(r'(?<!\s)-(?!\s)', '/', s)
+    # '.' 無空白 -> '/'
+    s = re.sub(r'(?<!\s)\.(?!\s)', '/', s)
+    
+    # 逗號處理
+    s = re.sub(r'(?<=[0-9A-Za-z]),(?=[0-9A-Za-z])', '/', s)
+    s = re.sub(r',\s*$', '/', s)
+    s = re.sub(r'(?<=[\u4e00-\u9fff]),(?![\u4e00-\u9fff])', '/', s)
+    s = re.sub(r'(?<![\u4e00-\u9fff]),(?=[\u4e00-\u9fff])', '/', s)
+    
+    # 其他雜項 -> '/'
+    s = SEP_PATTERN.sub('/', s)
+    
+    # 尾巴句號刪除
+    s = re.sub(r'\.\s*$', '', s)
+    
+    # 合併多個 '/'
+    s = re.sub(r'/+', '/', s)
+    
+    # 去掉段落首尾多餘 '/'
+    s = s.strip('/ ')
+    
+    return s
+
+
+def unifiedData(orgData, strong_sep='//', sep_for_app=None):
+    if not isinstance(orgData, str):
+        return orgData
+    
+    # Step 0: 只把「數字後面的 " - "」變成 //
+    # 例如: "18/15 - $00001" → "18/15//$00001"
+    s = re.sub(r'(\d)\s+-\s+', r'\1' + strong_sep, orgData)
+    
+    # Step 1: 將數字之間的 - 換成 /
+    s = re.sub(r'(\d)-(\d)', r'\1/\2', s)
+    
+    # Step 2: 判斷是否包含「特殊符號」決定換行方式
+    has_special_pattern = bool(
+        re.search(r'\d+[/]\d+', s) or
+        re.search(r'[0-9X$@]{2,}', s) or
+        re.search(r'\d+,\d+,\d+', s)
+    )
+    
+    STRONG_TOKEN = "STRONGSEPUNIQUE"
+    s = s.replace(strong_sep, STRONG_TOKEN)
+    
+    if has_special_pattern:
+        s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
+    else:
+        s = re.sub(r'[\r\n]+', ',', s)
+    
+    segments = s.split(STRONG_TOKEN)
+    cleaned_segments = []
+    
+    for seg in segments:
+        if not seg.strip():
+            continue
+        
+        # 新增:判斷是否為占卦問題
+        if is_question_text(seg):
+            # 是占卦問題,只去頭尾空白,保持原樣
+            cleaned_segments.append(seg.strip())
+        else:
+            # 不是問題,正常清理
+            cleaned_segments.append(_clean_subblock(seg))
+    
+    result = strong_sep.join(cleaned_segments)
+    
+    if sep_for_app:
+        result = result.replace(strong_sep, sep_for_app)
+    
+    return result
+
+
+
+
+
+
+
+
+
+
+
+
 
 # def unifiedData(orgData, strong_sep='//', sep_for_app=None):
 # 	if not isinstance(orgData, str):
 # 		return orgData
-	
-# 	# Step 1: 分段落（大區塊）
+
+# 	# Step 0: 保護原本的 " - "（用特殊標記暫存）
+# 	PROTECT_TOKEN = "PROTECTDASH"
+# 	s = orgData.replace(" - ", PROTECT_TOKEN)
+
+# 	# Step 1: 將其他 -（沒有空格）換成 /
+# 	s = re.sub(r'(\d)-(\d)', r'\1/\2', s)
+
+# 	# Step 2: 還原原本的 " - "
+# 	s = s.replace(PROTECT_TOKEN, " - ")
+
+# 	# Step 3: 判斷是否包含「特殊符號」決定換行方式
+# 	has_special_pattern = bool(
+# 		re.search(r'\d+[/]\d+', s) or
+# 		re.search(r'[0-9X$@]{2,}', s) or
+# 		re.search(r'\d+,\d+,\d+', s)
+# 	)
+
 # 	STRONG_TOKEN = "STRONGSEPUNIQUE"
-# 	# 保護原本的 //，換行，" - " 統一替代為 token
-# 	s = orgData.replace(strong_sep, STRONG_TOKEN)
-# 	s = re.sub(r'\s-\s', STRONG_TOKEN, s)
-# 	s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
-	
-# 	# Step 2: 對每個段落清理
+# 	s = s.replace(strong_sep, STRONG_TOKEN)
+
+# 	if has_special_pattern:
+# 		s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
+# 	else:
+# 		s = re.sub(r'[\r\n]+', ',', s)
+
 # 	segments = s.split(STRONG_TOKEN)
 # 	cleaned_segments = [_clean_subblock(seg) for seg in segments if seg.strip()]
-	
-# 	# Step 3: 合併回單行，使用強分隔符
+
 # 	result = strong_sep.join(cleaned_segments)
-	
-# 	# Step 4: 可選替換為 app 分隔符號
+
 # 	if sep_for_app:
 # 		result = result.replace(strong_sep, sep_for_app)
-	
+
 # 	return result
 
-def unifiedData(orgData, strong_sep='//', sep_for_app=None):
-	if not isinstance(orgData, str):
-		return orgData
-
-	# Step 0: 保護原本的 " - "（用特殊標記暫存）
-	PROTECT_TOKEN = "PROTECTDASH"
-	s = orgData.replace(" - ", PROTECT_TOKEN)
-
-	# Step 1: 將其他 -（沒有空格）換成 /
-	s = re.sub(r'(\d)-(\d)', r'\1/\2', s)
-
-	# Step 2: 還原原本的 " - "
-	s = s.replace(PROTECT_TOKEN, " - ")
-
-	# Step 3: 判斷是否包含「特殊符號」決定換行方式
-	has_special_pattern = bool(
-		re.search(r'\d+[/]\d+', s) or
-		re.search(r'[0-9X$@]{2,}', s) or
-		re.search(r'\d+,\d+,\d+', s)
-	)
-
-	STRONG_TOKEN = "STRONGSEPUNIQUE"
-	s = s.replace(strong_sep, STRONG_TOKEN)
-
-	if has_special_pattern:
-		s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
-	else:
-		s = re.sub(r'[\r\n]+', ',', s)
-
-	segments = s.split(STRONG_TOKEN)
-	cleaned_segments = [_clean_subblock(seg) for seg in segments if seg.strip()]
-
-	result = strong_sep.join(cleaned_segments)
-
-	if sep_for_app:
-		result = result.replace(strong_sep, sep_for_app)
-
-	return result
-
-# print(unifiedData("店家維修，能否順利修好電腦保住資料 - 0-1-00-11-0-1"))
+# # print(unifiedData("店家維修，能否順利修好電腦保住資料 - 0-1-00-11-0-1"))
 
 
 
@@ -1847,7 +1923,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "俘之履//男占女未來是否有機會共事//辛丑，壬辰，丙申，戊戌")
 	# sixYaoMain( "2025,4,27,12,28//卯月丁巳日//010$1X//問題問題問題" )
 	# sixYaoMain( "癸丑年戌月丁亥日//占往某地做生意財利//大畜之賁",showPic = False)
-	sixYaoMain( "2025/12/24/11/27//1$011X//Untitled",showPic = True)
+	# sixYaoMain( "2025/12/24/11/27//1$011X//Untitled",showPic = True)
 	# sixYaoMain( "天之遁//吃飽了沒")	
 	# sixYaoMain( "27 71 42//吃飽了沒")
 	# sixYaoMain( "地风升之地水师//卯月乙未日//一人占賣貨")	
@@ -2049,11 +2125,17 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "0,1,00,11,0,1//2024 12 5 10 31//占今年幾時換工作較好" )
 	# sixYaoMain( "+0,1,00,11,0,1//亥月,丙子日//占今年幾時換工作較好" ,showPic = True ) ## 三合缺一待用
-	# sixYaoMain( "+乙巳年辰月辰日-寅卯//00$01X//占一男終身財福",showPic = True ) ## 三合 日
+	sixYaoMain( "+乙巳年辰月辰日:寅卯//00$01X//占一男終身財福",showPic = True ) ## 三合 日
 	# sixYaoMain( "27,55,22//乙月,丙子日//占今年幾時換工作較好" )
 	# sixYaoMain( "+0,1,00,11,0,1//辛亥月乙卯日//占今年幾時換工作較好" )
-	# print( unifiedData("""2025/10/22/18/15 - $00001
-# 高雄場課程""", strong_sep='//', sep_for_app= "||") )
+# 	print( unifiedData("""2025/10/22/18/15 - $00001
+# 高雄場課程""", strong_sep='//') )
+
+# 	print( unifiedData( "101010.2.4//占看看今年幾時換工作較好" , strong_sep='//') )
+# 	print( unifiedData( "101010.2.4//占看看今年 - 幾時換,工作較好_by/.,TTT") )
+
+
+
 	# sixYaoMain( "+2025/10/22/18/15 - $00001 //高雄場課程" ,showPic = True ) ## 
 
 	# sixYaoMain( "占今年幾時換工作較好//0,1,00,11,0,1" )

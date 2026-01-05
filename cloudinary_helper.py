@@ -282,7 +282,7 @@ if __name__ == '__main__':
 
 	### delete_older_than(folder="__icon", days=0)
 	
-	nameList = [ "OO","XX","O","X" ]
+	nameList = [ "OO","XX","X","O" ]
 	print( "url_dict = {")
 	for i, each in enumerate(filePathList):
 		res = upload_image( each , folder="__icon")
