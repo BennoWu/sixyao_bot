@@ -257,13 +257,14 @@ def is_question_text(text):
     text = text.strip()
     if not text:
         return False
-    
+    if checkAllGua( text , checkMode = True ) == False:
+    	return False
     text_no_punct = re.sub(r'[:\s,./;、。]', '', text)
     
-    if re.search(r'[\u4e00-\u9fff]{1,2}之[\u4e00-\u9fff]{1,2}卦?', text_no_punct):
-        return False
-    if re.search(r'[\u4e00-\u9fff]{1,2}為[\u4e00-\u9fff]{1,2}卦?', text_no_punct):
-        return False
+    # if re.search(r'[\u4e00-\u9fff]{1,2}之[\u4e00-\u9fff]{1,2}卦?', text_no_punct):
+    #     return False
+    # if re.search(r'[\u4e00-\u9fff]{1,2}為[\u4e00-\u9fff]{1,2}卦?', text_no_punct):
+    #     return False
     
     ganzhi = '甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥'
     if re.search(f'[{ganzhi}]{{2}}年', text_no_punct):
@@ -1051,6 +1052,9 @@ def chineseChange(text='中国的文化源远流长。123我是貓abc文化源,�
 # 	return converted
 
 # chineseChange()
+
+
+
 
 
 
@@ -1870,7 +1874,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "癸卯,乙卯,庚午,丙戌//火水之解//今年財運" )
 	# sixYaoMain( "是否要投資台績電//0,1,11,0,0,1//丁月乙亥日" )
 	# sixYaoMain( "+某某集團的發展//地風,3,1//丁月乙亥日") 
-	# sixYaoMain( "兩村相爭//火天.1,3,4,6//卯月丁巳日") ## 三合
+	sixYaoMain( "兩村相爭//火天.1,3,4,6//卯月丁巳日",showPic = True) ## 三合
 	# sixYaoMain( "兩村相爭")
 	# sixYaoMain( "丙戌月辰酉日//大过之鼎卦")	
 	# sixYaoMain( "乙巳年寅月丁酉日//1100101",showPic = False )
@@ -1913,7 +1917,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "2025/8/25/0/47 // 10XX1$ // 赫女占回北部工作吉凶?",showPic = True )	 ## 三合 四格
 	# sixYaoMain( "+2024/04/13/12/00<//10XX1$//赫女占回北部工作吉凶?")  ## 三合 四格
 
-	# sixYaoMain( "+2025/11/19/12/18 - 1$1001//某教授是否回信byJTin",showPic = True)
+	# sixYaoMain( "+2025/11/19/12/18 - 1$1001//某教授是否回信 byJTin",showPic = True)
 	# sixYaoMain( "+2025/12/11/21/40 - 0X$10X//占福哥身體狀況吉凶")
 
 
@@ -2072,7 +2076,7 @@ if __name__ == '__main__':
 # 	print( unifiedData( "101010.2.4//占看看今年幾時換工作較好" , strong_sep='//') )
 # 	print( unifiedData( "101010.2.4//占看看今年 - 幾時換,工作較好_by/.,TTT") )
 
-	sixYaoMain( "2026/01/02/01/27//大畜之小畜卦//Untitled" ,showPic = True ) ## 
+	# sixYaoMain( "2026/01/02/01/27//大畜之小畜卦//Untitled" ,showPic = True ) ## 
 
 	# sixYaoMain( "+2025/10/22/18/15 - $00001 //高雄場課程" ,showPic = True ) ## 
 

@@ -674,7 +674,7 @@ def cropTool(img: Image.Image,
 
 	right, bottom = left + crop_w, top + crop_h
 	full_crop = img.crop((left, top, right, bottom))
-	# full_crop.show()
+	full_crop.show()
 	# --- 分段 OCR ---
 	if h_split > 1:
 		split_h = crop_h // h_split
@@ -725,7 +725,7 @@ def cropTool(img: Image.Image,
 from PIL import Image
 import io
 
-def getPicData(image_input):
+def getPicData(image_input , showPic = False ):
 	"""
 	支援四種輸入:
 	1. Local 路徑（字串）

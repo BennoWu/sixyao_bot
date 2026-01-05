@@ -1085,10 +1085,10 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 
 	if date_ganZiList: ## 自定月日
 		reDataLayout = reDataLayout.replace( "month_mode","- - -" ).replace( "day_mode" , "- - -" ).replace( "hour_mode" , "- - -" ).replace ( "jechi_mode" , "- - -")
-		reDataLayout = reDataLayout.replace("#000001", "#cccccc" ).replace("#000003", "#cccccc" ).replace("#444443", "#999999" ).replace("#FCA32D", "#dddddd" ).replace(currentTime ,"00:00" )
+		reDataLayout = reDataLayout.replace("#000001", "#aaaaaa" ).replace("#000003", "#aaaaaa" ).replace("#444443", "#999999" ).replace("#FCA32D", "#dddddd" ).replace(currentTime ,"00:00" )
 	
 	elif threePillar:
-		reDataLayout = reDataLayout.replace("#000003", "#cccccc" ).replace("#FCA32D", "#dddddd" ).replace(currentTime ,"00:00" )
+		reDataLayout = reDataLayout.replace("#000003", "#aaaaaa" ).replace("#FCA32D", "#dddddd" ).replace(currentTime ,"00:00" )
 		reDataLayout = reDataLayout.replace( "month_mode" , "干支/月/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "day_mode" , "干支/日/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "hour_mode" , "- - -" ) .replace( "jechi_mode" , "干支/節氣/" + "6/" + clipData(dateData).replace("/","-") )
 	else:
 		reDataLayout = reDataLayout.replace( "month_mode" , "干支/月/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "day_mode" , "干支/日/" + "6/" + clipData(dateData).replace("/","-")  ).replace( "hour_mode" , "干支/時/" + "6/" + dateData.replace("/","-")  ).replace( "jechi_mode" , "干支/節氣/" + "6/" + clipData(dateData).replace("/","-") )
