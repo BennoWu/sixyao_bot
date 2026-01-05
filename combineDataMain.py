@@ -481,6 +481,99 @@ def looks_like_manual_date_input( text , value = 0.8 ):
 #     status = "✅" if result == expected else "❌"
 #     print(f"{status} {text:30s} → {result} (預期: {expected})")
 
+
+
+
+def checkInData(testData, valid_ratio_threshold=0.8, length_threshold=1.0):
+	"""
+	檢查輸入是否符合卦象格式
+	
+	Args:
+		testData: 輸入字串
+		valid_ratio_threshold: 合法字符比例閾值 (預設 0.8 = 80%)
+		length_threshold: 長度符合比例閾值 (預設 1.0 = 100%，即必須正好6個)
+		
+	Returns:
+		True: 符合格式
+		False: 不符合格式（錯誤訊息會 print 出來）
+	"""
+	testData = testData.replace("/", "").strip()
+	
+	if len(testData) == 0:
+		return False
+	
+	# 合法字符集
+	tgdz = ["0", "1", "*", "x", "X", "$", "@", "6", "7", "8", "9", "＊", "!", "！"]
+	valid_chars = set(tgdz)
+	
+	# 🔥 第一關：計算合法字符比例
+	valid_count = sum(1 for char in testData if char in valid_chars)
+	total_count = len(testData)
+	valid_ratio = valid_count / total_count
+	
+	# 如果字符比例不達標，直接返回 False（不 print，不進入後續）
+	if valid_ratio < valid_ratio_threshold:
+		return False
+	
+	# === 通過第一關，才會執行以下內容 ===
+	
+	print("----->>>-----", testData)
+	
+	# 第二關：檢查長度
+	expected_length = 6
+	
+	# 計算長度符合比例
+	if total_count <= expected_length:
+		length_ratio = total_count / expected_length
+	else:
+		length_ratio = expected_length / total_count
+	
+	# 判斷：長度是否達標
+	if length_ratio < length_threshold:
+		print(f"錯誤：應為{expected_length}個字符,目前有{total_count}個")
+		return False
+	
+	return True
+
+
+
+
+
+
+
+
+
+
+## 確認內容為天干地支
+def testTgdz( testData ):
+	testData  =  testData.replace("月","").replace("日","").replace("/","" )
+	tgdz = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸","子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
+	for td in testData:
+		if td not in tgdz:
+			return False
+	return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 
 
@@ -1970,16 +2063,16 @@ if __name__ == '__main__':
 	# sixYaoMain( "+乙巳年辰月辰日:寅卯//00$01X//占一男終身財福",showPic = True ) ## 三合 日
 	# sixYaoMain( "27,55,22//乙月,丙子日//占今年幾時換工作較好" )
 	# sixYaoMain( "+0,1,00,11,0,1//辛亥月乙卯日//占今年幾時換工作較好" )
-	print( unifiedData("""2025/10/22/18/15 - $00001
-高雄場課程""", strong_sep='//') )
-	print( unifiedData("""2025-12-07 17:34//$$$111//朋友突發重病
-by小蟲""" ))
+# 	print( unifiedData("""2025/10/22/18/15 - $00001
+# 高雄場課程""", strong_sep='//') )
+# 	print( unifiedData("""2025-12-07 17:34//$$$111//朋友突發重病
+# by小蟲""" ))
 
-	print( unifiedData("2026/01/02/01/27 //大畜之小畜卦// 甲辰年丙寅月辛丑日//Untitled" ))
+	# print( unifiedData("2026/01/02/01/27//大畜之小畜卦//Untitled" ))
 # 	print( unifiedData( "101010.2.4//占看看今年幾時換工作較好" , strong_sep='//') )
 # 	print( unifiedData( "101010.2.4//占看看今年 - 幾時換,工作較好_by/.,TTT") )
 
-
+	sixYaoMain( "2026/01/02/01/27//大畜之小畜卦//Untitled" ,showPic = True ) ## 
 
 	# sixYaoMain( "+2025/10/22/18/15 - $00001 //高雄場課程" ,showPic = True ) ## 
 
