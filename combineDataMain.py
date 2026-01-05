@@ -247,15 +247,11 @@ def riceGua( fullDataInput ):
 
 
 
-
-
-
-
 import re
 
 # 全形轉半形對照表
 FULL2HALF = str.maketrans({
-    "،": ",",
+    ",": ",",
     "。": ".",
     "?": "?",
     "!": "!",
@@ -270,65 +266,41 @@ SEP_PATTERN = re.compile(r'[\s_\\;．]+|:(?![戌亥申酉午未辰巳寅卯子�
 
 
 def is_question_text(text):
-    """
-    判斷是否為「占卦問題」(需要保持原樣的文字)
-    回傳 True = 是占卦問題,保持原樣
-    回傳 False = 不是問題,正常清理
-    """
     text = text.strip()
     if not text:
         return False
     
-    # 占卦問題的關鍵字
-    question_keywords = [
-        '占', '測', '吉凶', '病', '運', '職', 
-        '朋友', '同事', '愛', '心情', '財', '成績', '健康',
-        '工作', '感情', '婚姻', '事業', '學業', '考試',
-        '問', '如何', '會不會', '能不能', '可以', '應該',
-        '怎麼', '什麼', '為什麼', '嗎',"男", "女", "終身","福","宅"
-    ]
+    question_keywords = ['占', '測', '吉凶', '病', '運', '職', '朋友', '同事', '愛', '心情', '財', '成績', '健康', '工作', '感情', '婚姻', '事業', '學業', '考試', '問', '如何', '會不會', '能不能', '可以', '應該', '怎麼', '什麼', '為什麼', '嗎']
     
-    # 只要有問題關鍵字就是占卦問題
     for keyword in question_keywords:
         if keyword in text:
             return True
+    
+    program_chars = ['$', 'X', '#', '*', '/', '甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸', '子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    
+    program_char_count = sum(1 for char in text if char in program_chars)
+    total_length = len(text)
+    
+    if program_char_count / total_length < 0.5:
+        return True
     
     return False
 
 
 def _clean_subblock(s):
-    """清理單段落的小區塊文字"""
     s = s.translate(FULL2HALF).strip()
-    
-    # 移除中文字之間的所有空白
     s = re.sub(r'([\u4e00-\u9fff])\s+([\u4e00-\u9fff])', r'\1\2', s)
-    
-    # 把「中文 + 空白 + 逗號 + 空白 + 中文」的空白都收掉
     s = re.sub(r'([\u4e00-\u9fff])\s*,\s*([\u4e00-\u9fff])', r'\1,\2', s)
-    
-    # '-' 無空白 -> '/'
     s = re.sub(r'(?<!\s)-(?!\s)', '/', s)
-    # '.' 無空白 -> '/'
     s = re.sub(r'(?<!\s)\.(?!\s)', '/', s)
-    
-    # 逗號處理
     s = re.sub(r'(?<=[0-9A-Za-z]),(?=[0-9A-Za-z])', '/', s)
     s = re.sub(r',\s*$', '/', s)
     s = re.sub(r'(?<=[\u4e00-\u9fff]),(?![\u4e00-\u9fff])', '/', s)
     s = re.sub(r'(?<![\u4e00-\u9fff]),(?=[\u4e00-\u9fff])', '/', s)
-    
-    # 其他雜項 -> '/'
     s = SEP_PATTERN.sub('/', s)
-    
-    # 尾巴句號刪除
     s = re.sub(r'\.\s*$', '', s)
-    
-    # 合併多個 '/'
     s = re.sub(r'/+', '/', s)
-    
-    # 去掉段落首尾多餘 '/'
     s = s.strip('/ ')
-    
     return s
 
 
@@ -336,14 +308,9 @@ def unifiedData(orgData, strong_sep='//', sep_for_app=None):
     if not isinstance(orgData, str):
         return orgData
     
-    # Step 0: 只把「數字後面的 " - "」變成 //
-    # 例如: "18/15 - $00001" → "18/15//$00001"
     s = re.sub(r'(\d)\s+-\s+', r'\1' + strong_sep, orgData)
-    
-    # Step 1: 將數字之間的 - 換成 /
     s = re.sub(r'(\d)-(\d)', r'\1/\2', s)
     
-    # Step 2: 判斷是否包含「特殊符號」決定換行方式
     has_special_pattern = bool(
         re.search(r'\d+[/]\d+', s) or
         re.search(r'[0-9X$@]{2,}', s) or
@@ -365,23 +332,35 @@ def unifiedData(orgData, strong_sep='//', sep_for_app=None):
         if not seg.strip():
             continue
         
-        # 新增:判斷是否為占卦問題
         if is_question_text(seg):
-            # 是占卦問題,只去頭尾空白,保持原樣
             cleaned_segments.append(seg.strip())
         else:
-            # 不是問題,正常清理
             cleaned_segments.append(_clean_subblock(seg))
     
-    result = strong_sep.join(cleaned_segments)
+    merged_segments = []
+    i = 0
+    while i < len(cleaned_segments):
+        current = cleaned_segments[i]
+        
+        if is_question_text(current):
+            text_parts = [current]
+            j = i + 1
+            while j < len(cleaned_segments) and is_question_text(cleaned_segments[j]):
+                text_parts.append(cleaned_segments[j])
+                j += 1
+            
+            merged_segments.append(','.join(text_parts))
+            i = j
+        else:
+            merged_segments.append(current)
+            i += 1
+    
+    result = strong_sep.join(merged_segments)
     
     if sep_for_app:
         result = result.replace(strong_sep, sep_for_app)
     
     return result
-
-
-
 
 
 
@@ -2125,12 +2104,13 @@ if __name__ == '__main__':
 
 	# sixYaoMain( "0,1,00,11,0,1//2024 12 5 10 31//占今年幾時換工作較好" )
 	# sixYaoMain( "+0,1,00,11,0,1//亥月,丙子日//占今年幾時換工作較好" ,showPic = True ) ## 三合缺一待用
-	sixYaoMain( "+乙巳年辰月辰日:寅卯//00$01X//占一男終身財福",showPic = True ) ## 三合 日
+	# sixYaoMain( "+乙巳年辰月辰日:寅卯//00$01X//占一男終身財福",showPic = True ) ## 三合 日
 	# sixYaoMain( "27,55,22//乙月,丙子日//占今年幾時換工作較好" )
-	# sixYaoMain( "+0,1,00,11,0,1//辛亥月乙卯日//占今年幾時換工作較好" )
+	sixYaoMain( "+0,1,00,11,0,1//辛亥月乙卯日//占今年幾時換工作較好" )
 # 	print( unifiedData("""2025/10/22/18/15 - $00001
 # 高雄場課程""", strong_sep='//') )
-
+# 	print( unifiedData("""2025-12-07 17:34//$$$111//朋友突發重病
+# by小蟲""" ))
 # 	print( unifiedData( "101010.2.4//占看看今年幾時換工作較好" , strong_sep='//') )
 # 	print( unifiedData( "101010.2.4//占看看今年 - 幾時換,工作較好_by/.,TTT") )
 
