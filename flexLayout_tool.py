@@ -950,10 +950,10 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	# 	# command = "+%s // %s // %s"% ( dateData , (zeroSpace.join(finalGua)) , note )	
 	# 	command = "+%s // %s // %s"% ( dateData , finalGua , note )		
 	url_dict = {
-	"OO" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767549391/__icon/831d69c574154211af41f1fb6852cfba.png",
-	"XX" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767549392/__icon/ec4713c741134b75a48f3bdc0f2f5bf0.png",
-	"O" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767549393/__icon/78c35ff1450e43cf80201c42beee85b7.png",
-	"X" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767549393/__icon/e105c15b1c204e2ab21ff0fecaecadb4.png",
+	"OO" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580381/__icon/38e33cc8b9d048578ab430ca2cbe8f9a.png",
+	"XX" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580381/__icon/9026d981654f42709dbac665acce0bb7.png",
+	"O" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580382/__icon/1eb7270d609244c298984fa2d83d2317.png",
+	"X" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580383/__icon/9e8a700b47ac4e5d9da68160e2e0abcc.png",
 	}
 # url_dict["OO"]
 	# print(command)
@@ -3429,12 +3429,12 @@ sSixZanUiLayout = """
 """
 
 url_dict = {
-"大安" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765857010/__icon/9bef7bd468f24d00bdba7c6314fc8543.png",
-"留連" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765857011/__icon/9c9990f375324ce6847d106e76b119c2.png",
-"速喜" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765857012/__icon/c90f45b389294e3cad220ba46bd4a897.png",
-"赤口" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765857013/__icon/67186dfd9c484f5983d9b9dc92f317da.png",
-"小吉" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765857013/__icon/1bdd2028903c44f8b85993e89ee2e925.png",
-"空亡" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1765857014/__icon/878bb100765443688074c27b3d097714.png",
+"大安" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580377/__icon/263e87e8b03a4bd481fbeb7bb5cdbbd3.png",
+"留連" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580378/__icon/915dee0334b14284be70961a60dbf726.png",
+"速喜" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580378/__icon/3bb5d6f59c344debab29dbc46f032131.png",
+"赤口" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580379/__icon/dff2e49452e04a07881d9be70ab34a7b.png",
+"小吉" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580379/__icon/0e5cb2feb5c240f298a21323ec3eee71.png",
+"空亡" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580380/__icon/2f7bbe5b10494f26ad39b16f6418da74.png",
 }
 
 def sSixZnUi( impNumList = [] , title = "- - -", printMode = False ):

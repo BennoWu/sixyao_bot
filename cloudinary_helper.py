@@ -254,24 +254,24 @@ if __name__ == '__main__':
 
 
 
-# 	filePathList = [r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-38.png",
-# 					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-39.png",
-# 					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-40.png",
-# 					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-41.png",
-# 					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-42.png",
-# 					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-43.png",
-# 					]
+	filePathList = [r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-38.png",
+					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-39.png",
+					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-40.png",
+					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-41.png",
+					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-42.png",
+					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\sLiuZen-icon-43.png",
+					]
 
-# 	delete_older_than(folder="__icon", days=0)
+	#### delete_older_than(folder="__icon", days=0)
 	
-# 	nameList = [ "大安","留連","速喜","赤口","小吉","空亡" ]
-# 	print( "url_dict = {")
-# 	for i, each in enumerate(filePathList):
-# 		res = upload_image( each , folder="__icon")
-# 		# print( i , res["url"])
-# 		print (f'"{nameList[i]}" : "{res["url"]}",')
-# 	print( "}")
-# # delete_image("line_temp/m45zouwd2vvb6fejpb9g")
+	nameList = [ "大安","留連","速喜","赤口","小吉","空亡" ]
+	print( "url_dict = {")
+	for i, each in enumerate(filePathList):
+		res = upload_image( each , folder="__icon")
+		# print( i , res["url"])
+		print (f'"{nameList[i]}" : "{res["url"]}",')
+	print( "}")
+# delete_image("line_temp/m45zouwd2vvb6fejpb9g")
 
 
 	filePathList = [r"D:\Dropbox\Python\linebot\六爻\sLiuZen\yo-61.png",  ## $
@@ -280,7 +280,7 @@ if __name__ == '__main__':
 					r"D:\Dropbox\Python\linebot\六爻\sLiuZen\yo-64.png",  ## 0
 					]
 
-	delete_older_than(folder="__icon", days=0)
+	### delete_older_than(folder="__icon", days=0)
 	
 	nameList = [ "OO","XX","O","X" ]
 	print( "url_dict = {")
