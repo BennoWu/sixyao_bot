@@ -785,7 +785,7 @@ def getPicData(image_input):
 # ===== 範例 =====
 if __name__ == '__main__':
 	# local 路徑
-	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\xxxxxx.jpg")
+	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\1013026.jpg")
 
 	# # PIL.Image
 	# img_obj = Image.open("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__117137475.jpg")

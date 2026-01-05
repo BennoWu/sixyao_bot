@@ -246,28 +246,33 @@ def riceGua( fullDataInput ):
 
 
 
-
 import re
 
-# 全形轉半形對照表
-FULL2HALF = str.maketrans({
-    ",": ",",
-    "。": ".",
-    "?": "?",
-    "!": "!",
-    ";": ";",
-    ":": ":",
-    "、": ",",
-    ".": ".",
-})
+FULL2HALF = str.maketrans({",": ",", "。": ".", "?": "?", "!": "!", ";": ";", ":": ":", "、": ",", ".": "."})
 
-# 修改 SEP_PATTERN:排除「:空亡地支」的情況
 SEP_PATTERN = re.compile(r'[\s_\\;．]+|:(?![戌亥申酉午未辰巳寅卯子丑]{2})|;(?![戌亥申酉午未辰巳寅卯子丑]{2})|:(?![戌亥申酉午未辰巳寅卯子丑]{2})')
 
 
 def is_question_text(text):
     text = text.strip()
     if not text:
+        return False
+    
+    text_no_punct = re.sub(r'[:\s,./;、。]', '', text)
+    
+    if re.search(r'[\u4e00-\u9fff]{1,2}之[\u4e00-\u9fff]{1,2}卦?', text_no_punct):
+        return False
+    if re.search(r'[\u4e00-\u9fff]{1,2}為[\u4e00-\u9fff]{1,2}卦?', text_no_punct):
+        return False
+    
+    ganzhi = '甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥'
+    if re.search(f'[{ganzhi}]{{2}}年', text_no_punct):
+        return False
+    if re.search(f'[{ganzhi}]{{2}}月', text_no_punct):
+        return False
+    if re.search(f'[{ganzhi}]{{2}}日', text_no_punct):
+        return False
+    if re.search(f'[{ganzhi}]{{2}}時', text_no_punct):
         return False
     
     question_keywords = ['占', '測', '吉凶', '病', '運', '職', '朋友', '同事', '愛', '心情', '財', '成績', '健康', '工作', '感情', '婚姻', '事業', '學業', '考試', '問', '如何', '會不會', '能不能', '可以', '應該', '怎麼', '什麼', '為什麼', '嗎']
@@ -311,11 +316,7 @@ def unifiedData(orgData, strong_sep='//', sep_for_app=None):
     s = re.sub(r'(\d)\s+-\s+', r'\1' + strong_sep, orgData)
     s = re.sub(r'(\d)-(\d)', r'\1/\2', s)
     
-    has_special_pattern = bool(
-        re.search(r'\d+[/]\d+', s) or
-        re.search(r'[0-9X$@]{2,}', s) or
-        re.search(r'\d+,\d+,\d+', s)
-    )
+    has_special_pattern = bool(re.search(r'\d+[/]\d+', s) or re.search(r'[0-9X$@]{2,}', s) or re.search(r'\d+,\d+,\d+', s))
     
     STRONG_TOKEN = "STRONGSEPUNIQUE"
     s = s.replace(strong_sep, STRONG_TOKEN)
@@ -331,7 +332,6 @@ def unifiedData(orgData, strong_sep='//', sep_for_app=None):
     for seg in segments:
         if not seg.strip():
             continue
-        
         if is_question_text(seg):
             cleaned_segments.append(seg.strip())
         else:
@@ -341,14 +341,12 @@ def unifiedData(orgData, strong_sep='//', sep_for_app=None):
     i = 0
     while i < len(cleaned_segments):
         current = cleaned_segments[i]
-        
         if is_question_text(current):
             text_parts = [current]
             j = i + 1
             while j < len(cleaned_segments) and is_question_text(cleaned_segments[j]):
                 text_parts.append(cleaned_segments[j])
                 j += 1
-            
             merged_segments.append(','.join(text_parts))
             i = j
         else:
@@ -361,141 +359,6 @@ def unifiedData(orgData, strong_sep='//', sep_for_app=None):
         result = result.replace(strong_sep, sep_for_app)
     
     return result
-
-
-
-
-
-
-
-
-
-
-# def unifiedData(orgData, strong_sep='//', sep_for_app=None):
-# 	if not isinstance(orgData, str):
-# 		return orgData
-
-# 	# Step 0: 保護原本的 " - "（用特殊標記暫存）
-# 	PROTECT_TOKEN = "PROTECTDASH"
-# 	s = orgData.replace(" - ", PROTECT_TOKEN)
-
-# 	# Step 1: 將其他 -（沒有空格）換成 /
-# 	s = re.sub(r'(\d)-(\d)', r'\1/\2', s)
-
-# 	# Step 2: 還原原本的 " - "
-# 	s = s.replace(PROTECT_TOKEN, " - ")
-
-# 	# Step 3: 判斷是否包含「特殊符號」決定換行方式
-# 	has_special_pattern = bool(
-# 		re.search(r'\d+[/]\d+', s) or
-# 		re.search(r'[0-9X$@]{2,}', s) or
-# 		re.search(r'\d+,\d+,\d+', s)
-# 	)
-
-# 	STRONG_TOKEN = "STRONGSEPUNIQUE"
-# 	s = s.replace(strong_sep, STRONG_TOKEN)
-
-# 	if has_special_pattern:
-# 		s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
-# 	else:
-# 		s = re.sub(r'[\r\n]+', ',', s)
-
-# 	segments = s.split(STRONG_TOKEN)
-# 	cleaned_segments = [_clean_subblock(seg) for seg in segments if seg.strip()]
-
-# 	result = strong_sep.join(cleaned_segments)
-
-# 	if sep_for_app:
-# 		result = result.replace(strong_sep, sep_for_app)
-
-# 	return result
-
-# # print(unifiedData("店家維修，能否順利修好電腦保住資料 - 0-1-00-11-0-1"))
-
-
-
-
-## 確認內容為天干地支
-def testTgdz( testData ):
-	testData  =  testData.replace("月","").replace("日","").replace("/","" )
-	tgdz = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸","子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
-	for td in testData:
-		if td not in tgdz:
-			return False
-	return True
-
-# ## 確認內容快速模式 例如10X1$0
-# def checkInData( testData ):
-# 	testData = testData.replace("/","")
-
-# 	print( "----->>>-----",testData )
-# 	# textDate  =  testData.replace("月","").replace("日","").replace("/","" )
-# 	tgdz = ["0","1","*","x","X","$","@","6","7","8","9","*","＊","!","！"]
-# 	if len(testData) != 6:
-# 		return False
-
-
-
-# 	for td in testData:
-# 		if td not in tgdz:
-# 			return False
-# 	return True
-
-
-
-
-
-
-def checkInData(testData, valid_ratio_threshold=0.8, length_threshold=1.0):
-	"""
-	檢查輸入是否符合卦象格式
-	
-	Args:
-		testData: 輸入字串
-		valid_ratio_threshold: 合法字符比例閾值 (預設 0.8 = 80%)
-		length_threshold: 長度符合比例閾值 (預設 1.0 = 100%，即必須正好6個)
-		
-	Returns:
-		True: 符合格式
-		False: 不符合格式（錯誤訊息會 print 出來）
-	"""
-	testData = testData.replace("/", "").strip()
-	
-	if len(testData) == 0:
-		return False
-	
-	# 合法字符集
-	tgdz = ["0", "1", "*", "x", "X", "$", "@", "6", "7", "8", "9", "＊", "!", "！"]
-	valid_chars = set(tgdz)
-	
-	# 🔥 第一關：計算合法字符比例
-	valid_count = sum(1 for char in testData if char in valid_chars)
-	total_count = len(testData)
-	valid_ratio = valid_count / total_count
-	
-	# 如果字符比例不達標，直接返回 False（不 print，不進入後續）
-	if valid_ratio < valid_ratio_threshold:
-		return False
-	
-	# === 通過第一關，才會執行以下內容 ===
-	
-	print("----->>>-----", testData)
-	
-	# 第二關：檢查長度
-	expected_length = 6
-	
-	# 計算長度符合比例
-	if total_count <= expected_length:
-		length_ratio = total_count / expected_length
-	else:
-		length_ratio = expected_length / total_count
-	
-	# 判斷：長度是否達標
-	if length_ratio < length_threshold:
-		print(f"錯誤：應為{expected_length}個字符,目前有{total_count}個")
-		return False
-	
-	return True
 
 # # 使用範例
 # print("=" * 70)
@@ -2106,11 +1969,13 @@ if __name__ == '__main__':
 	# sixYaoMain( "+0,1,00,11,0,1//亥月,丙子日//占今年幾時換工作較好" ,showPic = True ) ## 三合缺一待用
 	# sixYaoMain( "+乙巳年辰月辰日:寅卯//00$01X//占一男終身財福",showPic = True ) ## 三合 日
 	# sixYaoMain( "27,55,22//乙月,丙子日//占今年幾時換工作較好" )
-	sixYaoMain( "+0,1,00,11,0,1//辛亥月乙卯日//占今年幾時換工作較好" )
-# 	print( unifiedData("""2025/10/22/18/15 - $00001
-# 高雄場課程""", strong_sep='//') )
-# 	print( unifiedData("""2025-12-07 17:34//$$$111//朋友突發重病
-# by小蟲""" ))
+	# sixYaoMain( "+0,1,00,11,0,1//辛亥月乙卯日//占今年幾時換工作較好" )
+	print( unifiedData("""2025/10/22/18/15 - $00001
+高雄場課程""", strong_sep='//') )
+	print( unifiedData("""2025-12-07 17:34//$$$111//朋友突發重病
+by小蟲""" ))
+
+	print( unifiedData("2026/01/02/01/27 //大畜之小畜卦// 甲辰年丙寅月辛丑日//Untitled" ))
 # 	print( unifiedData( "101010.2.4//占看看今年幾時換工作較好" , strong_sep='//') )
 # 	print( unifiedData( "101010.2.4//占看看今年 - 幾時換,工作較好_by/.,TTT") )
 
