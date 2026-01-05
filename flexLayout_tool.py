@@ -950,10 +950,10 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	# 	# command = "+%s // %s // %s"% ( dateData , (zeroSpace.join(finalGua)) , note )	
 	# 	command = "+%s // %s // %s"% ( dateData , finalGua , note )		
 	url_dict = {
-	"OO" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580381/__icon/38e33cc8b9d048578ab430ca2cbe8f9a.png",
-	"XX" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580381/__icon/9026d981654f42709dbac665acce0bb7.png",
-	"O" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580382/__icon/1eb7270d609244c298984fa2d83d2317.png",
-	"X" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767580383/__icon/9e8a700b47ac4e5d9da68160e2e0abcc.png",
+	"OO" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767590439/__icon/2257b34c96654469b5e569b76d8527c0.png",
+	"XX" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767590440/__icon/fddee13a2c0e498fb6ececc31395015c.png",
+	"O" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767590441/__icon/1b9b6d7044d74fc889aaf28017416f38.png",
+	"X" : "https://res.cloudinary.com/ds9jcwwcw/image/upload/v1767590441/__icon/1e32115db5b94eecb4cf3132d0a8db35.png",
 	}
 # url_dict["OO"]
 	# print(command)
