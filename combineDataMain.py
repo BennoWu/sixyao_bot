@@ -252,20 +252,22 @@ FULL2HALF = str.maketrans({",": ",", "。": ".", "?": "?", "!": "!", ";": ";", "
 
 SEP_PATTERN = re.compile(r'[\s_\\;．]+|:(?![戌亥申酉午未辰巳寅卯子丑]{2})|;(?![戌亥申酉午未辰巳寅卯子丑]{2})|:(?![戌亥申酉午未辰巳寅卯子丑]{2})')
 
-
 def is_question_text(text):
     text = text.strip()
     if not text:
         return False
-    if checkAllGua( text , checkMode = True ) == False:
-    	return False
+
+    # 👇 只用於檢查，不改變原始 text
+    text_for_check = text.replace('.', '/').replace(',', '/')
+    
+    # 用標準化後的版本來檢查是否為卦
+    if checkAllGua(text_for_check, checkMode=True):
+        return False
+
+    # 後續檢查用原始的 text
     text_no_punct = re.sub(r'[:\s,./;、。]', '', text)
     
-    # if re.search(r'[\u4e00-\u9fff]{1,2}之[\u4e00-\u9fff]{1,2}卦?', text_no_punct):
-    #     return False
-    # if re.search(r'[\u4e00-\u9fff]{1,2}為[\u4e00-\u9fff]{1,2}卦?', text_no_punct):
-    #     return False
-    
+    # 檢查干支日期格式
     ganzhi = '甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥'
     if re.search(f'[{ganzhi}]{{2}}年', text_no_punct):
         return False
@@ -276,12 +278,14 @@ def is_question_text(text):
     if re.search(f'[{ganzhi}]{{2}}時', text_no_punct):
         return False
     
-    question_keywords = ['占', '測', '吉凶', '病', '運', '職', '朋友', '同事', '愛', '心情', '財', '成績', '健康', '工作', '感情', '婚姻', '事業', '學業', '考試', '問', '如何', '會不會', '能不能', '可以', '應該', '怎麼', '什麼', '為什麼', '嗎']
+    # 檢查問題關鍵字
+    question_keywords = ['占', '測', '吉凶', '病', '運', '跟', '朋友', '同事', '愛', '心情', '財', '成績', '健康', '工作', '感情', '婚姻', '事業', '學業', '考試', '問', '如何', '會不會', '能不能', '可以', '應該', '怎麼', '什麼', '為什麼', '嗎']
     
     for keyword in question_keywords:
         if keyword in text:
             return True
     
+    # 根據字符比例判斷
     program_chars = ['$', 'X', '#', '*', '/', '甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸', '子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     
     program_char_count = sum(1 for char in text if char in program_chars)
@@ -294,72 +298,72 @@ def is_question_text(text):
 
 
 def _clean_subblock(s):
-    s = s.translate(FULL2HALF).strip()
-    s = re.sub(r'([\u4e00-\u9fff])\s+([\u4e00-\u9fff])', r'\1\2', s)
-    s = re.sub(r'([\u4e00-\u9fff])\s*,\s*([\u4e00-\u9fff])', r'\1,\2', s)
-    s = re.sub(r'(?<!\s)-(?!\s)', '/', s)
-    s = re.sub(r'(?<!\s)\.(?!\s)', '/', s)
-    s = re.sub(r'(?<=[0-9A-Za-z]),(?=[0-9A-Za-z])', '/', s)
-    s = re.sub(r',\s*$', '/', s)
-    s = re.sub(r'(?<=[\u4e00-\u9fff]),(?![\u4e00-\u9fff])', '/', s)
-    s = re.sub(r'(?<![\u4e00-\u9fff]),(?=[\u4e00-\u9fff])', '/', s)
-    s = SEP_PATTERN.sub('/', s)
-    s = re.sub(r'\.\s*$', '', s)
-    s = re.sub(r'/+', '/', s)
-    s = s.strip('/ ')
-    return s
+	s = s.translate(FULL2HALF).strip()
+	s = re.sub(r'([\u4e00-\u9fff])\s+([\u4e00-\u9fff])', r'\1\2', s)
+	s = re.sub(r'([\u4e00-\u9fff])\s*,\s*([\u4e00-\u9fff])', r'\1,\2', s)
+	s = re.sub(r'(?<!\s)-(?!\s)', '/', s)
+	s = re.sub(r'(?<!\s)\.(?!\s)', '/', s)
+	s = re.sub(r'(?<=[0-9A-Za-z]),(?=[0-9A-Za-z])', '/', s)
+	s = re.sub(r',\s*$', '/', s)
+	s = re.sub(r'(?<=[\u4e00-\u9fff]),(?![\u4e00-\u9fff])', '/', s)
+	s = re.sub(r'(?<![\u4e00-\u9fff]),(?=[\u4e00-\u9fff])', '/', s)
+	s = SEP_PATTERN.sub('/', s)
+	s = re.sub(r'\.\s*$', '', s)
+	s = re.sub(r'/+', '/', s)
+	s = s.strip('/ ')
+	return s
 
 
 def unifiedData(orgData, strong_sep='//', sep_for_app=None):
-    if not isinstance(orgData, str):
-        return orgData
-    
-    s = re.sub(r'(\d)\s+-\s+', r'\1' + strong_sep, orgData)
-    s = re.sub(r'(\d)-(\d)', r'\1/\2', s)
-    
-    has_special_pattern = bool(re.search(r'\d+[/]\d+', s) or re.search(r'[0-9X$@]{2,}', s) or re.search(r'\d+,\d+,\d+', s))
-    
-    STRONG_TOKEN = "STRONGSEPUNIQUE"
-    s = s.replace(strong_sep, STRONG_TOKEN)
-    
-    if has_special_pattern:
-        s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
-    else:
-        s = re.sub(r'[\r\n]+', ',', s)
-    
-    segments = s.split(STRONG_TOKEN)
-    cleaned_segments = []
-    
-    for seg in segments:
-        if not seg.strip():
-            continue
-        if is_question_text(seg):
-            cleaned_segments.append(seg.strip())
-        else:
-            cleaned_segments.append(_clean_subblock(seg))
-    
-    merged_segments = []
-    i = 0
-    while i < len(cleaned_segments):
-        current = cleaned_segments[i]
-        if is_question_text(current):
-            text_parts = [current]
-            j = i + 1
-            while j < len(cleaned_segments) and is_question_text(cleaned_segments[j]):
-                text_parts.append(cleaned_segments[j])
-                j += 1
-            merged_segments.append(','.join(text_parts))
-            i = j
-        else:
-            merged_segments.append(current)
-            i += 1
-    
-    result = strong_sep.join(merged_segments)
-    
-    if sep_for_app:
-        result = result.replace(strong_sep, sep_for_app)
-    
-    return result
+	if not isinstance(orgData, str):
+		return orgData
+	
+	s = re.sub(r'(\d)\s+-\s+', r'\1' + strong_sep, orgData)
+	s = re.sub(r'(\d)-(\d)', r'\1/\2', s)
+	
+	has_special_pattern = bool(re.search(r'\d+[/]\d+', s) or re.search(r'[0-9X$@]{2,}', s) or re.search(r'\d+,\d+,\d+', s))
+	
+	STRONG_TOKEN = "STRONGSEPUNIQUE"
+	s = s.replace(strong_sep, STRONG_TOKEN)
+	
+	if has_special_pattern:
+		s = re.sub(r'[\r\n]+', STRONG_TOKEN, s)
+	else:
+		s = re.sub(r'[\r\n]+', ',', s)
+	
+	segments = s.split(STRONG_TOKEN)
+	cleaned_segments = []
+	
+	for seg in segments:
+		if not seg.strip():
+			continue
+		if is_question_text(seg):
+			cleaned_segments.append(seg.strip())
+		else:
+			cleaned_segments.append(_clean_subblock(seg))
+	
+	merged_segments = []
+	i = 0
+	while i < len(cleaned_segments):
+		current = cleaned_segments[i]
+		if is_question_text(current):
+			text_parts = [current]
+			j = i + 1
+			while j < len(cleaned_segments) and is_question_text(cleaned_segments[j]):
+				text_parts.append(cleaned_segments[j])
+				j += 1
+			merged_segments.append(','.join(text_parts))
+			i = j
+		else:
+			merged_segments.append(current)
+			i += 1
+	
+	result = strong_sep.join(merged_segments)
+	
+	if sep_for_app:
+		result = result.replace(strong_sep, sep_for_app)
+	
+	return result
 
 # # 使用範例
 # print("=" * 70)
@@ -1167,20 +1171,20 @@ def checkAllGua( guaName , checkMode = False , printStepMode = False ):
 				if checkMode == True:
 					return True
 
-				for bee in baGuaAllDict:
+				for gua_element in baGuaAllDict:
 					if printStepMode == True:
-						print ( bee['title'] , bee['body'] )
+						print ( gua_element['title'] , gua_element['body'] )
 					## 地水   水   地水師    震為雷
-					if ( changeGuaBody == bee['title'] ) or ( changeGuaBody == bee['body'] ) or ( changeGuaBody == bee['title'] + bee['body'] ) or ( changeGuaBody == bee['title'] +"為"+ bee['body'] ) :
-					# if changeGuaBody == bee['body']: ## 找到變卦
-						binaryB = bee['binary']
+					if ( changeGuaBody == gua_element['title'] ) or ( changeGuaBody == gua_element['body'] ) or ( changeGuaBody == gua_element['title'] + gua_element['body'] ) or ( changeGuaBody == gua_element['title'] +"為"+ gua_element['body'] ) :
+					# if changeGuaBody == gua_element['body']: ## 找到變卦
+						binaryB = gua_element['binary']
 						# print("INNNN--body: " ,changeGuaBody  , binaryA, binaryB )
 
 						gua_binary = binaryA
 						changeList = [str(i + 1) for i in range(len(binaryA)) if binaryA[i] != binaryB[i]]  ## ['2', '3', '5']
 						break
-					# elif changeGuaBody == bee['title']: ## 找到變卦
-					# 	binaryB = bee['binary']
+					# elif changeGuaBody == gua_element['title']: ## 找到變卦
+					# 	binaryB = gua_element['binary']
 					# 	# print("INNNN--title: " ,changeGuaBody  , binaryA, binaryB )
 
 					# 	gua_binary = binaryA
@@ -1874,7 +1878,44 @@ if __name__ == '__main__':
 	# sixYaoMain( "癸卯,乙卯,庚午,丙戌//火水之解//今年財運" )
 	# sixYaoMain( "是否要投資台績電//0,1,11,0,0,1//丁月乙亥日" )
 	# sixYaoMain( "+某某集團的發展//地風,3,1//丁月乙亥日") 
-	sixYaoMain( "兩村相爭//火天.1,3,4,6//卯月丁巳日",showPic = True) ## 三合
+	sixYaoMain( "兩村相爭//火天.1,3,4,6//卯月丁巳日") ## 三合
+	# test_input = "兩村相爭//火天/1/3/4/6//卯月丁巳日"
+	# print("原始輸入:", test_input)
+	# print("\n處理結果:")
+	# result = unifiedData(test_input)
+	# print(result)
+
+	# print("\n中間步驟:")
+	# s = test_input
+	# STRONG_TOKEN = "STRONGSEPUNIQUE"
+	# s = s.replace('//', STRONG_TOKEN)
+	# segments = s.split(STRONG_TOKEN)
+	# print("1. 分割後的段落:", segments)
+
+	# cleaned_segments = []
+	# for seg in segments:
+	#     if not seg.strip():
+	#         continue
+	#     if is_question_text(seg):
+	#         print(f"  '{seg}' → 是問題文字，保持原樣")
+	#         cleaned_segments.append(seg.strip())
+	#     else:
+	#         cleaned = _clean_subblock(seg)
+	#         print(f"  '{seg}' → 不是問題文字，清理後: '{cleaned}'")
+	#         cleaned_segments.append(cleaned)
+
+	# print("2. 清理後的段落:", cleaned_segments)
+	# print("測試 checkAllGua():")
+	# print("兩村相爭:", checkAllGua("兩村相爭", checkMode=True))
+	# print("火天:", checkAllGua("火天", checkMode=True))
+	# print("火天/1/3/4/6:", checkAllGua("火天/1/3/4/6", checkMode=True))
+	# print("卯月丁巳日:", checkAllGua("卯月丁巳日", checkMode=True))
+
+	# print("\n測試 is_question_text():")
+	print("兩村相爭:", is_question_text("兩村相爭"))
+	# print("火天/1/3/4/6:", is_question_text("火天/1/3/4/6"))
+	# print("卯月丁巳日:", is_question_text("卯月丁巳日"))
+
 	# sixYaoMain( "兩村相爭")
 	# sixYaoMain( "丙戌月辰酉日//大过之鼎卦")	
 	# sixYaoMain( "乙巳年寅月丁酉日//1100101",showPic = False )
