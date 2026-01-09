@@ -826,16 +826,16 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 			if allDataDict['home_naGia'][row_id][-1] in allDataDict['dayGanZi']  or allDataDict['home_naGia'][row_id][-1] in allDataDict['monthGanZi'] : ## 如果納甲地支和日月支相同，則為日辰入卦, 底線效果
 
 				draw.line((  screenWidth - 367 , adj_hight + fixTextHight+85 , screenWidth - 374 +63 , adj_hight + fixTextHight +85), fill= midGray , width = 5 )
-
+				print(  screenWidth - 367 , screenWidth - 374 +63 )
 
 		## 六獸
-		makeText ( allDataDict['home_sixAnimal'][row_id][-1] , twoSideSpace + 214 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = "#666666" )  
+		makeText ( allDataDict['home_sixAnimal'][row_id][-1] , twoSideSpace + 212 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = "#666666" )  
 
 		## 小直線
-		draw_InfoLine (  center =  twoSideSpace + 214+70 , hight = adj_hight + fixTextHight +11  , size = 64 , lineColor = midGray ,lineWidth  = 4 )      ## 下方本卦變卦中的小直槓
+		draw_InfoLine (  center =  twoSideSpace + 212+70 , hight = adj_hight + fixTextHight +11  , size = 64 , lineColor = midGray ,lineWidth  = 4 )      ## 下方本卦變卦中的小直槓
 
 		## 六親
-		makeText ( sixFamily_dict[ allDataDict['home_family'][row_id] ]   , twoSideSpace + 214+80 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor )  
+		makeText ( sixFamily_dict[ allDataDict['home_family'][row_id] ]   , twoSideSpace + 212+80 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor )  
 
 
 		## 應爻
@@ -864,10 +864,15 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 		if allDataDict['hide_naGia'][row_id]!="X":
 		# 	## 伏神納甲		
 			makeText ( allDataDict['hide_naGia'][row_id][-1] , twoSideSpace + 35 -2 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = mainColor ) 
+			## 日月底線
+			if allDataDict['hide_naGia'][row_id][-1] in allDataDict['dayGanZi']  or allDataDict['hide_naGia'][row_id][-1] in allDataDict['monthGanZi'] : ## 如果納甲地支和日月支相同，則為日辰入卦, 底線效果
+				draw.line((  twoSideSpace + 36 -2  , adj_hight + fixTextHight+85 ,  twoSideSpace + 36 -2 +56  , adj_hight + fixTextHight +85), fill= midGray , width = 5 )
+
 
 			if noteSwitch == True:
 				## 分數小字
 				makeText ( allDataDict['hide_naGia_rank'][row_id]  , twoSideSpace + 156 , adj_hight + fixTextHight - 8  , wordingSize = 32 , wordingFont = SourceSans3 , color = '#777777' ) 
+
 
 
 

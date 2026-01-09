@@ -28,6 +28,7 @@ Thumbs.db
 googleSheetKey/
 *.csv
 *_test.py
+*_temp.py
 
 # 產生的中間資料
 *.png

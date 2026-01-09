@@ -12,7 +12,7 @@ from fourPillar_tool import getFourPillar # 四柱得日期
 # # 初始化 OCR（中文+英文）
 # ocr = PaddleOCR(use_angle_cls=True, lang="ch")
 
-# def ocr_image_to_text(img):
+# def space_ocr_image_to_text(img):
 #     """
 #     輸入 PIL Image 或路徑字串，返回辨識到的文字（連成一行）
 #     """
@@ -31,55 +31,318 @@ from fourPillar_tool import getFourPillar # 四柱得日期
 
 
 
-import requests
-# from PIL import Image
-from io import BytesIO
-
-
+################################################################################
 # OCR SPACE
 ################################################################################
-def ocr_image_to_text(input_data):
+import requests
+from PIL import Image
+from io import BytesIO
+
+def space_ocr_image_to_text(input_data, timeout_sec=5):
 	"""
-	自動判斷輸入類型並進行 OCR
-	input_data: 可以是檔案路徑(str) 或 PIL Image 物件
+	OCR.space OCR
+	input_data: 檔案路徑(str) / PIL Image / bytes
+	timeout_sec: 超時秒數
 	"""
 	url = 'https://api.ocr.space/parse/image'
 	data_payload = {
-		'apikey': 'K82723710988957',
+		'apikey': 'K82723710988957',  # 你的 API Key
 		'language': 'cht',
-		'detectOrientation': False,  # 強制橫排
+		'detectOrientation': False
 	}
-	# 判斷輸入類型
+
+	# 將 input_data 統一轉成 bytes
 	if isinstance(input_data, str):
-		# 是字串 → 當作檔案路徑處理
 		with open(input_data, 'rb') as f:
-			response = requests.post(
-				url,
-				files={'file': f},
-				data=data_payload
-			)
-	
+			img_bytes = f.read()
 	elif isinstance(input_data, Image.Image):
-		# 是 PIL Image 物件
 		img_byte_arr = BytesIO()
 		input_data.save(img_byte_arr, format='PNG')
 		img_byte_arr.seek(0)
-		
-		response = requests.post(
-			url,
-			files={'file': ('image.png', img_byte_arr, 'image/png')},
-			data=data_payload
-		)
-	
+		img_bytes = img_byte_arr.getvalue()
+	elif isinstance(input_data, bytes):
+		img_bytes = input_data
 	else:
-		raise TypeError("input_data 必須是檔案路徑(str)或 PIL Image 物件")
-	
-	# 解析結果
-	result = response.json()
-	if result['IsErroredOnProcessing']:
+		raise TypeError("input_data 必須是檔案路徑(str)、PIL Image 或 bytes")
+
+	# Thread + 超時
+	import threading
+	result_holder = {}
+
+	def call_ocr_space():
+		try:
+			response = requests.post(
+				url,
+				files={'file': ('image.png', img_bytes, 'image/png')},
+				data=data_payload
+			)
+			result = response.json()
+			if result.get('IsErroredOnProcessing', True):
+				result_holder['text'] = None
+			else:
+				result_holder['text'] = result['ParsedResults'][0]['ParsedText']
+		except Exception as e:
+			result_holder['text'] = None
+			result_holder['error'] = e
+
+	thread = threading.Thread(target=call_ocr_space)
+	thread.start()
+	thread.join(timeout=timeout_sec)
+
+	if thread.is_alive():
 		return None
-	print(result['ParsedResults'][0] )
-	return result['ParsedResults'][0]['ParsedText']
+	return result_holder.get('text', None)
+
+
+################################################################################
+# VERYFI OCR
+################################################################################
+
+
+
+
+# Veryfi Key 設定
+CLIENT_ID = "vrfCRJyK5KBmPRRSUGYUmonrpZUDn9SrcbfdwRB"
+CLIENT_SECRET = "7TEsTdHNEyeUGuA4CDR3v2ocYAMafAif0tnKcywtKw2mWZmLE1I6GtEpAC2dMUzPw7tFZZzOL77o4XidfNCaaAKkvVeDlYDAWZ4zF2daMSoKPIhbrGIIILYMBBAnslrY"
+USERNAME = "benno.wu"  # 通常是 email
+API_KEY = "036e986501481a3cfb2d642c9d4dc0b0"
+
+
+import io
+import requests
+import threading
+from PIL import Image
+
+# 全域 Session，保持長連接是唯一有效的加速手段
+session = requests.Session()
+
+def veryfi_ocr_image_to_text(input_image, timeout_sec=10):
+    """
+    極速版：不縮小、不轉灰階，僅透過記憶體直傳 API
+    """
+
+    # --- 自動相容邏輯 ---
+    # 如果傳進來的是字串（路徑），幫忙 open 它
+    if isinstance(input_image, str):
+        input_image = Image.open(input_image)
+
+
+    # if not isinstance(input_image, Image.Image):
+    #     return None
+
+    # 1. 直接將原圖轉為 BytesIO (保持原始解析度與顏色)
+    # 使用 PNG 雖然較大，但在某些環境下編碼速度比 JPEG 快
+    img_byte_arr = io.BytesIO()
+    input_image.save(img_byte_arr, format='PNG')
+    img_data = img_byte_arr.getvalue()
+
+    headers = {
+        "Client-Id": CLIENT_ID,
+        "Authorization": f"apikey {USERNAME}:{API_KEY}",
+        "Accept": "application/json"
+    }
+
+    result_holder = {"text": None, "error": None}
+
+    def call_api():
+        try:
+            # 直接使用 multipart/form-data 傳送 Bytes
+            files = {'file': ('crop.png', img_data, 'image/png')}
+            # files = {'file': ('crop.webp', img_data, 'image/webp')}
+            response = session.post(
+                "https://api.veryfi.com/api/v8/partner/documents",
+                headers=headers,
+                files=files,
+                timeout=timeout_sec
+            )
+            
+            if response.status_code in [200, 201]:
+                result_holder['text'] = response.json().get("ocr_text", "")
+            else:
+                result_holder['error'] = response.status_code
+        except Exception as e:
+            result_holder['error'] = str(e)
+
+    # 這裡可以根據你的 Bot 框架決定是否保留 threading
+    # 如果是單人使用的 Bot，直接執行 call_api() 甚至會更快
+    call_api() 
+
+    return result_holder['text']
+# -------------------- 範例測試 --------------------
+# if __name__ == "__main__":
+#     img = Image.open("test.jpg")
+#     sub_crop = img.crop((0, 0, 500, 500))  # 隨便 crop
+#     text = veryfi_ocr_image_to_text(sub_crop, timeout_sec=10)
+#     print("OCR 結果:", text)
+
+
+
+# -------------------- 範例測試 --------------------
+# if __name__ == "__main__":
+#     img = Image.open("test.jpg")
+#     sub_crop = img.crop((0, 0, 500, 500))  # 隨便 crop
+#     text = veryfi_ocr_image_to_text(sub_crop, timeout_sec=10)
+#     print("OCR 結果:", text)
+
+
+# ################################################################################
+# # 測試範例
+# ################################################################################
+# if __name__ == "__main__":
+#     from PIL import Image
+
+#     # 測試檔案路徑
+#     text1 = space_ocr_image_to_text("test.jpg", timeout_sec=5)
+#     print("OCR.space:", text1)
+
+#     text2 = veryfi_ocr_image_to_text("test.jpg", timeout_sec=5)
+#     print("Veryfi:", text2)
+
+#     # 測試 PIL Image
+#     img = Image.open("test.jpg")
+#     text3 = space_ocr_image_to_text(img)
+#     text4 = veryfi_ocr_image_to_text(img)
+#     print("OCR.space (PIL):", text3)
+#     print("Veryfi (PIL):", text4)
+
+#     # 測試 bytes
+#     with open("test.jpg", "rb") as f:
+#         img_bytes = f.read()
+#     text5 = space_ocr_image_to_text(img_bytes)
+#     text6 = veryfi_ocr_image_to_text(img_bytes)
+#     print("OCR.space (bytes):", text5)
+#     print("Veryfi (bytes):", text6)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import requests
+# # from PIL import Image
+# from io import BytesIO
+
+
+# # OCR SPACE
+# ################################################################################
+# import requests
+# # from PIL import Image
+# from io import BytesIO
+# import threading
+
+# def space_ocr_image_to_text(input_data, timeout_sec=3):
+# 	"""
+# 	自動判斷輸入類型並進行 OCR.space
+# 	input_data: 可以是檔案路徑(str) 或 PIL Image 物件
+# 	timeout_sec: 超時秒數，防止卡住
+# 	"""
+# 	url = 'https://api.ocr.space/parse/image'
+# 	data_payload = {
+# 		'apikey': 'K82723710988957',  # 你的 API Key
+# 		'language': 'cht',
+# 		'detectOrientation': False,  # 強制橫排
+# 	}
+
+# 	# 將圖像轉成 bytes
+# 	if isinstance(input_data, str):
+# 		with open(input_data, 'rb') as f:
+# 			img_bytes = f.read()
+# 	elif isinstance(input_data, Image.Image):
+# 		img_byte_arr = BytesIO()
+# 		input_data.save(img_byte_arr, format='PNG')
+# 		img_byte_arr.seek(0)
+# 		img_bytes = img_byte_arr.getvalue()
+# 	else:
+# 		raise TypeError("input_data 必須是檔案路徑(str)或 PIL Image 物件")
+
+# 	result_holder = {}
+
+# 	def call_ocr_space():
+# 		try:
+# 			response = requests.post(
+# 				url,
+# 				files={'file': ('image.png', img_bytes, 'image/png')},
+# 				data=data_payload
+# 			)
+# 			result = response.json()
+# 			if result['IsErroredOnProcessing']:
+# 				result_holder['text'] = None
+# 			else:
+# 				result_holder['text'] = result['ParsedResults'][0]['ParsedText']
+# 		except Exception as e:
+# 			result_holder['text'] = None
+# 			result_holder['error'] = e
+
+# 	thread = threading.Thread(target=call_ocr_space)
+# 	thread.start()
+# 	thread.join(timeout=timeout_sec)  # 超時跳出
+
+# 	if thread.is_alive():
+# 		return None  # 超時
+# 	return result_holder.get('text', None)
+
+
+# # 範例測試
+# if __name__ == "__main__":
+#     from PIL import Image
+#     img = Image.open("test.jpg")
+#     text = space_ocr_image_to_text(img, timeout_sec=5)
+#     print(text)
+
+
+# # OCR SPACE
+# ################################################################################
+# def space_ocr_image_to_text(input_data):
+# 	"""
+# 	自動判斷輸入類型並進行 OCR
+# 	input_data: 可以是檔案路徑(str) 或 PIL Image 物件
+# 	"""
+# 	url = 'https://api.ocr.space/parse/image'
+# 	data_payload = {
+# 		'apikey': 'K82723710988957',
+# 		'language': 'cht',
+# 		'detectOrientation': False,  # 強制橫排
+# 	}
+# 	# 判斷輸入類型
+# 	if isinstance(input_data, str):
+# 		# 是字串 → 當作檔案路徑處理
+# 		with open(input_data, 'rb') as f:
+# 			response = requests.post(
+# 				url,
+# 				files={'file': f},
+# 				data=data_payload
+# 			)
+	
+# 	elif isinstance(input_data, Image.Image):
+# 		# 是 PIL Image 物件
+# 		img_byte_arr = BytesIO()
+# 		input_data.save(img_byte_arr, format='PNG')
+# 		img_byte_arr.seek(0)
+		
+# 		response = requests.post(
+# 			url,
+# 			files={'file': ('image.png', img_byte_arr, 'image/png')},
+# 			data=data_payload
+# 		)
+	
+# 	else:
+# 		raise TypeError("input_data 必須是檔案路徑(str)或 PIL Image 物件")
+	
+# 	# 解析結果
+# 	result = response.json()
+# 	if result['IsErroredOnProcessing']:
+# 		return None
+# 	print(result['ParsedResults'][0] )
+# 	return result['ParsedResults'][0]['ParsedText']
 
 
 ## 用陰曆反對陽曆
@@ -430,8 +693,6 @@ def extract_datetime(text: str):
 
 
 
-
-
 def extract_hexagrams(text: str):
 	"""
 	提取本卦與變卦，最小變動實現規則：
@@ -474,14 +735,23 @@ def extract_hexagrams(text: str):
 		bian_gua_full = refindGuaName(after_biangua.split()[0])
 		bian_gua = process_gua(bian_gua_full)
 	
-	# 如果沒有找到本卦或變卦，則從文本中依序查找64卦
+	# 🔥 新邏輯：如果本卦或變卦缺失，從全文按順序找64卦
 	if not ben_gua or not bian_gua:
 		found_guas = []
-		for gua in guaList:
-			if gua in text:
-				found_guas.append(gua)
-				if len(found_guas) == 2:
-					break
+		
+		# 遍歷整個文本，按出現順序找卦名
+		for i, char in enumerate(text):
+			# 檢查從當前位置開始是否匹配任何卦名
+			for gua in guaList:
+				if text[i:i+len(gua)] == gua:
+					# 避免重複添加
+					if gua not in found_guas:
+						found_guas.append(gua)
+					# 找到兩個就停止
+					if len(found_guas) == 2:
+						break
+			if len(found_guas) == 2:
+				break
 		
 		# 第一個是本卦，第二個是變卦
 		if len(found_guas) >= 1 and not ben_gua:
@@ -489,9 +759,75 @@ def extract_hexagrams(text: str):
 		if len(found_guas) >= 2 and not bian_gua:
 			bian_gua = process_gua(found_guas[1])
 	
+	print(ben_gua, bian_gua)
+	
 	if ben_gua and bian_gua:
 		return f"{ben_gua}之{bian_gua}卦"
 	return None
+
+
+# def extract_hexagrams(text: str):
+# 	"""
+# 	提取本卦與變卦，最小變動實現規則：
+# 	- 本卦名稱與變卦名稱：
+# 		1. 先判斷最後一個字是否存在於字典 key 中，有的話直接取字典對應值
+# 		2. 三個字取最後一個字，四個字取最後兩個字
+# 	- 返回格式: "本卦之變卦卦"
+# 	- 若未找到「本卦」「變卦」關鍵字，則從文本中依序找64卦名稱
+# 	"""
+# 	# 移除干擾字符
+# 	cleaned = text.replace("\n", " ").replace("【", "").replace("】", "")
+# 	guaName_dict = { "天":"乾","澤":"兌","火":"離","雷":"震","風":"巽","水":"坎","山":"艮","地":"坤" }
+	
+# 	def process_gua(name):
+# 		if not name:
+# 			return None
+# 		# 先判斷最後一個字是否存在字典 key
+# 		last_char = name[-1]
+# 		if last_char in guaName_dict:
+# 			return guaName_dict[last_char]
+# 		# 沒匹配再依字數取字
+# 		if len(name) == 3:
+# 			return name[-1]
+# 		elif len(name) == 4:
+# 			return name[-2:]
+# 		else:
+# 			return name
+	
+# 	# 找本卦
+# 	ben_gua = None
+# 	if "本卦" in cleaned:
+# 		after_bengua = cleaned.split("本卦", 1)[1].strip()
+# 		ben_gua_full = refindGuaName(after_bengua.split()[0])
+# 		ben_gua = process_gua(ben_gua_full)
+	
+# 	# 找變卦
+# 	bian_gua = None
+# 	if "變卦" in cleaned:
+# 		after_biangua = cleaned.split("變卦", 1)[1].strip()
+# 		bian_gua_full = refindGuaName(after_biangua.split()[0])
+# 		bian_gua = process_gua(bian_gua_full)
+	
+# 	# 如果沒有找到本卦或變卦，則從文本中依序查找64卦
+# 	if not ben_gua or not bian_gua:
+# 		found_guas = []
+# 		for gua in guaList:
+# 			if gua in text:
+# 				found_guas.append(gua)
+# 				if len(found_guas) == 2:
+# 					break
+		
+# 		# 第一個是本卦，第二個是變卦
+# 		if len(found_guas) >= 1 and not ben_gua:
+# 			ben_gua = process_gua(found_guas[0])
+# 		if len(found_guas) >= 2 and not bian_gua:
+# 			bian_gua = process_gua(found_guas[1])
+# 	print( ben_gua , bian_gua)
+
+
+# 	if ben_gua and bian_gua:
+# 		return f"{ben_gua}之{bian_gua}卦"
+# 	return None
 
 
 # def extract_hexagrams(text: str):
@@ -636,7 +972,7 @@ def refindGuaName(inputName):
 # 	# crop_img = crop_img.rotate(90, expand=True)
 # 	# crop_img.show()
 # 	# OCR
-# 	text = ocr_image_to_text(crop_img)
+# 	text = space_ocr_image_to_text(crop_img)
 # 	# text = ocr_ninjas_api(crop_img)	
 # 	print( ">>>> ",text )
 
@@ -646,7 +982,100 @@ def refindGuaName(inputName):
 # 		return extract_hexagrams(text)
 # 	else:
 # 		return text  # debug: 回傳原始 OCR 文字
+# from PIL import Image
+
+
+
+## 賽跑模式
+
+import threading
+import queue
+import time
+import io
 from PIL import Image
+
+def racing_ocr_test(sub_crop):
+    # 確保輸入是 PIL 物件 (相容路徑測試)
+    if isinstance(sub_crop, str):
+        sub_crop = Image.open(sub_crop)
+
+    results = queue.Queue()
+    start_time = time.time()
+
+    # --- 定義 Space 任務 ---
+    def run_space():
+        t0 = time.time()
+        try:
+            # 呼叫你的 Space 函數
+            res = space_ocr_image_to_text(sub_crop)
+            elapsed = time.time() - t0
+            if res:
+                print(f"【Space】完成! 耗時: {elapsed:.2f}秒, 內容: {res[:20]}...")
+                results.put(("Space", res, elapsed))
+            else:
+                print(f"【Space】錯誤: 回傳為空, 耗時: {elapsed:.2f}秒")
+        except Exception as e:
+            elapsed = time.time() - t0
+            print(f"【Space】拋出異常: {e}, 耗時: {elapsed:.2f}秒")
+
+    # --- 定義 Veryfi 任務 ---
+    def run_veryfi():
+        t0 = time.time()
+        try:
+            # 呼叫你的 Veryfi 函數
+            res = veryfi_ocr_image_to_text(sub_crop)
+            elapsed = time.time() - t0
+            if res:
+                print(f"【Veryfi】完成! 耗時: {elapsed:.2f}秒, 內容: {res[:20]}...")
+                results.put(("Veryfi", res, elapsed))
+            else:
+                print(f"【Veryfi】錯誤: 回傳為空, 耗時: {elapsed:.2f}秒")
+        except Exception as e:
+            elapsed = time.time() - t0
+            print(f"【Veryfi】拋出異常: {e}, 耗時: {elapsed:.2f}秒")
+
+    # 啟動雙線程
+    t1 = threading.Thread(target=run_space)
+    t2 = threading.Thread(target=run_veryfi)
+    t1.start()
+    t2.start()
+
+    # 這裡我們等待「第一個」成功的結果
+    try:
+        # 設定總超時時間為 10 秒
+        winner_name, winner_text, winner_time = results.get(timeout=10)
+        total_wait = time.time() - start_time
+        print(f"\n🏆 最終贏家: {winner_name} (體感總等候: {total_wait:.2f}秒)")
+        return winner_text
+    except queue.Empty:
+        print("\n❌ 兩者皆在限時內失敗或超時")
+        return None
+
+# --- 使用方式 ---
+# result = racing_ocr_test(sub_crop)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from PIL import Image, ImageEnhance
 def cropTool(img: Image.Image, 
 			 w_ratio=0.5, h_ratio=0.25, 
 			 quadrant=1, mode="datetime", h_split=1):
@@ -674,6 +1103,14 @@ def cropTool(img: Image.Image,
 
 	right, bottom = left + crop_w, top + crop_h
 	full_crop = img.crop((left, top, right, bottom))
+
+	# # 1. 轉灰階 (1-channel)
+	# full_crop = full_crop.convert('L')
+
+	# # 2. 縮小 (記得強制轉 int)
+	# orig_w, orig_h = full_crop.size
+	# # 使用 // 運算子直接取得整數
+	# full_crop = full_crop.resize((int(orig_w * 0.4), int(orig_h * 0.4)), Image.Resampling.LANCZOS)
 	full_crop.show()
 	# --- 分段 OCR ---
 	if h_split > 1:
@@ -686,7 +1123,10 @@ def cropTool(img: Image.Image,
 			split_bottom = split_top + split_h if i < h_split - 1 else crop_h
 			sub_crop = full_crop.crop((0, split_top, crop_w, split_bottom))
 
-			text = ocr_image_to_text(sub_crop)
+			# text = space_ocr_image_to_text(sub_crop)
+			# text = veryfi_ocr_image_to_text(sub_crop)	
+			text = racing_ocr_test(sub_crop)
+			print(text)		
 			combined_text += " " + text
 
 			if mode == "hexagrams":
@@ -705,7 +1145,9 @@ def cropTool(img: Image.Image,
 		print(">>>> 最終合併:", text)
 
 	else:
-		text = ocr_image_to_text(full_crop)
+		text = racing_ocr_test(full_crop)
+		# text = space_ocr_image_to_text(full_crop)
+		# text = veryfi_ocr_image_to_text(full_crop)		
 		print(">>>> ", text)
 
 	# --- 模式回傳 ---
@@ -724,8 +1166,17 @@ def cropTool(img: Image.Image,
 
 from PIL import Image
 import io
+import time
 
 def getPicData(image_input , showPic = False ):
+
+
+	start = time.time()
+
+
+
+
+
 	"""
 	支援四種輸入:
 	1. Local 路徑（字串）
@@ -759,9 +1210,9 @@ def getPicData(image_input , showPic = False ):
 	# ===== 裁切 OCR =====
 	# dt = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=2, mode="datetime")     ## 日期
 	# hx = cropTool(img, w_ratio=0.6, h_ratio=0.25, quadrant=3, mode="hexagrams")   ## 卦名
-	dt = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=2, mode="datetime", h_split=1)
+	dt = cropTool(img, w_ratio=0.45, h_ratio=0.25, quadrant=2, mode="datetime", h_split=1)
 
-	hx = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=3, mode="hexagrams", h_split=1)
+	hx = cropTool(img, w_ratio=0.4, h_ratio=0.25, quadrant=3, mode="hexagrams", h_split=1)
 	if not hx:
 		print ( "try again")
 		hx = cropTool(img, w_ratio=0.5, h_ratio=0.25, quadrant=3, mode="hexagrams", h_split=3)	
@@ -770,7 +1221,9 @@ def getPicData(image_input , showPic = False ):
 
 	print("Datetime:", dt)
 	print("Hexagrams:", hx)
-	
+	end = time.time()
+
+	print(f"執行時間: {end - start:.3f} 秒")
 	if dt and hx:
 
 		## 產生命令的本番
@@ -782,11 +1235,11 @@ def getPicData(image_input , showPic = False ):
 	else:
 		return False
 
-# ===== 範例 =====
+# # ===== 範例 =====
 if __name__ == '__main__':
 	# local 路徑
-	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\1013026.jpg")
-
+	getPicData("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\xxxxxxx.jpg")
+	# print(veryfi_ocr_image_to_text("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\xox.jpg"))
 	# # PIL.Image
 	# img_obj = Image.open("D:\\Dropbox\\Python\\linebot\\六爻\\work\\ocr_test_source\\S__117137475.jpg")
 	# getPicData(img_obj)

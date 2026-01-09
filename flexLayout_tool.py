@@ -1010,7 +1010,7 @@ def uiInputData( dateData , date_ganZiList , finalGua , note = "test" , command 
 	# 	# 	uiLayout += ","
 	# 	# 	uiLayout += ui_separator
 	# 	uiLayout += ","	
-	print( finalGuaList )
+	# print( finalGuaList )
 	uiLayout =  (   uiLayout.replace( "__YO1__", finalGuaList[0] )
 							.replace( "__YO2__", finalGuaList[1] )
 							.replace( "__YO3__", finalGuaList[2] )

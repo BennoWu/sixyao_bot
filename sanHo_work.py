@@ -158,7 +158,14 @@ def threeHoTest(
 				):
 
 
-
+	print(
+				monthGanZi, 
+				dayGanZi, 
+				home_naGia, 
+				changeIdIndex, 
+				change_naGia, 
+				hide_naGia
+				)
 	# 取得月支和日支
 	month_zhi = get_zhi(monthGanZi)
 	day_zhi   = get_zhi(dayGanZi)

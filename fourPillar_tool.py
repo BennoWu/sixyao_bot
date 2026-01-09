@@ -76,8 +76,8 @@ def getFourPillar( fullDate = "" , detail = False ):
 	fullDate = fullDate.replace( "-", "/").replace( ",", "/")
 
 	if fullDate == "":  ## 如果沒有輸入日期則取得現時
-		fullDate = getNowTime()
-
+		fullDate = getNowTime().replace( "-", "/").replace( ",", "/")
+	# print( fullDate )
 	orgDate = fullDate.split("/")
 	# print(">>>",orgDate)
 	yNum = int(orgDate[0])
@@ -1146,7 +1146,7 @@ if __name__ == '__main__':
 	# 	print(f"{term['name']:2s}:{term['datetime']}")
 
 
-	
+
 	fourPillarToDateMain()
 	# # getList = PPPPP ( currentTime = "2025-12-9-5-50" ,dayMode = "h", runtime = 3)
 	# getList = PPPPP ( currentTime = "2025/12/10/21/00" ,dayMode = "d", runtime = 5)	[0]
