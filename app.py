@@ -969,6 +969,19 @@ def handle_image_message(event):
 				messages=[TextMessage(text= "OCR error")]
 			)
 		)
+
+	elif ui_command[-2:] == "//": 
+
+		# ⭐ v3 的文字訊息回覆
+		line_bot_api.reply_message(
+			ReplyMessageRequest(
+				reply_token=event.reply_token,
+				messages=[TextMessage(text= ui_command )]
+			)
+		)
+
+
+
 	## ======== ocr 判斷正確時 =========
 	else:
 		ui_cmd_dict = sixYaoMain( ui_command , userData )

@@ -986,76 +986,99 @@ def refindGuaName(inputName):
 
 
 
-## 賽跑模式
+# ## 賽跑模式
 
-import threading
-import queue
-import time
-import io
-from PIL import Image
+# import threading
+# import queue
+# import time
+# import io
+# from PIL import Image
 
-def racing_ocr_test(sub_crop):
-    # 確保輸入是 PIL 物件 (相容路徑測試)
-    if isinstance(sub_crop, str):
-        sub_crop = Image.open(sub_crop)
+# def racing_ocr_test(sub_crop):
+#     # 確保輸入是 PIL 物件 (相容路徑測試)
+#     if isinstance(sub_crop, str):
+#         sub_crop = Image.open(sub_crop)
 
-    results = queue.Queue()
-    start_time = time.time()
+#     results = queue.Queue()
+#     start_time = time.time()
 
-    # --- 定義 Space 任務 ---
-    def run_space():
-        t0 = time.time()
-        try:
-            # 呼叫你的 Space 函數
-            res = space_ocr_image_to_text(sub_crop)
-            elapsed = time.time() - t0
-            if res:
-                print(f"【Space】完成! 耗時: {elapsed:.2f}秒, 內容: {res[:20]}...")
-                results.put(("Space", res, elapsed))
-            else:
-                print(f"【Space】錯誤: 回傳為空, 耗時: {elapsed:.2f}秒")
-        except Exception as e:
-            elapsed = time.time() - t0
-            print(f"【Space】拋出異常: {e}, 耗時: {elapsed:.2f}秒")
+#     # --- 定義 Space 任務 ---
+#     def run_space():
+#         t0 = time.time()
+#         try:
+#             # 呼叫你的 Space 函數
+#             res = space_ocr_image_to_text(sub_crop)
+#             elapsed = time.time() - t0
+#             if res:
+#                 print(f"【Space】完成! 耗時: {elapsed:.2f}秒, 內容: {res[:20]}...")
+#                 results.put(("Space", res, elapsed))
+#             else:
+#                 print(f"【Space】錯誤: 回傳為空, 耗時: {elapsed:.2f}秒")
+#         except Exception as e:
+#             elapsed = time.time() - t0
+#             print(f"【Space】拋出異常: {e}, 耗時: {elapsed:.2f}秒")
 
-    # --- 定義 Veryfi 任務 ---
-    def run_veryfi():
-        t0 = time.time()
-        try:
-            # 呼叫你的 Veryfi 函數
-            res = veryfi_ocr_image_to_text(sub_crop)
-            elapsed = time.time() - t0
-            if res:
-                print(f"【Veryfi】完成! 耗時: {elapsed:.2f}秒, 內容: {res[:20]}...")
-                results.put(("Veryfi", res, elapsed))
-            else:
-                print(f"【Veryfi】錯誤: 回傳為空, 耗時: {elapsed:.2f}秒")
-        except Exception as e:
-            elapsed = time.time() - t0
-            print(f"【Veryfi】拋出異常: {e}, 耗時: {elapsed:.2f}秒")
+#     # --- 定義 Veryfi 任務 ---
+#     def run_veryfi():
+#         t0 = time.time()
+#         try:
+#             # 呼叫你的 Veryfi 函數
+#             res = veryfi_ocr_image_to_text(sub_crop)
+#             elapsed = time.time() - t0
+#             if res:
+#                 print(f"【Veryfi】完成! 耗時: {elapsed:.2f}秒, 內容: {res[:20]}...")
+#                 results.put(("Veryfi", res, elapsed))
+#             else:
+#                 print(f"【Veryfi】錯誤: 回傳為空, 耗時: {elapsed:.2f}秒")
+#         except Exception as e:
+#             elapsed = time.time() - t0
+#             print(f"【Veryfi】拋出異常: {e}, 耗時: {elapsed:.2f}秒")
 
-    # 啟動雙線程
-    t1 = threading.Thread(target=run_space)
-    t2 = threading.Thread(target=run_veryfi)
-    t1.start()
-    t2.start()
+#     # 啟動雙線程
+#     t1 = threading.Thread(target=run_space)
+#     t2 = threading.Thread(target=run_veryfi)
+#     t1.start()
+#     t2.start()
 
-    # 這裡我們等待「第一個」成功的結果
-    try:
-        # 設定總超時時間為 10 秒
-        winner_name, winner_text, winner_time = results.get(timeout=10)
-        total_wait = time.time() - start_time
-        print(f"\n🏆 最終贏家: {winner_name} (體感總等候: {total_wait:.2f}秒)")
-        return winner_text
-    except queue.Empty:
-        print("\n❌ 兩者皆在限時內失敗或超時")
-        return None
+#     # 這裡我們等待「第一個」成功的結果
+#     try:
+#         # 設定總超時時間為 10 秒
+#         winner_name, winner_text, winner_time = results.get(timeout=10)
+#         total_wait = time.time() - start_time
+#         print(f"\n🏆 最終贏家: {winner_name} (體感總等候: {total_wait:.2f}秒)")
+#         return winner_text
+#     except queue.Empty:
+#         print("\n❌ 兩者皆在限時內失敗或超時")
+#         return None
 
 # --- 使用方式 ---
 # result = racing_ocr_test(sub_crop)
 
 
-
+def get_final_ocr_result(sub_crop):
+    """
+    判斷裁判：先跑 OCR.space (1)，不行再跑 Veryfi (2)
+    """
+    print("--- 開始執行 OCR 流程 ---")
+    
+    # 1. 優先嘗試 OCR.space (設定較短的 3 秒超時，不行就趕快換人)
+    text = space_ocr_image_to_text(sub_crop, timeout_sec=3)
+    
+    # 2. 判斷是否有回傳結果 (排除 None 或空字串)
+    if text and text.strip():
+        print(">>> [成功] 由 OCR.space 回傳結果")
+        return text
+    
+    # 3. 如果 (1) 失敗或沒字，執行 Veryfi (2)
+    print(">>> [切換] OCR.space 無結果，啟動 Veryfi...")
+    text = veryfi_ocr_image_to_text(sub_crop)
+    
+    if text and text.strip():
+        print(">>> [成功] 由 Veryfi 回傳結果")
+        return text
+    
+    print(">>> [失敗] 兩家 OCR 皆未辨識出文字")
+    return None
 
 
 
@@ -1125,7 +1148,7 @@ def cropTool(img: Image.Image,
 
 			# text = space_ocr_image_to_text(sub_crop)
 			# text = veryfi_ocr_image_to_text(sub_crop)	
-			text = racing_ocr_test(sub_crop)
+			text = get_final_ocr_result(sub_crop)
 			print(text)		
 			combined_text += " " + text
 
@@ -1145,7 +1168,7 @@ def cropTool(img: Image.Image,
 		print(">>>> 最終合併:", text)
 
 	else:
-		text = racing_ocr_test(full_crop)
+		text = get_final_ocr_result(full_crop)
 		# text = space_ocr_image_to_text(full_crop)
 		# text = veryfi_ocr_image_to_text(full_crop)		
 		print(">>>> ", text)
@@ -1232,6 +1255,8 @@ def getPicData(image_input , showPic = False ):
 		return f"{dt}//{hx}//Untitled"      
 		# return dt, hx
 		# ============================================
+	elif dt:
+		return f"{dt}//   //"  		
 	else:
 		return False
 
