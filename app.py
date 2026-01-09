@@ -25,7 +25,7 @@ from sixYaoJsonDataClass import *
 import os , threading , re
 from flask import Flask, request, abort
 
-
+import os
 # ⭐ LINE Bot SDK v3 imports
 from linebot.v3 import WebhookHandler
 from linebot.v3.exceptions import InvalidSignatureError
@@ -801,6 +801,7 @@ def handle_message(event):
 		elif inputMsg in ["restart", "re"]:
 
 			open("revive.flag", "w").close()   # 留紙條
+
 			# ⭐ v3 文字訊息回覆
 			line_bot_api.reply_message(
 				ReplyMessageRequest(
@@ -808,6 +809,7 @@ def handle_message(event):
 					messages=[TextMessage(text= "🔄 正在重啟 Bot..." )]
 				)
 			)
+			time.sleep(0.3) 
 			os.execv(sys.executable, ['python'] + sys.argv)
 
 
