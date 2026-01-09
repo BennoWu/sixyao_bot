@@ -355,7 +355,7 @@ def health():
 
 @app.route("/callback", methods=['POST'])
 def callback():
-	pushMsg("ttttt...", user_id = None )
+	# pushMsg("ttttt...", user_id = None )
 	# revive_if_needed()
 	signature = request.headers['X-Line-Signature']
 	body = request.get_data(as_text=True)
