@@ -25,7 +25,7 @@ from sixYaoJsonDataClass import *
 import os , threading , re
 from flask import Flask, request, abort
 
-import os
+
 # ⭐ LINE Bot SDK v3 imports
 from linebot.v3 import WebhookHandler
 from linebot.v3.exceptions import InvalidSignatureError
@@ -306,12 +306,12 @@ bufList = ["坤為地","山地剝","水地比","風地觀","雷地豫","火地�
 
 
 
-def revive_if_needed():
-	if not os.path.exists("revive.flag"):
-		return
-	os.remove("revive.flag")
+# def revive_if_needed():
+# 	if not os.path.exists("revive.flag"):
+# 		return
+# 	os.remove("revive.flag")
 
-	pushMsg("☄ 復活...", user_id = None )
+# 	pushMsg("☄ 復活...", user_id = None )
 
 
 
@@ -355,7 +355,8 @@ def health():
 
 @app.route("/callback", methods=['POST'])
 def callback():
-	revive_if_needed()
+	pushMsg("ttttt...", user_id = None )
+	# revive_if_needed()
 	signature = request.headers['X-Line-Signature']
 	body = request.get_data(as_text=True)
 	app.logger.info("Request body: " + body)
@@ -800,7 +801,7 @@ def handle_message(event):
 
 		elif inputMsg in ["restart", "re"]:
 
-			open("revive.flag", "w").close()   # 留紙條
+			# open("revive.flag", "w").close()   # 留紙條
 
 			# ⭐ v3 文字訊息回覆
 			line_bot_api.reply_message(
@@ -809,7 +810,7 @@ def handle_message(event):
 					messages=[TextMessage(text= "🔄 正在重啟 Bot..." )]
 				)
 			)
-			time.sleep(0.3) 
+
 			os.execv(sys.executable, ['python'] + sys.argv)
 
 
