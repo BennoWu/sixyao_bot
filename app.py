@@ -306,8 +306,12 @@ bufList = ["坤為地","山地剝","水地比","風地觀","雷地豫","火地�
 
 
 
+def revive_if_needed():
+	if not os.path.exists("revive.flag"):
+		return
+	os.remove("revive.flag")
 
-
+	pushMsg("☄ 復活...", user_id = None )
 
 
 
@@ -346,10 +350,12 @@ def health():
 	return supabase_health_check()
 
 
-	
+
+
 
 @app.route("/callback", methods=['POST'])
 def callback():
+	revive_if_needed()
 	signature = request.headers['X-Line-Signature']
 	body = request.get_data(as_text=True)
 	app.logger.info("Request body: " + body)
@@ -793,6 +799,8 @@ def handle_message(event):
 			)
 
 		elif inputMsg in ["restart", "re"]:
+
+			open("revive.flag", "w").close()   # 留紙條
 			# ⭐ v3 文字訊息回覆
 			line_bot_api.reply_message(
 				ReplyMessageRequest(
@@ -800,7 +808,6 @@ def handle_message(event):
 					messages=[TextMessage(text= "🔄 正在重啟 Bot..." )]
 				)
 			)
-
 			os.execv(sys.executable, ['python'] + sys.argv)
 
 
