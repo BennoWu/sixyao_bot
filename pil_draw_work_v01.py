@@ -826,7 +826,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 			if allDataDict['home_naGia'][row_id][-1] in allDataDict['dayGanZi']  or allDataDict['home_naGia'][row_id][-1] in allDataDict['monthGanZi'] : ## 如果納甲地支和日月支相同，則為日辰入卦, 底線效果
 
 				draw.line((  screenWidth - 367 , adj_hight + fixTextHight+85 , screenWidth - 374 +63 , adj_hight + fixTextHight +85), fill= midGray , width = 5 )
-				print(  screenWidth - 367 , screenWidth - 374 +63 )
+				# print(  screenWidth - 367 , screenWidth - 374 +63 )
 
 		## 六獸
 		makeText ( allDataDict['home_sixAnimal'][row_id][-1] , twoSideSpace + 212 , adj_hight + fixTextHight , wordingSize = yaoWordingSize , wordingFont = yaoFont , color = "#666666" )  

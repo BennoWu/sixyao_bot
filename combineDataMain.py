@@ -253,48 +253,48 @@ FULL2HALF = str.maketrans({",": ",", "。": ".", "?": "?", "!": "!", ";": ";", "
 SEP_PATTERN = re.compile(r'[\s_\\;．]+|:(?![戌亥申酉午未辰巳寅卯子丑]{2})|;(?![戌亥申酉午未辰巳寅卯子丑]{2})|:(?![戌亥申酉午未辰巳寅卯子丑]{2})')
 
 def is_question_text(text):
-    text = text.strip()
-    if not text:
-        return False
+	text = text.strip()
+	if not text:
+		return False
 
-    # 👇 只用於檢查，不改變原始 text
-    text_for_check = text.replace('.', '/').replace(',', '/')
-    
-    # 用標準化後的版本來檢查是否為卦
-    if checkAllGua(text_for_check, checkMode=True):
-        return False
+	# 👇 只用於檢查，不改變原始 text
+	text_for_check = text.replace('.', '/').replace(',', '/')
+	
+	# 用標準化後的版本來檢查是否為卦
+	if checkAllGua(text_for_check, checkMode=True):
+		return False
 
-    # 後續檢查用原始的 text
-    text_no_punct = re.sub(r'[:\s,./;、。]', '', text)
-    
-    # 檢查干支日期格式
-    ganzhi = '甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥'
-    if re.search(f'[{ganzhi}]{{2}}年', text_no_punct):
-        return False
-    if re.search(f'[{ganzhi}]{{2}}月', text_no_punct):
-        return False
-    if re.search(f'[{ganzhi}]{{2}}日', text_no_punct):
-        return False
-    if re.search(f'[{ganzhi}]{{2}}時', text_no_punct):
-        return False
-    
-    # 檢查問題關鍵字
-    question_keywords = ['占', '測', '吉凶', '病', '運', '跟', '朋友', '同事', '愛', '心情', '財', '成績', '健康', '工作', '感情', '婚姻', '事業', '學業', '考試', '問', '如何', '會不會', '能不能', '可以', '應該', '怎麼', '什麼', '為什麼', '嗎', "兩" , "相" , "女" , "男" , "失" , "尋" , "氣" , "業" , "工" , "質" , "爭" ]
-    
-    for keyword in question_keywords:
-        if keyword in text:
-            return True
-    
-    # 根據字符比例判斷
-    program_chars = ['$', 'X', '#', '*', '/', '甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸', '子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    
-    program_char_count = sum(1 for char in text if char in program_chars)
-    total_length = len(text)
-    
-    if program_char_count / total_length < 0.5:
-        return True
-    
-    return False
+	# 後續檢查用原始的 text
+	text_no_punct = re.sub(r'[:\s,./;、。]', '', text)
+	
+	# 檢查干支日期格式
+	ganzhi = '甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥'
+	if re.search(f'[{ganzhi}]{{2}}年', text_no_punct):
+		return False
+	if re.search(f'[{ganzhi}]{{2}}月', text_no_punct):
+		return False
+	if re.search(f'[{ganzhi}]{{2}}日', text_no_punct):
+		return False
+	if re.search(f'[{ganzhi}]{{2}}時', text_no_punct):
+		return False
+	
+	# 檢查問題關鍵字
+	question_keywords = ['占', '測', '吉凶', '病', '運', '跟', '朋友', '同事', '愛', '心情', '財', '成績', '健康', '工作', '感情', '婚姻', '事業', '學業', '考試', '問', '如何', '會不會', '能不能', '可以', '應該', '怎麼', '什麼', '為什麼', '嗎', "兩" , "相" , "女" , "男" , "失" , "尋" , "氣" , "業" , "工" , "質" , "爭" ]
+	
+	for keyword in question_keywords:
+		if keyword in text:
+			return True
+	
+	# 根據字符比例判斷
+	program_chars = ['$', 'X', '#', '*', '/', '甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸', '子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+	
+	program_char_count = sum(1 for char in text if char in program_chars)
+	total_length = len(text)
+	
+	if program_char_count / total_length < 0.5:
+		return True
+	
+	return False
 
 
 def _clean_subblock(s):
@@ -487,8 +487,6 @@ def looks_like_manual_date_input( text , value = 0.8 ):
 #     print(f"{status} {text:30s} → {result} (預期: {expected})")
 
 
-
-
 def checkInData(testData, valid_ratio_threshold=0.8, length_threshold=1.0):
 	"""
 	檢查輸入是否符合卦象格式
@@ -496,35 +494,46 @@ def checkInData(testData, valid_ratio_threshold=0.8, length_threshold=1.0):
 	Args:
 		testData: 輸入字串
 		valid_ratio_threshold: 合法字符比例閾值 (預設 0.8 = 80%)
-		length_threshold: 長度符合比例閾值 (預設 1.0 = 100%，即必須正好6個)
+		length_threshold: 長度符合比例閾值 (預設 1.0 = 100%,即必須正好6個)
 		
 	Returns:
 		True: 符合格式
-		False: 不符合格式（錯誤訊息會 print 出來）
+		False: 不符合格式(錯誤訊息會 print 出來)
 	"""
+	
+	# 🔥 新增：如果是 110011/2 或 110011/1/3/4 這種格式,直接返回 False
+	if "/" in testData:
+		parts = testData.split("/")
+		# 檢查第一部分是否為6個 0 或 1
+		if len(parts) > 1 and len(parts[0]) == 6 and all(c in "01" for c in parts[0]):
+			# 檢查後面的部分是否都是數字
+			if all(part.isdigit() for part in parts[1:]):
+				return False  # 這是 110011/2 格式,應該由 checkAllGua 處理
+	
 	testData = testData.replace("/", "").strip()
 	
 	if len(testData) == 0:
 		return False
 	
+	print("testData - ", testData)
 	# 合法字符集
-	tgdz = ["0", "1", "*", "x", "X", "$", "@", "6", "7", "8", "9", "＊", "!", "！"]
+	tgdz = ["0", "1", "*", "x", "X", "$", "@", "6", "7", "8", "9", "＊", "!", "!"]
 	valid_chars = set(tgdz)
 	
-	# 🔥 第一關：計算合法字符比例
+	# 🔥 第一關:計算合法字符比例
 	valid_count = sum(1 for char in testData if char in valid_chars)
 	total_count = len(testData)
 	valid_ratio = valid_count / total_count
 	
-	# 如果字符比例不達標，直接返回 False（不 print，不進入後續）
+	# 如果字符比例不達標,直接返回 False(不 print,不進入後續)
 	if valid_ratio < valid_ratio_threshold:
 		return False
 	
-	# === 通過第一關，才會執行以下內容 ===
+	# === 通過第一關,才會執行以下內容 ===
 	
 	print("----->>>-----", testData)
 	
-	# 第二關：檢查長度
+	# 第二關:檢查長度
 	expected_length = 6
 	
 	# 計算長度符合比例
@@ -533,12 +542,65 @@ def checkInData(testData, valid_ratio_threshold=0.8, length_threshold=1.0):
 	else:
 		length_ratio = expected_length / total_count
 	
-	# 判斷：長度是否達標
+	# 判斷:長度是否達標
 	if length_ratio < length_threshold:
-		print(f"錯誤：應為{expected_length}個字符,目前有{total_count}個")
+		print(f"錯誤:應為{expected_length}個字符,目前有{total_count}個")
 		return False
 	
 	return True
+
+# def checkInData( testData, valid_ratio_threshold=0.8, length_threshold=1.0):
+# 	"""
+# 	檢查輸入是否符合卦象格式
+	
+# 	Args:
+# 		testData: 輸入字串
+# 		valid_ratio_threshold: 合法字符比例閾值 (預設 0.8 = 80%)
+# 		length_threshold: 長度符合比例閾值 (預設 1.0 = 100%，即必須正好6個)
+		
+# 	Returns:
+# 		True: 符合格式
+# 		False: 不符合格式（錯誤訊息會 print 出來）
+# 	"""
+# 	testData = testData.replace("/", "").strip()
+	
+# 	if len(testData) == 0:
+# 		return False
+	
+# 	print( "testData - " , testData )
+
+# 	# 合法字符集
+# 	tgdz = ["0", "1", "*", "x", "X", "$", "@", "6", "7", "8", "9", "＊", "!", "！"]
+# 	valid_chars = set(tgdz)
+	
+# 	# 🔥 第一關：計算合法字符比例
+# 	valid_count = sum(1 for char in testData if char in valid_chars)
+# 	total_count = len(testData)
+# 	valid_ratio = valid_count / total_count
+	
+# 	# 如果字符比例不達標，直接返回 False（不 print，不進入後續）
+# 	if valid_ratio < valid_ratio_threshold:
+# 		return False
+	
+# 	# === 通過第一關，才會執行以下內容 ===
+	
+# 	print("----->>>-----", testData)
+	
+# 	# 第二關：檢查長度
+# 	expected_length = 6
+	
+# 	# 計算長度符合比例
+# 	if total_count <= expected_length:
+# 		length_ratio = total_count / expected_length
+# 	else:
+# 		length_ratio = expected_length / total_count
+	
+# 	# 判斷：長度是否達標
+# 	if length_ratio < length_threshold:
+# 		print(f"錯誤：應為{expected_length}個字符,目前有{total_count}個")
+# 		return False
+	
+# 	return True
 
 
 
@@ -1062,6 +1124,7 @@ def chineseChange(text='中国的文化源远流长。123我是貓abc文化源,�
 
 
 
+
 ## 輸入64卦卦名取得符號模式，例如: 雷澤(無變爻時只有爻的名字)  雷澤歸妹,1,3  or 雷澤,1,3  or  歸妹,1,3  
 def checkAllGua( guaName , checkMode = False , printStepMode = False ):
 	guaNameList = guaName.split("/")
@@ -1080,8 +1143,9 @@ def checkAllGua( guaName , checkMode = False , printStepMode = False ):
 	if ( len(guaNameList) > 1 ) and ( guaName.replace("/","" ).isdigit() == True ) and ( "".join(str(c) for c in list(set(list(guaName.replace("/","" )[:6])))) ) in [ "0","1","01","10" ] :
 		changeList = guaNameList[1:]
 		gua_binary = guaNameList[0]
+		print( "ON- 數字模式加動爻 例101010-2")
+		print( gua_binary,changeList )
 
-		# print( "ON- 數字模式加動爻 例101010-2")
 		if checkMode == True:
 			return True
 
@@ -1536,7 +1600,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 		# 統一判斷條件
 		if ( cond_three_part_valid or cond_six_part_valid ) and is_valid_date(parts) == False:
-			print( ">> 進入米卦和0,00模式")
+			print( ">> 進入米卦和 0,1,00,11 模式")
 			finalGua,preNote = riceGua( buf ) 
 			## ['20-30-40'] 米卦          --> 101X0$ , 27.71.42
 			## ['1,0,11,0,00,1'] 六爻卦   --> 101X0$ , None
@@ -1548,7 +1612,7 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 
 			
-			print(">>進入直上模式-",buf_org )
+			print(">>進入直上模式-", buf_org )
 
 			if checkInData( buf_org, valid_ratio_threshold=1, length_threshold= 1):
 				finalGua = buf_org.replace("/","").replace("@","$").replace("6","X").replace("*","X").replace("＊","X").replace("!","X").replace("！","X").replace("7","1").replace("8","0").replace("9","$").replace("x","X")
@@ -1861,6 +1925,19 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 
 
 if __name__ == '__main__':
+
+	# sixYaoMain( "癸丑年戌月丁亥日//測試,測試//967879")
+
+	# sixYaoMain( "2025-10-02-20-41//賁之明夷卦//待在新公司" )
+
+	# sixYaoMain( "雷山小過//測試易經卦名" )
+	# sixYaoMain( "雷山之火天//測試易經卦名" )	
+	# sixYaoMain( "癸丑年戌月丁亥日//測試,測試//1,0,11,0,00,1")
+	# sixYaoMain( "癸丑年戌月丁亥日//測試,測試//111000,2")
+	sixYaoMain( """+111000 // 占測試
+		一二三 四 - 五六,七八九""",showPic = True )
+
+
 	# print(unifiedData("干支/日/2025-12-24"))
 	# sixYaoMain( "2021/04/18/19/00//1​1​0​X​1​1//男占女未來是否有機會共事")
 	# sixYaoMain( "俘之履//男占女未來是否有機會共事//辛丑，壬辰，丙申，戊戌")
@@ -2045,7 +2122,7 @@ if __name__ == '__main__':
 	# sixYaoMain("n++男占女愛不愛他(測試)//10$000//2025-10-01 00:15" )
 	# sixYaoMain("n++二手賓士能不能買(測試)//10$000//2025-10-01 00:15" )	
 	# sixYaoMain( "++2025-10-02-20-41//恆之解卦//回原公司" )
-	sixYaoMain( "+2025-10-02-20-41//賁之明夷卦//待在新公司",showPic = True  )
+	# sixYaoMain( "+2025-10-02-20-41//賁之明夷卦//待在新公司",showPic = True  )
 
 
 	# sixYaoMain( "++2025/10/5/12/57 // 1111XX // 1. 正念問卷導引介入路線" )
