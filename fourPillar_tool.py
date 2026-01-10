@@ -407,7 +407,7 @@ def compare_ganzhiList(list1, list2, item=3 ):
 import datetime
 
 # def fourPillarToDateMain(inputDate='丁未/壬子/丙寅/戌'):
-def fourPillarToDateMain(inputDate='丁未/子/丙寅'):
+def fourPillarToDateMain(inputDate='丁未/子/丙寅' , printMode = False ):
 	# 統一分隔符號
 	inputDate = inputDate.replace("  ", " ").replace(",", "/").replace(" ", "/").replace(".", "/").replace("-", "/")
 	inputDateList = inputDate.split("/")
@@ -416,12 +416,14 @@ def fourPillarToDateMain(inputDate='丁未/子/丙寅'):
 
 	# 由干支取得西元年（不允許落在未來）
 	currentYear = getYear(inputDateList[0])
-	print("year--", inputDateList[0], currentYear)
-	print("輸入四柱:" , inputDateList)
 
 	# 初始化起始 datetime
 	start_dt = datetime.datetime(currentYear, 1, 1, 1, 0)  # ⭐ 不要 -1
-	print("起始out-", start_dt.strftime("%Y/%m/%d/%H/%M"))
+
+	if printMode == True:
+		print("year--", inputDateList[0], currentYear)
+		print("輸入四柱:" , inputDateList)
+		print("起始out-", start_dt.strftime("%Y/%m/%d/%H/%M"))
 
 	# 往前拉多輪，每輪最多跑三年
 	max_runs = 5

@@ -1728,6 +1728,11 @@ def sixYaoMain ( fullDataInput , userSetting = None , showPic = False ):
 				buf = buf_tmp
 				print(">>三柱完整干支:", buf )
 
+				checkItem[1] = "日"
+				dateData = fourPillarToDateMain(  buf.replace( "/", ",") )
+				print( "dateData - ",dateData )
+
+
 			# 否則使用智能補全（parse_ganzhi_from_text）來還原
 			else:
 				if looks_like_manual_date_input( buf , value = 1 ):
@@ -1934,8 +1939,15 @@ if __name__ == '__main__':
 	# sixYaoMain( "雷山之火天//測試易經卦名" )	
 	# sixYaoMain( "癸丑年戌月丁亥日//測試,測試//1,0,11,0,00,1")
 	# sixYaoMain( "癸丑年戌月丁亥日//測試,測試//111000,2")
-	sixYaoMain( """+111000 // 占測試
-		一二三 四 - 五六,七八九""",showPic = True )
+	# sixYaoMain( """+111000 // 占測試
+	# 	一二三 四 - 五六,七八九""",showPic = True )
+	sixYaoMain( "乙巳年丙戌月庚戌日//雷山")
+	# buf =  parse_ganzhi_from_text("乙巳年丙戌月庚戌日")
+	# # buf = parse_ganzhi_from_text("乙巳年甲申月卯時")
+	# print(buf)
+	# if "/" in buf:
+	# 	dateData = fourPillarToDateMain(  buf.replace( "/", ",") )
+	# 	print( "DD - ",dateData )
 
 
 	# print(unifiedData("干支/日/2025-12-24"))
