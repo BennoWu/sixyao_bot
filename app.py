@@ -646,8 +646,11 @@ def handle_message(event):
 	# 	indexBuf = ""
 	# 	dateBuf = ""
 	# 	_, dayModeBuf, runtimeBuf, dateBuf, indexBuf = parse_ganzhi_input(unifiedData(inputMsg))
+
+
 # 干支列表
-	elif inputMsg.startswith("干支") or normalize_time_command(inputMsg)["matched"]:
+	elif inputMsg.startswith("干支") or inputMsg.strip() in ["月", "日", "時", "節氣"]:
+	# elif inputMsg.startswith("干支") or normalize_time_command(inputMsg)["matched"]:
 
 		Zhi = "子丑寅卯辰巳午未申酉戌亥"
 		dateMode = ""
