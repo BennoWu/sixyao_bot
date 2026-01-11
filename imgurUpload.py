@@ -51,9 +51,9 @@ def upload_to_imgur(image_input, title=None, description=None, use_album=True):
             if image_input.mode == 'RGBA':
                 rgb_image = Image.new('RGB', image_input.size, (255, 255, 255))
                 rgb_image.paste(image_input, mask=image_input.split()[3])
-                rgb_image.save(img_byte_arr, format='JPEG', quality=90, optimize=True)
+                rgb_image.save(img_byte_arr, format='JPG', quality=90, optimize=True)
             else:
-                image_input.save(img_byte_arr, format='JPEG', quality=90, optimize=True)
+                image_input.save(img_byte_arr, format='JPG', quality=90, optimize=True)
             
             img_byte_arr.seek(0)
         
@@ -175,3 +175,4 @@ if __name__ == '__main__':
     with open("test.jpg", "rb") as f:
         image_bytes = f.read()
     result = upload_to_imgur(image_bytes)
+
