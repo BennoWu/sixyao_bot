@@ -381,7 +381,7 @@ def upload_csv_task():
 		print( jsonToGoogle() )
 		print( uploadCsvToGoogleSheet() )
 		print( delete_older_than(folder="line_temp", days= 15 ) )
-		
+		print( supabase_health_check())
 		print(f"上傳任務執行成功")
 		pushMsg(f"上傳任務執行成功", user_id = None )
 		return 'OK', 200
@@ -395,8 +395,8 @@ def upload_csv_task():
 # 新增:專門保持 Supabase 活躍的輕量端點
 @app.route('/health', methods=['GET'])
 def health():
-	return supabase_health_check()
-
+	ganZiList_fun( currentTime = "" , dayMode = "d"  , runtime = 1 )
+	return "warm on"
 
 
 
