@@ -128,14 +128,14 @@ pushMsg("✈️ start now...", user_id = None )
 
 
 
-## 多線程 - 儲存JSON至GOOGLE
-def delayed_upJson():
-	try:
-		print(f"🧹 user setting json upload to google sheet", flush=True)
-		jsonToGoogle()
-		# pushMsg( "上傳json完成" )
-	except Exception as e:
-		print("delayed_upJson error:", e, flush=True)
+# ## 多線程 - 儲存JSON至GOOGLE
+# def delayed_upJson():
+# 	try:
+# 		print(f"🧹 user setting json upload to google sheet", flush=True)
+# 		jsonToGoogle()
+# 		# pushMsg( "上傳json完成" )
+# 	except Exception as e:
+# 		print("delayed_upJson error:", e, flush=True)
 
 # 	# 建立兩個執行緒
 # 	t1 = threading.Thread( target=delayed_upLog )
@@ -381,9 +381,8 @@ def upload_csv_task():
 		print( jsonToGoogle() )
 		print( uploadCsvToGoogleSheet() )
 		print( delete_older_than(folder="line_temp", days= 15 ) )
-		print(supabase_health_check())
+		
 		print(f"上傳任務執行成功")
-
 		pushMsg(f"上傳任務執行成功", user_id = None )
 		return 'OK', 200
 		
@@ -396,8 +395,7 @@ def upload_csv_task():
 # 新增:專門保持 Supabase 活躍的輕量端點
 @app.route('/health', methods=['GET'])
 def health():
-	logger.debug("收到 health 請求")
-	return 'health OK'
+	return supabase_health_check()
 
 
 
