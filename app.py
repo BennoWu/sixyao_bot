@@ -650,7 +650,8 @@ def handle_message(event):
 	# PIL圖片上傳
 	elif inputMsg.startswith("+"):
 		img_high, img_low = sixYaoMain( inputMsg, userData )
-
+		if "imgur"  in img_high:
+			pushMsg( "imgur可能卦掉了" )
 		# ⭐ v3 的圖片訊息回覆
 		line_bot_api.reply_message(
 			ReplyMessageRequest(
