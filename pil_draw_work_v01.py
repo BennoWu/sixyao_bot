@@ -1012,7 +1012,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 			result_imgur = upload_to_imgur( img )
 			high_res =result_imgur['url']
-			
+
 			if not result_imgur["success"]:
 				from lineSend import sendMessage
 				sendMessage( text = "imgur卦了" )

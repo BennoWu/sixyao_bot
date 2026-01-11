@@ -1941,7 +1941,7 @@ if __name__ == '__main__':
 	# sixYaoMain( "癸丑年戌月丁亥日//測試,測試//111000,2")
 	# sixYaoMain( """+111000 // 占測試
 	# 	一二三 四 - 五六,七八九""",showPic = True )
-	sixYaoMain( "乙巳年丙戌月庚戌日//雷山")
+	sixYaoMain( "+乙巳年丙戌月庚戌日//家人之賁",showPic = True)
 	# buf =  parse_ganzhi_from_text("乙巳年丙戌月庚戌日")
 	# # buf = parse_ganzhi_from_text("乙巳年甲申月卯時")
 	# print(buf)
