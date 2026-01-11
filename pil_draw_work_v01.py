@@ -1010,7 +1010,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 			# preview_img = img.resize( (  int(screenWidth*0.4) , int(screenHight*0.4)  )   ,Image.BILINEAR  ) ## line縮圖預覽用圖
 			# # 上傳圖片
 
-			from lineSend import *
+			from lineSend import sendMessage
 			result_imgur = upload_to_imgur( img )
 			high_res =result_imgur['url']
 			sendMessage( text = "imgur 上傳" )
