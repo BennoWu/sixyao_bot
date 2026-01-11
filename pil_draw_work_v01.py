@@ -1010,22 +1010,22 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 			# preview_img = img.resize( (  int(screenWidth*0.4) , int(screenHight*0.4)  )   ,Image.BILINEAR  ) ## line縮圖預覽用圖
 			# # 上傳圖片
 
-			from lineSend import sendMessage
-			result_imgur = upload_to_imgur( img )
-			high_res =result_imgur['url']
-			sendMessage( text = "imgur 上傳" )
-			if not result_imgur["success"]:
-				sendMessage( text = "imgur卦了" )
+			# from lineSend import sendMessage
+			# result_imgur = upload_to_imgur( img )
+			# high_res =result_imgur['url']
+			# sendMessage( text = "imgur 上傳" )
+			# if not result_imgur["success"]:
+			# 	sendMessage( text = "imgur卦了" )
 
-				resultBB = upload_imageBB( img , expiration = 604800 )
-				if resultBB:
-					high_res =resultBB['url']
-				else: ## resultBB = None
-					sendMessage( text = "imgBB卦了" )
+			# 	resultBB = upload_imageBB( img , expiration = 604800 )
+			# 	if resultBB:
+			# 		high_res =resultBB['url']
+			# 	else: ## resultBB = None
+			# 		sendMessage( text = "imgBB卦了" )
 
-					res = upload_image( img )
-					high_res = res["url"]
-					# print("連結：", res["url"])
+			res = upload_image( img )
+			high_res = res["url"]
+			# print("連結：", res["url"])
 
 
 
