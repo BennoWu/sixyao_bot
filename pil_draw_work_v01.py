@@ -994,7 +994,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 	else:
 		from imgurUpload import upload_to_imgur
-		from imgBBupload import  upload_imageBB
+		# from imgBBupload import  upload_imageBB
 
 
 		from cloudinary_helper import upload_image, delete_older_than
