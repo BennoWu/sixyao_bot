@@ -1132,7 +1132,8 @@ def handle_postback(event):
 
 			print("image url:")
 			print(img_high, img_low)
-			
+			if "imgur"  in img_high:
+				pushMsg( "imgur可能卦掉了" )			
 			# ⭐ v3 圖片訊息回覆
 			line_bot_api.reply_message(
 				ReplyMessageRequest(
