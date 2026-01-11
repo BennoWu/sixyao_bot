@@ -993,8 +993,11 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 		print("SHOW")
 
 	else:
-		from cloudinary_helper import upload_image, delete_older_than
+		from imgurUpload import upload_to_imgur
+		from imgBBupload import  upload_imageBB
 
+
+		from cloudinary_helper import upload_image, delete_older_than
 		## Notion模式
 		if notion == True:
 			## 存到"__image_hosting"檔案夾中
@@ -1006,9 +1009,23 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 		else:
 			# preview_img = img.resize( (  int(screenWidth*0.4) , int(screenHight*0.4)  )   ,Image.BILINEAR  ) ## line縮圖預覽用圖
 			# # 上傳圖片
-			res = upload_image( img )
-			high_res = res["url"]
-			# print("連結：", res["url"])
+
+			# result_imgur = upload_to_imgur( img )
+			# high_res =result_imgur['url']
+
+			# if not result_imgur["success"]:
+
+			resultBB = upload_imageBB( img , expiration =  60 )
+			if resultBB:
+				high_res =resultBB['url']
+
+			else: ## resultBB = None
+
+				res = upload_image( img )
+				high_res = res["url"]
+				# print("連結：", res["url"])
+
+
 
 			# res = upload_image( preview_img )
 			# low_res = res["url"]

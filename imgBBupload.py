@@ -4,7 +4,9 @@ import uuid
 from pathlib import Path
 from PIL import Image
 
-def upload_imageBB(image_input, api_key, expiration=None):
+def upload_imageBB(image_input , expiration = None):
+
+	api_key = "b62a6870d803b93a06bee15741b6ac15"
 	"""
 	上傳圖片到 ImgBB,回傳圖片資訊。
 	
@@ -26,6 +28,17 @@ def upload_imageBB(image_input, api_key, expiration=None):
 			"created_at": 上傳時間戳
 		}
 		失敗時回傳 None
+
+	60秒      = 60
+	5分鐘     = 300
+	30分鐘    = 1800
+	1小時     = 3600
+	6小時     = 21600
+	12小時    = 43200
+	1天       = 86400
+	7天       = 604800
+	30天      = 2592000
+	180天(最大) = 15552000	
 	"""
 	# 生成唯一檔名
 	unique_filename = f"{uuid.uuid4().hex}.jpg"

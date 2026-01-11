@@ -10,7 +10,7 @@ from io import BytesIO
 from pathlib import Path
 from PIL import Image
 
-
+# from imgurUpload import upload_to_imgur
 def upload_to_imgur(image_input, title=None, description=None, use_album=True):
     """
     上傳圖片到 Imgur - 支援所有格式
