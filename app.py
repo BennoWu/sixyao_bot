@@ -369,6 +369,8 @@ def home():
 
 
 
+
+
 ## 上傳備份用，從uptimerobot呼叫 https://web-production-e20a6.up.railway.app/upload-csv-task
 ## Render用的 https://sixyao-bot.onrender.com/upload-csv-task
 ## 12小時備份一次
@@ -379,8 +381,9 @@ def upload_csv_task():
 		print( jsonToGoogle() )
 		print( uploadCsvToGoogleSheet() )
 		print( delete_older_than(folder="line_temp", days= 15 ) )
-		
+		print(supabase_health_check())
 		print(f"上傳任務執行成功")
+
 		pushMsg(f"上傳任務執行成功", user_id = None )
 		return 'OK', 200
 		
@@ -393,7 +396,8 @@ def upload_csv_task():
 # 新增:專門保持 Supabase 活躍的輕量端點
 @app.route('/health', methods=['GET'])
 def health():
-	return supabase_health_check()
+	logger.debug("收到 health 請求")
+	return 'health OK'
 
 
 
@@ -439,7 +443,9 @@ def handle_message(event):
 	inputMsg = inputMsg.replace('\u200b', '')
 	inputMsg = inputMsg.strip()
 	
-	print(">:", inputMsg)
+	# print(">:", inputMsg)
+	print()
+	print(f'>>>>> 收到訊息: "{inputMsg}"') 
 	print( unifiedData(inputMsg) )
 
 	returnMsg = ""
@@ -551,8 +557,6 @@ def handle_message(event):
 
 
 
-	elif ("["  in inputMsg )  and ("]"  in inputMsg ):
-		returnMsg = "⚠ 六十四卦資料待補"
 
 
 
@@ -574,6 +578,8 @@ def handle_message(event):
 
 
 
+	elif ("["  in inputMsg )  and ("]"  in inputMsg ):
+		returnMsg = "⚠ 六十四卦資料待補"
 
 
 
