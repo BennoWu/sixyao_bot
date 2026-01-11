@@ -1012,7 +1012,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 			result_imgur = upload_to_imgur( img )
 			high_res =result_imgur['url']
-
+			print( "imgur:" + high_res )
 			if not result_imgur["success"]:
 				from lineSend import sendMessage
 				sendMessage( text = "imgur卦了" )
@@ -1020,6 +1020,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 				resultBB = upload_imageBB( img , expiration = 604800 )
 				if resultBB:
 					high_res =resultBB['url']
+					print ( "imgBB: " , high_res )
 				else: ## resultBB = None
 					sendMessage( text = "imgBB卦了" )
 
