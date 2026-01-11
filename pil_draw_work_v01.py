@@ -994,7 +994,6 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 	else:
 		from imgurUpload import upload_to_imgur
-		# from imgBBupload import  upload_imageBB
 
 
 		from cloudinary_helper import upload_image, delete_older_than
@@ -1017,12 +1016,15 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 				# from lineSend import sendMessage
 				# sendMessage( text = "imgur卦了" )
 
+				## 如果有一天imgur卦了，再把imgBB打開，目前少load一個少用點資源
+				# from imgBBupload import  upload_imageBB
 				# resultBB = upload_imageBB( img , expiration = 604800 )
 				# if resultBB:
 				# 	high_res =resultBB['url']
 				# 	print ( "uo to  imgBB: << " + high_res +" >>" )
 				# else: ## resultBB = None
 				# 	sendMessage( text = "imgBB卦了" )
+				
 
 				res = upload_image( img )
 				high_res = res["url"]
