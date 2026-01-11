@@ -212,53 +212,99 @@ def parse_ganzhi_input(inputMsg):
 	return cmdType, dayMode, runtime, dateBuf, indexBuf
 
 
-
-
 import re
 
 TIME_MODES = ["日", "時", "月", "節氣"]
 
 def normalize_time_command(inputMsg):
-	msg = inputMsg.strip()
-	result = {
-		"normalized": None,
-		"mode": None,
-		"runtime": None,
-		"matched": False,
-	}
+    msg = inputMsg.strip()
+    result = {
+        "normalized": None,
+        "mode": None,
+        "runtime": None,
+        "matched": False,
+    }
+    
+    # 移除空白
+    msg = re.sub(r"\s+", "", msg)
+    
+    for mode in TIME_MODES:
+        # 允許: "干支/日/10" 或 "干支日10" 或 "日10" 或 "日"
+        pattern = rf"^(?:干支/?)?{mode}/?(?:(\d+))?(.*)$"
+        #                      ↑         ↑
+        #              允許可選的斜線    允許可選的斜線
+        
+        m = re.match(pattern, msg)
+        
+        if not m:
+            continue
+        
+        runtime = m.group(1)
+        tail = m.group(2) or ""
+        
+        # 清理 tail 的開頭斜線
+        tail = tail.lstrip('/')
+        
+        # runtime 預設
+        if runtime is None:
+            runtime = "10"
+        
+        # 統一輸出格式
+        normalized = f"干支/{mode}/{runtime}"
+        if tail:
+            normalized += f"/{tail}"
+        
+        result.update({
+            "normalized": normalized,
+            "mode": mode,
+            "runtime": int(runtime),
+            "matched": True
+        })
+        return result
+    
+    return result
 
-	# 移除空白（不動其他符號，讓後面 parse 吃）
-	msg = re.sub(r"\s+", "", msg)
+# def normalize_time_command(inputMsg):
+# 	msg = inputMsg.strip()
+# 	result = {
+# 		"normalized": None,
+# 		"mode": None,
+# 		"runtime": None,
+# 		"matched": False,
+# 	}
 
-	for mode in TIME_MODES:
-		# 規則：
-		# 1. 可有「干支」
-		# 2. mode 後可接數字
-		# 3. mode 後面若有 /xxx 就保留
-		pattern = rf"^(?:干支)?{mode}(?:(\d+))?(.*)$"
-		m = re.match(pattern, msg)
+# 	# 移除空白（不動其他符號，讓後面 parse 吃）
+# 	msg = re.sub(r"\s+", "", msg)
 
-		if not m:
-			continue
+# 	for mode in TIME_MODES:
+# 		# 規則：
+# 		# 1. 可有「干支」
+# 		# 2. mode 後可接數字
+# 		# 3. mode 後面若有 /xxx 就保留
+# 		pattern = rf"^(?:干支)?{mode}(?:(\d+))?(.*)$"
+# 		m = re.match(pattern, msg)
 
-		runtime = m.group(1)
-		tail = m.group(2) or ""
+# 		if not m:
+# 			continue
 
-		# runtime 預設（只有單一「日 / 時 / 月 / 節氣」）
-		if runtime is None:
-			runtime = "10"
+# 		runtime = m.group(1)
+# 		tail = m.group(2) or ""
 
-		normalized = f"干支/{mode}/{runtime}{tail}"
+# 		# runtime 預設（只有單一「日 / 時 / 月 / 節氣」）
+# 		if runtime is None:
+# 			runtime = "10"
 
-		result.update({
-			"normalized": normalized,
-			"mode": mode,
-			"runtime": int(runtime),
-			"matched": True
-		})
-		return result
+# 		normalized = f"干支/{mode}/{runtime}{tail}"
 
-	return result
+# 		result.update({
+# 			"normalized": normalized,
+# 			"mode": mode,
+# 			"runtime": int(runtime),
+# 			"matched": True
+# 		})
+# 		return result
+
+# 	return result
 
 
 
