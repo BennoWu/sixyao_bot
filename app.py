@@ -397,19 +397,24 @@ def before_request_log():
 
 
 
+# 移除所有自定義的 Thread 邏輯，回歸標準寫法
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    # 1. 快速存下資料
-    data = request.get_json()
-    
-    # 2. 啟動背景處理 (這不叫多線程，這叫異步執行)
-    import threading
-    threading.Thread(target=pushMsg, args=(data,)).start()
-    
-    # 3. 0.01秒內回覆，保證 LINE 永遠等不到 2 秒
-    return 'OK'
-
-
+	# 這裡只印簡單的 Log
+	print("收到 Webhook 請求")
+	
+	signature = request.headers.get('X-Line-Signature', '')
+	body = request.get_data(as_text=True)
+	data = request.get_json()
+	
+	# 按順序處理，不要開 Thread，避免併發衝突
+	try:
+		pushMsg(data)
+		handler.handle(body, signature)
+	except Exception as e:
+		print(f"處理出錯: {e}")
+		
+	return 'OK'
 
 
 
@@ -1326,19 +1331,25 @@ def handle_sticker_message(event):
 
 # if __name__ == "__main__":
 # 	app.run()
+if __name__ == "__main__":
+	# 這是解決「收不到」的唯一關鍵
+	port = int(os.environ.get("PORT", 5000))
+	# 這裡不加 threaded=True，回歸單線程，最穩定
+	app.run(host="0.0.0.0", port=port)
+
 
 
 # ... 你的路由設定 ...
 
-if __name__ == "__main__":
-    # 使用環境變數 PORT，並監聽 0.0.0.0
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, threaded=True) # 開啟多執行緒
+# if __name__ == "__main__":
+#     # 使用環境變數 PORT，並監聽 0.0.0.0
+#     port = int(os.environ.get("PORT", 5000))
+#     app.run(host="0.0.0.0", port=port, threaded=True) # 開啟多執行緒
 
 
 # # 這裡很關鍵：Railway 會透過環境變數告訴你它開了哪個門(Port)
 #     port = int(os.environ.get("PORT", 5000))
-    
+	
 #     # host="0.0.0.0" 讓外網(LINE)連得進來
 #     # port=port 讓 Flask 監聽在 Railway 分配的正確位置
 #     app.run(host="0.0.0.0", port=port)
