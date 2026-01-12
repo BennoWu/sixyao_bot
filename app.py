@@ -221,52 +221,52 @@ def parse_ganzhi_input(inputMsg):
 ## 干支/日/10
 TIME_MODES = ["日", "時", "月", "節氣"]
 def normalize_time_command(inputMsg):
-    msg = inputMsg.strip()
-    result = {
-        "normalized": None,
-        "mode": None,
-        "runtime": None,
-        "matched": False,
-    }
-    
-    # 移除空白
-    msg = re.sub(r"\s+", "", msg)
-    
-    for mode in TIME_MODES:
-        # 允許: "干支/日/10" 或 "干支日10" 或 "日10" 或 "日"
-        pattern = rf"^(?:干支/?)?{mode}/?(?:(\d+))?(.*)$"
-        #                      ↑         ↑
-        #              允許可選的斜線    允許可選的斜線
-        
-        m = re.match(pattern, msg)
-        
-        if not m:
-            continue
-        
-        runtime = m.group(1)
-        tail = m.group(2) or ""
-        
-        # 清理 tail 的開頭斜線
-        tail = tail.lstrip('/')
-        
-        # runtime 預設
-        if runtime is None:
-            runtime = "10"
-        
-        # 統一輸出格式
-        normalized = f"干支/{mode}/{runtime}"
-        if tail:
-            normalized += f"/{tail}"
-        
-        result.update({
-            "normalized": normalized,
-            "mode": mode,
-            "runtime": int(runtime),
-            "matched": True
-        })
-        return result
-    
-    return result
+	msg = inputMsg.strip()
+	result = {
+		"normalized": None,
+		"mode": None,
+		"runtime": None,
+		"matched": False,
+	}
+	
+	# 移除空白
+	msg = re.sub(r"\s+", "", msg)
+	
+	for mode in TIME_MODES:
+		# 允許: "干支/日/10" 或 "干支日10" 或 "日10" 或 "日"
+		pattern = rf"^(?:干支/?)?{mode}/?(?:(\d+))?(.*)$"
+		#                      ↑         ↑
+		#              允許可選的斜線    允許可選的斜線
+		
+		m = re.match(pattern, msg)
+		
+		if not m:
+			continue
+		
+		runtime = m.group(1)
+		tail = m.group(2) or ""
+		
+		# 清理 tail 的開頭斜線
+		tail = tail.lstrip('/')
+		
+		# runtime 預設
+		if runtime is None:
+			runtime = "10"
+		
+		# 統一輸出格式
+		normalized = f"干支/{mode}/{runtime}"
+		if tail:
+			normalized += f"/{tail}"
+		
+		result.update({
+			"normalized": normalized,
+			"mode": mode,
+			"runtime": int(runtime),
+			"matched": True
+		})
+		return result
+	
+	return result
 
 
 
@@ -381,6 +381,79 @@ def callback():
 
 
 
+
+
+
+
+
+@app.before_request
+def before_request_log():
+	print(f"\n{'='*60}")
+	print(f"[BEFORE] {request.method} {request.path}")
+	print(f"{'='*60}\n")
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+	print("\n" + "="*60)
+	print("[WEBHOOK] 開始處理")
+	print("="*60)
+	
+	try:
+		signature = request.headers.get('X-Line-Signature', '')
+		body = request.get_data(as_text=True)
+		
+		print(f"[WEBHOOK] Signature: {signature[:30]}...")
+		print(f"[WEBHOOK] Body: {body[:100]}...")
+		
+		print("[WEBHOOK] 呼叫 handler.handle")
+		handler.handle(body, signature)
+		print("[WEBHOOK] handler.handle 完成")
+		
+	except InvalidSignatureError:
+		print("[WEBHOOK] ❌ Signature 錯誤")
+		abort(400)
+	except Exception as e:
+		print(f"[WEBHOOK] ❌ 錯誤: {e}")
+		import traceback
+		traceback.print_exc()
+	
+	print("[WEBHOOK] 結束處理\n")
+	return 'OK'
+
+@handler.add(MessageEvent, message=TextMessageContent)
+def handle_message(event):
+	print("\n" + "="*60)
+	print("[HANDLER] handle_message 被呼叫！")
+	print("="*60)
+	
+	user_id = event.source.user_id
+	inputMsg = event.message.text
+	
+	print(f"[HANDLER] user_id: {user_id}")
+	print(f"[HANDLER] inputMsg: {inputMsg}")
+	
+	# 你的邏輯...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 設定管理員的 User ID（可以從 LINE Bot 後台或 event 中取得）
 ADMIN_USER_ID = "YOUR_ADMIN_USER_ID"
 
@@ -388,9 +461,24 @@ ADMIN_USER_ID = "YOUR_ADMIN_USER_ID"
 # ⭐ v3 的 handler 寫法
 @handler.add(MessageEvent, message=TextMessageContent )
 def handle_message(event):
+
+	print("\n" + "="*60)
+	print("[HANDLER] handle_message 被呼叫！")
+	print("="*60)
+	
+	user_id = event.source.user_id
+	inputMsg = event.message.text
+	
+	print(f"[HANDLER] user_id: {user_id}")
+	print(f"[HANDLER] inputMsg: {inputMsg}")
+	
+
+
+
+	
 	my_id = "U21eaaf32db85b983a842d9a9da81d8f1"
 	# 取得用戶資訊
-	user_id = event.source.user_id
+	# user_id = event.source.user_id
 	
 	# ⭐ v3 取得 profile 的方式
 	profile = line_bot_api.get_profile( user_id )
@@ -398,7 +486,7 @@ def handle_message(event):
 	picUrl = profile.picture_url
 	
 	# ⭐ v3 取得訊息內容
-	inputMsg = event.message.text
+	# inputMsg = event.message.text
 	inputMsg = inputMsg.replace('\u200b', '')
 	inputMsg = inputMsg.strip()
 	if user_id == my_id:
