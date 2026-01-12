@@ -128,14 +128,14 @@ pushMsg("✈️ start now...", user_id = None )
 
 
 
-# ## 多線程 - 儲存JSON至GOOGLE
-# def delayed_upJson():
-# 	try:
-# 		print(f"🧹 user setting json upload to google sheet", flush=True)
-# 		jsonToGoogle()
-# 		# pushMsg( "上傳json完成" )
-# 	except Exception as e:
-# 		print("delayed_upJson error:", e, flush=True)
+## 多線程 - 儲存JSON至GOOGLE
+def delayed_upJson():
+	try:
+		print(f"🧹 user setting json upload to google sheet", flush=True)
+		jsonToGoogle()
+		# pushMsg( "上傳json完成" )
+	except Exception as e:
+		print("delayed_upJson error:", e, flush=True)
 
 # 	# 建立兩個執行緒
 # 	t1 = threading.Thread( target=delayed_upLog )
@@ -212,61 +212,100 @@ def parse_ganzhi_input(inputMsg):
 	return cmdType, dayMode, runtime, dateBuf, indexBuf
 
 
+import re
 
-
-
-
-
-
-## 干支/日/10
 TIME_MODES = ["日", "時", "月", "節氣"]
+
 def normalize_time_command(inputMsg):
-	msg = inputMsg.strip()
-	result = {
-		"normalized": None,
-		"mode": None,
-		"runtime": None,
-		"matched": False,
-	}
-	
-	# 移除空白
-	msg = re.sub(r"\s+", "", msg)
-	
-	for mode in TIME_MODES:
-		# 允許: "干支/日/10" 或 "干支日10" 或 "日10" 或 "日"
-		pattern = rf"^(?:干支/?)?{mode}/?(?:(\d+))?(.*)$"
-		#                      ↑         ↑
-		#              允許可選的斜線    允許可選的斜線
-		
-		m = re.match(pattern, msg)
-		
-		if not m:
-			continue
-		
-		runtime = m.group(1)
-		tail = m.group(2) or ""
-		
-		# 清理 tail 的開頭斜線
-		tail = tail.lstrip('/')
-		
-		# runtime 預設
-		if runtime is None:
-			runtime = "10"
-		
-		# 統一輸出格式
-		normalized = f"干支/{mode}/{runtime}"
-		if tail:
-			normalized += f"/{tail}"
-		
-		result.update({
-			"normalized": normalized,
-			"mode": mode,
-			"runtime": int(runtime),
-			"matched": True
-		})
-		return result
-	
-	return result
+    msg = inputMsg.strip()
+    result = {
+        "normalized": None,
+        "mode": None,
+        "runtime": None,
+        "matched": False,
+    }
+    
+    # 移除空白
+    msg = re.sub(r"\s+", "", msg)
+    
+    for mode in TIME_MODES:
+        # 允許: "干支/日/10" 或 "干支日10" 或 "日10" 或 "日"
+        pattern = rf"^(?:干支/?)?{mode}/?(?:(\d+))?(.*)$"
+        #                      ↑         ↑
+        #              允許可選的斜線    允許可選的斜線
+        
+        m = re.match(pattern, msg)
+        
+        if not m:
+            continue
+        
+        runtime = m.group(1)
+        tail = m.group(2) or ""
+        
+        # 清理 tail 的開頭斜線
+        tail = tail.lstrip('/')
+        
+        # runtime 預設
+        if runtime is None:
+            runtime = "10"
+        
+        # 統一輸出格式
+        normalized = f"干支/{mode}/{runtime}"
+        if tail:
+            normalized += f"/{tail}"
+        
+        result.update({
+            "normalized": normalized,
+            "mode": mode,
+            "runtime": int(runtime),
+            "matched": True
+        })
+        return result
+    
+    return result
+
+# def normalize_time_command(inputMsg):
+# 	msg = inputMsg.strip()
+# 	result = {
+# 		"normalized": None,
+# 		"mode": None,
+# 		"runtime": None,
+# 		"matched": False,
+# 	}
+
+# 	# 移除空白（不動其他符號，讓後面 parse 吃）
+# 	msg = re.sub(r"\s+", "", msg)
+
+# 	for mode in TIME_MODES:
+# 		# 規則：
+# 		# 1. 可有「干支」
+# 		# 2. mode 後可接數字
+# 		# 3. mode 後面若有 /xxx 就保留
+# 		pattern = rf"^(?:干支)?{mode}(?:(\d+))?(.*)$"
+# 		m = re.match(pattern, msg)
+
+# 		if not m:
+# 			continue
+
+# 		runtime = m.group(1)
+# 		tail = m.group(2) or ""
+
+# 		# runtime 預設（只有單一「日 / 時 / 月 / 節氣」）
+# 		if runtime is None:
+# 			runtime = "10"
+
+# 		normalized = f"干支/{mode}/{runtime}{tail}"
+
+# 		result.update({
+# 			"normalized": normalized,
+# 			"mode": mode,
+# 			"runtime": int(runtime),
+# 			"matched": True
+# 		})
+# 		return result
+
+# 	return result
+
 
 
 
@@ -329,15 +368,7 @@ def home():
 	return 'home OK'
 
 
-# 2. 只有最乾淨的 Webhook
-@app.route('/webhook', methods=['POST'])
-def webhook():
-	signature = request.headers.get('X-Line-Signature', '')
-	body = request.get_data(as_text=True)
-	
-	# 只留最核心的一行，其他 pushMsg 什麼的都先拿掉
-	handler.handle(body, signature)
-	return 'OK'
+
 
 
 ## 上傳備份用，從uptimerobot呼叫 https://web-production-e20a6.up.railway.app/upload-csv-task
@@ -350,7 +381,7 @@ def upload_csv_task():
 		print( jsonToGoogle() )
 		print( uploadCsvToGoogleSheet() )
 		print( delete_older_than(folder="line_temp", days= 15 ) )
-		print( supabase_health_check())
+		print(supabase_health_check())
 		print(f"上傳任務執行成功")
 		pushMsg(f"上傳任務執行成功", user_id = None )
 		return 'OK', 200
@@ -364,8 +395,20 @@ def upload_csv_task():
 # 新增:專門保持 Supabase 活躍的輕量端點
 @app.route('/health', methods=['GET'])
 def health():
-	ganZiList_fun( currentTime = "" , dayMode = "d"  , runtime = 1 )
-	return "warm on"
+	return "OK"
+
+
+
+
+# 2. 只有最乾淨的 Webhook
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    signature = request.headers.get('X-Line-Signature', '')
+    body = request.get_data(as_text=True)
+    
+    # 只留最核心的一行，其他 pushMsg 什麼的都先拿掉
+    handler.handle(body, signature)
+    return 'OK'
 
 
 
@@ -407,8 +450,6 @@ def handle_message(event):
 	
 	# ⭐ v3 取得訊息內容
 	inputMsg = event.message.text
-	if user_id == my_id:
-		sendMessage( text = displayName + ":" + inputMsg  ) ## 傳line給自
 	inputMsg = inputMsg.replace('\u200b', '')
 	inputMsg = inputMsg.strip()
 	
@@ -434,11 +475,8 @@ def handle_message(event):
 		"tipsMode": jsonData.tipsMode,
 		"notionToken_pageId": jsonData.notionToken_pageId
 	}
-
-
-
-
-
+	if user_id != my_id:
+		sendMessage( text = displayName + ":" + inputMsg  )
 	# # if user_id == my_id:
 	# try:
 	# 	sendMessage( text = displayName + ":" + inputMsg  )
@@ -1216,7 +1254,11 @@ def handle_sticker_message(event):
 if __name__ == "__main__":
 	app.run()
 
-	# # 這是 Railway 運作的唯一硬性要求
-	# import os
-	# port = int(os.environ.get("PORT", 5000))
-	# app.run(host="0.0.0.0", port=port)
+
+
+
+
+# if __name__ == "__main__":
+#     import os
+#     port = int(os.environ.get("PORT", 5000))
+#     app.run(host="0.0.0.0", port=port)
