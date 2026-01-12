@@ -420,19 +420,19 @@ def webhook():
 	print("[WEBHOOK] 結束處理\n")
 	return 'OK'
 
-@handler.add(MessageEvent, message=TextMessageContent)
-def handle_message(event):
-	print("\n" + "="*60)
-	print("[HANDLER] handle_message 被呼叫！")
-	print("="*60)
+# @handler.add(MessageEvent, message=TextMessageContent)
+# def handle_message(event):
+# 	print("\n" + "="*60)
+# 	print("[HANDLER] handle_message 被呼叫！")
+# 	print("="*60)
 	
-	user_id = event.source.user_id
-	inputMsg = event.message.text
+# 	user_id = event.source.user_id
+# 	inputMsg = event.message.text
 	
-	print(f"[HANDLER] user_id: {user_id}")
-	print(f"[HANDLER] inputMsg: {inputMsg}")
+# 	print(f"[HANDLER] user_id: {user_id}")
+# 	print(f"[HANDLER] inputMsg: {inputMsg}")
 	
-	# 你的邏輯...
+# 	# 你的邏輯...
 
 
 
@@ -475,7 +475,7 @@ def handle_message(event):
 
 
 
-	
+
 	my_id = "U21eaaf32db85b983a842d9a9da81d8f1"
 	# 取得用戶資訊
 	# user_id = event.source.user_id
@@ -490,7 +490,7 @@ def handle_message(event):
 	inputMsg = inputMsg.replace('\u200b', '')
 	inputMsg = inputMsg.strip()
 	if user_id == my_id:
-		sendMessage( text = displayName + " : " + inputMsg  ) ## 傳line給自己
+		sendMessage( text = displayName + ": " + inputMsg  ) ## 傳line給自己
 	
 	# print(">:", inputMsg)
 	print()
@@ -1223,10 +1223,10 @@ def handle_postback(event):
 				)
 			)
 
-		# 文字版UI 處理
-		elif data == "sendMe":
+		# # 文字版UI 處理
+		# elif data == "sendMe":
 			
-			pushMsg(  userData['linebotUserName'] + " push...", user_id = None )
+		# 	pushMsg(  userData['linebotUserName'] + " push...", user_id = None )
 
 
 
