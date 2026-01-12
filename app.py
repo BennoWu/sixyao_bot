@@ -398,6 +398,12 @@ def webhook():
 	print("[WEBHOOK] 開始處理")
 	print("="*60)
 	
+	data = request.get_json()
+	print("收到 LINE payload:", data)
+	
+	# 直接呼叫 pushMsg() 傳給自己
+	pushMsg(data)
+
 	try:
 		signature = request.headers.get('X-Line-Signature', '')
 		body = request.get_data(as_text=True)
