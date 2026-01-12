@@ -397,26 +397,25 @@ def before_request_log():
 
 
 
-# 移除所有自定義的 Thread 邏輯，回歸標準寫法
 @app.route('/webhook', methods=['POST'])
 def webhook():
-	# 這裡只印簡單的 Log
-	print("收到 Webhook 請求")
-	
-	signature = request.headers.get('X-Line-Signature', '')
-	body = request.get_data(as_text=True)
-	data = request.get_json()
-	
-	# 按順序處理，不要開 Thread，避免併發衝突
-	try:
-		pushMsg(data)
-		handler.handle(body, signature)
-	except Exception as e:
-		print(f"處理出錯: {e}")
-		
-	return 'OK'
+    # 1. 快速取得資料
+    signature = request.headers.get('X-Line-Signature', '')
+    body = request.get_data(as_text=True)
+    
+    # 2. 這裡只做最基本的紀錄
+    print("--- Webhook In ---")
+    
+    try:
+        # 執行原本的邏輯
+        # 注意：如果 pushMsg 是為了偵錯，建議先註解掉，看會不會比較穩
+        # pushMsg(request.get_json()) 
+        handler.handle(body, signature)
+    except Exception as e:
+        print(f"Error: {e}")
 
-
+    # 3. 確保最後有回傳 'OK'
+    return 'OK'
 
 
 
