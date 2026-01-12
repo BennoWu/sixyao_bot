@@ -407,6 +407,8 @@ def handle_message(event):
 	
 	# ⭐ v3 取得訊息內容
 	inputMsg = event.message.text
+	if user_id == my_id:
+		sendMessage( text = displayName + ":" + inputMsg  ) ## 傳line給自
 	inputMsg = inputMsg.replace('\u200b', '')
 	inputMsg = inputMsg.strip()
 	
@@ -434,8 +436,6 @@ def handle_message(event):
 	}
 
 
-	if user_id != my_id:
-		sendMessage( text = displayName + ":" + inputMsg  ) ## 傳line給自
 
 
 
@@ -1214,7 +1214,9 @@ def handle_sticker_message(event):
 	)
 
 if __name__ == "__main__":
-	# 這是 Railway 運作的唯一硬性要求
-	import os
-	port = int(os.environ.get("PORT", 5000))
-	app.run(host="0.0.0.0", port=port)
+	app.run()
+
+	# # 這是 Railway 運作的唯一硬性要求
+	# import os
+	# port = int(os.environ.get("PORT", 5000))
+	# app.run(host="0.0.0.0", port=port)
