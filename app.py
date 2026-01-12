@@ -329,7 +329,15 @@ def home():
 	return 'home OK'
 
 
-
+# 2. 只有最乾淨的 Webhook
+@app.route('/webhook', methods=['POST'])
+def webhook():
+	signature = request.headers.get('X-Line-Signature', '')
+	body = request.get_data(as_text=True)
+	
+	# 只留最核心的一行，其他 pushMsg 什麼的都先拿掉
+	handler.handle(body, signature)
+	return 'OK'
 
 
 ## 上傳備份用，從uptimerobot呼叫 https://web-production-e20a6.up.railway.app/upload-csv-task
@@ -381,114 +389,6 @@ def callback():
 
 
 
-
-
-
-
-
-@app.before_request
-def before_request_log():
-	print(f"\n{'='*60}")
-	print(f"[BEFORE] {request.method} {request.path}")
-	print(f"{'='*60}\n")
-
-
-
-
-
-
-# @app.route('/webhook', methods=['POST'])
-# def webhook():
-#     # 1. 快速取得資料
-#     signature = request.headers.get('X-Line-Signature', '')
-#     body = request.get_data(as_text=True)
-    
-#     # 2. 這裡只做最基本的紀錄
-#     print("--- Webhook In ---")
-    
-#     try:
-#         # 執行原本的邏輯
-#         # 注意：如果 pushMsg 是為了偵錯，建議先註解掉，看會不會比較穩
-#         # pushMsg(request.get_json()) 
-#         handler.handle(body, signature)
-#     except Exception as e:
-#         print(f"Error: {e}")
-
-#     # 3. 確保最後有回傳 'OK'
-#     return 'OK'
-
-
-
-
-
-@app.route('/webhook', methods=['POST'])
-def webhook():
-	print("\n" + "="*60)
-	print("[WEBHOOK] 開始處理")
-	print("="*60)
-	
-	data = request.get_json()
-	print("收到 LINE payload:", data)
-	
-	# 直接呼叫 pushMsg() 傳給自己
-	# pushMsg(data)
-
-	try:
-		signature = request.headers.get('X-Line-Signature', '')
-		body = request.get_data(as_text=True)
-		
-		print(f"[WEBHOOK] Signature: {signature[:30]}...")
-		print(f"[WEBHOOK] Body: {body[:100]}...")
-		
-		print("[WEBHOOK] 呼叫 handler.handle")
-		handler.handle(body, signature)
-		print("[WEBHOOK] handler.handle 完成")
-		
-	except InvalidSignatureError:
-		print("[WEBHOOK] ❌ Signature 錯誤")
-		abort(400)
-	except Exception as e:
-		print(f"[WEBHOOK] ❌ 錯誤: {e}")
-		import traceback
-		traceback.print_exc()
-	
-	print("[WEBHOOK] 結束處理\n")
-	return 'OK'
-
-# @handler.add(MessageEvent, message=TextMessageContent)
-# def handle_message(event):
-# 	print("\n" + "="*60)
-# 	print("[HANDLER] handle_message 被呼叫！")
-# 	print("="*60)
-	
-# 	user_id = event.source.user_id
-# 	inputMsg = event.message.text
-	
-# 	print(f"[HANDLER] user_id: {user_id}")
-# 	print(f"[HANDLER] inputMsg: {inputMsg}")
-	
-# 	# 你的邏輯...
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # 設定管理員的 User ID（可以從 LINE Bot 後台或 event 中取得）
 ADMIN_USER_ID = "YOUR_ADMIN_USER_ID"
 
@@ -496,24 +396,9 @@ ADMIN_USER_ID = "YOUR_ADMIN_USER_ID"
 # ⭐ v3 的 handler 寫法
 @handler.add(MessageEvent, message=TextMessageContent )
 def handle_message(event):
-
-	print("\n" + "="*60)
-	print("[HANDLER] handle_message 被呼叫！")
-	print("="*60)
-	
-	user_id = event.source.user_id
-	inputMsg = event.message.text
-	
-	print(f"[HANDLER] user_id: {user_id}")
-	print(f"[HANDLER] inputMsg: {inputMsg}")
-	
-
-
-
-
 	my_id = "U21eaaf32db85b983a842d9a9da81d8f1"
 	# 取得用戶資訊
-	# user_id = event.source.user_id
+	user_id = event.source.user_id
 	
 	# ⭐ v3 取得 profile 的方式
 	profile = line_bot_api.get_profile( user_id )
@@ -521,11 +406,9 @@ def handle_message(event):
 	picUrl = profile.picture_url
 	
 	# ⭐ v3 取得訊息內容
-	# inputMsg = event.message.text
+	inputMsg = event.message.text
 	inputMsg = inputMsg.replace('\u200b', '')
 	inputMsg = inputMsg.strip()
-	if user_id == my_id:
-		sendMessage( text = displayName + ": " + inputMsg  ) ## 傳line給自己
 	
 	# print(">:", inputMsg)
 	print()
@@ -551,6 +434,8 @@ def handle_message(event):
 	}
 
 
+	if user_id != my_id:
+		sendMessage( text = displayName + ":" + inputMsg  ) ## 傳line給自
 
 
 
@@ -1258,10 +1143,10 @@ def handle_postback(event):
 				)
 			)
 
-		# # 文字版UI 處理
-		# elif data == "sendMe":
+		# 文字版UI 處理
+		elif data == "sendMe":
 			
-		# 	pushMsg(  userData['linebotUserName'] + " push...", user_id = None )
+			pushMsg(  userData['linebotUserName'] + " push...", user_id = None )
 
 
 
@@ -1329,30 +1214,7 @@ def handle_sticker_message(event):
 	)
 
 if __name__ == "__main__":
-	app.run()
-
-
-
-# if __name__ == "__main__":
-# 	# 這是解決「收不到」的唯一關鍵
-# 	port = int(os.environ.get("PORT", 5000))
-# 	# 這裡不加 threaded=True，回歸單線程，最穩定
-# 	app.run(host="0.0.0.0", port=port)
-
-
-
-# ... 你的路由設定 ...
-
-# if __name__ == "__main__":
-#     # 使用環境變數 PORT，並監聽 0.0.0.0
-#     port = int(os.environ.get("PORT", 5000))
-#     app.run(host="0.0.0.0", port=port, threaded=True) # 開啟多執行緒
-
-
-# # 這裡很關鍵：Railway 會透過環境變數告訴你它開了哪個門(Port)
-#     port = int(os.environ.get("PORT", 5000))
-	
-#     # host="0.0.0.0" 讓外網(LINE)連得進來
-#     # port=port 讓 Flask 監聽在 Railway 分配的正確位置
-#     app.run(host="0.0.0.0", port=port)
-
+	# 這是 Railway 運作的唯一硬性要求
+	import os
+	port = int(os.environ.get("PORT", 5000))
+	app.run(host="0.0.0.0", port=port)
