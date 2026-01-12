@@ -16,7 +16,7 @@ from fourPillar_tool import ganZhi_Dict ## 六十甲子的字典
 from flexLayout_tool import sSixZnUi ## 小六壬
 
 
-from lineSend import *
+# from lineSend import *
 
 from iching_flexLayout import * ## 易經卦UI
 
@@ -475,8 +475,13 @@ def handle_message(event):
 		"tipsMode": jsonData.tipsMode,
 		"notionToken_pageId": jsonData.notionToken_pageId
 	}
-	if user_id != my_id:
-		sendMessage( text = displayName + ":" + inputMsg  )
+
+	
+	# if user_id != my_id:
+	# 	sendMessage( text = displayName + ":" + inputMsg  )
+
+
+
 	# # if user_id == my_id:
 	# try:
 	# 	sendMessage( text = displayName + ":" + inputMsg  )
@@ -1251,14 +1256,14 @@ def handle_sticker_message(event):
 		)
 	)
 
-if __name__ == "__main__":
-	app.run()
-
-
-
-
-
 # if __name__ == "__main__":
-#     import os
-#     port = int(os.environ.get("PORT", 5000))
-#     app.run(host="0.0.0.0", port=port)
+# 	app.run()
+
+
+
+
+
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
