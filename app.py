@@ -397,63 +397,63 @@ def before_request_log():
 
 
 
-@app.route('/webhook', methods=['POST'])
-def webhook():
-    # 1. 快速取得資料
-    signature = request.headers.get('X-Line-Signature', '')
-    body = request.get_data(as_text=True)
-    
-    # 2. 這裡只做最基本的紀錄
-    print("--- Webhook In ---")
-    
-    try:
-        # 執行原本的邏輯
-        # 注意：如果 pushMsg 是為了偵錯，建議先註解掉，看會不會比較穩
-        # pushMsg(request.get_json()) 
-        handler.handle(body, signature)
-    except Exception as e:
-        print(f"Error: {e}")
-
-    # 3. 確保最後有回傳 'OK'
-    return 'OK'
-
-
-
-
-
 # @app.route('/webhook', methods=['POST'])
 # def webhook():
-# 	print("\n" + "="*60)
-# 	print("[WEBHOOK] 開始處理")
-# 	print("="*60)
-	
-# 	data = request.get_json()
-# 	print("收到 LINE payload:", data)
-	
-# 	# 直接呼叫 pushMsg() 傳給自己
-# 	# pushMsg(data)
+#     # 1. 快速取得資料
+#     signature = request.headers.get('X-Line-Signature', '')
+#     body = request.get_data(as_text=True)
+    
+#     # 2. 這裡只做最基本的紀錄
+#     print("--- Webhook In ---")
+    
+#     try:
+#         # 執行原本的邏輯
+#         # 注意：如果 pushMsg 是為了偵錯，建議先註解掉，看會不會比較穩
+#         # pushMsg(request.get_json()) 
+#         handler.handle(body, signature)
+#     except Exception as e:
+#         print(f"Error: {e}")
 
-# 	try:
-# 		signature = request.headers.get('X-Line-Signature', '')
-# 		body = request.get_data(as_text=True)
-		
-# 		print(f"[WEBHOOK] Signature: {signature[:30]}...")
-# 		print(f"[WEBHOOK] Body: {body[:100]}...")
-		
-# 		print("[WEBHOOK] 呼叫 handler.handle")
-# 		handler.handle(body, signature)
-# 		print("[WEBHOOK] handler.handle 完成")
-		
-# 	except InvalidSignatureError:
-# 		print("[WEBHOOK] ❌ Signature 錯誤")
-# 		abort(400)
-# 	except Exception as e:
-# 		print(f"[WEBHOOK] ❌ 錯誤: {e}")
-# 		import traceback
-# 		traceback.print_exc()
+#     # 3. 確保最後有回傳 'OK'
+#     return 'OK'
+
+
+
+
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+	print("\n" + "="*60)
+	print("[WEBHOOK] 開始處理")
+	print("="*60)
 	
-# 	print("[WEBHOOK] 結束處理\n")
-# 	return 'OK'
+	data = request.get_json()
+	print("收到 LINE payload:", data)
+	
+	# 直接呼叫 pushMsg() 傳給自己
+	# pushMsg(data)
+
+	try:
+		signature = request.headers.get('X-Line-Signature', '')
+		body = request.get_data(as_text=True)
+		
+		print(f"[WEBHOOK] Signature: {signature[:30]}...")
+		print(f"[WEBHOOK] Body: {body[:100]}...")
+		
+		print("[WEBHOOK] 呼叫 handler.handle")
+		handler.handle(body, signature)
+		print("[WEBHOOK] handler.handle 完成")
+		
+	except InvalidSignatureError:
+		print("[WEBHOOK] ❌ Signature 錯誤")
+		abort(400)
+	except Exception as e:
+		print(f"[WEBHOOK] ❌ 錯誤: {e}")
+		import traceback
+		traceback.print_exc()
+	
+	print("[WEBHOOK] 結束處理\n")
+	return 'OK'
 
 # @handler.add(MessageEvent, message=TextMessageContent)
 # def handle_message(event):
