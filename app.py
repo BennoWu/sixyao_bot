@@ -402,7 +402,7 @@ def webhook():
 	print("收到 LINE payload:", data)
 	
 	# 直接呼叫 pushMsg() 傳給自己
-	pushMsg(data)
+	# pushMsg(data)
 
 	try:
 		signature = request.headers.get('X-Line-Signature', '')
@@ -1299,5 +1299,16 @@ def handle_sticker_message(event):
 		)
 	)
 
+# if __name__ == "__main__":
+# 	app.run()
+
+
+# ... 你的路由設定 ...
+
 if __name__ == "__main__":
-	app.run()
+    # 使用環境變數 PORT，並監聽 0.0.0.0
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, threaded=True) # 開啟多執行緒
+
+
+
