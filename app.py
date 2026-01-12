@@ -392,39 +392,64 @@ def before_request_log():
 	print(f"[BEFORE] {request.method} {request.path}")
 	print(f"{'='*60}\n")
 
+
+
+
+
+
 @app.route('/webhook', methods=['POST'])
 def webhook():
-	print("\n" + "="*60)
-	print("[WEBHOOK] 開始處理")
-	print("="*60)
-	
-	data = request.get_json()
-	print("收到 LINE payload:", data)
-	
-	# 直接呼叫 pushMsg() 傳給自己
-	# pushMsg(data)
+    # 1. 快速存下資料
+    data = request.get_json()
+    
+    # 2. 啟動背景處理 (這不叫多線程，這叫異步執行)
+    import threading
+    threading.Thread(target=pushMsg, args=(data,)).start()
+    
+    # 3. 0.01秒內回覆，保證 LINE 永遠等不到 2 秒
+    return 'OK'
 
-	try:
-		signature = request.headers.get('X-Line-Signature', '')
-		body = request.get_data(as_text=True)
-		
-		print(f"[WEBHOOK] Signature: {signature[:30]}...")
-		print(f"[WEBHOOK] Body: {body[:100]}...")
-		
-		print("[WEBHOOK] 呼叫 handler.handle")
-		handler.handle(body, signature)
-		print("[WEBHOOK] handler.handle 完成")
-		
-	except InvalidSignatureError:
-		print("[WEBHOOK] ❌ Signature 錯誤")
-		abort(400)
-	except Exception as e:
-		print(f"[WEBHOOK] ❌ 錯誤: {e}")
-		import traceback
-		traceback.print_exc()
+
+
+
+
+
+
+
+
+# @app.route('/webhook', methods=['POST'])
+# def webhook():
+# 	print("\n" + "="*60)
+# 	print("[WEBHOOK] 開始處理")
+# 	print("="*60)
 	
-	print("[WEBHOOK] 結束處理\n")
-	return 'OK'
+# 	data = request.get_json()
+# 	print("收到 LINE payload:", data)
+	
+# 	# 直接呼叫 pushMsg() 傳給自己
+# 	# pushMsg(data)
+
+# 	try:
+# 		signature = request.headers.get('X-Line-Signature', '')
+# 		body = request.get_data(as_text=True)
+		
+# 		print(f"[WEBHOOK] Signature: {signature[:30]}...")
+# 		print(f"[WEBHOOK] Body: {body[:100]}...")
+		
+# 		print("[WEBHOOK] 呼叫 handler.handle")
+# 		handler.handle(body, signature)
+# 		print("[WEBHOOK] handler.handle 完成")
+		
+# 	except InvalidSignatureError:
+# 		print("[WEBHOOK] ❌ Signature 錯誤")
+# 		abort(400)
+# 	except Exception as e:
+# 		print(f"[WEBHOOK] ❌ 錯誤: {e}")
+# 		import traceback
+# 		traceback.print_exc()
+	
+# 	print("[WEBHOOK] 結束處理\n")
+# 	return 'OK'
 
 # @handler.add(MessageEvent, message=TextMessageContent)
 # def handle_message(event):
@@ -1311,4 +1336,10 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=port, threaded=True) # 開啟多執行緒
 
 
+# # 這裡很關鍵：Railway 會透過環境變數告訴你它開了哪個門(Port)
+#     port = int(os.environ.get("PORT", 5000))
+    
+#     # host="0.0.0.0" 讓外網(LINE)連得進來
+#     # port=port 讓 Flask 監聽在 Railway 分配的正確位置
+#     app.run(host="0.0.0.0", port=port)
 
