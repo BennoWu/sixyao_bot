@@ -212,10 +212,14 @@ def parse_ganzhi_input(inputMsg):
 	return cmdType, dayMode, runtime, dateBuf, indexBuf
 
 
-import re
 
+
+
+
+
+
+## 干支/日/10
 TIME_MODES = ["日", "時", "月", "節氣"]
-
 def normalize_time_command(inputMsg):
     msg = inputMsg.strip()
     result = {
@@ -263,49 +267,6 @@ def normalize_time_command(inputMsg):
         return result
     
     return result
-
-# def normalize_time_command(inputMsg):
-# 	msg = inputMsg.strip()
-# 	result = {
-# 		"normalized": None,
-# 		"mode": None,
-# 		"runtime": None,
-# 		"matched": False,
-# 	}
-
-# 	# 移除空白（不動其他符號，讓後面 parse 吃）
-# 	msg = re.sub(r"\s+", "", msg)
-
-# 	for mode in TIME_MODES:
-# 		# 規則：
-# 		# 1. 可有「干支」
-# 		# 2. mode 後可接數字
-# 		# 3. mode 後面若有 /xxx 就保留
-# 		pattern = rf"^(?:干支)?{mode}(?:(\d+))?(.*)$"
-# 		m = re.match(pattern, msg)
-
-# 		if not m:
-# 			continue
-
-# 		runtime = m.group(1)
-# 		tail = m.group(2) or ""
-
-# 		# runtime 預設（只有單一「日 / 時 / 月 / 節氣」）
-# 		if runtime is None:
-# 			runtime = "10"
-
-# 		normalized = f"干支/{mode}/{runtime}{tail}"
-
-# 		result.update({
-# 			"normalized": normalized,
-# 			"mode": mode,
-# 			"runtime": int(runtime),
-# 			"matched": True
-# 		})
-# 		return result
-
-# 	return result
-
 
 
 
@@ -440,6 +401,8 @@ def handle_message(event):
 	inputMsg = event.message.text
 	inputMsg = inputMsg.replace('\u200b', '')
 	inputMsg = inputMsg.strip()
+	if user_id == my_id:
+		sendMessage( text = displayName + " : " + inputMsg  ) ## 傳line給自己
 	
 	# print(">:", inputMsg)
 	print()
@@ -463,8 +426,11 @@ def handle_message(event):
 		"tipsMode": jsonData.tipsMode,
 		"notionToken_pageId": jsonData.notionToken_pageId
 	}
-	if user_id != my_id:
-		sendMessage( text = displayName + ":" + inputMsg  )
+
+
+
+
+
 	# # if user_id == my_id:
 	# try:
 	# 	sendMessage( text = displayName + ":" + inputMsg  )

@@ -1956,7 +1956,7 @@ def ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 10 
 
 	# 文字轉換成字典
 	print(f'######### FlsxMsg計算: {time.time()-start:.2f}s')
-	
+
 	finalLayout_dict = json.loads(finalLayout)
 	return finalLayout_dict
 
@@ -6421,8 +6421,8 @@ if __name__ == '__main__':
 	# ganZiList_fun( currentTime = "2025/12/11/18/56" , dayMode = "h" , index = "" , runtime = 8 , printMode = True )
 	# ganZiList_fun( currentTime = "2025/05/08" , dayMode = "jc" , index = "" , runtime = 20 ) 
 	# ganZiList_fun( currentTime = "2026/05/05" , dayMode = "jc" , index = "" , runtime = 3 , printMode = True )	
-	ganZiList_fun( currentTime = "2026,02,03" , dayMode = "d" , index = "" , runtime = 10 , printMode = True )
-
+	# ganZiList_fun( currentTime = "2026,02,03" , dayMode = "d" , index = "" , runtime = 10 , printMode = True )
+	ganZiList_fun( currentTime = "" , dayMode = "d" , index = "" , runtime = 1 , printMode = False )
  # 干支/時/8/2026,02,03
 
 
