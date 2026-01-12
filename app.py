@@ -1328,13 +1328,16 @@ def handle_sticker_message(event):
 		)
 	)
 
-# if __name__ == "__main__":
-# 	app.run()
 if __name__ == "__main__":
-	# 這是解決「收不到」的唯一關鍵
-	port = int(os.environ.get("PORT", 5000))
-	# 這裡不加 threaded=True，回歸單線程，最穩定
-	app.run(host="0.0.0.0", port=port)
+	app.run()
+
+
+
+# if __name__ == "__main__":
+# 	# 這是解決「收不到」的唯一關鍵
+# 	port = int(os.environ.get("PORT", 5000))
+# 	# 這裡不加 threaded=True，回歸單線程，最穩定
+# 	app.run(host="0.0.0.0", port=port)
 
 
 
