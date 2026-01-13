@@ -1018,14 +1018,13 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 
 
 			# high_res =result_imgur['url']
-			print( "up to imgBB: << " + high_res +" >>")
 			if resultBB:
 				high_res =resultBB['url']
 				print ( "uo to  imgBB: << " + high_res +" >>" )
 			else: ## resultBB = None
-				sendMessage( text = "imgBB卦了" )
+				# sendMessage( text = "imgBB卦了" )
 
-				
+
 			# if not result_imgur["success"]:
 
 
@@ -1075,7 +1074,7 @@ if __name__ == '__main__':
 	# drawUi_v1( mainFunction( "01X@@@" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,)
 	# drawUi_v1( mainFunction( "01X$01" ,noteText = "男問今年工作運勢",user_mouthZi = "巳月" , user_dayGanZi = "己丑", userDefineDate = "") , show = True ,)	 ## 三合
 	# drawUi_v1( mainFunction( "0X01X0" , noteText = "男問今年工作運勢" ) )
-	drawUi_v1( mainFunction( "000100" ,noteText = "占找A店家維修,能否順利修好電腦保住資料", userDefineDate = "") , show = True ,) ## 5字
+	drawUi_v1( mainFunction( "000100" ,noteText = "占找A店家維修,能否順利修好電腦保住資料", userDefineDate = "") , show = False ,) ## 5字
 
 	# drawUi_v1( mainFunction( "10010$" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,)
 	# drawUi_v1( mainFunction( "111@0X" ,noteText = "男問今年工作運勢", userDefineDate = "") , show = True ,) #6字
