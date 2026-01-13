@@ -993,7 +993,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 		print("SHOW")
 
 	else:
-		from imgurUpload import upload_to_imgur
+		# from imgurUpload import upload_to_imgur
 
 
 		## Notion模式
@@ -1010,10 +1010,16 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 			# # 上傳圖片
 			import time
 			start = time.time()
-			result_imgur = upload_to_imgur( img )
-			print(f'######### get imgur url: {time.time()-start:.2f}s')			
+			# result_imgur = upload_to_imgur( img )
+			from imgBBupload import  upload_imageBB
+			resultBB = upload_imageBB( img , expiration = 604800 )
+			high_res =resultBB['url']
+
+
+
+			print(f'######### get imgBB url: {time.time()-start:.2f}s')			
 			high_res =result_imgur['url']
-			print( "up to imgur: << " + high_res +" >>")
+			print( "up to imgBB: << " + high_res +" >>")
 			if not result_imgur["success"]:
 				# from lineSend import sendMessage
 				# sendMessage( text = "imgur卦了" )
