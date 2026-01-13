@@ -1016,9 +1016,9 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 			high_res =resultBB['url']
 
 
-
 			print(f'######### get imgBB url: {time.time()-start:.2f}s')			
-			high_res =result_imgur['url']
+
+			# high_res =result_imgur['url']
 			print( "up to imgBB: << " + high_res +" >>")
 			if not result_imgur["success"]:
 				# from lineSend import sendMessage
