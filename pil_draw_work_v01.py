@@ -996,9 +996,9 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 		from imgurUpload import upload_to_imgur
 
 
-		from cloudinary_helper import upload_image, delete_older_than
 		## Notion模式
 		if notion == True:
+			from cloudinary_helper import upload_image, delete_older_than
 			## 存到"__image_hosting"檔案夾中
 			res = upload_image( img , "__image_hosting" ) 
 			high_res = res["url"]
@@ -1008,8 +1008,10 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 		else:
 			# preview_img = img.resize( (  int(screenWidth*0.4) , int(screenHight*0.4)  )   ,Image.BILINEAR  ) ## line縮圖預覽用圖
 			# # 上傳圖片
-
+			import time
+			start = time.time()
 			result_imgur = upload_to_imgur( img )
+			print(f'######### get imgur url: {time.time()-start:.2f}s')			
 			high_res =result_imgur['url']
 			print( "up to imgur: << " + high_res +" >>")
 			if not result_imgur["success"]:
@@ -1024,12 +1026,12 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 				# 	print ( "uo to  imgBB: << " + high_res +" >>" )
 				# else: ## resultBB = None
 				# 	sendMessage( text = "imgBB卦了" )
-				
-
+				from cloudinary_helper import upload_image, delete_older_than
+				start = time.time()
 				res = upload_image( img )
 				high_res = res["url"]
 				# print("連結：", res["url"])
-
+				print(f'######### get cloudinary url: {time.time()-start:.2f}s')	
 
 
 			# res = upload_image( preview_img )
