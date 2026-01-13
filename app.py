@@ -476,7 +476,7 @@ def handle_message(event):
 		"notionToken_pageId": jsonData.notionToken_pageId
 	}
 
-	
+
 	# if user_id != my_id:
 	# 	sendMessage( text = displayName + ":" + inputMsg  )
 
@@ -720,8 +720,8 @@ def handle_message(event):
 	# PIL圖片上傳
 	elif inputMsg.startswith("+"):
 		img_high, img_low = sixYaoMain( inputMsg, userData )
-		if "imgur" not  in img_high:
-			pushMsg( "⚠︎ imgur可能卦掉了" )
+		if "cloudinary"  in img_high:
+			pushMsg( "⚠︎ cloudinary上場" )
 		# ⭐ v3 的圖片訊息回覆
 		line_bot_api.reply_message(
 			ReplyMessageRequest(
