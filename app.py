@@ -709,7 +709,7 @@ def handle_message(event):
 				]
 			)
 		)
-
+		print( ">>> 干支list finish")
 		# # 建立兩個執行緒
 		# t1 = threading.Thread( target=delayed_upLog )
 		# # 啟動執行緒
