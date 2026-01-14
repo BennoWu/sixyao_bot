@@ -1020,7 +1020,7 @@ def drawUi_v1( allDataDict = allDataDict , tipsMode = "on" ,  show = True , save
 			# high_res =result_imgur['url']
 			if resultBB:
 				high_res =resultBB['url']
-				print ( "uo to  imgBB: << " + high_res +" >>" )
+				print ( "upload to  imgBB: << " + high_res +" >>" )
 			else: ## resultBB = None
 				# sendMessage( text = "imgBB卦了" )
 
