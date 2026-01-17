@@ -869,3 +869,78 @@ if __name__ == '__main__':
 
 	# flex_dict = get_all_user_flex()
 	# print(json.dumps(flex_dict, ensure_ascii=False, indent=4))
+
+
+
+
+# https://console.cloud.google.com/firestore/databases?project=sixyao-data
+
+
+# 想要做什麼,舊招 (JSON 檔案),新招 (Firestore 雲端)
+# 找到檔案,f = open('user.json'),ref = db.collection('users').document('ID')
+# 把資料存進去,"json.dump(data, f)","ref.set(data, merge=True)"
+# 把資料拿出來,data = json.load(f),data = ref.get().to_dict()
+
+# 💡 為什麼要用 merge=True？ (這是送你的小密技)
+# 原本 JSON 存檔就像是把整本書重印一遍；而 Firestore 的 merge=True 就像是用立可白改其中一個字。它不會動到你沒傳進去的欄位，這對保護用戶資料超級好用！
+
+# https://console.cloud.google.com/firestore/databases/-default-/data/panel/master_check/test?project=sixyao-data
+
+# https://console.cloud.google.com/welcome/new?project=sixyao-data&cloudshell=false
+
+# 左側導覽選單 (三條線)
+
+# Firestore → 進去看資料庫
+
+# IAM 與管理 → 進去管權限、找服務帳戶、下金鑰
+
+
+
+
+# #####################################################################
+# #################  儲存
+# #####################################################################
+
+# from google.cloud import firestore
+
+# # 初始化 (這行全專案只要跑一次)
+# db = firestore.Client(project='sixyao-data')
+
+# def save_to_cloud(collection_name, doc_id, data_dict):
+#     """
+#     collection_name: 抽屜分類 (例如 'users' 或 'config')
+#     doc_id: 檔案名字 (例如 linebotId)
+#     data_dict: 你的字典資料
+#     """
+#     doc_ref = db.collection(collection_name).document(doc_id)
+    
+#     # merge=True 的意思是：如果檔案已存在，只蓋掉有變動的部分，其他保留
+#     doc_ref.set(data_dict, merge=True)
+#     print(f"✅ 已存入雲端：{collection_name} -> {doc_id}")
+
+# # --- 使用範例 ---
+# my_data = {"userName": "六爻大師", "power": 99}
+# save_to_cloud("users", "user_001", my_data)
+
+
+# #####################################################################
+# #################  讀取
+# #####################################################################
+
+# def load_from_cloud(collection_name, doc_id):
+#     """
+#     回傳一個字典檔，如果找不到就回傳空字典 {}
+#     """
+#     doc_ref = db.collection(collection_name).document(doc_id)
+#     doc = doc_ref.get()
+
+#     if doc.exists:
+#         print(f"📖 讀取成功：{doc_id}")
+#         return doc.to_dict()  # 這就是你要的字典檔
+#     else:
+#         print(f"⚠️ 雲端找不到檔案：{doc_id}")
+#         return {}
+
+# # --- 使用範例 ---
+# user_info = load_from_cloud("users", "user_001")
+# print(user_info.get("userName")) # 會印出：六爻大師

@@ -149,6 +149,30 @@ def delayed_upJson():
 # 	t1.join()
 # 	t2.join()
 
+import re
+
+def normalize_date_separators(msg: str) -> str:
+    """
+    專門處理「看起來像日期」的連續數字段
+    - -, ,, ，, 空白 → /
+    - 不影響干支、文字、指令結構
+    """
+    if not isinstance(msg, str):
+        return msg
+
+    s = msg
+
+    # 全形轉半形逗號
+    s = s.replace("，", ",")
+
+    # 連續數字分隔（- , 空白）→ /
+    # 例：2025-08-31 → 2025/08/31
+    s = re.sub(r'(\d)[\s,\-]+(\d)', r'\1/\2', s)
+
+    return s
+
+
+
 
 from datetime import datetime
 
@@ -679,7 +703,12 @@ def handle_message(event):
 		indexBuf = ""
 		dateBuf = ""
 
+
+		# ⭐ 日期分隔符前處理  - -, ,, ，, 空白 → /
+		inputMsg = normalize_date_separators(inputMsg)
+
 		info = normalize_time_command(inputMsg)
+
 
 		if info["matched"]:
 			normalizedMsg = info["normalized"]
