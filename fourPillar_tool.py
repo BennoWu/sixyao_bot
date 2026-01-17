@@ -940,7 +940,7 @@ def PPPPP ( currentTime = "" , dayMode = "" , index = "" , runtime = 24 ): # run
 						# (datetime.now() + relativedelta(months=-1)).strftime("%Y/%m/%d/%H/%M")
 
 
-						preDate = (dt_temp + relativedelta(months=(runtime+1)*-1)).strftime("%Y,%m,%d")
+						preDate = (dt_temp + relativedelta(months= 1-runtime)).strftime("%Y,%m,%d")
 
 
 
